@@ -44,12 +44,8 @@ function get_count () {
 
 function pop () {
     list = node.next
-    while (list) {
-        node = node.next
-        return
-     }
+    node = node.next
 }
-
 
 var list
 
