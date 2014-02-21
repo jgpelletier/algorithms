@@ -22,7 +22,7 @@ var a = [ 1, 2, 'a' ]
 
 var b = { key: 'value', 'quoted key': 1 }
 
-console.log(a, b)
+console.log(a, b) //[ 1, 2, 'a' ] {Key: 'value', 'quoted key' : 1}
 
 function add (a, b) {
     return a + b
@@ -30,22 +30,22 @@ function add (a, b) {
 
 console.log({ add: add(1, 3) })
 
-console.log(typeof 'add')
-console.log(typeof add)
-console.log(typeof add(1, 3))
-console.log(typeof {}, Array.isArray({}))
-console.log(typeof [], Array.isArray([]))
+console.log(typeof 'add') // string
+console.log(typeof add) //function
+console.log(typeof add(1, 3)) // number
+console.log(typeof {}, Array.isArray({})) //object false
+console.log(typeof [], Array.isArray([])) // object true
 
 
 var num = new Number(1) // <- kill this person
-console.log({ num: num })
-console.log(typeof num)
-console.log(num + 1)
+console.log({ num: num }) //{num: {}}
+console.log(typeof num) // object
+console.log(num + 1) // 2
 console.log({} + 1);
 ; [ 1, 2, 3 ].forEach(function (item) { // <- cookbook for caveats
     console.log(item) // <- this is what "buster" does seven times.
 })
-
+process.exit(0)
 // and then "buster" prints out "Huzzah!"
 
 function createAdder (a) { // <- this is "buster" and takes "smedley"
@@ -73,8 +73,6 @@ function createAdder (a) { // <- this is "buster" and takes "smedley"
 
 var a = [1][1, 2, 3, 0];
 console.log(a);
-
-console.log(typeof createAdder) // <- this is what "buster" does first.
 //console.log(typeof createAdder(1))
 //console.log(typeof ( createAdder(1)(2) ))
 //console.log(createAdder(1)(2))

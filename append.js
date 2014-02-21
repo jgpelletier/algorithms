@@ -1,20 +1,20 @@
 var list = {}
 
-console.log(list.next)
+console.log(list.next) // undefined
 
-try {
+try {// what is try?
     console.log(list.next.value)
-} catch (e) {
+} catch (e) { //what is catch?
     console.log('caught error: ' + e.message)
 }
 
 console.log(Object.keys(list)) // <- []
 
-console.log(list.next)
+console.log(list.next) // undefined
 
 list.next = null
 
-console.log(list.next)
+console.log(list.next) //null
 
 console.log(Object.keys(list)) // <- [ 'next' ]
 
@@ -30,9 +30,9 @@ console.log(Object.keys(list)) // <- [ 'next' ]
 // { next: { value: 1 } }
 console.log(Object.keys(list.next)) // <- [ 'value' ]
 
-console.log(list.next.value)
+console.log(list.next.value) // 1
 
-console.log(list.next.fred)
+console.log(list.next.fred) // undefined
 try {
     console.log(list.next.fred.barney.betty.wilma)
 } catch (e) {
