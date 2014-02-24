@@ -78,7 +78,6 @@ function shift () {
 }
 
 
-
 dump()
 console.log('--- 2nd to last ---')
 console.log(second_to_last())
