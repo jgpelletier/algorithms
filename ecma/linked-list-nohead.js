@@ -1,16 +1,18 @@
-function create () {
-    var list = { next:null } //is this pointer also a head node?
-    return list
-}
+// Assignment: Use push, pop and dump functions to implement a linked list
+// structure with no dummy node at the head.
+
+var first = null
+var second = null
+var third = { value: 37, next: { value: 12 } }
 
 function dump (list) { //broken
     var list
     var node = list
     while (node) {
         if (node) {
-        console.log(node.value)
+            console.log(node.value)
         }
-    node = node.next
+        node = node.next
     }
 }
 
@@ -19,8 +21,9 @@ function push (list, value) {
     list.next = node
 }
 
+function pop (list) {
+}
 
-list = create()
-push(list, 12)
-push(list, 39)
-dump(list)
+dump(first)
+dump(second)
+dump(third)
