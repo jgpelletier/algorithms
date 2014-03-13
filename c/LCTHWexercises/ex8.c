@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     printf("The size of an int: %u\n", sizeof(int));
     printf("The size of areas (int[]): %u\n",
         sizeof(areas));
-    printf("The number of ints in areas: %u\n"
+    printf("The number of ints in areas: %u\n",
         sizeof(areas) / sizeof(int));
     printf("The first area is %d, the 2nd %d.\n",
          areas[0], areas[1]);
