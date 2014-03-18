@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <ctype.h>
 
 int main(int argc, char *argv[])
 {
@@ -8,38 +9,32 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    int i = 0;
+    int i;
     for(i = 0; argv[1][i] != '\0'; i++) {
-        char letter = argv[1][i];
+        char letter = tolower(argv[1][i]); //<-tolower converts character to lowercase
 
         switch(letter) {
             case 'a':
-            case 'A':
                 printf("%d: 'A'\n", i);
                 break;
 
             case 'e':
-            case 'E':
-                printf("%d: 'E\n",i);
+                printf("%d: 'E'\n", i);
                 break;
 
             case 'i':
-            case 'I':
                 printf("%d: 'I'\n", i);
                 break;
 
             case 'o':
-            case 'O':
-                printf("%d: 'U'\n", i);
+                printf("%d: 'O'\n", i);
                 break;
 
             case 'u':
-            case 'U':
                 printf("%d: 'U'\n", i);
                 break;
 
             case 'y':
-            case 'Y':
                 if(i > 2) {
                    // it's only sometimes Y
                    printf("%d: 'Y'\n", i);
