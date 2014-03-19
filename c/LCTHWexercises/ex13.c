@@ -35,10 +35,7 @@ int main(int argc, char *argv[])
                 break;
 
             case 'y':
-                if(i > 2) {
-                   // it's only sometimes Y
-                   printf("%d: 'Y'\n", i);
-                }
+                printf("%d: 'Y' is sometimes a vowel\n", i);
                 break;
 
             default:
