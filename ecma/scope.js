@@ -1,5 +1,6 @@
 // implement inc and do not change var a or the parameters to inc.
-//
+// I need to use a pointer to change a variable with a function.
+
 function twoify (n) { // scope is local here)
     n = 'mister steve'
     console.log(n)
