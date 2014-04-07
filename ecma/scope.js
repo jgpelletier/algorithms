@@ -9,21 +9,37 @@ function twoify (n) { // scope is local here)
     console.log(n)
 }
 
-var a = 1
+var a = (1)
 twoify(a)
 
 console.log(a) // <- this is 1
 
-function inc (n) {
-   n  = function () {
-         n = n + 1
-         console.log(n)
-         }
-   console.log(n)
+var _a = 1
+function _inc () {
+    _a = _a + 1
 }
 
-inc(a)
-console.log(a) // Currently, this is 1. It needs to be 2.
+// you will not reference the outer scope from within the function, (except for
+// debugging, and `console`.)
+
+function inc (n) { // the n is the parameter.
+   console.log('in inc', n)
+   }
+
+// every 15 minutes; say the five things you know about a function aloud.
+
+console.log('_inc', _a)
+_inc()
+console.log('_inc', _a)
+
+console.log('inc', a)
+inc(a) // <- using the *five* things
+// a == 2 on this line.
+console.log('inc', a) // Currently, this is 1. It needs to be 2.
+// Words that will not appear in the change set for this assigment...
+//      `function`
+//      `prototype`
+//      `this`
 
 // Notes:
 // Javascript is always pass by value. but when a variable refers to an object,
