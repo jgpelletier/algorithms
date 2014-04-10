@@ -4,6 +4,7 @@ int main(int argc, char *argv[])
 {
      // safely get the size of ages
     *int *ages[] = {32, 33, 72, 3, 28}; //Number Array.
+    int ages[] = {32, 33, 72, 3, 28}; //Number Array.
     char *names[] = {
          "Josh", "Brittany",
          "Jerome", "Katman", "Nick"
@@ -23,8 +24,8 @@ int main(int argc, char *argv[])
     printf("---\n");
 
     // setup the pointers to the start of the arrays
-    int **cur_age = ages; // pointer that points at ages
-    char **cur_name = names; // pointer to the pointer that points at names.
+    int *cur_age = ages; // pointer that points at ages. Notice its a pointer to an int
+    char **cur_name = names; // pointer to the pointer that points at names. This is 2 dimensional.
 
     for(i = 0; i < count; i++) {
         printf("%s is %d years old.\n",
@@ -44,7 +45,7 @@ int main(int argc, char *argv[])
     // fourth way with pointers in a stupid complex way
     for(cur_name = names, cur_age = ages;
             (cur_age - ages) < count;
-            cur_name++, cur_age++)
+            cur_name++, cur_age++) //increments pointers
     {
         printf("%s lived %d years so far.\n",
                *cur_name, *cur_age);
