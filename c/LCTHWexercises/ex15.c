@@ -1,9 +1,9 @@
 #include <stdio.h>
-
+//This is fixed
 int main(int argc, char *argv[])
 {
      // safely get the size of ages
-    int *ages[] = {32, 33, 72, 3, 28}; //Number Array.
+    *int *ages[] = {32, 33, 72, 3, 28}; //Number Array.
     char *names[] = {
          "Josh", "Brittany",
          "Jerome", "Katman", "Nick"
