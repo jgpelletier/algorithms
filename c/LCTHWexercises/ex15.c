@@ -1,15 +1,14 @@
 #include <stdio.h>
-//This is fixed
-int main(int argc, char *argv[])
+
+int main(int argc, char *argv[]) //Why is there argc and argv[] here?
 {
      // safely get the size of ages
-    *int *ages[] = {32, 33, 72, 3, 28}; //Number Array.
     int ages[] = {32, 33, 72, 3, 28}; //Number Array.
     char *names[] = {
          "Josh", "Brittany",
          "Jerome", "Katman", "Nick"
-    }; // Pointer to an array. Question: How does the array names equal 40 if J only equals 5?
-    char J[] = "Josh"; //Charecter array (string).
+    }; //Array of Pointers to characters. This is 2 dimensional
+    char J[] = "Josh"; //j is an array of characters.
 
     // safely get the size of ages
     int count = sizeof(ages) / sizeof(int); //Size of an Int is 4.
@@ -25,7 +24,7 @@ int main(int argc, char *argv[])
 
     // setup the pointers to the start of the arrays
     int *cur_age = ages; // pointer that points at ages. Notice its a pointer to an int
-    char **cur_name = names; // pointer to the pointer that points at names. This is 2 dimensional.
+    char **cur_name = names; // pointer to the pointer that points at names.
 
     for(i = 0; i < count; i++) {
         printf("%s is %d years old.\n",
@@ -51,16 +50,16 @@ int main(int argc, char *argv[])
                *cur_name, *cur_age);
     }
 
-   // printf("\n Rewrite all arrays usage so they use pointers \n")
-
-
-
     printf("---\n");
     printf("--- size of J %u \n", sizeof(J));
     printf("--- size of arrays:  %u age and %u name \n", sizeof(ages),sizeof(names));
     printf("--- size of array and a pointer to array: %u age and %u pointer to name \n",sizeof(ages),sizeof(*names));
     printf("--- size of pointer %u int and a pointer to pointer %u char \n", sizeof(*cur_age),sizeof(**cur_name));
-    //I do not undertand the string array memory count
+
+    for (i = 0; i < count; i++) {
+        printf("address for name %s: %p\n", cur_name[i], (cur_name+i));
+        printf("address for age %d: %p\n", cur_age[i], (cur_age+i));
+    }
 
     return 0;
 }
