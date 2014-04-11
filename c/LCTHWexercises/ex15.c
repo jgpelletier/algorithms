@@ -55,7 +55,10 @@ int main(int argc, char *argv[]) //Why is there argc and argv[] here?
     printf("--- size of arrays:  %u age and %u name \n", sizeof(ages),sizeof(names));
     printf("--- size of array and a pointer to array: %u age and %u pointer to name \n",sizeof(ages),sizeof(*names));
     printf("--- size of pointer %u int and a pointer to pointer %u char \n", sizeof(*cur_age),sizeof(**cur_name));
+    printf("---\n");
 
+    cur_age = ages;
+    cur_name = names;
     for (i = 0; i < count; i++) {
         printf("address for name %s: %p\n", cur_name[i], (cur_name+i));
         printf("address for age %d: %p\n", cur_age[i], (cur_age+i));
