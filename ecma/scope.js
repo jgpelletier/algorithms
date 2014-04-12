@@ -9,7 +9,7 @@ function twoify (n) { // scope is local here)
     console.log(n)
 }
 
-var a = (1)
+var a = 1 // you cannot change the type of `a`, this line. This var points at datum.
 twoify(a)
 
 console.log(a) // <- this is 1
@@ -23,9 +23,9 @@ function _inc () {
 // debugging, and `console`.)
 
 function inc (n) { // the n is the parameter.
-   console.log('in inc', n)
-   }
-
+    n  =  1 + n  //This is wrong. It references the outer scope
+    return n
+}
 // every 15 minutes; say the five things you know about a function aloud.
 
 console.log('_inc', _a)
@@ -33,9 +33,10 @@ _inc()
 console.log('_inc', _a)
 
 console.log('inc', a)
-inc(a) // <- using the *five* things
+// you cannot change `a` before you pass it to `inc`.
+a = inc(a) // <- using the *five* things. A is receiving a copy of a.
 // a == 2 on this line.
-console.log('inc', a) // Currently, this is 1. It needs to be 2.
+console.log('inc', a) // This needs to be 2.
 // Words that will not appear in the change set for this assigment...
 //      `function`
 //      `prototype`
@@ -50,3 +51,11 @@ console.log('inc', a) // Currently, this is 1. It needs to be 2.
 //
 // Changing a property of an object referenced by a variable does change the
 // underlying object.
+
+var a = { value: 1 }
+console.log('before', a)
+function foo (object, value) {
+    object = { value: value, next: object }
+}
+foo(a, 2) // <- using the *five* things.
+console.log('after', a) // <- { value: 2, next: { value: 1 } }
