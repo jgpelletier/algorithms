@@ -22,9 +22,8 @@ function _inc () {
 // you will not reference the outer scope from within the function, (except for
 // debugging, and `console`.)
 
-function inc (n) { // the n is the parameter.
-    n  =  1 + n  //This is wrong. It references the outer scope
-    return n
+function inc (n) {
+    return n + 1
 }
 // every 15 minutes; say the five things you know about a function aloud.
 
@@ -55,7 +54,9 @@ console.log('inc', a) // This needs to be 2.
 var a = { value: 1 }
 console.log('before', a)
 function foo (object, value) {
-    object = { value: value, next: object }
+    return { value: value, next: object } // remove variable and assignment
 }
-foo(a, 2) // <- using the *five* things.
+a = foo(a, 2) // <- using the *five* things.
 console.log('after', a) // <- { value: 2, next: { value: 1 } }
+
+console.log((++n) == (n + 1))
