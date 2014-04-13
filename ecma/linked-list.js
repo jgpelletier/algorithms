@@ -6,7 +6,6 @@ function create (list) {
 }
 
 function dump (list) {
-    var list
     var node = list
     while (node){
         if (node.value != null) {
@@ -22,7 +21,6 @@ function push (list, value) {
 }
 
 function pop (list) {
-    var list
     var node = list
     var prev
     if (!node) {
@@ -37,7 +35,6 @@ function pop (list) {
 }
 
 function insert (list, value, after) {
-    var list
     var node = list
     var prev
     var current
@@ -53,7 +50,6 @@ function insert (list, value, after) {
 
 
 function remove (list, value) {
-    var list
     var node = list
     var prev
     if (!node) {
@@ -71,7 +67,6 @@ function remove (list, value) {
 }
 
 function shift (list) {
-    var list
     var node = list
     var prev
     if (!node) {
@@ -91,7 +86,6 @@ function shift (list) {
 
 // contains: returns true if the value is in the list, false if not.
 function contains (list, value) {
-    var list
     var node = list
     if (!node) {
       console.log('No node')
@@ -111,7 +105,6 @@ function contains (list, value) {
 
 // count: returns the number of times a value exists in list.
 function count (list, value) {
-    var list
     var node = list
     var count = 0
     if (!node) {
@@ -131,7 +124,6 @@ function count (list, value) {
 
 // length: returns the length of the list.
 function length (list, count) {
-    var list
     var node = list
     var count = 0
     if (!node) {
@@ -150,7 +142,6 @@ function length (list, count) {
 
 // unshift: adds to the end of the list.
 function unshift (list, value) {
-    var list
     var node = list
     var current
     while (node) {
