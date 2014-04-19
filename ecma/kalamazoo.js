@@ -4,7 +4,7 @@ var kalamazoo = { station: "Kalamazoo Transporation",  city: "Kalamazoo", state:
 var str = string
 
 function station (string) {
-   string =  string.split("\,")
+   string = string.split(",")
    var object = {}
    object.station = string[0]
    object.city = string[1]
@@ -26,6 +26,3 @@ console.log("str post-station call is an:", typeof str) //typeof is string
 console.log("Is str an array test:", Array.isArray(str)) //evaluates false
 console.log(string)
 console.log(kalamazoo)
-// This currently changes the string into an array object. I need an object that
-// looks like var kalamazoo, but changing the type gives me new properties and
-// methods. The length property and array index helps.
