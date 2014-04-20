@@ -6,9 +6,9 @@ var str = string
 function station (string) {
    string = string.split(",") //The backslash is an excape character. It was unecessary before the comma.
    var object = {}
-   object.station = string[0]
-   object.city = string[1]
-   object.state = string[2]
+   object.station = string[0].trim()
+   object.city = string[1].trim()
+   object.state = string[2].trim()
    return object
 }
 
