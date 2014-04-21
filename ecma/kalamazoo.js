@@ -3,11 +3,8 @@ var kalamazoo = { station: "Kalamazoo Transporation",  city: "Kalamazoo", state:
 var str = string
 
 function station (string) {
-   string = string.split(",") //The backslash is an excape character. It was unecessary before the comma.
-   var object = {}
-   object.station = string[0].trim()
-   object.city = string[1].trim()
-   object.state = string[2].trim()
+   string = string.split(",")
+   var object = { station: string[0].trim(), city: string[1].trim(), state: string[2].trim() }
    return object
 }
 
@@ -17,7 +14,7 @@ console.log("Is string an array test:", Array.isArray(string)) //evaluates false
 console.log("str pre- station call is an:", typeof str) //typeof is string
 console.log("Is str an array test:", Array.isArray(str)) //evaluates false
 console.log("------Station function called-------")
-//console.log(typeof station(string), station(string).constructor.name)
+console.log(typeof station(string), station(string).constructor.name)
 string = station(string)
 console.log("Is string an array test:", Array.isArray(string)) //evaluates true
 console.log("string post station call is an:", typeof string) //typeof is an object
@@ -26,7 +23,12 @@ console.log("Is str an array test:", Array.isArray(str)) //evaluates false
 console.log(string)
 console.log(kalamazoo)
 
-//Escape Sequences:
+// At one point in this code, there was a backslash proceeding line six's comma.
+// This was an incorrect use of the character. A backslash is used as an escape
+// charaecter in order to invoke an alternative interpretation on the subsequent
+// characters in a character sequence.
+
+// Here are some of JavaScripts escape sequences:
 //  \b  backspace
 //  \t  tab
 //  \n  line feed
@@ -36,3 +38,4 @@ console.log(kalamazoo)
 //  \"  double quotation mark
 //  \'  single quotation mark
 //  \\  backslash
+//  \u  unicode escape syntax
