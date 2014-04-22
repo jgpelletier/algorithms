@@ -5,17 +5,44 @@ var pop = lines.pop()
 
 function objectFrom(string) {
     string = string.split(',')
-    var object = { station: string[0].trim(), city: string[1].trim(), state: string[2].trim() }
+    var object = { station: string[0].trim(), city: string[1].trim(), state: string[2].trim(), east: object }
     return object
 }
 
 function objectify(array) {
-    for ( i = 0; i < array.length; ++i) {
-        array[i] = objectFrom(array[i])
+    for ( var i = 0; i < array.length; ++i) {
+        array[i] = objectFrom(array[i]) //< objectFrom function with string parameter
+                                        //  inside objectify function which has
+                                        //  an array paramter.
     }
     return array
 }
 
-lines = objectify(lines)
+function shift (array) {
+    var object = array.shift
+    return object
+}
 
-console.log(lines)
+function push (array) {
+    return array.shift()
+}
+
+//object = lines.pop()
+
+function list(array) {
+    //for (var i = 0; i < array.length; i++) {
+    //var list = push(array)
+    //list.next = list
+    //}
+        list = array.shift()
+        list.east = array.shift()
+        list.east.east = array.shift()
+   // }
+    return list
+}
+
+lines = objectify(lines)
+list = list(lines)
+//one = lines.pop()
+console.log(list)
+//console.log(typeof object, object.constructor.name) //object Object
