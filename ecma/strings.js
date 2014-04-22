@@ -15,8 +15,12 @@ console.log(string)// string.search(regexp)
 console.log(string.slice(1,16))//extracts a section of a string.
 console.log(string.split(' '))//splits a string object into an array of strings
 console.log(string.substr(17,13))
-console.log(string)
-console.log(string)
-console.log(string)
-console.log(string)
-console.log(string)
+console.log(string.substring(17,23))
+console.log(string.substring(23,17))
+console.log(string.toLowerCase())//The method returns the calling string value to converted to lowercase.
+console.log(string.toLocaleLowerCase())//Like above, but returns according to locale-specific case mappings
+console.log(string.toUpperCase())//returns the calling string value to converted to the uppercase.
+console.log(string.toLocaleUpperCase())//Like above, but returns according to locale-specific case mappings.
+console.log(string.toString())//returns a string representing the specified object.
+console.log("Strips white space from both sides of string: ", string.trim())//returns the string stripped of whitespace from both ends.
+console.log("Returns the primitive value: ", string.valueOf())//returns the primitive value of a String object as a string data type.
