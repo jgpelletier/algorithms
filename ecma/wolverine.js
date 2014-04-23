@@ -18,31 +18,20 @@ function objectify(array) {
     return array
 }
 
-function shift (array) {
-    var object = array.shift
-    return object
-}
-
-function push (array) {
-    return array.shift()
-}
-
-//object = lines.pop()
-
-function list(array) {
-    //for (var i = 0; i < array.length; i++) {
-    //var list = push(array)
-    //list.next = list
-    //}
-        list = array.shift()
-        list.east = array.shift()
-        list.east.east = array.shift()
-   // }
-    return list
+function list(array) {//This function pops of each object and assigns it to list. List is replaced each pass.
+    var count = array.length //need a count variable.
+    for (var i = 0; i < count; i++) { // I need a function in the loop to return a value each pass
+         var node = array.pop()
+         var list = node.east
+         console.log(list,i)// console.log shows the object referenced by list.
+    }
+    return list //this only returns the final object
 }
 
 lines = objectify(lines)
-list = list(lines)
+list = list(lines) // currently this is only the last object.
+//list = list(lines) // here there is nothing to pop and return.
+
 //one = lines.pop()
 console.log(list)
 //console.log(typeof object, object.constructor.name) //object Object
