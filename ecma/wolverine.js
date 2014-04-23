@@ -1,37 +1,45 @@
 var fs = require('fs')
 var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
 var pop = lines.pop()
-//console.log(lines)
+var node
 
-function objectFrom(string) {
+function objectFrom(string) { //converts string into object
     string = string.split(',')
-    var object = { station: string[0].trim(), city: string[1].trim(), state: string[2].trim(), east: object }
+    var object = { station: string[0].trim(), city: string[1].trim(), state: string[2].trim() }
     return object
 }
 
-function objectify(array) {
-    for ( var i = 0; i < array.length; ++i) {
-        array[i] = objectFrom(array[i]) //< objectFrom function with string parameter
-                                        //  inside objectify function which has
-                                        //  an array paramter.
+function objectify(array) { // converts sting.Object elemen into Object element
+    for (var i = 0; i < array.length; ++i) {
+        array[i] = objectFrom(array[i])
     }
     return array
 }
 
-function list(array) {//This function pops of each object and assigns it to list. List is replaced each pass.
-    var count = array.length //need a count variable.
-    for (var i = 0; i < count; i++) { // I need a function in the loop to return a value each pass
-         var node = array.pop()
-         var list = node.east
-         console.log(list,i)// console.log shows the object referenced by list.
-    }
-    return list //this only returns the final object
+function shift (array) { //essentially shift method. This may be superfluous.
+   return array.shift()
 }
 
-lines = objectify(lines)
-list = list(lines) // currently this is only the last object.
-//list = list(lines) // here there is nothing to pop and return.
+function list (array, list) {
+    var node = list
+    if (node == null) {
+        node = shift(array)
+    } else {
+        while (node) {
+            if (node.east == null) {
+                node.east == shift(array)
+                return list
+            }
+        node = node.east
+        }
+   }
+}
+// pass the properties of the returned object to another variable?
 
-//one = lines.pop()
+lines = objectify(lines)
+//.node = shift(lines)
+//console.log(node) // is an object
+//console.log(lines) // first element shifted
+
+list = list(lines, list)
 console.log(list)
-//console.log(typeof object, object.constructor.name) //object Object
