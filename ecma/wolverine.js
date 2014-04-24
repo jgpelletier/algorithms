@@ -16,30 +16,19 @@ function objectify(array) { // converts sting.Object elemen into Object element
     return array
 }
 
-function shift (array) { //essentially shift method. This may be superfluous.
-   return array.shift()
+function node (array) { // shifts an object from the array so it referenced by the variable node.
+    node = array.shift()
+    return node
 }
 
-function list (array, list) {
-    var node = list
-    if (node == null) {
-        node = shift(array)
-    } else {
-        while (node) {
-            if (node.east == null) {
-                node.east == shift(array)
-                return list
-            }
-        node = node.east
-        }
-   }
-}
-// pass the properties of the returned object to another variable?
+
+//simple steps: what would be the most simple thing to do next?
 
 lines = objectify(lines)
 //.node = shift(lines)
 //console.log(node) // is an object
 //console.log(lines) // first element shifted
-
-list = list(lines, list)
+node = node(lines)
+//list = list(lines)
 console.log(list)
+console.log(lines)
