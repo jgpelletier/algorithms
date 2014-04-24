@@ -1,7 +1,7 @@
 var fs = require('fs')
 var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
 var pop = lines.pop()
-var node
+
 
 function objectFrom(string) { //converts string into object
     string = string.split(',')
@@ -16,19 +16,15 @@ function objectify(array) { // converts sting.Object elemen into Object element
     return array
 }
 
-function node (array) { // shifts an object from the array so it referenced by the variable node.
-    node = array.shift()
-    return node
+function push(array) {     // shifts an object from the array so it referenced by the variable node,
+    return array.shift()
 }
 
 
 //simple steps: what would be the most simple thing to do next?
 
 lines = objectify(lines)
-//.node = shift(lines)
-//console.log(node) // is an object
-//console.log(lines) // first element shifted
-node = node(lines)
-//list = list(lines)
-console.log(list)
+var node = push(lines)
+node = push(lines)
+console.log(node)
 console.log(lines)
