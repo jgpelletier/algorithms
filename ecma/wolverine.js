@@ -17,22 +17,18 @@ function objectify(array) { // converts sting.Object elemen into Object element
 }
 
 function  link (object, array) {
-    var list
     if (!object) {
         console.log("Chameleon")
         object = array.shift()
         return object
-    } else {
-        while (object) {
-            console.log("Watermelon Man")
-            list = object
-            if (!object.east) {
-                console.log("Sly")
-                object.east = array.shift()
-                return object
-            }
-         object = object.east
-        }
+    } else if (!object.east) {
+        console.log("Watermelon Man")
+        object.east = array.shift()
+        return object
+    } else if (!object.east.east) {
+        console.log("Sly")
+        object.east.east = array.shift()
+        return object
     }
 }
 
