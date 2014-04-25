@@ -17,35 +17,42 @@ function objectify(array) { // converts sting.Object elemen into Object element
 }
 
 function  link (object, array) {
+    var list
     if (!object) {
-        console.log("SexMachine")
+        console.log("Chameleon")
         object = array.shift()
         return object
     } else {
         while (object) {
-            console.log("HotPants")
+            console.log("Watermelon Man")
+            list = object
             if (!object.east) {
-                console.log("AintItFunkyNow", object)
-                //var node = array.shift()
+                console.log("Sly")
                 object.east = array.shift()
-                console.log(object)
                 return object
             }
-            object = object.east
-        //return object
+         object = object.east
         }
     }
 }
 
+function push (list, array) {
+    if (!list) {
+        list = array.shift()
+        return list
+    } else {
+         list.east = array.shift() }
+         return list
+        }
+
 //simple steps: what would be the most simple thing to do next?
 
 lines = objectify(lines)
-var list = link(list, lines) //SexMachine
+var list = link(list, lines)
 console.log(list)
-//console.log(lines)
-list = link(list, lines)//HotPants AintItFunkyNow
+list = link(list, lines)
 console.log(list)
-//console.log(lines)
-list = link(list, lines)//HotPants HotPants AintItFunkyNow
+list = link(list, lines)
 console.log(list)
-//console.log(lines)
+list = link(list, lines)
+console.log(list)
