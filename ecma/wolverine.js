@@ -29,17 +29,46 @@ function  link (object, array) {
         console.log("Sly")
         object.east.east = array.shift()
         return object
+    } else if (!object.east.east.east) {
+        console.log("Sly")
+        object.east.east.east = array.shift()
+        return object
+   // } else if (!object.east.east.east.east) {
+   //     console.log("Sly")
+   //     object.east.east.east.east = array.shift()
+   //     return object
+   // } else if (!object.east.east.east.east.east) {
+   //     object.east.east.east.east.east = array.shift()
+   //     return object
+   // } else if (!object.east.east.east.east.east.east) {
+   //     object.east.east.east.east.east.east = array.shift()
+   //     return object
+   // } else if (!object.east.east.east.east.east.east.east) {
+   //     object.east.east.east.east.east.east.east = array.shift()
+   //     return object
+   // } else if (!object.east.east.east.east.east.east.east.east) {
+   //     object.east.east.east.east.east.east.east.east = array.shift()
+   //     return object
+   // } else if (!object.east.east.east.east.east.east.east.east.east) {
+   //     object.east.east.east.east.east.east.east.east.east = array.shift()
+   //     return object
+   // } else if (!object.east.east.east.east.east.east.east.east.east.east) {
+   //     object.east.east.east.east.east.east.east.east.east.east = array.shift()
+   //     return object
+   // } else if (!object.east.east.east.east.east.east.east.east.east.east.east) {
+   //     object.east.east.east.east.east.east.east.east.east.east.east = array.shift()
+   //     return object
+   // } else if (!object.east.east.east.east.east.east.east.east.east.east.east.east) {
+   //     object.east.east.east.east.east.east.east.east.east.east.east.east = array.shift()
+   //     return object
+   // } else if (!object.east.east.east.east.east.east.east.east.east.east.east.east.east) {
+   //     object.east.east.east.east.east.east.east.east.east.east.east.east.east = array.shift()
+   //     return object
+   // } else if (!object.east.east.east.east.east.east.east.east.east.east.east.east.east.east) {
+   //     object.east.east.east.east.east.east.east.east.east.east.east.east.east.east = array.shift()
+   //     return object
     }
 }
-
-function push (list, array) {
-    if (!list) {
-        list = array.shift()
-        return list
-    } else {
-         list.east = array.shift() }
-         return list
-        }
 
 //simple steps: what would be the most simple thing to do next?
 
@@ -52,3 +81,17 @@ list = link(list, lines)
 console.log(list)
 list = link(list, lines)
 console.log(list)
+//list = link(list, lines)
+//console.log(list)
+//list = link(list, lines)
+//console.log(list)
+//list = link(list, lines)
+//list = link(list, lines)
+//list = link(list, lines)
+//list = link(list, lines)
+//list = link(list, lines)
+//list = link(list, lines)
+//list = link(list, lines)
+//list = link(list, lines)
+//list = link(list, lines)
+//console.log(list)
