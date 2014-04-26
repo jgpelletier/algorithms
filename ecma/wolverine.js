@@ -17,6 +17,7 @@ function objectify(array) { // converts sting.Object elemen into Object element
 }
 
 function  link (object, array) {
+    var list = object
     if (!object) {
         console.log("Chameleon")
         object = array.shift()
@@ -30,9 +31,11 @@ function  link (object, array) {
         object.east.east = array.shift()
         return object
     } else if (!object.east.east.east) {
-        console.log("Sly")
         object.east.east.east = array.shift()
-        return object
+        console.log(object) //Why does this return as Object? The element is shifted from the array.
+        return list
+    }
+}
    // } else if (!object.east.east.east.east) {
    //     console.log("Sly")
    //     object.east.east.east.east = array.shift()
@@ -67,31 +70,14 @@ function  link (object, array) {
    // } else if (!object.east.east.east.east.east.east.east.east.east.east.east.east.east.east) {
    //     object.east.east.east.east.east.east.east.east.east.east.east.east.east.east = array.shift()
    //     return object
-    }
-}
+
 
 //simple steps: what would be the most simple thing to do next?
 
 lines = objectify(lines)
 var list = link(list, lines)
-console.log(list)
+list = link(list, lines)
+list = link(list, lines)
 list = link(list, lines)
 console.log(list)
-list = link(list, lines)
-console.log(list)
-list = link(list, lines)
-console.log(list)
-//list = link(list, lines)
-//console.log(list)
-//list = link(list, lines)
-//console.log(list)
-//list = link(list, lines)
-//list = link(list, lines)
-//list = link(list, lines)
-//list = link(list, lines)
-//list = link(list, lines)
-//list = link(list, lines)
-//list = link(list, lines)
-//list = link(list, lines)
-//list = link(list, lines)
-//console.log(list)
+console.log(lines)
