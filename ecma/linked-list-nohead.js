@@ -14,11 +14,11 @@
 // part of the object. Properties may be inherited or passed between variables
 
 
-var first = null   // outer scope. If commented out then push(first, 12) breaks
-var second = null  // outer scope.
+var first = null
+var second = null
 var third = { value: 37, next: { value: 12 } }
 
-function dump (list) { // <- outer scope is true.
+function dump (list) {
     var node = list
     while (node) {
         if (node) {
@@ -33,23 +33,10 @@ function push (object, value) {
 }
 
 function pop (object) {
-    var node = object.next
-    return node
+    return object.next
 }
 
 first = push(first, 12)
 first = push(first, 37) //{ value: 37, next: {value: 12, next: {null}}}
-first = pop(first)
+//first = pop(first)
 dump(first)
-
-//dump(third)
-//first = push(37)
-//push(first, 12) //list === first <- TRUE
-//dump(first)
-//push(third, 37) //list === first <- FALSE
-//console.log(first)
-//console.log("---push function complete---")
-//dump(first) //Does not push 12
-//dump(second)
-//console.log(third)
-//dump(third) //Does not push 37
