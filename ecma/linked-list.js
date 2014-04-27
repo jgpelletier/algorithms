@@ -1,5 +1,3 @@
-//var list = { value: null, next: null}
-
 function create (list) {
    var list = { value: null , next: null }
    return list
