@@ -194,5 +194,5 @@ console.log(' ')
 pop()
 
 console.log('count: ' + get_count())
-console.log(list.value) // <-
-console.log(list.next) //
+console.log(list.value)
+console.log(list.next)
