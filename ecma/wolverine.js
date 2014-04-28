@@ -1,7 +1,6 @@
 var fs = require('fs')
 var util = require('util')
 var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
-var list
 
 function dump (list) {
     console.log(util.inspect(list, null, null))
@@ -29,20 +28,14 @@ function link (list, array) {
     return newNode
 }
 
-lines = objectify(lines)
-var one = link(one, lines)
-var one = link(one, lines)
-var one = link(one, lines)
-var one = link(one, lines)
-var one = link(one, lines)
-var one = link(one, lines)
-var one = link(one, lines)
-var one = link(one, lines)
-var one = link(one, lines)
-var one = link(one, lines)
-var one = link(one, lines)
-var one = link(one, lines)
-var one = link(one, lines)
-var one = link(one, lines)
-var one = link(one, lines)
-dump(one)
+function linkedList (list, array) {
+    var count = array.length
+    var lines = objectify(array)
+    for (var i = 0; i < count; i++) {
+        list = link(list, lines)
+    }
+    return list
+}
+
+var GoingEast = linkedList(GoingEast, lines)
+dump(GoingEast)
