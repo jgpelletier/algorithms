@@ -42,15 +42,20 @@ function linkedList (array) {
 var mcrr = linkedList(lines)
 dump(mcrr)
 
-function eastOf (linkedlist, stop) { //still need to account for the 2
+function eastOf (linkedlist, stop, east) {
     var node = linkedlist
-        while (node.east) {
-           node = node.east
-           if (node.city == stop) {
-            console.log("found it")
+        if (node.city == stop) {
+            return util.inspect(node, null, east, true)
+        } else {
+            while (node.east) {
+                node = node.east
+                if (node.city == stop) {
+                return util.inspect(node, null, east, true)
+            }
         }
     }
 }
 
-
-console.log(eastOf(mcrr, 'Kalamazoo', 2)) // prints Battle Creek, Albion only
+console.log(eastOf(mcrr, 'Kalamazoo', 2))
+console.log(eastOf(mcrr, 'Birmingham', 3))
+console.log(eastOf(mcrr, 'Chicago', 15))
