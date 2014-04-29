@@ -3,7 +3,7 @@ var util = require('util')
 var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
 
 function dump (list) {
-    console.log(util.inspect(list, null, null))
+    console.log(util.inspect(list, null, null, true))
 }
 function objectFrom (string) { //converts string into object
     string = string.split(',')
@@ -29,20 +29,28 @@ function link (list, array) {
     return newNode
 }
 
-function linkedList (list, array) {
+function linkedList (array) {
     var count = array.length
     var lines = objectify(array)
     for (var i = 0; i < count; i++) {
-        list = link(list, lines)
+       var list = link(list, lines)
     }
     return list
 }
 
 // todo: think really hard about that, change to `1`, change to `null`.
-var mcrr = linkedList(mcrr, lines)
+var mcrr = linkedList(lines)
 dump(mcrr)
 
-function eastOf () {
+function eastOf (linkedlist, stop) { //still need to account for the 2
+    var node = linkedlist
+        while (node.east) {
+           node = node.east
+           if (node.city == stop) {
+            console.log("found it")
+        }
+    }
 }
+
 
 console.log(eastOf(mcrr, 'Kalamazoo', 2)) // prints Battle Creek, Albion only
