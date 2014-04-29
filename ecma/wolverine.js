@@ -7,6 +7,7 @@ function dump (list) {
 }
 function objectFrom (string) { //converts string into object
     string = string.split(',')
+    // remove unnecessary variable
     var object = { station: string[0].trim(), city: string[1].trim(), state: string[2].trim(), east: object }
     return object
 }
@@ -37,5 +38,11 @@ function linkedList (list, array) {
     return list
 }
 
-var GoingEast = linkedList(GoingEast, lines)
-dump(GoingEast)
+// todo: think really hard about that, change to `1`, change to `null`.
+var mcrr = linkedList(mcrr, lines)
+dump(mcrr)
+
+function eastOf () {
+}
+
+console.log(eastOf(mcrr, 'Kalamazoo', 2)) // prints Battle Creek, Albion only
