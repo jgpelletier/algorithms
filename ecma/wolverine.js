@@ -44,18 +44,14 @@ dump(mcrr)
 
 function eastOf (linkedlist, stop, east) {
     var node = linkedlist
+    while (node) {
         if (node.city == stop) {
             return util.inspect(node, null, east, true)
-        } else {
-            while (node.east) {
-                node = node.east
-                if (node.city == stop) {
-                return util.inspect(node, null, east, true)
-            }
         }
+    node = node.east
     }
 }
 
 console.log(eastOf(mcrr, 'Kalamazoo', 2))
 console.log(eastOf(mcrr, 'Birmingham', 3))
-console.log(eastOf(mcrr, 'Chicago', 15))
+console.log(eastOf(mcrr, 'Chicago', 1))
