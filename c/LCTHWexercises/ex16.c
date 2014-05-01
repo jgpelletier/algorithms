@@ -1,3 +1,9 @@
+//Research to apply:
+//  - How to create a struct on the stack.
+//  - How to intialize it using the member operator  "."
+//  - How to pass a structure to functions w/o using a pointer
+
+
 //defines 3 variable types, serveral macros and various functions for io.
 #include <stdio.h>
 //provides a macro whcih be used to verify assumptions
@@ -20,7 +26,7 @@ struct Person *Person_create(char *name, int age, int height, int weight)//Funct
     struct Person *who = malloc(sizeof(struct Person)); //Gets memory and calculates needed size.
     assert(who != NULL);//assert checks that malloc didn't return a null pointer
 
-    who->name = strdup(name); //Intialize field and strdup function duplicates string
+    who->name = strdup(name); //Intialize field and strdup function duplicates string.
     who->age = age;           //Intialize field
     who->height = height;     //Intialize field
     who->weight = weight;     //Intialize field
@@ -30,7 +36,7 @@ struct Person *Person_create(char *name, int age, int height, int weight)//Funct
 
 void Person_destroy(struct Person *who)//<-releases memory. Memory leak occurs if not done.
 {
-    assert(who != NULL);
+    assert(who != NULL);//assert checks that malloc didn't return a null pointer
 
     free(who->name);
     free(who);
@@ -65,13 +71,15 @@ int main(int argc, char *argv[])
     joe->height -= 2;
     joe->weight += 40;
     Person_print(joe);
+    printf("Joe is at memory location %p:\n", joe); //the struct is at the same place in mem.
 
     frank->age += 20;
     frank->weight += 20;
     Person_print(frank);
+    printf("Frank is at memory location %p:\n", frank);
 
     // destroy them both so we clean up
-    Person_destroy(joe);
+    Person_destroy(joe);//This function release the memory
     Person_destroy(frank);
 
     return 0;
