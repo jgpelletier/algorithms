@@ -1,29 +1,34 @@
+//defines 3 variable types, serveral macros and various functions for io.
 #include <stdio.h>
+//provides a macro whcih be used to verify assumptions
 #include <assert.h>
+//defines four variables types, several macros and various functions
 #include <stdlib.h>
+//defines 1 variable type, macro and various functions for manipulating arrays
+//of chars.
 #include <string.h>
 
-struct Person {
+struct Person {//<-This is capitalized like an object. New compound type, like a class.
     char *name;
     int age;
     int height;
     int weight;
 };
 
-struct Person *Person_create(char *name, int age, int height, int weight)
+struct Person *Person_create(char *name, int age, int height, int weight)//Function
 {
-    struct Person *who = malloc(sizeof(struct Person));
-    assert(who != NULL);
+    struct Person *who = malloc(sizeof(struct Person)); //Gets memory and calculates needed size.
+    assert(who != NULL);//assert checks that malloc didn't return a null pointer
 
-    who->name = strdup(name);
-    who->age = age;
-    who->height = height;
-    who->weight = weight;
+    who->name = strdup(name); //Intialize field and strdup function duplicates string
+    who->age = age;           //Intialize field
+    who->height = height;     //Intialize field
+    who->weight = weight;     //Intialize field
 
     return who;
 }
 
-void Person_destroy(struct Person *who)
+void Person_destroy(struct Person *who)//<-releases memory. Memory leak occurs if not done.
 {
     assert(who != NULL);
 
@@ -31,7 +36,7 @@ void Person_destroy(struct Person *who)
     free(who);
 }
 
-void Person_print(struct Person *who)
+void Person_print(struct Person *who)//<-is this like a prototype
 {
     printf("Name: %s\n", who->name);
     printf("\tAge: %d\n", who->age);
@@ -49,7 +54,7 @@ int main(int argc, char *argv[])
            "Frank Blank", 20, 72, 180);
 
     // print them out and where they are in memory
-    printf("Joe is at memory location %p:\n", joe);
+    printf("Joe is at memory location %p:\n", joe); //%p shows struct in memory
     Person_print(joe);
 
     printf("Frank is at memory location %p:\n", frank);
