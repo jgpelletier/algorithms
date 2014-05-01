@@ -6,7 +6,7 @@
 
 //defines 3 variable types, serveral macros and various functions for io.
 #include <stdio.h>
-//provides a macro whcih be used to verify assumptions
+//provides a macro which be used to verify assumptions
 #include <assert.h>
 //defines four variables types, several macros and various functions
 #include <stdlib.h>
@@ -14,25 +14,42 @@
 //of chars.
 #include <string.h>
 
-struct Person {//<-This is capitalized like an object. New compound type, like a class.
+//The keyword struct introduces a structure declaration.Person is a
+//tag (notice the tag - Person - is capitolized here but not in K & R).
+struct Person {
     char *name;
     int age;
     int height;
     int weight;
 };
 
-struct Person *Person_create(char *name, int age, int height, int weight)//Function
+
+//I think I may need to change the pointer to the array to an array.
+struct Person make(char name, int age, int height, int weight)//Function
 {
-    struct Person *who = malloc(sizeof(struct Person)); //Gets memory and calculates needed size.
-    assert(who != NULL);//assert checks that malloc didn't return a null pointer
+    struct Person temp;
 
-    who->name = strdup(name); //Intialize field and strdup function duplicates string.
-    who->age = age;           //Intialize field
-    who->height = height;     //Intialize field
-    who->weight = weight;     //Intialize field
+    temp.*name = *name;
+    temp.age = age;
+    temp.height = height;
+    temp.weight = weight;
 
-    return who;
+    return temp;
 }
+
+//Why does the "." not work here.
+//struct Person *Person_create(char *name, int age, int height, int weight)//Function
+//{
+//    struct Person *who = malloc(sizeof(struct Person)); //Gets memory and calculates needed size.
+//    //assert(who != NULL);//assert checks that malloc didn't return a null pointer
+//
+//    who.name = strdup(name); //Intialize field and strdup function duplicates string.
+//    who.age = age;           //Intialize field
+//    who.height = height;     //Intialize field
+//    who.weight = weight;     //Intialize field
+//
+//    return who;
+//}
 
 void Person_destroy(struct Person *who)//<-releases memory. Memory leak occurs if not done.
 {
@@ -53,10 +70,10 @@ void Person_print(struct Person *who)//<-is this like a prototype
 int main(int argc, char *argv[])
 {
     // make two people structures
-    struct Person *joe = Person_create(
+    struct Person *joe = make(
            "Joe Alex", 32, 64, 140);
 
-    struct Person *frank = Person_create(
+    struct Person *frank = make(
            "Frank Blank", 20, 72, 180);
 
     // print them out and where they are in memory
