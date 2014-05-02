@@ -16,88 +16,76 @@
 
 //The keyword struct introduces a structure declaration.Person is a
 //tag (notice the tag - Person - is capitolized here but not in K & R).
-struct Person {
+struct Person
+{
     char *name;
     int age;
     int height;
     int weight;
 };
 
-
-//I think I may need to change the pointer to the array to an array.
-struct Person make(char name, int age, int height, int weight)//Function
+struct Person Person_create(char *name, int age, int height, int weight)//Pointer is gone
 {
-    struct Person temp;
+    //struct Person *who = malloc(sizeof(struct Person));
+    //assert(who != NULL);
+    //The above is removed because the struct is stored in the stack below
+    //Therefore, we do no need to allocate the memory.
+    struct Person who;//<-no pointer on *who
+    who.name = strdup(name); //Intialize field and strdup function duplicates string.
+    who.age = age;
+    who.height = height;
+    who.weight = weight;
 
-    temp.*name = *name;
-    temp.age = age;
-    temp.height = height;
-    temp.weight = weight;
-
-    return temp;
+    return who;
 }
 
-//Why does the "." not work here.
-//struct Person *Person_create(char *name, int age, int height, int weight)//Function
+//void Person_destroy(struct Person who)//<-releases memory. Memory leak occurs if not done.
 //{
-//    struct Person *who = malloc(sizeof(struct Person)); //Gets memory and calculates needed size.
-//    //assert(who != NULL);//assert checks that malloc didn't return a null pointer
+//    assert(who != NULL);//assert checks that malloc didn't return a null pointer
 //
-//    who.name = strdup(name); //Intialize field and strdup function duplicates string.
-//    who.age = age;           //Intialize field
-//    who.height = height;     //Intialize field
-//    who.weight = weight;     //Intialize field
-//
-//    return who;
+//    free(who.name);
+//    free(who);
 //}
 
-void Person_destroy(struct Person *who)//<-releases memory. Memory leak occurs if not done.
+void Person_print(struct Person who)//<-is this like a prototype
 {
-    assert(who != NULL);//assert checks that malloc didn't return a null pointer
-
-    free(who->name);
-    free(who);
-}
-
-void Person_print(struct Person *who)//<-is this like a prototype
-{
-    printf("Name: %s\n", who->name);
-    printf("\tAge: %d\n", who->age);
-    printf("\tHeight: %d\n", who->height);
-    printf("\tWeight: %d\n", who->weight);
+    printf("Name: %s\n", who.name);
+    printf("\tAge: %d\n", who.age);
+    printf("\tHeight: %d\n", who.height);
+    printf("\tWeight: %d\n", who.weight);
 }
 
 int main(int argc, char *argv[])
 {
     // make two people structures
-    struct Person *joe = make(
+    struct Person joe = Person_create(
            "Joe Alex", 32, 64, 140);
 
-    struct Person *frank = make(
+    struct Person frank = Person_create(
            "Frank Blank", 20, 72, 180);
 
     // print them out and where they are in memory
-    printf("Joe is at memory location %p:\n", joe); //%p shows struct in memory
+    printf("Joe is at memory location %p:\n", &joe); //%p shows struct in memory
     Person_print(joe);
 
-    printf("Frank is at memory location %p:\n", frank);
+    printf("Frank is at memory location %p:\n", &frank);
     Person_print(frank);
 
     // make everyone age 20 years and print them again
-    joe->age += 20;
-    joe->height -= 2;
-    joe->weight += 40;
+    joe.age += 20;
+    joe.height -= 2;
+    joe.weight += 40;
     Person_print(joe);
-    printf("Joe is at memory location %p:\n", joe); //the struct is at the same place in mem.
+    printf("Joe is at memory location %p:\n", &joe); //the struct is at the same place in mem.
 
-    frank->age += 20;
-    frank->weight += 20;
+    frank.age += 20;
+    frank.weight += 20;
     Person_print(frank);
-    printf("Frank is at memory location %p:\n", frank);
+    printf("Frank is at memory location %p:\n", &frank);
 
-    // destroy them both so we clean up
-    Person_destroy(joe);//This function release the memory
-    Person_destroy(frank);
+   // destroy them both so we clean up
+   // Person_destroy(joe);//This function release the memory
+   // Person_destroy(frank);
 
     return 0;
 }
