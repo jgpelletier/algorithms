@@ -7,12 +7,12 @@
 //defines 3 variable types, serveral macros and various functions for io.
 #include <stdio.h>
 //provides a macro which be used to verify assumptions
-#include <assert.h>
+//#include <assert.h>
 //defines four variables types, several macros and various functions
 #include <stdlib.h>
 //defines 1 variable type, macro and various functions for manipulating arrays
 //of chars.
-#include <string.h>
+//#include <string.h>
 
 //The keyword struct introduces a structure declaration.Person is a
 //tag (notice the tag - Person - is capitolized here but not in K & R).
@@ -31,7 +31,7 @@ struct Person Person_create(char *name, int age, int height, int weight)//Pointe
     //The above is removed because the struct is stored in the stack below
     //Therefore, we do no need to allocate the memory.
     struct Person who;//<-no pointer on *who
-    who.name = strdup(name); //Intialize field and strdup function duplicates string.
+    who.name = name; //Intialize field and strdup function duplicates string.
     who.age = age;
     who.height = height;
     who.weight = weight;
@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
            "Frank Blank", 20, 72, 180);
 
     // print them out and where they are in memory
-    printf("Joe is at memory location %p:\n", &joe); //%p shows struct in memory
+    printf("Joe is at memory location %p:\n", &joe);
     Person_print(joe);
 
     printf("Frank is at memory location %p:\n", &frank);
@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
     joe.height -= 2;
     joe.weight += 40;
     Person_print(joe);
-    printf("Joe is at memory location %p:\n", &joe); //the struct is at the same place in mem.
+    printf("Joe is at memory location %p:\n", &joe);
 
     frank.age += 20;
     frank.weight += 20;
