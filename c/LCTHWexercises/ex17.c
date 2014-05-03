@@ -1,59 +1,71 @@
-nclude <stdio.h>
+#include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
-#include <errno.h>
+#include <errno.h> //defines macros to report error conditions through error codes
 #include <string.h>
 
-#define MAX_DATA 512
-#define MAX_ROWS 100
+#define MAX_DATA 512 //Constant Expression: Integer Constant
+#define MAX_ROWS 100 //Constant Expression: Integer Constant
 
-struct Address {
+struct Address {//Structure declaration with the tag "address" and 4 members
     int id;
     int set;
-    char name[MAX_DATA];
+    char name[MAX_DATA]; //fixed size
     char email[MAX_DATA];
 };
 
-struct Database {
-    struct Address rows[MAX_ROWS];
+struct Database {//Declaration with nested structure
+    struct Address rows[MAX_ROWS];//fixed sized on rows
 };
 
+//Look more into what is happening with this section.
+//     - There is a nested struct.
+//     - There is a pointer to the location of the database
+//     - What is happening with FILE *file. There is a pointer.
 struct Connection {
-    FILE *file;
-    struct Database *db;
+    FILE *file;// FILE struct defined by the C standard library.
+    struct Database *db; //Pointer
 };
 
-void die(const char *message)
-{
-    if(errno) {
-        perror(message);
+// aborts with an error.
+void die(const char *message){
+    if(errno) {//<-external variable tells what happened
+        perror(message);//<-prints the error message.
     } else {
        printf("ERROR: %s\n", message);
     }
 
-    exit(1);
+    exit(1); //exit: program failed.
 }
 
-void Address_print(struct Address *addr)
+void Address_print(struct Address *addr) //Function prints. It takes a struct and a pointer
 {
     printf("%d %s %s\n",
             addr->id, addr->name, addr->email);
-}
+} //why no return
 
+//What is happening with Fread? There is a need to know the sizeof the database
+//Ther is a pointer to the struct connection with the variable conn.
+//The conn variable has a member named file.
 void Database_load(struct Connection *conn)
 {
     int rc = fread(conn->db, sizeof(struct Database), 1, conn->file);
     if(rc != 1) die("Failed to load database.");
-}
+} //why no return
 
+//Is this the function that intializes the structure?
+//
 struct Connection *Database_open(const char *filename, char mode)
 {
+    //allocate memory for an instance.
     struct Connection *conn = malloc(sizeof(struct Connection));
     if(!conn) die("Memory error");
 
+    //pointer to member where memory is allocated.
     conn->db = malloc(sizeof(struct Database));
     if(!conn->db) die("Memory error");
 
+    //fopen is a part of FILE struct
     if(mode == 'c') {
         conn->file = fopen(filename, "w");
     } else {
@@ -76,10 +88,11 @@ void Database_close(struct Connection *conn)
         if(conn->db) free(conn->db);
         free(conn);
     }
-}
+} //this releases memory
 
 void Database_write(struct Connection *conn)
 {
+    //rewind is part of FILE struct
     rewind(conn->file);
 
     int rc = fwrite(conn->db, sizeof(struct Database), 1, conn->file);
@@ -87,7 +100,7 @@ void Database_write(struct Connection *conn)
 
     rc = fflush(conn->file);
     if(rc == -1) die("Cannot flush database.");
-}
+} //again no return
 
 void Database_create(struct Connection *conn)
 {
@@ -151,15 +164,15 @@ int main(int argc, char *argv[])
 {
     if(argc < 3) die("USAGE: ex17 <dbfile> <action> [action params]");
 
-    char *filename = argv[1];
-    char action = argv[2][0];
+    char *filename = argv[1]; //points to the first argv
+    char action = argv[2][0]; //multi-dimensional array
     struct Connection *conn = Database_open(filename, action);
     int id = 0;
 
     if(argc > 3) id = atoi(argv[3]);
     if(id >= MAX_ROWS) die("There's not that many records.");
 
-    switch(action) {
+    switch(action) { //control flow
         case 'c':
             Database_create(conn);
             Database_write(conn);
@@ -174,7 +187,7 @@ int main(int argc, char *argv[])
         case 's':
            if(argc != 6) die("Need id, name, email to set");
 
-           Database_set(conn, id, argv[4], argv[5]);
+           Database_set(conn, id, argv[4], argv[5]); //how many arguments are there?
            Database_write(conn);
            break;
 
