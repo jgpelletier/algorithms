@@ -78,10 +78,6 @@ function shift (list) {
     }
 }
 
-
-// write a paragraph, or so, about "function basics", name the five things a
-// function.
-
 // contains: returns true if the value is in the list, false if not.
 function contains (list, value) {
     var node = list
