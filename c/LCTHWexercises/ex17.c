@@ -125,6 +125,7 @@ void Database_set(struct Connection *conn, int id, const char *name, const char 
     // demonstrate the strncpy bug
     if(!res) die("Email copy failed");
 
+    //strncpy??
     res = strncpy(addr->email, email, MAX_DATA);
     if(!res) die("Email copy failed");
 }
@@ -162,50 +163,51 @@ void Database_list(struct Connection *conn)
 
 int main(int argc, char *argv[])
 {
+    //kills the program if arguments are less than 3
     if(argc < 3) die("USAGE: ex17 <dbfile> <action> [action params]");
 
-    char *filename = argv[1]; //points to the first argv
-    char action = argv[2][0]; //multi-dimensional array
-    struct Connection *conn = Database_open(filename, action);
+    char *filename = argv[1]; //points to input argument 1
+    char action = argv[2][0]; //precise character? Look at arrays and argc argv
+    struct Connection *conn = Database_open(filename, action); //Intialization?
     int id = 0;
 
     if(argc > 3) id = atoi(argv[3]);
-    if(id >= MAX_ROWS) die("There's not that many records.");
+    if(id >= MAX_ROWS) die("There's not that many records.");//To much for memory
 
-    switch(action) { //control flow
+    switch(action) { //control flow - 5 choices with 9 different functions
         case 'c':
-            Database_create(conn);
-            Database_write(conn);
+            Database_create(conn); //intialization?
+            Database_write(conn); //writes to the database
             break;
 
         case 'g':
             if(argc != 4) die("Need an id to get");
 
-            Database_get(conn, id);
+            Database_get(conn, id);//gets a record
             break;
 
         case 's':
            if(argc != 6) die("Need id, name, email to set");
 
-           Database_set(conn, id, argv[4], argv[5]); //how many arguments are there?
-           Database_write(conn);
+           Database_set(conn, id, argv[4], argv[5]); //will need to look at the code.
+           Database_write(conn);//writes to the database?
            break;
 
         case 'd':
             if(argc != 4) die("Need id to delete");
 
-            Database_delete(conn, id);
-            Database_write(conn);
+            Database_delete(conn, id);//deletes a record
+            Database_write(conn);//writes to the database?
             break;
 
         case 'l':
-            Database_list(conn);
+            Database_list(conn);//lists the records?
             break;
         default:
             die("Invalid action, only: c=create, g=get, s=set, d=del, l=list");
      }
 
-     Database_close(conn);
+     Database_close(conn); //closes the database
 
      return 0;
 }
