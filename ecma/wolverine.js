@@ -42,10 +42,12 @@ function linkedList (array) {
 var mcrr = linkedList(lines)
 dump(mcrr)
 
-function eastOf (linkedlist, stop, east) {
+// returns an array, next `n` stops east of `stop`.
+function eastOf (linkedlist, stop, n) {
     var node = linkedlist
     while (node) {
         if (node.city == stop) {
+            // what does `util.inspect`.
             return util.inspect(node, null, east, true)
         }
     node = node.east
