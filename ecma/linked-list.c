@@ -1,14 +1,17 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-typedef struct node_s node_t;
-typedef void (*list_func_t)(node_t *node);
+//Read K&R 6.7 to learn about typedef.
+typedef struct node_s node_t;// synonyms
+//typedef void (*list_func_t)(node_t *node);// what are these? Is the later the head node?
 
 struct node_s {
     int value;
     node_t *next;
 };
 
+//Explain the code below. Is this the intialization funtion?
+//Explain why there are no parameters.
 node_t *create_list ()
 {
     node_t *list;
@@ -20,7 +23,7 @@ node_t *create_list ()
 
 void push (node_t *list, int value)
 {
-    node_t *node;
+    node_t *node;//what is this...
     node = malloc(sizeof(node_t));
     node->value = value;
     node->next = list->next;
@@ -45,22 +48,22 @@ void delete_list (node_t *list)
     } while (list);
 }
 
-void call_list_func (list_func_t list_func, node_t *list)
-{
-    list_func(list);
-}
+//void call_list_func (list_func_t list_func, node_t *list)
+//{
+//    list_func(list);
+//}
 
 int main()
 {
-    list_func_t list_func;
-    node_t *list;
+    //list_func_t list_func;//typedef?
+    node_t *list;//typedef?
     list = create_list();
     push(list, 12);
     push(list, 37);
     push(list, 99);
     dump(list);
 
-    list_func = dump;
+    //list_func = dump;
 
     //call_list_func(dump, list);
 }
