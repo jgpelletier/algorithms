@@ -45,7 +45,7 @@ void Address_print(struct Address *addr) //Function prints. It takes a struct an
 } //why no return
 
 //What is happening with Fread? There is a need to know the sizeof the database
-//Ther is a pointer to the struct connection with the variable conn.
+//There is a pointer to the struct connection with the variable conn.
 //The conn variable has a member named file.
 void Database_load(struct Connection *conn)
 {
