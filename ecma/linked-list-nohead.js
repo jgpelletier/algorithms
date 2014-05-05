@@ -22,7 +22,7 @@ function dump (list) {
     var node = list
     while (node) {
         if (node) {
-            console.log(node.value)
+            console.log(node)
         }
         node = node.next
     }
@@ -38,5 +38,6 @@ function pop (object) {
 
 first = push(first, 12)
 first = push(first, 37) //{ value: 37, next: {value: 12, next: {null}}}
-//first = pop(first)
+first = push(first, 99)
+first = pop(first)
 dump(first)
