@@ -39,12 +39,21 @@ function linkedList (array) {
 }
 
 var mcrr = linkedList(lines)
-console.log(Object.keys(mcrr))
-console.log(Object.getPrototypeOf(mcrr))
-console.log(Object.isPrototypeOf(mcrr))
-console.log(mcrr.valueOf())
-console.log(mcrr.hasOwnProperty("east"))
-
+//console.log(Object.defineProperties())//Not used here
+//console.log(Object.defineProperty())//Not used here
+console.log(Object.getOwnPropertyDescriptor(mcrr, "east"))
+console.log(Object.getOwnPropertyNames(mcrr))
+console.log(Object.getPrototypeOf(mcrr))//{}
+console.log(Object.isExtensible(mcrr))//true
+console.log(Object.isFrozen(mcrr))//false
+console.log(Object.isSealed(mcrr))//false
+console.log(Object.keys(mcrr)) //['station', 'city', 'state', 'east' ]
+console.log(mcrr.hasOwnProperty("east"))//true
+console.log(Object.isPrototypeOf(mcrr))//false
+console.log(Object.propertyIsEnumerable("city")) //false
+console.log(mcrr.toLocaleString())
+console.log(mcrr.toString())
+console.log(mcrr.valueOf())//returns primative value: object
 //dump(mcrr)
 
 // returns an array, next `n` stops east of `stop`.
