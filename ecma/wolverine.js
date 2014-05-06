@@ -2,14 +2,15 @@ var fs = require('fs')
 var util = require('util')
 var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
 
+
 function dump (list) {
     console.log(util.inspect(list, null, null, true))
 }
+
 function objectFrom (string) { //converts string into object
     string = string.split(',')
-    // remove unnecessary variable
-    var object = { station: string[0].trim(), city: string[1].trim(), state: string[2].trim(), east: object }
-    return object
+    var object
+    return { station: string[0].trim(), city: string[1].trim(), state: string[2].trim(), east: object }
 }
 
 function objectify (array) { // converts string.Object element into Object element.
@@ -39,51 +40,49 @@ function linkedList (array) {
 }
 
 var mcrr = linkedList(lines)
-//console.log(Object.defineProperties())//Not used here
-//console.log(Object.defineProperty())//Not used here
-console.log(Object.getOwnPropertyDescriptor(mcrr, "east"))
-console.log(Object.getOwnPropertyNames(mcrr))
-console.log(Object.getPrototypeOf(mcrr))//{}
-console.log(Object.isExtensible(mcrr))//true
-console.log(Object.isFrozen(mcrr))//false
-console.log(Object.isSealed(mcrr))//false
-console.log(Object.keys(mcrr)) //['station', 'city', 'state', 'east' ]
-console.log(mcrr.hasOwnProperty("east"))//true
-console.log(Object.isPrototypeOf(mcrr))//false
-console.log(Object.propertyIsEnumerable("city")) //false
-console.log(mcrr.toLocaleString())
-console.log(mcrr.toString())
-console.log(mcrr.valueOf())//returns primative value: object
-//dump(mcrr)
 
-// returns an array, next `n` stops east of `stop`.
-// small steps:
-//  - copy the object
-
+// Returns an array, next `n` stops east of `stop`.
+// The function takes three parameters. It must take a copy
+// of the object and manipulate the shape to fulfill the assignment.
+// I must use the levels of indirection that exist in the architecture.
 function eastOf (linkedlist, stop, east) {
     var list = linkedlist
-    console.log("In eastOf", list)
+    var section
     while (list) {
-    console.log("In while loop", list)
         if (list.city == stop) {
-            return util.inspect(list, null, east, true)
+            return  util.inspect(list, null, east, true)
         }
-     list = list.east
+        list = list.east
     }
 }
 
-//function eastOf (linkedlist) {
-//   var listEast = linkedlist.toString().split('east')
-//   var station = []
-   //while (listEast.east) {
-   //     prevStation = listEast
-   //     listEast = listEast.east
-//     console.log(listEast)
-//}
+console.log(eastOf(mcrr, 'Kalamazoo', 2))
 
-//console.log(length(mcrr, 'kalamazoo', 2))
 
-//i = eastOf(mcrr, 'Michigan City', 2)
-//console.log(typeof(i))
-//console.log(i)
-//console.log(eastOf(mcrr, 'Chicago', 14))
+
+//console.log("Get Own Property Description\n", Object.getOwnPropertyDescriptor(mcrr, "east"))
+//console.log("--------------")
+//console.log("Get Own Property Name\n", Object.getOwnPropertyNames(mcrr))
+//console.log("--------------")
+//console.log("Get Prototype of\n", Object.getPrototypeOf(mcrr))//{}
+//console.log("--------------")
+//console.log("Is Extensible\n", Object.isExtensible(mcrr))//true
+//console.log("--------------")
+//console.log("Is Frozen\n", Object.isFrozen(mcrr))//false
+//console.log("--------------")
+//console.log("Is Sealed\n", Object.isSealed(mcrr))//false
+//console.log("--------------")
+//console.log("Keys\n", Object.keys(mcrr)) //['station', 'city', 'state', 'east' ]
+//console.log("--------------")
+//console.log("Has Own Property\n", mcrr.hasOwnProperty("east"))//true
+//console.log("--------------")
+//console.log("Is Prototype Of\n", Object.isPrototypeOf(mcrr))//false
+//console.log("--------------")
+//console.log("Is Enumerable\n", Object.propertyIsEnumerable("city")) //false
+//console.log("--------------")
+//console.log("To Locale String\n", mcrr.toLocaleString())
+//console.log("--------------")
+//console.log("To String\n", mcrr.toString())
+//console.log("--------------")
+//console.log("Value Of \n", mcrr.valueOf())//returns primative value: object
+//dump(mcrr)
