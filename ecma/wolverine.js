@@ -38,22 +38,43 @@ function linkedList (array) {
     return list
 }
 
-// todo: think really hard about that, change to `1`, change to `null`.
 var mcrr = linkedList(lines)
-dump(mcrr)
+console.log(Object.keys(mcrr))
+console.log(Object.getPrototypeOf(mcrr))
+console.log(Object.isPrototypeOf(mcrr))
+console.log(mcrr.valueOf())
+console.log(mcrr.hasOwnProperty("east"))
+
+//dump(mcrr)
 
 // returns an array, next `n` stops east of `stop`.
-function eastOf (linkedlist, stop, n) {
-    var node = linkedlist
-    while (node) {
-        if (node.city == stop) {
-            // what does `util.inspect`.
-            return util.inspect(node, null, east, true)
+// small steps:
+//  - copy the object
+
+function eastOf (linkedlist, stop, east) {
+    var list = linkedlist
+    console.log("In eastOf", list)
+    while (list) {
+    console.log("In while loop", list)
+        if (list.city == stop) {
+            return util.inspect(list, null, east, true)
         }
-    node = node.east
+     list = list.east
     }
 }
 
-console.log(eastOf(mcrr, 'Kalamazoo', 2))
-console.log(eastOf(mcrr, 'Birmingham', 3))
-console.log(eastOf(mcrr, 'Chicago', 1))
+//function eastOf (linkedlist) {
+//   var listEast = linkedlist.toString().split('east')
+//   var station = []
+   //while (listEast.east) {
+   //     prevStation = listEast
+   //     listEast = listEast.east
+//     console.log(listEast)
+//}
+
+//console.log(length(mcrr, 'kalamazoo', 2))
+
+//i = eastOf(mcrr, 'Michigan City', 2)
+//console.log(typeof(i))
+//console.log(i)
+//console.log(eastOf(mcrr, 'Chicago', 14))
