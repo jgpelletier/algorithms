@@ -39,7 +39,34 @@ function linkedList (array) {
     return list
 }
 
+function pop (object) {
+    return object.east
+}
+
+function sec (object, city) {
+    var list = object
+    var toSection
+    console.log(Object.keys(list))
+    while (list) {
+        console.log('in while loop')
+        if (list.city == city) {
+            console.log('in if statement')
+            return list
+        }
+        list = list.east
+    }
+}
+
+
 var mcrr = linkedList(lines)
+mcrr = pop(mcrr)
+dump(mcrr)
+mcrr = sec(mcrr, 'Kalamazoo')
+dump(mcrr)
+
+
+
+
 
 // Returns an array, next `n` stops east of `stop`.
 // The function takes three parameters. It must take a copy
@@ -47,16 +74,14 @@ var mcrr = linkedList(lines)
 // I must use the levels of indirection that exist in the architecture.
 function eastOf (linkedlist, stop, east) {
     var list = linkedlist
-    var section
-    while (list) {
-        if (list.city == stop) {
-            return  util.inspect(list, null, east, true)
-        }
-        list = list.east
+    var arr = [] // I think an array is needed
+    for (var i = 0; i < east; i++) { //need a mechanism to manipulate object in list
+    arr [i]
+    return arr
     }
 }
 
-console.log(eastOf(mcrr, 'Kalamazoo', 2))
+//console.log(eastOf(mcrr, 'Kalamazoo', 2))
 
 
 
