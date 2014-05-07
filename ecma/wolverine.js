@@ -43,27 +43,41 @@ function pop (object) {
     return object.east
 }
 
+function shift (list) {
+    var node = list
+    var prev
+    while (node.east) {
+        prev = node
+        node = node.east
+    }
+    delete prev.east
+    return node
+}
+
 function sec (object, city) {
     var list = object
     var toSection
-    console.log(Object.keys(list))
     while (list) {
-        console.log('in while loop')
         if (list.city == city) {
-            console.log('in if statement')
             return list
+            toSection = list // returning list here creates top section
         }
         list = list.east
     }
 }
 
-
 var mcrr = linkedList(lines)
-mcrr = pop(mcrr)
+//mcrr = pop(mcrr)
+mcrr = pop(mcrr)//this does not give me anything.
 dump(mcrr)
-mcrr = sec(mcrr, 'Kalamazoo')
-dump(mcrr)
-
+//mcrr = sec(mcrr, 'Kalamazoo')
+//sec(mcrr, 'Kalamazoo') // <-useless
+//dump(mcrr)
+//shift(mcrr)// return a list without last node
+//dump(mcrr)
+//lastNode = shift(mcrr)//lastNode holds the shifted object
+//dump(mcrr)
+//console.log(lastNode)
 
 
 
