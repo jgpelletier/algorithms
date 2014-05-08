@@ -54,7 +54,7 @@ function shift (list) {
     return node
 }
 
-function sec (object, city) {
+function section (object, city) {
     var list = object
     var toSection
     while (list) {
@@ -66,13 +66,29 @@ function sec (object, city) {
     }
 }
 
-var mcrr = linkedList(lines)
+function length (linkedlist) {
+    var list = linkedlist
+    var count = 0
+    while (list) {
+        if (!list.east) {
+            return count
+        }
+        list = list.east
+        count++
+    }
+}
+
+
+var mcrr = linkedList(lines) //creation of the linkedlist
+sectn = section(mcrr, 'Kalamazoo')
+//console.log(sectn)
 //mcrr = pop(mcrr)
-mcrr = pop(mcrr)//this does not give me anything.
-dump(mcrr)
-//mcrr = sec(mcrr, 'Kalamazoo')
+//pop(mcrr)//this does not give me anything.
+//dump(mcrr)
 //sec(mcrr, 'Kalamazoo') // <-useless
 //dump(mcrr)
+//console.log(length(sectn))
+//dump(sectn)
 //shift(mcrr)// return a list without last node
 //dump(mcrr)
 //lastNode = shift(mcrr)//lastNode holds the shifted object
@@ -87,14 +103,6 @@ dump(mcrr)
 // of the object and manipulate the shape to fulfill the assignment.
 // I must use the levels of indirection that exist in the architecture.
 function eastOf (linkedlist, stop, east) {
-    var list = linkedlist
-    var arr = [] // I think an array is needed
-    for (var i = 0; i < east; i++) { //need a mechanism to manipulate object in list
-    arr [i]
-    return arr
-    }
-}
-
 //console.log(eastOf(mcrr, 'Kalamazoo', 2))
 
 
