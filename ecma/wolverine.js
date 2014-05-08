@@ -78,9 +78,21 @@ function length (linkedlist) {
     }
 }
 
+function toArr (linkedlist) {
+    //do I need another variable.
+    var count = length(linkedlist)
+    var array = []
+    for (var i = 0; i < count; ++i) {
+            array[i]  = shift(linkedlist)
+            //console.log(array)
+        }
+    return array
+}
 
 var mcrr = linkedList(lines) //creation of the linkedlist
 sectn = section(mcrr, 'Kalamazoo')
+anArr = toArr(sectn)
+console.log(anArr)
 //console.log(sectn)
 //mcrr = pop(mcrr)
 //pop(mcrr)//this does not give me anything.
@@ -103,6 +115,9 @@ sectn = section(mcrr, 'Kalamazoo')
 // of the object and manipulate the shape to fulfill the assignment.
 // I must use the levels of indirection that exist in the architecture.
 function eastOf (linkedlist, stop, east) {
+    }
+
+var nextStops = eastOf (mcrr, "Kalamazoo", 2)
 //console.log(eastOf(mcrr, 'Kalamazoo', 2))
 
 
