@@ -51,7 +51,7 @@ function shift (list) {
         node = node.east
     }
     delete prev.east
-    return node
+    return prev
 }
 
 function section (object, city) {
@@ -83,16 +83,22 @@ function toArr (linkedlist) {
     var count = length(linkedlist)
     var array = []
     for (var i = 0; i < count; ++i) {
+            console.log(length(linkedlist))
             array[i]  = shift(linkedlist)
-            //console.log(array)
         }
     return array
 }
 
 var mcrr = linkedList(lines) //creation of the linkedlist
-sectn = section(mcrr, 'Kalamazoo')
-anArr = toArr(sectn)
-console.log(anArr)
+//var sectn = section(mcrr, 'Kalamazoo')
+//var anArr = toArr(sectn)
+//console.log(anArr)
+//console.log(Array.isArray(anArr))
+//console.log(anArr.length)
+//anArr.reverse()
+//console.log(anArr)
+//var popped = anArr.pop()
+//console.log(popped)
 //console.log(sectn)
 //mcrr = pop(mcrr)
 //pop(mcrr)//this does not give me anything.
@@ -115,10 +121,16 @@ console.log(anArr)
 // of the object and manipulate the shape to fulfill the assignment.
 // I must use the levels of indirection that exist in the architecture.
 function eastOf (linkedlist, stop, east) {
+      var sec = section(linkedlist, stop)
+      var arr = toArr(sec)
+      console.log(arr.length)
+      var trainCard = arr.reverse()//.slice(1, east)
+      console.log(typeof(trainCard))
+      return trainCard
     }
 
 var nextStops = eastOf (mcrr, "Kalamazoo", 2)
-//console.log(eastOf(mcrr, 'Kalamazoo', 2))
+console.log(eastOf(mcrr, 'Kalamazoo', 2))
 
 
 
