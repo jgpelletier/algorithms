@@ -39,11 +39,13 @@ function linkedList (array) {
     return list
 }
 
+//functions to change from linked list to array
+
 function pop (object) {
     return object.east
 }
 
-function shift (list) {
+function shift (list) {//
     var node = list
     var prev
     while (node.east) {
@@ -51,16 +53,14 @@ function shift (list) {
         node = node.east
     }
     delete prev.east
-    return prev
+    return node
 }
 
-function section (object, city) {
+function section (object, city) { //this does not change mcrr
     var list = object
-    var toSection
     while (list) {
         if (list.city == city) {
             return list
-            toSection = list // returning list here creates top section
         }
         list = list.east
     }
@@ -78,20 +78,45 @@ function length (linkedlist) {
     }
 }
 
-function toArr (linkedlist) {
-    //do I need another variable.
-    var count = length(linkedlist)
+function toArr (linkedlist) {//this changes mcrr. How come?
+    var list = linkedlist // I am changing properties so this is affected
+    var count = length(list)
     var array = []
     for (var i = 0; i < count; ++i) {
-            console.log(length(linkedlist))
-            array[i]  = shift(linkedlist)
+           // console.log('----in for loop before shift----')
+           // dump(mcrr)
+            array[i] = shift(list)
+           // console.log('----in for loop after shift----')
+           // dump(mcrr)
         }
-    return array
+    return  array
 }
 
 var mcrr = linkedList(lines) //creation of the linkedlist
+
+function eastOf (linkedlist, stop, east) {
+      var list = linkedlist
+      var sec = section(list, stop)
+      var arr = toArr(sec)
+      var trainCard = arr.reverse().slice(1, (east+1))
+      return trainCard
+    }
+
+//var nextStops = eastOf(mcrr, "Kalamazoo", 2)
+//console.log(nextStops)
+//console.log(eastOf(mcrr, "Kalamazoo", 2)) //why does this not work?
+//dump(mcrr)
 //var sectn = section(mcrr, 'Kalamazoo')
-//var anArr = toArr(sectn)
+//console.log('----RIGHT AFTER SECTION-----')
+dump(mcrr)//dumps the whole mcrr linked list
+shifted = shift(mcrr)
+shifted = shift(mcrr)
+console.log(shifted)
+//console.log('----RIGHT BEFORE toArr-----')
+//var anArr = toArr(sectn)//this is where mcrr changes
+//dump(mcrr)//changes the list so Kalamazoo is the last stop
+dump(mcrr)
+//console.log(shifted)
 //console.log(anArr)
 //console.log(Array.isArray(anArr))
 //console.log(anArr.length)
@@ -114,23 +139,6 @@ var mcrr = linkedList(lines) //creation of the linkedlist
 //console.log(lastNode)
 
 
-
-
-// Returns an array, next `n` stops east of `stop`.
-// The function takes three parameters. It must take a copy
-// of the object and manipulate the shape to fulfill the assignment.
-// I must use the levels of indirection that exist in the architecture.
-function eastOf (linkedlist, stop, east) {
-      var sec = section(linkedlist, stop)
-      var arr = toArr(sec)
-      console.log(arr.length)
-      var trainCard = arr.reverse()//.slice(1, east)
-      console.log(typeof(trainCard))
-      return trainCard
-    }
-
-var nextStops = eastOf (mcrr, "Kalamazoo", 2)
-console.log(eastOf(mcrr, 'Kalamazoo', 2))
 
 
 
