@@ -79,15 +79,11 @@ function length (linkedlist) {
 }
 
 function toArr (linkedlist) {//this changes mcrr. How come?
-    var list = linkedlist // I am changing properties so this is affected
-    var count = length(list)
+   // var list = linkedlist // I am changing properties so this is affected
+    var count = length(linkedlist)
     var array = []
     for (var i = 0; i < count; ++i) {
-           // console.log('----in for loop before shift----')
-           // dump(mcrr)
-            array[i] = shift(list)
-           // console.log('----in for loop after shift----')
-           // dump(mcrr)
+            array[i] = shift(linkedlist)
         }
     return  array
 }
@@ -104,8 +100,8 @@ function eastOf (linkedlist, stop, east) {
 
 //var nextStops = eastOf(mcrr, "Kalamazoo", 2)
 //console.log(nextStops)
-//console.log(eastOf(mcrr, "Kalamazoo", 2)) //why does this not work?
-//dump(mcrr)
+console.log(eastOf(mcrr, "Kalamazoo", 2)) //why does this not work?
+dump(mcrr)
 //var sectn = section(mcrr, 'Kalamazoo')
 //console.log('----RIGHT AFTER SECTION-----')
 dump(mcrr)//dumps the whole mcrr linked list
@@ -115,7 +111,7 @@ console.log(shifted)
 //console.log('----RIGHT BEFORE toArr-----')
 //var anArr = toArr(sectn)//this is where mcrr changes
 //dump(mcrr)//changes the list so Kalamazoo is the last stop
-dump(mcrr)
+//dump(mcrr)
 //console.log(shifted)
 //console.log(anArr)
 //console.log(Array.isArray(anArr))
@@ -126,10 +122,6 @@ dump(mcrr)
 //console.log(popped)
 //console.log(sectn)
 //mcrr = pop(mcrr)
-//pop(mcrr)//this does not give me anything.
-//dump(mcrr)
-//sec(mcrr, 'Kalamazoo') // <-useless
-//dump(mcrr)
 //console.log(length(sectn))
 //dump(sectn)
 //shift(mcrr)// return a list without last node
