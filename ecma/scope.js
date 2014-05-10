@@ -25,7 +25,6 @@ function _inc () {
 function inc (n) {
     return n + 1
 }
-// every 15 minutes; say the five things you know about a function aloud.
 
 console.log('_inc', _a)
 _inc()
@@ -36,10 +35,6 @@ console.log('inc', a)
 a = inc(a) // <- using the *five* things. A is receiving a copy of a.
 // a == 2 on this line.
 console.log('inc', a) // This needs to be 2.
-// Words that will not appear in the change set for this assigment...
-//      `function`
-//      `prototype`
-//      `this`
 
 // Notes:
 // Javascript is always pass by value. but when a variable refers to an object,
