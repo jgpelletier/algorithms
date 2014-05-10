@@ -1,14 +1,14 @@
 var list = {}
 
-console.log(list.next)
+console.log(list.next) //<- undefined
 
 list.next = 1
 
-console.log(list.next)
+console.log(list.next) //<- 1
 
 list.next = null
 
-console.log(list.next)
+console.log(list.next) //<- null
 
 try {
     console.log(null.next)
