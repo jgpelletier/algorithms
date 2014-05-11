@@ -76,7 +76,7 @@ o = {}
 o['Fred Flintstone'] = 'Bedrock'
 o['Ignatius J. Reilly'] = 'New Orleans'
 
-// and cal also use dot notation with identifiers, but no puctuation
+// and can also use dot notation with identifiers, but no puctuation
 o.fredFlinstone = 'Bedrock'
 
 console.log(Object.keys(o)) // <- [ 'Fred Flintone', 'Ignatius J. Reilly', 'fredFlinstone' ]
