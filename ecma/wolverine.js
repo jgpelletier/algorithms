@@ -46,7 +46,7 @@ function __this_is_wrong__pop (object) {//this does not mutate that list.
     return list.east
 }
 
-function __do_not_use__find (object, city) { //this does not change mcrr
+function find (object, city) { //this does not change mcrr
     var list = object
     while (list) {
         if (list.city == city) {
@@ -70,29 +70,69 @@ function __do_not_use__length (linkedlist) {
 
 var mcrr = linkedList(lines) //creation of the linkedlist
 
-function eastOf (linkedlist, stop, east) {
+/*function eastOf (linkedlist, stop, east) {
+    var length = __do_not_use__length(linkedlist)
+    var count = 0
     var list = linkedlist
     var arr1 = []
     var i
     while (list) {
-        if (list.city == stop) {
+        if ((count + east) > length) {
+            console.log('Stops do not exist')
+            process.exit(1)
+        } else if (list.city == stop) {
             for (i = 0; i < east; ++i) {
                 list = list.east
                 arr1[i] = list.station
+       console.log("ADDING")
             }
+       }
+       console.log("STILL GOING")
+       list = list.east
+         ++count
+    }
+    console.log("The next", east, "stops are:")
+    return arr1
+}
+*/
+
+function toArray (linkedlist) {
+    var arr = []
+    var list = linkedlist
+    var i = 0
+    var index
+    while (list) {
+        arr[i++] = list.station
+        if (list.city == stop) {
+            index = arr.length
         }
         list = list.east
     }
-    return arr1
+    return arr
 }
+
+function eastOf (linkedlist, stop, count) {
+    var arr = []
+    var list = linkedlist
+    var i = 0
+    var index
+    while (list) {
+        arr[i++] = list.station
+        if (list.city == stop) {
+            index = arr.length
+        }
+        list = list.east
+    }
+    return arr.splice(index, count)
+}
+
 
 console.log('--------------------')
 console.log(__do_not_use__length(mcrr)) // 14
 __this_is_wrong__pop(mcrr) // this does not pop
 console.log(__do_not_use__length(mcrr)) // 14
 console.log('--------------------')
-console.log(eastOf(mcrr, "Kalamazoo", 2)) //why does this not work?
-dump(mcrr)//dumps the whole mcrr linked list
+console.log(eastOf(mcrr, "Kalamazoo", 2))
 
 process.exit(1)
 //var nextStops = eastOf(mcrr, "Kalamazoo", 2)
