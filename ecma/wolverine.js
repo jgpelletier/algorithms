@@ -41,8 +41,9 @@ function linkedList (array) {
 
 //functions to change from linked list to array
 
-function __this_is_wrong__pop (object) {
-    return object.east
+function __this_is_wrong__pop (object) {//this does not mutate that list.
+    var list = object.east
+    return list.east
 }
 
 function __do_not_use__find (object, city) { //this does not change mcrr
@@ -70,18 +71,28 @@ function __do_not_use__length (linkedlist) {
 var mcrr = linkedList(lines) //creation of the linkedlist
 
 function eastOf (linkedlist, stop, east) {
-    var array = []
-    while (?) {
-        // do something
+    var list = linkedlist
+    var arr1 = []
+    var i
+    while (list) {
+        if (list.city == stop) {
+            for (i = 0; i < east; ++i) {
+                list = list.east
+                arr1[i] = list.station
+            }
+        }
+        list = list.east
     }
-    return array
+    return arr1
 }
 
 console.log('--------------------')
-console.log(__do_not_use__length(mcrr)) // 15
+console.log(__do_not_use__length(mcrr)) // 14
 __this_is_wrong__pop(mcrr) // this does not pop
 console.log(__do_not_use__length(mcrr)) // 14
 console.log('--------------------')
+console.log(eastOf(mcrr, "Kalamazoo", 2)) //why does this not work?
+dump(mcrr)//dumps the whole mcrr linked list
 
 process.exit(1)
 //var nextStops = eastOf(mcrr, "Kalamazoo", 2)
@@ -94,8 +105,6 @@ dump(mcrr)//dumps the whole mcrr linked list
 shifted = shift(mcrr)
 shifted = shift(mcrr)
 console.log(shifted)
-//console.log('----RIGHT BEFORE toArr-----')
-//var anArr = toArr(sectn)//this is where mcrr changes
 //dump(mcrr)//changes the list so Kalamazoo is the last stop
 //dump(mcrr)
 //console.log(shifted)
