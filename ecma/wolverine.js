@@ -41,22 +41,11 @@ function linkedList (array) {
 
 //functions to change from linked list to array
 
-function pop (object) {
+function __this_is_wrong__pop (object) {
     return object.east
 }
 
-function shift (list) {//
-    var node = list
-    var prev
-    while (node.east) {
-        prev = node
-        node = node.east
-    }
-    delete prev.east
-    return node
-}
-
-function section (object, city) { //this does not change mcrr
+function __do_not_use__find (object, city) { //this does not change mcrr
     var list = object
     while (list) {
         if (list.city == city) {
@@ -66,7 +55,7 @@ function section (object, city) { //this does not change mcrr
     }
 }
 
-function length (linkedlist) {
+function __do_not_use__length (linkedlist) {
     var list = linkedlist
     var count = 0
     while (list) {
@@ -78,30 +67,27 @@ function length (linkedlist) {
     }
 }
 
-function toArr (linkedlist) {//this changes mcrr. How come?
-   // var list = linkedlist // I am changing properties so this is affected
-    var count = length(linkedlist)
-    var array = []
-    for (var i = 0; i < count; ++i) {
-            array[i] = shift(linkedlist)
-        }
-    return  array
-}
-
 var mcrr = linkedList(lines) //creation of the linkedlist
 
 function eastOf (linkedlist, stop, east) {
-      var list = linkedlist
-      var sec = section(list, stop)
-      var arr = toArr(sec)
-      var trainCard = arr.reverse().slice(1, (east+1))
-      return trainCard
+    var array = []
+    while (?) {
+        // do something
     }
+    return array
+}
 
+console.log('--------------------')
+console.log(__do_not_use__length(mcrr)) // 15
+__this_is_wrong__pop(mcrr) // this does not pop
+console.log(__do_not_use__length(mcrr)) // 14
+console.log('--------------------')
+
+process.exit(1)
 //var nextStops = eastOf(mcrr, "Kalamazoo", 2)
 //console.log(nextStops)
-console.log(eastOf(mcrr, "Kalamazoo", 2)) //why does this not work?
-dump(mcrr)
+//console.log(eastOf(mcrr, "Kalamazoo", 2)) //why does this not work?
+//dump(mcrr)
 //var sectn = section(mcrr, 'Kalamazoo')
 //console.log('----RIGHT AFTER SECTION-----')
 dump(mcrr)//dumps the whole mcrr linked list
