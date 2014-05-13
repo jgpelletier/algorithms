@@ -41,9 +41,8 @@ function linkedList (array) {
 
 //functions to change from linked list to array
 
-function __this_is_wrong__pop (object) {//this does not mutate that list.
-    var list = object.east
-    return list.east
+function pop (object) {//this does not mutate that list.
+    return object.east
 }
 
 function find (object, city) {
@@ -87,22 +86,41 @@ function eastOf (linkedlist, stop, count) {
     var i
     while (list && list.city != stop) {
         list = list.east
-    } if (list.city == stop) {
+    }
+    if (list.city == stop) {
         for (i = 0; i < count; i++) {
+            var j = 0
+            // Return all station data.
             list = list.east
             arr.push(list.station)
+            arr.push(list.city)
+            arr.push(list.state)
+            console.log(arr)
+            console.log(arr.length)
         }
     }
     return arr
 }
 
+// Major assignment.
+
+// NOT going to change the structure of the list.
+// Do not use array subscripts.
+function westOf (linkedList, stop, count) {
+    // You will only add code between these braces.
+    var arr = []
+    var list = linkedList
+    // something here.
+    return arr
+}
 
 console.log('--------------------')
 console.log(__do_not_use__length(mcrr)) // 14
-__this_is_wrong__pop(mcrr) // this does not pop
+mcrr = pop(mcrr) // this does not pop
 console.log(__do_not_use__length(mcrr)) // 14
 console.log('--------------------')
 console.log(eastOf(mcrr, "Kalamazoo", 2))
+console.log(westOf(mcrr, "Kalamazoo", 2))
 //console.log(toArray(mcrr))
 
 //dump(mcrr)//changes the list so Kalamazoo is the last stop
