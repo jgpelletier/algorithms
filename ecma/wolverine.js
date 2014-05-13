@@ -2,7 +2,6 @@ var fs = require('fs')
 var util = require('util')
 var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
 
-
 function dump (list) {
     console.log(util.inspect(list, null, null, true))
 }
@@ -89,15 +88,18 @@ function eastOf (linkedlist, stop, count) {
     }
     if (list.city == stop) {
         for (i = 0; i < count; i++) {
-            var j = 0
             // Return all station data.
             list = list.east
-            arr.push(list.station)
-            arr.push(list.city)
-            arr.push(list.state)
+            var line = []
+            line.push(list.station)
+            line.push(list.city)
+            line.push(list.state)
+            line.push('\n')
+            arr[i] =  line.join(', ')
             console.log(arr)
             console.log(arr.length)
         }
+        arr = arr.toString()
     }
     return arr
 }
