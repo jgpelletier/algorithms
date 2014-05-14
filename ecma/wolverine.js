@@ -91,15 +91,16 @@ function eastOf (linkedlist, stop, count) {
             // Return all station data.
             list = list.east
             var line = []
-            line.push(list.station)
-            line.push(list.city)
-            line.push(list.state)
-            line.push('\n')
-            arr[i] =  line.join(', ')
-            console.log(arr)
-            console.log(arr.length)
+            arr.push(list.station)
+            arr.push(list.city)
+            arr.push(list.state)
+            arr.push('\n')
+            //arr[i] =  line.join(', ')
         }
         arr = arr.toString()
+        arr = arr.replace(/,/g, ', ')
+        arr = arr.replace(/^,\s*/m, '')
+        arr = arr.replace(/,\s*$/gm, '')
     }
     return arr
 }
@@ -116,11 +117,11 @@ function westOf (linkedList, stop, count) {
     return arr
 }
 
-console.log('--------------------')
-console.log(__do_not_use__length(mcrr)) // 14
-mcrr = pop(mcrr) // this does not pop
-console.log(__do_not_use__length(mcrr)) // 14
-console.log('--------------------')
+//console.log('--------------------')
+//console.log(__do_not_use__length(mcrr)) // 14
+//mcrr = pop(mcrr) // this does not pop
+//console.log(__do_not_use__length(mcrr)) // 14
+//console.log('--------------------')
 console.log(eastOf(mcrr, "Kalamazoo", 2))
 console.log(westOf(mcrr, "Kalamazoo", 2))
 //console.log(toArray(mcrr))
