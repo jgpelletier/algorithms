@@ -79,9 +79,9 @@ function toArray (linkedlist) {
     return arr
 }
 
-function eastOf (linkedlist, stop, count) {
+function eastOf (list, stop, count) {
     var arr = [] // <- this is a declaration, not a subscript
-    var list = linkedlist
+    //var list = linkedlist
     var i
     while (list && list.city != stop) {
         list = list.east
@@ -95,12 +95,11 @@ function eastOf (linkedlist, stop, count) {
             arr.push(list.city)
             arr.push(list.state)
             arr.push('\n')
-            //arr[i] =  line.join(', ')
         }
-        arr = arr.toString()
-        arr = arr.replace(/,/g, ', ')
-        arr = arr.replace(/^,\s*/m, '')
-        arr = arr.replace(/,\s*$/gm, '')
+        arr = arr.toString().replace(/,/g, ', ').replace(/^,\s*/gm, '').replace(/,\s*$/gm, '')
+        //arr = arr.replace(/,/g, ', ')
+        //arr = arr.replace(/^,\s*/m, '')
+        //arr = arr.replace(/,\s*$/gm, '')
     }
     return arr
 }
@@ -112,9 +111,29 @@ function eastOf (linkedlist, stop, count) {
 function westOf (linkedList, stop, count) {
     // You will only add code between these braces.
     var arr = []
+    var arr2 =[]
     var list = linkedList
-    // something here.
-    return arr
+    var prev
+    var i = 0
+    while (list && list.city != stop) {
+       prev = list
+       list = list.east
+       arr[i++] = prev
+       list = list.east
+    }
+    if (list.city == stop) {
+        element = arr[i-(count-1)]
+        for (var j = 0; j < count; j++) {
+            arr2.push(element.station)
+            arr2.push(element.city)
+            arr2.push(element.state)
+            arr2.push('\n')
+            element = element.east
+        }
+        arr2 = arr2.toString().replace(/,/g, ', ').replace(/^,\s*/gm, '').replace(/,\s*$/gm, '')
+
+    return arr2
+    }
 }
 
 //console.log('--------------------')
@@ -122,8 +141,8 @@ function westOf (linkedList, stop, count) {
 //mcrr = pop(mcrr) // this does not pop
 //console.log(__do_not_use__length(mcrr)) // 14
 //console.log('--------------------')
-console.log(eastOf(mcrr, "Kalamazoo", 2))
-console.log(westOf(mcrr, "Kalamazoo", 2))
+//console.log(eastOf(mcrr, "Kalamazoo", 4))
+console.log(westOf(mcrr, "Kalamazoo", 4))
 //console.log(toArray(mcrr))
 
 //dump(mcrr)//changes the list so Kalamazoo is the last stop
