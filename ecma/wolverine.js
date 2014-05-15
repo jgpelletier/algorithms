@@ -54,7 +54,7 @@ function find (object, city) {
     }
 }
 
-function __do_not_use__length (linkedlist) {
+function length (linkedlist) {
     var list = linkedlist
     var count = 0
     while (list) {
@@ -82,20 +82,27 @@ function toArray (linkedlist) {
 
 function eastOf (list, stop, count) {
     var arr = [] // <- this is a declaration, not a subscript
+    var lngth = length(list)
     //var list = linkedlist
     var i
-    while (list && list.city != stop) {
-        list = list.east
+    if (count > lngth) {
+        return "There are not this many stops."
     }
-    if (list.city == stop) {
-        for (i = 0; i < count; i++) {
-            // Return all station data.
-            var node = list
+        while (list && list.city != stop) {
             list = list.east
-            arr.push(node.east)
         }
-    }
-    return arr
+        if (list.city == stop) {
+            for (i = 0; i < count; i++) {
+                var node = list.east
+                list = list.east
+                arr.push({
+                    state: node.state,
+                    city: node.city,
+                    station: node.station,
+                })
+            }
+        return arr
+        }
 }
 
 // Major assignment.
@@ -126,9 +133,8 @@ function __westOf (linkedList, stop, count) {
 
 function isStationEastOf (railway, city, count, eastStation) {
     var array = eastOf(railway, city, count)
-    // is `eastStation` in `array`?
     for (var i = 0; i < array.length; i++) {
-        if (eastStation == array[i]) {
+        if (eastStation == array[i].station) {
             return true
         }
     }
@@ -137,9 +143,8 @@ function isStationEastOf (railway, city, count, eastStation) {
 
 function isStateEastOf (railway, city, count, eastState) {
     var array = eastOf(railway, city, count)
-    // is `eastState` in `array`?
     for (var i = 0; i < array.length; i++) {
-        if (eastState == array[i]) {
+        if (eastState == array[i].state) {
             return true
         }
     }
@@ -148,28 +153,41 @@ function isStateEastOf (railway, city, count, eastState) {
 
 function isCityEastOf (railway, city, count, eastCity) {
     var array = eastOf(railway, city, count)
-    // is `eastCity` in `array`?
     for (var i = 0; i < array.length; i++) {
-        if (eastCity == array[i]) { // <-- this is only line that different.
+        if (eastCity == array[i].city) {
             return true
         }
     }
     return  false
 }
 
-//console.log('--------------------')
-//console.log(__do_not_use__length(mcrr)) // 14
-//mcrr = pop(mcrr) // this does not pop
-//console.log(__do_not_use__length(mcrr)) // 14
-//console.log('--------------------')
 
-var eastOfKalamazoo = eastOf(mcrr, "Kalamazoo", 4)
-dump(eastOf(mcrr, "Kalamazoo", 4))
+var eastOfKalamazoo = eastOf(mcrr, "Kalamazoo", 2)
+console.log(eastOfKalamazoo[1].city) // <- Albion
+console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Battle Creek"))
+
+var eastOfKalamazoo = eastOf(mcrr, "Kalamazoo", 2)
+console.log(eastOfKalamazoo) // <- Albion
+
+// FIX THIS.
+console.log(eastOf(mcrr, "Kalamazoo", 999))
+console.log(eastOf(mcrr, "Boston", 2))
+
+process.exit(0)
+
+var eastOfKalamazoo = eastOf(mcrr, "Kalamazoo", 2)
+//dump(eastOf(mcrr, "Kalamazoo", 2))
 eastOfKalamazoo[0] // <- Battle Creekish
-dump(eastOfKalamazoo[1]) // <- Albionish
+//dump(eastOfKalamazoo[1]) // <- Albionish
+
+console.log(eastOfKalamazoo.length)
 console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Battle Creek")) // exact match
-//console.log(isStateEastOf(mcrr, "Kalamazoo", 4, "Michigan"))
-//console.log(isStationEastOf(mcrr, "Kalamazoo", 4, "Jackson Station"))
+console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Detroit")) // exact match
+console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Niles")) // exact match
+console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Jackson")) // exact match
+
+console.log(isStateEastOf(mcrr, "Kalamazoo", 4, "Michigan"))
+console.log(isStationEastOf(mcrr, "Kalamazoo", 4, "Jackson Station"))
 //console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Niles"))
 process.exit(0)
 
