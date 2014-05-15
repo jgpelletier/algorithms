@@ -3,7 +3,7 @@ var util = require('util')
 var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
 
 function dump (list) {
-    console.log(util.inspect(list, null, null, true))
+    console.log(util.inspect(list, 1, true))
 }
 
 function objectFrom (string) { //converts string into object
@@ -79,6 +79,7 @@ function toArray (linkedlist) {
     return arr
 }
 
+
 function eastOf (list, stop, count) {
     var arr = [] // <- this is a declaration, not a subscript
     //var list = linkedlist
@@ -89,8 +90,9 @@ function eastOf (list, stop, count) {
     if (list.city == stop) {
         for (i = 0; i < count; i++) {
             // Return all station data.
+            var node = list
             list = list.east
-            arr.push(list)
+            arr.push(node.east)
         }
     }
     return arr
@@ -162,12 +164,13 @@ function isCityEastOf (railway, city, count, eastCity) {
 //console.log('--------------------')
 
 var eastOfKalamazoo = eastOf(mcrr, "Kalamazoo", 4)
+dump(eastOf(mcrr, "Kalamazoo", 4))
 eastOfKalamazoo[0] // <- Battle Creekish
-console.log(eastOfKalamazoo[1]) // <- Albionish
+dump(eastOfKalamazoo[1]) // <- Albionish
 console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Battle Creek")) // exact match
-console.log(isStateEastOf(mcrr, "Kalamazoo", 4, "Michigan"))
-console.log(isStationEastOf(mcrr, "Kalamazoo", 4, "Jackson Station"))
-console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Niles"))
+//console.log(isStateEastOf(mcrr, "Kalamazoo", 4, "Michigan"))
+//console.log(isStationEastOf(mcrr, "Kalamazoo", 4, "Jackson Station"))
+//console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Niles"))
 process.exit(0)
 
 console.log(isEastOfEx(mcrr, "Kalamazoo", 4, "state", "Michigan"))
