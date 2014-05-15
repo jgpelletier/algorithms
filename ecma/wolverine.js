@@ -91,7 +91,10 @@ function eastOf (list, stop, count) {
         while (list && list.city != stop) {
             list = list.east
         }
-        if (list.city == stop) {
+        if (!list && list != stop) {
+            return 'Stop not found'
+        }
+        else if (list.city == stop) {
             for (i = 0; i < count; i++) {
                 var node = list.east
                 list = list.east
@@ -163,7 +166,7 @@ function isCityEastOf (railway, city, count, eastCity) {
 
 
 var eastOfKalamazoo = eastOf(mcrr, "Kalamazoo", 2)
-console.log(eastOfKalamazoo[1].city) // <- Albion
+//console.log(eastOfKalamazoo[1].city) // <- Albion
 console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Battle Creek"))
 
 var eastOfKalamazoo = eastOf(mcrr, "Kalamazoo", 2)
