@@ -78,36 +78,37 @@ function toArray (linkedlist) {
     return arr
 }
 
-
+// Need to figure out how to do this with out traversing the entire line.
 function eastOf (list, stop, count) {
     var arr = [] // <- this is a declaration, not a subscript
-    var lngth = length(list) // <- covers entire line
     var x = 0
-    //var:w
-    //list = linkedlist
     var i
     while (list && list.city != stop) {
         list = list.east
-         x++
+        x++
     }
-    if (!list && list != stop) {
-        return 'Stop not found'
-    } else if ((count + x) > lngth) { // This does not work for 9, which is less than length.
-        return "There are not this many stops."
-    } else if (list.city == stop && (count + x) <= lngth) {
+    if (!list) {
+        return null
+    } else if (list.city == stop) {
+        // "m", "'", and "<" and ">"
+        // http://stackoverflow.com/questions/235839/how-do-i-indent-multiple-lines-quickly-in-vi
         for (i = 0; i < count; i++) {
-             var node = list.east
-             list = list.east
-             arr.push({
-                 state: node.state,
-                 city: node.city,
-                 station: node.station,
-             })
-         }
+            if (!list.east) break// <- this is fine, get rid of the break
+            var node = list.east
+            list = list.east
+            arr.push({
+                state: node.state,
+                city: node.city,
+                station: node.station,
+            })
+        }
         return arr
+    } else {
+        console.log('yoiks!') // <- is this ever called? yes or no.
     }
 }
 
+//This is inefficient. Correct eastOf
 function westOf (list, stop, count) {
     // You will only add code between these braces.
     var arr = []
@@ -176,20 +177,19 @@ console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Battle Creek"))
 var eastOfKalamazoo = eastOf(mcrr, "Kalamazoo", 2)
 console.log(eastOfKalamazoo) // <- Albion
 
-console.log(eastOf(mcrr, "Kalamazoo", 8))
+console.log(eastOf(mcrr, "Kalamazoo", 19))
 console.log(eastOf(mcrr, "Boston", 2))
-console.log(eastOf(mcrr, "Kalamazoo", 9))
-console.log(westOf(mcrr, "Kalamazoo", 2))
-console.log(westOf(mcrr, "Kalamazoo", 9))
-process.exit(0)
+//console.log(eastOf(mcrr, "Kalamazoo", 9))
+//console.log(westOf(mcrr, "Kalamazoo", 2))
+//console.log(westOf(mcrr, "Kalamazoo", 9))
 
 
-var eastOfKalamazoo = eastOf(mcrr, "Kalamazoo", 2)
+//var eastOfKalamazoo = eastOf(mcrr, "Kalamazoo", 2)
 //dump(eastOf(mcrr, "Kalamazoo", 2))
-eastOfKalamazoo[0] // <- Battle Creekish
+//eastOfKalamazoo[0] // <- Battle Creekish
 //dump(eastOfKalamazoo[1]) // <- Albionish
 
-console.log(eastOfKalamazoo.length)
+//console.log(eastOfKalamazoo.length)
 console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Battle Creek")) // exact match
 console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Detroit")) // exact match
 console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Niles")) // exact match
