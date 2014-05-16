@@ -81,19 +81,17 @@ function toArray (linkedlist) {
 // Need to figure out how to do this with out traversing the entire line.
 function eastOf (list, stop, count) {
     var arr = [] // <- this is a declaration, not a subscript
-    var x = 0
     var i
     while (list && list.city != stop) {
         list = list.east
-        x++
     }
     if (!list) {
         return null
     } else if (list.city == stop) {
         // "m", "'", and "<" and ">"
         // http://stackoverflow.com/questions/235839/how-do-i-indent-multiple-lines-quickly-in-vi
-        for (i = 0; i < count; i++) {
-            if (!list.east) break// <- this is fine, get rid of the break
+        for (i = 0; i < count && list.east; i++) {
+            //if (!list.east)
             var node = list.east
             list = list.east
             arr.push({
@@ -104,7 +102,7 @@ function eastOf (list, stop, count) {
         }
         return arr
     } else {
-        console.log('yoiks!') // <- is this ever called? yes or no.
+        console.log('yoiks!') // <- is this ever called? No. It returns in the if or else if branch.
     }
 }
 
@@ -115,17 +113,17 @@ function westOf (list, stop, count) {
     var arr2 =[]
     var prev
     var i = 0
-    var lngth = length(list)
+    var element
     while (list && list.city != stop) {
        prev = list
        list = list.east
-       arr[i++] = prev // do not subscript
+       arr.push(prev) // do not subscript
+       i++
     }
-    if (!list && list.city != stop) {
-        return 'Stop not found'
-    } else if ((count - i) > count) {
-        return 'Not that many stops'
-    } else if (list.city == stop && (count + i) <= lngth) {
+    if (!list) {
+        return null
+    } else if (list.city == stop) {
+        if (count >= i ? count = i : count )//not sure if ternary operator is way to go
         element = arr[i - count]
         for (var j = 0; j < count; j++) {
             arr2.push({
@@ -174,11 +172,11 @@ var eastOfKalamazoo = eastOf(mcrr, "Kalamazoo", 2)
 //console.log(eastOfKalamazoo[1].city) // <- Albion
 console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Battle Creek"))
 
-var eastOfKalamazoo = eastOf(mcrr, "Kalamazoo", 2)
+var eastOfKalamazoo = eastOf(mcrr, "Kalamazoo")
 console.log(eastOfKalamazoo) // <- Albion
 
 console.log(eastOf(mcrr, "Kalamazoo", 19))
-console.log(eastOf(mcrr, "Boston", 2))
+console.log(eastOf(mcrr, "Boston", 1))
 //console.log(eastOf(mcrr, "Kalamazoo", 9))
 //console.log(westOf(mcrr, "Kalamazoo", 2))
 //console.log(westOf(mcrr, "Kalamazoo", 9))
@@ -198,6 +196,7 @@ console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Jackson")) // exact match
 console.log(isStateEastOf(mcrr, "Kalamazoo", 4, "Michigan"))
 console.log(isStationEastOf(mcrr, "Kalamazoo", 4, "Jackson Station"))
 //console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Niles"))
+console.log(westOf(mcrr, "Kalamazoo", 9))
 process.exit(0)
 
 console.log(isEastOfEx(mcrr, "Kalamazoo", 4, "state", "Michigan"))
@@ -210,7 +209,7 @@ console.log(eastOfKalamazoo)
 //var station = eastOfKalamazoo[????]???????????
 
 //console.log(eastOf(mcrr, "Kalamazoo", 2))
-console.log(westOf(mcrr, "Kalamazoo", 2))
+console.log(westOf(mcrr, "Kalamazoo", 3))
 //console.log(toArray(mcrr))
 
 ///dump(mcrr)//changes the list so Kalamazoo is the last stop
