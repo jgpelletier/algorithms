@@ -39,7 +39,6 @@ function linkedList (array) {
 }
 
 //functions to change from linked list to array
-
 function pop (object) {//this does not mutate that list.
     return object.east
 }
@@ -82,56 +81,61 @@ function toArray (linkedlist) {
 
 function eastOf (list, stop, count) {
     var arr = [] // <- this is a declaration, not a subscript
-    var lngth = length(list)
-    //var list = linkedlist
+    var lngth = length(list) // <- covers entire line
+    var x = 0
+    //var:w
+    //list = linkedlist
     var i
-    if (count > lngth) {
-        return "There are not this many stops."
+    while (list && list.city != stop) {
+        list = list.east
+         x++
     }
-        while (list && list.city != stop) {
-            list = list.east
-        }
-        if (!list && list != stop) {
-            return 'Stop not found'
-        }
-        else if (list.city == stop) {
-            for (i = 0; i < count; i++) {
-                var node = list.east
-                list = list.east
-                arr.push({
-                    state: node.state,
-                    city: node.city,
-                    station: node.station,
-                })
-            }
+    if (!list && list != stop) {
+        return 'Stop not found'
+    } else if ((count + x) > lngth) { // This does not work for 9, which is less than length.
+        return "There are not this many stops."
+    } else if (list.city == stop && (count + x) <= lngth) {
+        for (i = 0; i < count; i++) {
+             var node = list.east
+             list = list.east
+             arr.push({
+                 state: node.state,
+                 city: node.city,
+                 station: node.station,
+             })
+         }
         return arr
-        }
+    }
 }
 
-// Major assignment.
-
-// NOT going to change the structure of the list.
-// Do not use array subscripts.
-function __westOf (linkedList, stop, count) {
+function westOf (list, stop, count) {
     // You will only add code between these braces.
     var arr = []
     var arr2 =[]
-    var list = linkedList
     var prev
     var i = 0
+    var lngth = length(list)
     while (list && list.city != stop) {
        prev = list
        list = list.east
-       arr[i++] = prev
+       arr[i++] = prev // do not subscript
     }
-    if (list.city == stop && count < i) {
-        element = arr[i-(count)]
+    if (!list && list.city != stop) {
+        return 'Stop not found'
+    } else if ((count - i) > count) {
+        return 'Not that many stops'
+    } else if (list.city == stop && (count + i) <= lngth) {
+        element = arr[i - count]
         for (var j = 0; j < count; j++) {
-            arr2.push(element.station, element.city, element.state)
+            arr2.push({
+                state: element.state,
+                city: element.city,
+                station: element.station,
+            })
             element = element.east
         }
+        return arr2
     }
-    return arr2
 }
 
 function isStationEastOf (railway, city, count, eastStation) {
@@ -172,11 +176,13 @@ console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Battle Creek"))
 var eastOfKalamazoo = eastOf(mcrr, "Kalamazoo", 2)
 console.log(eastOfKalamazoo) // <- Albion
 
-// FIX THIS.
-console.log(eastOf(mcrr, "Kalamazoo", 999))
+console.log(eastOf(mcrr, "Kalamazoo", 8))
 console.log(eastOf(mcrr, "Boston", 2))
-
+console.log(eastOf(mcrr, "Kalamazoo", 9))
+console.log(westOf(mcrr, "Kalamazoo", 2))
+console.log(westOf(mcrr, "Kalamazoo", 9))
 process.exit(0)
+
 
 var eastOfKalamazoo = eastOf(mcrr, "Kalamazoo", 2)
 //dump(eastOf(mcrr, "Kalamazoo", 2))
