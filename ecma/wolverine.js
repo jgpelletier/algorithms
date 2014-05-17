@@ -78,16 +78,19 @@ function toArray (linkedlist) {
     return arr
 }
 
-// Need to figure out how to do this with out traversing the entire line.
+//Work on control flow
 function eastOf (list, stop, count) {
     var arr = [] // <- this is a declaration, not a subscript
     var i
     while (list && list.city != stop) {
         list = list.east
     }
-    if (!list) {
+    if (!list) { // <- is this never true? is this never false? This evaluates to 1 when there
+                 //     is no list. Otherwise, it evaluates to 0 and moves to
+                 //     the else if branch.
         return null
-    } else if (list.city == stop) {
+    } else if (list.city == stop) { // <- is this never true? is this never false? This always
+                                    //    evaluates to 1.
         // "m", "'", and "<" and ">"
         // http://stackoverflow.com/questions/235839/how-do-i-indent-multiple-lines-quickly-in-vi
         for (i = 0; i < count && list.east; i++) {
@@ -123,8 +126,8 @@ function westOf (list, stop, count) {
     if (!list) {
         return null
     } else if (list.city == stop) {
-        if (count >= i ? count = i : count )//not sure if ternary operator is way to go
-        element = arr[i - count]
+        count >= i ? count = i : count // not sure if ternary operator is way to go
+        element = arr[i - count] // <- need all the time or some of the time?
         for (var j = 0; j < count; j++) {
             arr2.push({
                 state: element.state,
@@ -172,7 +175,7 @@ var eastOfKalamazoo = eastOf(mcrr, "Kalamazoo", 2)
 //console.log(eastOfKalamazoo[1].city) // <- Albion
 console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Battle Creek"))
 
-var eastOfKalamazoo = eastOf(mcrr, "Kalamazoo")
+var eastOfKalamazoo = eastOf(mcrr, "Chicago", 2)
 console.log(eastOfKalamazoo) // <- Albion
 
 console.log(eastOf(mcrr, "Kalamazoo", 19))
