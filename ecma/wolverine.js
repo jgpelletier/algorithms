@@ -78,23 +78,17 @@ function toArray (linkedlist) {
     return arr
 }
 
-//Work on control flow
+// See how  "m", "'", and "<" and ">" are used in vim
+// http://stackoverflow.com/questions/235839/how-do-i-indent-multiple-lines-quickly-in-vi
+
 function eastOf (list, stop, count) {
     var arr = [] // <- this is a declaration, not a subscript
     var i
     while (list && list.city != stop) {
         list = list.east
     }
-    if (!list) { // <- is this never true? is this never false? This evaluates to 1 when there
-                 //     is no list. Otherwise, it evaluates to 0 and moves to
-                 //     the else if branch.
-        return null
-    } else if (list.city == stop) { // <- is this never true? is this never false? This always
-                                    //    evaluates to 1.
-        // "m", "'", and "<" and ">"
-        // http://stackoverflow.com/questions/235839/how-do-i-indent-multiple-lines-quickly-in-vi
+    if (list && list.city == stop) {
         for (i = 0; i < count && list.east; i++) {
-            //if (!list.east)
             var node = list.east
             list = list.east
             arr.push({
@@ -105,13 +99,11 @@ function eastOf (list, stop, count) {
         }
         return arr
     } else {
-        console.log('yoiks!') // <- is this ever called? No. It returns in the if or else if branch.
+        return null
     }
 }
 
-//This is inefficient. Correct eastOf
 function westOf (list, stop, count) {
-    // You will only add code between these braces.
     var arr = []
     var arr2 =[]
     var prev
@@ -120,14 +112,12 @@ function westOf (list, stop, count) {
     while (list && list.city != stop) {
        prev = list
        list = list.east
-       arr.push(prev) // do not subscript
+       arr.push(prev)
        i++
     }
-    if (!list) {
-        return null
-    } else if (list.city == stop) {
-        count >= i ? count = i : count // not sure if ternary operator is way to go
-        element = arr[i - count] // <- need all the time or some of the time?
+    if (list && list.city == stop) {
+        count >= i ? count = i : count
+        element = arr[i - count]
         for (var j = 0; j < count; j++) {
             arr2.push({
                 state: element.state,
@@ -137,6 +127,8 @@ function westOf (list, stop, count) {
             element = element.east
         }
         return arr2
+    } else {
+        return null
     }
 }
 
@@ -175,11 +167,11 @@ var eastOfKalamazoo = eastOf(mcrr, "Kalamazoo", 2)
 //console.log(eastOfKalamazoo[1].city) // <- Albion
 console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Battle Creek"))
 
-var eastOfKalamazoo = eastOf(mcrr, "Chicago", 2)
+var eastOfKalamazoo = eastOf(mcrr, "Kalamazoo", 2)
 console.log(eastOfKalamazoo) // <- Albion
 
-console.log(eastOf(mcrr, "Kalamazoo", 19))
-console.log(eastOf(mcrr, "Boston", 1))
+console.log(eastOf(mcrr, "Kalamazoo", 1))
+console.log(westOf(mcrr, "Boston", 1))
 //console.log(eastOf(mcrr, "Kalamazoo", 9))
 //console.log(westOf(mcrr, "Kalamazoo", 2))
 //console.log(westOf(mcrr, "Kalamazoo", 9))
