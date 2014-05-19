@@ -8,7 +8,7 @@ struct node {
     struct node* next;
 };
 
-struct node *head, *z, *t; //variables and type
+struct node *list, *node; //variables and type
 
 //algorithms in C list_initialization with head
 /*list_initialize()
@@ -33,18 +33,33 @@ int main ()
 {
     /* create a linked-list with a head node and one element numbered 5. malloc
      * the head node and the one data node. */
+    struct node *list = malloc(sizeof (struct node));//call to malloc creates node
+    list->next = NULL;
+    list->value = 0;
+    //list = node;
 
-    head = (struct node *) malloc(sizeof *head);//call to malloc creates node
-    z = (struct node *) malloc(sizeof *z);
-    head->next = z;
-    z->value = 5;
+    struct node *node = malloc(sizeof (struct node));
+    node->next = list->next;
+    node->value = 5;
+    list->next = node;
 
     /* print the value of every node in the list. one node at a time. one node
      * on a line. */
-    while (head->next) {
-    printf("value: %d\n", head->next->value);
-    head = head->next;
+    while (list->next) {
+    printf("value: %d\n", list->next->value);
+    list = list->next;
     }
     /* free all nodes. */
-    return 0;
+    free(node);
+    free(list);
+    //free(list);
+   /* this is only releasing one block of memory*/
+   /*do { // we always know we have at least one; head node.
+       printf("inside\n");
+       node = list;
+       list = list->next;
+       free(node);
+       } while (list);
+   */
+   return 0;
 }
