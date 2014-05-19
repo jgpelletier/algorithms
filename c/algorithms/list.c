@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 
 /* create a list node structure to store ints.  */
 struct node {
@@ -7,12 +8,13 @@ struct node {
     struct node* next;
 };
 
-struct node *create_list()
+struct node *create_list(int value)
 {
-    node *list;
-    list = malloc(sizeof(node));
+    struct node *list =  malloc(sizeof(struct node));
+    assert(list != NULL);
     list->value = 0;
     list->next = NULL;
+
     return list;
 }
 
