@@ -7,11 +7,11 @@ typedef struct node_s node_t;// synonyms
 
 struct node_s {
     int value;
-    node_t *next;
+    node_t *next; //the typedef allow struct to not be written.
 };
 
 //Explain the code below. Is this the intialization funtion?
-//Explain why there are no parameters.
+//Explain why there are no parameters and why there is not voide or struct.
 node_t *create_list ()
 {
     node_t *list;
@@ -63,7 +63,9 @@ int main()
     push(list, 99);
     dump(list);
 
+    delete_list(list);//is this not working? valgrind shows 0 frees.
     //list_func = dump;
 
     //call_list_func(dump, list);
+    return;
 }
