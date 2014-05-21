@@ -23,7 +23,7 @@ node_t *create_list ()
 
 void push (node_t *list, int value)
 {
-    node_t *node;//what is this...
+    node_t *node;
     node = malloc(sizeof(node_t));
     node->value = value;
     node->next = list->next;
