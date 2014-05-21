@@ -32,8 +32,9 @@ int main ()
     list = list->next;
     }
     /* free all nodes. */
-    free(node);
-    free(node);
+    node = list;
+    free(list->next);
+    free(list);
     /* this is only releasing one block of memory*/
     /*do { // we always know we have at least one; head node.
        node = list;
@@ -42,5 +43,5 @@ int main ()
        free(list);
     } while (list);
     */
-   return 0;
+  return 0;
 }
