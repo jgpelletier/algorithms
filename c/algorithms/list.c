@@ -17,24 +17,29 @@ int main ()
     list = malloc(sizeof (struct node));//call to malloc creates node
     list->value = 0;
     list->next = NULL;
+    struct node *free1;
+    free1 = list;
 
-    //this is broken
     struct node *node;
     node = malloc(sizeof (struct node));//second call to malloc
     node->value = 5;
     node->next = list->next;
     list->next = node;
+    struct node *free2;
+    free2 = node;
+
 
     /* print the value of every node in the list. one node at a time. one node
      * on a line. */
     while (list->next) {
-    printf("value: %d\n", list->next->value);//skips the head node.
+    printf("value: %d\n", list->next->value);
     list = list->next;
     }
+
     /* free all nodes. */
-    node = list;
-    free(list->next);
-    free(list);
+    free(free1); // <- free(NULL);
+    free(free2);
+
     /* this is only releasing one block of memory*/
     /*do { // we always know we have at least one; head node.
        node = list;
