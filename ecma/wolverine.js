@@ -73,7 +73,11 @@ function toArray (list) {
     var arr = []
     var i = 0
     while (list) {
-        arr[i++] = list.station
+        arr.push({
+            state: list.state,
+            city: list.city,
+            station: list.station,
+        })
         list = list.east
     }
     return arr
@@ -96,37 +100,36 @@ function eastOf (list, stop, count) {
             })
         }
         return arr
-    } else {
-        return null
-    }
+    //} else { // <- else is not necessary, why? w/o else the function returns undefined, primitive value.
+    //    return null                       //this is a primitive value that represents null, a empty,
+                                            // non-existant reference.
+   }
 }
 
+// westOf should not gather all stops prior to desired stop.
+//      there should only be one loop.
+//      the array should never be more than `count` length.
 function westOf (list, stop, count) {
     var arr = []
     var prev
-    var element
     var i = 0
-    while (list && list.city != stop) {
-       prev = list
+    var stopCount = length(stop)
+    var segment = stopCount - count
+    while (list) {
        list = list.east
-       arr.push(prev)
        i++
-    }
-    if (list && list.city == stop) {
-        count >= i ? count = i : count
-        element = arr[i - count]
-        arr = []
-        for (var j = 0; j < count; j++) {
-            arr.push({
-                state: element.state,
-                city: element.city,
-                station: element.station,
+       if (segment = i) {
+          for (i = 0; i < count; i++) {
+            var node = list.east
+            list = list.east
+            arr.push({ //<-Remember this process and the creation of the objects
+                state: node.state,
+                city: node.city,
+                station: node.station,
             })
-            element = element.east
-        }
-        return arr
-    } else {
-        return null
+           }
+       }
+      return arr
     }
 }
 
@@ -167,11 +170,12 @@ var mcrr = linkedList(lines) //creation of the linkedlist
 var eastOfKalamazoo = eastOf(mcrr, "Kalamazoo", 2)
 console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Battle Creek"))
 console.log(eastOf(mcrr, "Kalamazoo", 1))
-console.log(westOf(mcrr, "Boston", 1))
+//console.log(westOf(mcrr, "Boston", 1))
+console.log(eastOf(mcrr, "Boston", 1))
 console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Battle Creek")) // exact match
 console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Detroit")) // exact match
 console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Niles")) // exact match
 console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Jackson")) // exact match
 console.log(isStateEastOf(mcrr, "Kalamazoo", 4, "Michigan"))
 console.log(isStationEastOf(mcrr, "Kalamazoo", 4, "Jackson Station"))
-console.log(westOf(mcrr, "Kalamazoo", 9))
+console.log(westOf(mcrr, "Kalamazoo", 3))
