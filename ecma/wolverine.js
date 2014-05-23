@@ -59,7 +59,7 @@ function find (list, city) {
 
 function length (list) {
     var count = 0
-    while (list) {
+    while (list) { // <- loop. loop one.
         if (!list.east) {
             return count
         }
@@ -83,6 +83,19 @@ function toArray (list) {
     return arr
 }
 
+// O(n * n)
+function horribleDuplicates (array) {
+    for (var i = 0; i < array.length; i++) {
+        for (var j = 0; j < array.length; j++) {
+            if (array[i] == array[j]) {
+                return true
+            }
+        }
+    }
+    return false
+}
+
+// Big-O: What is the worst case performance? O(n)
 function eastOf (list, stop, count) {
     var arr = []
     var i
@@ -101,38 +114,38 @@ function eastOf (list, stop, count) {
         }
         return arr
     //} else { // <- else is not necessary, why? w/o else the function returns undefined, primitive value.
-    //    return null                       //this is a primitive value that represents null, a empty,
+    //    return null                       // is a primitive value that represents null, a empty,
                                             // non-existant reference.
    }
 }
 
+// Big-O: What is the worst case performance?
 // westOf should not gather all stops prior to desired stop.
 //      there should only be one loop.
-//      the array should never be more than `count` length.
-function westOf (list, stop, count) {
-    var arr = []
-    var prev
+//      the array should never be more than `count` length. <- read freud, read agatha christie,
+//                                                             read what that says.
+//          ^^^ WHAT DOES THIS SAY!?!
+//      use array functions, you should not subscript
+function westOf (list, stop, count /* <- count */) {
+    var arr = [] // <- it's not zero
     var i = 0
-    var stopCount = length(stop)
-    var segment = stopCount - count
-    while (list) {
-       list = list.east
-       i++
-       if (segment = i) {
-          for (i = 0; i < count; i++) {
-            var node = list.east
-            list = list.east
-            arr.push({ //<-Remember this process and the creation of the objects
-                state: node.state,
-                city: node.city,
-                station: node.station,
-            })
-           }
-       }
-      return arr
+    // this is the fastest implementation for N < 1024, real graph database N > 99999.
+    while (list && list.city != stop) {
+        var node = list
+        list = list.east
+        arr.push({
+            state: node.state,
+            city: node.city,
+            station: node.station,
+        })
+        if (arr.length > count) {
+            shift = arr.shift()
+           //throw new Error('you failed')
+        }
     }
+    //return arr.length > count ? arr.slice(arr.length - count) : arr
+    return arr
 }
-
 
 //functions to test the integrity of the data
 function isStationEastOf (railway, city, count, eastStation) {
@@ -178,4 +191,6 @@ console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Niles")) // exact match
 console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Jackson")) // exact match
 console.log(isStateEastOf(mcrr, "Kalamazoo", 4, "Michigan"))
 console.log(isStationEastOf(mcrr, "Kalamazoo", 4, "Jackson Station"))
+console.log(eastOf(mcrr, "Chicago", 15))
+console.log(westOf(mcrr, "Detroit", 3))
 console.log(westOf(mcrr, "Kalamazoo", 3))
