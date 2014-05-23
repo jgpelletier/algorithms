@@ -9,7 +9,6 @@ function dump (list) {
     console.log(util.inspect(list, 1, true))
 }
 
-
 //functions to create objects from an array of string objects
 function objectFrom (string) {
     string = string.split(',')
@@ -119,17 +118,9 @@ function eastOf (list, stop, count) {
    }
 }
 
-// Big-O: What is the worst case performance?
-// westOf should not gather all stops prior to desired stop.
-//      there should only be one loop.
-//      the array should never be more than `count` length. <- read freud, read agatha christie,
-//                                                             read what that says.
-//          ^^^ WHAT DOES THIS SAY!?!
-//      use array functions, you should not subscript
 function westOf (list, stop, count /* <- count */) {
     var arr = [] // <- it's not zero
     var i = 0
-    // this is the fastest implementation for N < 1024, real graph database N > 99999.
     while (list && list.city != stop) {
         var node = list
         list = list.east
@@ -140,11 +131,9 @@ function westOf (list, stop, count /* <- count */) {
         })
         if (arr.length > count) {
             shift = arr.shift()
-           //throw new Error('you failed')
         }
     }
-    //return arr.length > count ? arr.slice(arr.length - count) : arr
-    return arr
+    return !list ? undefined : arr
 }
 
 //functions to test the integrity of the data
@@ -191,6 +180,6 @@ console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Niles")) // exact match
 console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Jackson")) // exact match
 console.log(isStateEastOf(mcrr, "Kalamazoo", 4, "Michigan"))
 console.log(isStationEastOf(mcrr, "Kalamazoo", 4, "Jackson Station"))
-console.log(eastOf(mcrr, "Chicago", 15))
 console.log(westOf(mcrr, "Detroit", 3))
 console.log(westOf(mcrr, "Kalamazoo", 3))
+console.log(westOf(mcrr, "Boston", 3))
