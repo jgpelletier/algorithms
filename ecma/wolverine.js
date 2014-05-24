@@ -118,10 +118,42 @@ function eastOf (list, stop, count) {
    }
 }
 
+function eastOfRecursive (list, city, count /* <- value does not change */) {
+    var node = list//<remind yourself.
+    function goEast (node, array, count /* <- local count */) {
+        if (!node || count == 0) {// condition. 1 returns an array. 0 evaluation moves to else branch.
+            console.log('in goEast if statement ')
+            return array//returns the requested data in usable form.
+        } else {
+            console.log('in goEast else statement ')
+            array.push({
+                state: node.state,
+                city: node.city,
+                station: node.station
+            })
+            console.log(' call to goEast')
+            return goEast(node.east, array, count - 1)// <- call to self with new parameters.
+        }
+    }
+    function goToStation (node) {
+        if (!node) {//if no more nodes.
+            console.log('in goToStation if statement ')
+            return null// always return null and not undefined.
+        } else if (node.city == city) {//found city and passes parameters to goEast
+            console.log('in goToStation else if statement')
+            return goEast(node.east, [], count)//type is entered as parameter. type called array.
+        } else {//calls self
+            console.log('in goTostation else statement')
+            return goToStation(node.east)//path is through this branch until not node or node city.
+        }
+    }
+    console.log(' call to goToStation')
+   return goToStation(list)//this happens first.
+}
+
 function westOf (list, stop, count /* <- count */) {
     var arr = [] // <- it's not zero
     var node = list
-    var i = 0 // <- unused
     while (node && node.city != stop) {
         arr.push({
             state: node.state,
@@ -130,36 +162,12 @@ function westOf (list, stop, count /* <- count */) {
         })
         node = node.east
         if (arr.length > count) {
-            shift = arr.shift() // <- what is `shift =`, leaking scope
+           var shift = arr.shift() // <- what is `shift =`, leaking scope
         }
     }
     return !node ? null : arr
 }
 
-function eastOfRecursive (list, city, count /* <- value does not change */) {
-    function goEast (node, array, count /* <- local count */) {
-        if (!node || count == 0) {
-            return array
-        } else {
-            array.push({
-                state: node.state,
-                city: node.city,
-                station: node.station
-            })
-            return goEast(node.east, array, count - 1)
-        }
-    }
-    function goToStation (node) {
-        if (!node) {
-            return null
-        } else if (node.city == city) {
-            return goEast(node.east, [], count)
-        } else {
-            return goToStation(node.east)
-        }
-    }
-    return goToStation(list)
-}
 
 function westOfRecursive (list, city, count) {
 
