@@ -120,20 +120,49 @@ function eastOf (list, stop, count) {
 
 function westOf (list, stop, count /* <- count */) {
     var arr = [] // <- it's not zero
-    var i = 0
-    while (list && list.city != stop) {
-        var node = list
-        list = list.east
+    var node = list
+    var i = 0 // <- unused
+    while (node && node.city != stop) {
         arr.push({
             state: node.state,
             city: node.city,
-            station: node.station,
+            station: node.station
         })
+        node = node.east
         if (arr.length > count) {
-            shift = arr.shift()
+            shift = arr.shift() // <- what is `shift =`, leaking scope
         }
     }
-    return !list ? undefined : arr
+    return !node ? null : arr
+}
+
+function eastOfRecursive (list, city, count /* <- value does not change */) {
+    function goEast (node, array, count /* <- local count */) {
+        if (!node || count == 0) {
+            return array
+        } else {
+            array.push({
+                state: node.state,
+                city: node.city,
+                station: node.station
+            })
+            return goEast(node.east, array, count - 1)
+        }
+    }
+    function goToStation (node) {
+        if (!node) {
+            return null
+        } else if (node.city == city) {
+            return goEast(node.east, [], count)
+        } else {
+            return goToStation(node.east)
+        }
+    }
+    return goToStation(list)
+}
+
+function westOfRecursive (list, city, count) {
+
 }
 
 //functions to test the integrity of the data
@@ -183,3 +212,4 @@ console.log(isStationEastOf(mcrr, "Kalamazoo", 4, "Jackson Station"))
 console.log(westOf(mcrr, "Detroit", 3))
 console.log(westOf(mcrr, "Kalamazoo", 3))
 console.log(westOf(mcrr, "Boston", 3))
+console.log(eastOfRecursive(mcrr, "Kalamazoo", 3))
