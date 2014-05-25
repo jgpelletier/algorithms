@@ -190,7 +190,7 @@ function westOfRecursive (list, city, count) {
                 station: node.station
             })
             console.log('in elseif statement')
-            return recurs(node.east, arr)
+            return !node.east ? null : recurs(node.east, arr)
         } else {
             console.log('in else  statement' )
             return arr
@@ -244,5 +244,5 @@ console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Jackson")) // exact match
 console.log(isStateEastOf(mcrr, "Kalamazoo", 4, "Michigan"))
 console.log(isStationEastOf(mcrr, "Kalamazoo", 4, "Jackson Station"))
 console.log(westOf(mcrr, "Kalamazoo", 3))
-console.log(westOf(mcrr, "Boston", 3))
+console.log(westOfRecursive(mcrr, "Boston", 3))
 console.log(westOfRecursive(mcrr, "Kalamazoo", 3))
