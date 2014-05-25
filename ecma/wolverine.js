@@ -148,7 +148,7 @@ function eastOfRecursive (list, city, count /* <- value does not change */) {
         }
     }
     console.log(' call to goToStation')
-   return goToStation(list)//this happens first.
+    return goToStation(node)//this happens first.
 }
 
 function westOf (list, stop, count /* <- count */) {
@@ -162,7 +162,7 @@ function westOf (list, stop, count /* <- count */) {
         })
         node = node.east
         if (arr.length > count) {
-           var shift = arr.shift() // <- what is `shift =`, leaking scope
+            arr.shift() // <- what is `shift =`, leaking scope
         }
     }
     return !node ? null : arr
@@ -170,7 +170,49 @@ function westOf (list, stop, count /* <- count */) {
 
 
 function westOfRecursive (list, city, count) {
-
+    var node = list
+    var arr = []
+    function recurs (node, arr, city) {
+        var node = node
+        if (!node || node.city != city) {
+            arr.push({
+                state: node.state,
+                city: node.city,
+                station: node.station
+            })
+        console.log('in if statement')
+        return recurs(node.east, arr)
+        } else {
+            console.log('in else  statement', arr)
+            return arr
+        }
+    }
+/*if (node.city == city) {
+            console.log('in if statement', arr)
+            //return arr
+        } else if (!node.city && arr.length < count) {
+            console.log('first else if statement')
+            arr.push({
+               state: node.state,
+               city: node.city,
+               station: node.station
+            })
+            //return recurs(node.east, arr, city)
+        } else if (!node.city && arr.length == count) {
+            console.log('second else if statement')
+            arr.shift()
+            arr.push({
+               state: node.state,
+               city: node.city,
+               station: node.station
+            })
+            return recurs(node, arr)
+        }
+        //return recurs(node.east, arr)
+    }
+    console.log('first call to recurs', node.east.city)
+    */
+    return recurs(list, arr)
 }
 
 //functions to test the integrity of the data
@@ -217,7 +259,6 @@ console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Niles")) // exact match
 console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Jackson")) // exact match
 console.log(isStateEastOf(mcrr, "Kalamazoo", 4, "Michigan"))
 console.log(isStationEastOf(mcrr, "Kalamazoo", 4, "Jackson Station"))
-console.log(westOf(mcrr, "Detroit", 3))
 console.log(westOf(mcrr, "Kalamazoo", 3))
 console.log(westOf(mcrr, "Boston", 3))
-console.log(eastOfRecursive(mcrr, "Kalamazoo", 3))
+console.log(westOfRecursive(mcrr, "Kalamazoo", 3))
