@@ -172,46 +172,30 @@ function westOf (list, stop, count /* <- count */) {
 function westOfRecursive (list, city, count) {
     var node = list
     var arr = []
-    function recurs (node, arr, city) {
+    function recurs (node, arry) {
         var node = node
-        if (!node || node.city != city) {
+        if ((!node || node.city != city) && arr.length < count) {
             arr.push({
                 state: node.state,
                 city: node.city,
                 station: node.station
             })
-        console.log('in if statement')
-        return recurs(node.east, arr)
+            console.log('in if statement')
+            return recurs(node.east, arr)
+        } else if ((!node || node.city != city) && arr.length == count) {
+            arr.shift()
+            arr.push({
+                state: node.state,
+                city: node.city,
+                station: node.station
+            })
+            console.log('in elseif statement')
+            return recurs(node.east, arr)
         } else {
-            console.log('in else  statement', arr)
+            console.log('in else  statement' )
             return arr
         }
     }
-/*if (node.city == city) {
-            console.log('in if statement', arr)
-            //return arr
-        } else if (!node.city && arr.length < count) {
-            console.log('first else if statement')
-            arr.push({
-               state: node.state,
-               city: node.city,
-               station: node.station
-            })
-            //return recurs(node.east, arr, city)
-        } else if (!node.city && arr.length == count) {
-            console.log('second else if statement')
-            arr.shift()
-            arr.push({
-               state: node.state,
-               city: node.city,
-               station: node.station
-            })
-            return recurs(node, arr)
-        }
-        //return recurs(node.east, arr)
-    }
-    console.log('first call to recurs', node.east.city)
-    */
     return recurs(list, arr)
 }
 
