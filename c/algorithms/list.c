@@ -20,11 +20,18 @@ int main ()
     struct node *list;
     list = head_node; /* <- this is the head node. don't lose it,*/
 
-    struct node *node;
-    node = malloc(sizeof (struct node));//second call to malloc
-    node->value = 5;
-    node->next = list->next;
-    list->next = node;
+    struct node *first;
+    first = malloc(sizeof (struct node));//second call to malloc
+    first->value = 5;
+    first->next = list->next;
+    list->next = first;
+
+    struct node *second;
+    second = malloc(sizeof (struct node));//second call to malloc
+    second->value = 15;
+    second->next = first -> next;
+    first->next = second;
+
 
     /* print the value of every node in the list. one node at a time. one node
      * on a line. */
@@ -39,6 +46,7 @@ int main ()
     /* head_node is my list */
     /* this is only releasing one block of memory*/
     do { // we always know we have at least one; head node.
+       struct node *node;
        node = list; // <- list is the head of your list
        list = list->next;
        free(node);
