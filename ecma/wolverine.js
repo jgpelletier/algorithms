@@ -122,32 +122,25 @@ function eastOfRecursive (list, city, count /* <- value does not change */) {
     var node = list//<remind yourself.
     function goEast (node, array, count /* <- local count */) {
         if (!node || count == 0) {// condition. 1 returns an array. 0 evaluation moves to else branch.
-            console.log('in goEast if statement ')
             return array//returns the requested data in usable form.
         } else {
-            console.log('in goEast else statement ')
             array.push({
                 state: node.state,
                 city: node.city,
                 station: node.station
             })
-            console.log(' call to goEast')
             return goEast(node.east, array, count - 1)// <- call to self with new parameters.
         }
     }
     function goToStation (node) {
         if (!node) {//if no more nodes.
-            console.log('in goToStation if statement ')
             return null// always return null and not undefined.
         } else if (node.city == city) {//found city and passes parameters to goEast
-            console.log('in goToStation else if statement')
             return goEast(node.east, [], count)//type is entered as parameter. type called array.
         } else {//calls self
-            console.log('in goTostation else statement')
             return goToStation(node.east)//path is through this branch until not node or node city.
         }
     }
-    console.log(' call to goToStation')
     return goToStation(node)//this happens first.
 }
 
@@ -173,14 +166,12 @@ function westOfRecursive (list, city, count) {
     var node = list
     var arr = []
     function recurs (node, arry) {
-        var node = node
         if ((!node || node.city != city) && arr.length < count) {
             arr.push({
                 state: node.state,
                 city: node.city,
                 station: node.station
             })
-            console.log('in if statement')
             return recurs(node.east, arr)
         } else if ((!node || node.city != city) && arr.length == count) {
             arr.shift()
@@ -189,14 +180,12 @@ function westOfRecursive (list, city, count) {
                 city: node.city,
                 station: node.station
             })
-            console.log('in elseif statement')
             return !node.east ? null : recurs(node.east, arr)
         } else {
-            console.log('in else  statement' )
             return arr
         }
     }
-    return recurs(list, arr)
+    return recurs(node, arr)
 }
 
 //functions to test the integrity of the data
