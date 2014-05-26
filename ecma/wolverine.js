@@ -94,6 +94,11 @@ function horribleDuplicates (array) {
     return false
 }
 
+function createRailway (data) {
+    var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
+    return linkedList(lines)
+}
+
 // Big-O: What is the worst case performance? O(n)
 function eastOf (list, stop, count) {
     var arr = []
@@ -147,6 +152,7 @@ function eastOfRecursive (list, city, count /* <- value does not change */) {
 function westOf (list, stop, count /* <- count */) {
     var arr = [] // <- it's not zero
     var node = list
+    // todo: this is correct. why are you only pushing once? why not twice?
     while (node && node.city != stop) {
         arr.push({
             state: node.state,
@@ -165,27 +171,25 @@ function westOf (list, stop, count /* <- count */) {
 function westOfRecursive (list, city, count) {
     var node = list
     var arr = []
-    function recurs (node, arry) {
-        if ((!node || node.city != city) && arr.length < count) {
+    // todo: use push once and test for no node once.
+    function goEast (node, arr) {
+       if (!node) {
+            return null
+        } else if (node.city != city) {
             arr.push({
                 state: node.state,
                 city: node.city,
                 station: node.station
             })
-            return recurs(node.east, arr)
-        } else if ((!node || node.city != city) && arr.length == count) {
-            arr.shift()
-            arr.push({
-                state: node.state,
-                city: node.city,
-                station: node.station
-            })
-            return !node.east ? null : recurs(node.east, arr)
+            if (arr.length == count + 1) {
+                arr.shift()
+            }
+            return goEast(node.east, arr)
         } else {
             return arr
         }
     }
-    return recurs(node, arr)
+    return goEast(node, arr)
 }
 
 //functions to test the integrity of the data
@@ -219,8 +223,29 @@ function isCityEastOf (railway, city, count, eastCity) {
     return  false
 }
 
+function addWest (mcrr) {
+
+}
+
+// Design pattern: encapsulation -> it's all about railways
+//
+//      API:
+//
+//          railway = createRailway(datafile)
+//          eastOf(railway, city, count)
+//          westOf(railway, city, count)
+//          isCityEastOf(railway, city, count, sought)
+//          isStateEastOf(railway, city, count, sought)
+//          isStationEastOf(railway, city, count, sought)
+//          isEastOf(railway, property, city, count, sought)
+//
+//      User does not see data model -- a linked list.
+
 //using the functions
-var mcrr = linkedList(lines) //creation of the linkedlist
+var mcrr = createRailway(process.argv[2]) //creation of the linkedlist
+ // ^^^ head of the linked list, however it is "opaque"
+ //     in a different implementation `mcrr` could be an array, or it
+ //         could by a MySQL database connection
 var eastOfKalamazoo = eastOf(mcrr, "Kalamazoo", 2)
 console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Battle Creek"))
 console.log(eastOf(mcrr, "Kalamazoo", 1))
@@ -234,4 +259,19 @@ console.log(isStateEastOf(mcrr, "Kalamazoo", 4, "Michigan"))
 console.log(isStationEastOf(mcrr, "Kalamazoo", 4, "Jackson Station"))
 console.log(westOf(mcrr, "Kalamazoo", 3))
 console.log(westOfRecursive(mcrr, "Boston", 3))
+var mccr
+console.log(westOfRecursive(mccr, "Kalamazoo", 3))
 console.log(westOfRecursive(mcrr, "Kalamazoo", 3))
+
+console.log(isEastOf(mcrr, "station", "Kalamazoo", 4, "Jackson Station"))
+console.log(isEastOf(mcrr, "city", "Battle Creek", 4, "Jackson Station"))
+
+// encapsulation over, back to hacking
+
+console.log(mcrr)
+
+addWest(list)
+
+// a test that ignores encapsulation
+
+console.log(list.east.east.east.west.west.city == 'Hammond')
