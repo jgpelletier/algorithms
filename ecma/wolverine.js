@@ -76,6 +76,7 @@ function toArray (list) {
             state: list.state,
             city: list.city,
             station: list.station,
+            east: list.east
         })
         list = list.east
     }
@@ -216,27 +217,13 @@ function isStateEastOf (railway, city, count, eastState) {
 function isCityEastOf (railway, city, count, eastCity) {
     var array = eastOf(railway, city, count)
     for (var i = 0; i < array.length; i++) {
-        if (eastCity == array[i].city) {
-            return true
-        }
-    }
-    return  false
-}
-//Not sure about the purpose of property
-function isEastOf (railway, city, count, eastCity) {
-    var array = eastOf(railway, city, count)
-    for (var i = 0; i < array.length; i++) {
-        if (eastCity == array[i].city || eastCity == array[i].station || eastCity == array[i].state) {
+        if (eastCity == array[i].city) { // <- only line that need to change slightly
             return true
         }
     }
     return  false
 }
 
-
-function addWest (mcrr) {
-
-}
 
 // Design pattern: encapsulation -> it's all about railways
 //
@@ -276,15 +263,77 @@ console.log(westOfRecursive(mcrr, "Kalamazoo", 3))
 
 //console.log(isEastOf(mcrr, "station", "Kalamazoo", 4, "Jackson Station"))//rounds out api
 //console.log(isEastOf(mcrr, "city", "Battle Creek", 4, "Jackson Station"))
-console.log(isEastOf(mcrr,  "Battle Creek", 4, "Jackson Station"))
-console.log(isEastOf(mcrr,  "Battle Creek", 4, "Jackson Station"))
+//Not sure about the purpose of property
+function isEastOf (railway, city, count, property, value) { // <- add a parameter
+    var array = eastOf(railway, city, count)
+    for (var i = 0; i < array.length; i++) {
+        if ( array[i] =  value) {//this is wrong. fix it.
+            return true
+        }
+    }
+    return  false
+}
+
+console.log(isEastOf(mcrr, "Kalamazoo", 4, "station", "Jackson Station")) //true
+console.log(isEastOf(mcrr, "Kalamazoo", 4, "city", "Battle Creek"))//true
+console.log(isEastOf(mcrr, "Kalamazoo", 4, "city", "Niles"))//false
+console.log(isEastOf(mcrr, "Kalamazoo", 4, "state", "Illinois"))//false
+console.log(isEastOf(mcrr, "Kalamazoo", 4, "state", "Michigan"))///true
+console.log(isEastOf(mcrr, "Kalamazoo", 99, "state", "Detroit"))//false
 
 // encapsulation over, back to hacking
 
-console.log(mcrr)
+//console.log(mcrr)
 
-addWest(list)
+function addWest (list) { // <- simple, west of
+    var node = list
+    var prev
+    while (node.east) {
+        prev = node
+        node = node.east
+        node.west = prev
+    }
+    return list
+    /*
+    arr = toArray(list)
+    arr.reverse()
+    for (var i = 0; i < arr.length; ++i) {
+        var object
+        arr[i].west = object
+    }
+    return arri*/
+}
 
+
+function objectify (array) {
+    for (var i = 0; i < array.length-1; ++i) {
+        array[i] = objectFrom(array[i])
+    }
+    return array
+}
+
+function link (list, array) {
+    var newNode = array.pop()
+    if (!list) {
+        list =  newNode
+    } else {
+        newNode.east = list
+    }
+    return newNode
+}
+
+function linkedList (array) {
+    var count = array.length
+    var lines = objectify(array)
+    for (var i = 0; i < count; i++) {
+       var list = link(list, lines)
+    }
+    return list
+}
+
+
+var westMcrr = addWest(mcrr)
+dump(westMcrr)
 // a test that ignores encapsulation
 
-console.log(list.east.east.east.west.west.city == 'Hammond')
+//console.log(list.east.east.east.west.west.city == 'Hammond')
