@@ -222,6 +222,17 @@ function isCityEastOf (railway, city, count, eastCity) {
     }
     return  false
 }
+//Not sure about the purpose of property
+function isEastOf (railway, city, count, eastCity) {
+    var array = eastOf(railway, city, count)
+    for (var i = 0; i < array.length; i++) {
+        if (eastCity == array[i].city || eastCity == array[i].station || eastCity == array[i].state) {
+            return true
+        }
+    }
+    return  false
+}
+
 
 function addWest (mcrr) {
 
@@ -263,8 +274,10 @@ var mccr
 console.log(westOfRecursive(mccr, "Kalamazoo", 3))
 console.log(westOfRecursive(mcrr, "Kalamazoo", 3))
 
-console.log(isEastOf(mcrr, "station", "Kalamazoo", 4, "Jackson Station"))
-console.log(isEastOf(mcrr, "city", "Battle Creek", 4, "Jackson Station"))
+//console.log(isEastOf(mcrr, "station", "Kalamazoo", 4, "Jackson Station"))//rounds out api
+//console.log(isEastOf(mcrr, "city", "Battle Creek", 4, "Jackson Station"))
+console.log(isEastOf(mcrr,  "Battle Creek", 4, "Jackson Station"))
+console.log(isEastOf(mcrr,  "Battle Creek", 4, "Jackson Station"))
 
 // encapsulation over, back to hacking
 
