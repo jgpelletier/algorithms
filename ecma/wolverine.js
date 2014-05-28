@@ -6,7 +6,7 @@ var util = require('util')
 var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
 
 function dump (list) {
-    console.log(util.inspect(list, 1, true))
+    console.log(util.inspect(list, 5, true))
 }
 
 //functions to create objects from an array of string objects
@@ -244,7 +244,7 @@ var mcrr = createRailway(process.argv[2]) //creation of the linkedlist
  // ^^^ head of the linked list, however it is "opaque"
  //     in a different implementation `mcrr` could be an array, or it
  //         could by a MySQL database connection
-var eastOfKalamazoo = eastOf(mcrr, "Kalamazoo", 2)
+/*var eastOfKalamazoo = eastOf(mcrr, "Kalamazoo", 2)
 console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Battle Creek"))
 console.log(eastOf(mcrr, "Kalamazoo", 1))
 //console.log(westOf(mcrr, "Boston", 1))
@@ -284,26 +284,29 @@ console.log(isEastOf(mcrr, "Kalamazoo", 99, "state", "Detroit"))//false
 // encapsulation over, back to hacking
 
 //console.log(mcrr)
-
-function addWest (list) { // <- simple, west of
+*/
+function nodeWest (list) { // <- simple, west of
     var node = list
-    var prev
-    while (node.east) {
-        prev = node
+    while (node && !node.west) {
+        node.west = null
         node = node.east
-        node.west = prev
     }
     return list
-    /*
-    arr = toArray(list)
-    arr.reverse()
-    for (var i = 0; i < arr.length; ++i) {
-        var object
-        arr[i].west = object
-    }
-    return arri*/
 }
 
+function addWest (list) { // <- simple, west of
+    list = nodeWest(list)
+    var node = list
+    var prev
+    console.log(node.city)
+    while (node.west == null) {
+        prev = node
+        node = node.east
+        console.log(node.city)
+        node.west = prev
+     }
+    return list
+}
 
 function objectify (array) {
     for (var i = 0; i < array.length-1; ++i) {
@@ -334,6 +337,10 @@ function linkedList (array) {
 
 var westMcrr = addWest(mcrr)
 dump(westMcrr)
+var test = toArray(westMcrr)
+console.log(westMcrr.east.west.city)
+
+//console.log(test)
 // a test that ignores encapsulation
 
 //console.log(list.east.east.east.west.west.city == 'Hammond')
