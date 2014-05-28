@@ -299,11 +299,13 @@ function addWest (list) { // <- simple, west of
     var node = list
     var prev
     console.log(node.city)
-    while (node.west == null) {
+    while (node.east) {
         prev = node
         node = node.east
         console.log(node.city)
         node.west = prev
+        console.log(node.west.city)
+
      }
     return list
 }
@@ -338,9 +340,9 @@ function linkedList (array) {
 var westMcrr = addWest(mcrr)
 dump(westMcrr)
 var test = toArray(westMcrr)
-console.log(westMcrr.east.west.city)
+console.log(westMcrr.east.east.west.city)
 
 //console.log(test)
 // a test that ignores encapsulation
 
-//console.log(list.east.east.east.west.west.city == 'Hammond')
+console.log(westMcrr.east.east.east.west.west.city == 'Hammond')
