@@ -263,11 +263,14 @@ console.log(westOfRecursive(mcrr, "Kalamazoo", 3))
 
 //console.log(isEastOf(mcrr, "station", "Kalamazoo", 4, "Jackson Station"))//rounds out api
 //console.log(isEastOf(mcrr, "city", "Battle Creek", 4, "Jackson Station"))
-//Not sure about the purpose of property
+//Not sure about the purpose of property*/
+
+
 function isEastOf (railway, city, count, property, value) { // <- add a parameter
-    var array = eastOf(railway, city, count)
+    var array = eastOf(railway, city, count)//this will not change
     for (var i = 0; i < array.length; i++) {
-        if ( array[i] =  value) {//this is wrong. fix it.
+        keys = Object.keys(array[i])//with more manipulation this will let me compare property to keys
+        if (array[i] == Object.defineProperty(array[i], property, value)) {//parameters property and value used on this line
             return true
         }
     }
@@ -284,7 +287,7 @@ console.log(isEastOf(mcrr, "Kalamazoo", 99, "state", "Detroit"))//false
 // encapsulation over, back to hacking
 
 //console.log(mcrr)
-*/
+
 function nodeWest (list) { // <- simple, west of
     var node = list
     while (node && !node.west) {
@@ -298,47 +301,18 @@ function addWest (list) { // <- simple, west of
     list = nodeWest(list)
     var node = list
     var prev
-    console.log(node.city)
     while (node.east) {
         prev = node
         node = node.east
-        console.log(node.city)
+        //console.log(node.city)
         node.west = prev
-        console.log(node.west.city)
+        //console.log(node.west.city)
 
      }
     return list
 }
 
-function objectify (array) {
-    for (var i = 0; i < array.length-1; ++i) {
-        array[i] = objectFrom(array[i])
-    }
-    return array
-}
-
-function link (list, array) {
-    var newNode = array.pop()
-    if (!list) {
-        list =  newNode
-    } else {
-        newNode.east = list
-    }
-    return newNode
-}
-
-function linkedList (array) {
-    var count = array.length
-    var lines = objectify(array)
-    for (var i = 0; i < count; i++) {
-       var list = link(list, lines)
-    }
-    return list
-}
-
-
 var westMcrr = addWest(mcrr)
-dump(westMcrr)
 var test = toArray(westMcrr)
 console.log(westMcrr.east.east.west.city)
 
