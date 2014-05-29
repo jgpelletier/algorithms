@@ -269,8 +269,7 @@ console.log(westOfRecursive(mcrr, "Kalamazoo", 3))
 function isEastOf (railway, city, count, property, value) { // <- add a parameter
     var array = eastOf(railway, city, count)//this will not change
     for (var i = 0; i < array.length; i++) {
-        keys = Object.keys(array[i])//with more manipulation this will let me compare property to keys
-        if (array[i] == Object.defineProperty(array[i], property, value)) {//parameters property and value used on this line
+        if (array[i][property] == value) {//objects can use any string as a key
             return true
         }
     }
@@ -290,7 +289,7 @@ console.log(isEastOf(mcrr, "Kalamazoo", 99, "state", "Detroit"))//false
 
 function nodeWest (list) { // <- simple, west of
     var node = list
-    while (node && !node.west) {
+    while (node) {// && !node.west) {
         node.west = null
         node = node.east
     }
@@ -307,7 +306,6 @@ function addWest (list) { // <- simple, west of
         //console.log(node.city)
         node.west = prev
         //console.log(node.west.city)
-
      }
     return list
 }
