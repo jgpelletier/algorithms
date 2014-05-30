@@ -219,7 +219,11 @@ function westOfRecursive (list, city, count) {
 function goEast (list, count) {
     var node = list
     for (var i = 0; i < count; i++) {
+        if (!node.east) {
+            return null
+        } else {
         node = node.east
+        }
     }
     return node
 }
@@ -227,7 +231,11 @@ function goEast (list, count) {
 function goWest (list, count) {
     var node = list
     for (var i = 0; i < count; i++) {
+        if (!node.west) {
+            return null
+        } else {
         node = node.west
+        }
     }
     return node
 }
