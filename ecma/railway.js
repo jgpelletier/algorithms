@@ -325,15 +325,12 @@ function isEastOf (railway, city, count, property, value) { // <- add a paramete
 // encapsulation over, back to hacking
 
 //console.log(mcrr)
+function getStationName(object) {
+    return object.station
+ }
 
-// this is uncessary
-function nodeWest (list) { // <- simple, west of
-    var node = list
-    while (node) {// && !node.west) {
-        node.west = null
-        node = node.east
-    }
-    return list
+function getCity(object) {
+    return object.city
 }
 
 function addWest (list) { // <- simple, west of
@@ -366,6 +363,8 @@ function getObject (node) {
 
 //console.log(westMcrr.east.east.east.west.west.city == 'Hammond')
 
+exports.getStationName = getStationName
+exports.getCity = getCity
 exports.goEast = goEast
 exports.goWest = goWest
 exports.gotoStation = gotoStation
