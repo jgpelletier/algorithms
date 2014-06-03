@@ -2,9 +2,7 @@ var railway = require('./railway') // <- require a module
 
 // Create a railway from a railway file.
 var mcrr = railway.createRailway(process.argv[2], true) // <- no west
-// ^^^ "opaque" "station?" "railway" linked list. node. Are the same type.
-// What are it's properties? city, state, station, east, west.
-// ^^^ "railway" type
+/*
 var isBattleCreekEastOfKalamazoo = railway.isEastOf(mcrr, 'Kalamazoo', 4, 'city', 'Battle Creek')
 console.log(isBattleCreekEastOfKalamazoo)
 railway.dump(mcrr)
@@ -16,9 +14,6 @@ console.log(mcrr.east.east.east.east.east.east.state)//Michigan
               mcrr.east.east.east.east.east.east.state = 'Ontario'
 var _7thCity = mcrr.east.east.east.east.east.east
 console.log(mcrr.east.east.east.east.east.east.state) // <- Ontario? yes
-
-// = assignment
-// == equality
 
 console.log(mcrr.city)
 console.log(mcrr.state)
@@ -48,11 +43,9 @@ console.log(array[0].city) // <- Kalamzoo
 array[0].city = 'Indiana'
 console.log(mcrr.east.east.east.east.east.east.state) // <- Indiana?
 
-// What are some of the properties? city, state, station, east, west.
-
 console.log("Hello, dear user. You'll be traveling to: ", kZoo) // <- this is wrong.
 
-var albion = railway.goEast(kZoo, 2) // <- `albion` is an "opaque" type.
+//var albion = railway.goEast(kZoo, 2) // <- `albion` is an "opaque" type.
 
 var twoWestOfAlbion = railway.goWest(albion, 2) // <- an "opaque" type.
 
@@ -64,20 +57,20 @@ console.log(twoWestOfAlbion.state == kZoo.state, kZoo.state, twoWestOfAlbion.sta
 console.log(twoWestOfAlbion.city == kZoo.city, kZoo.city, twoWestOfAlbion.city) // <- true?
 console.log(twoWestOfAlbion.station == kZoo.station) // <- true?
 
-// are `twoWestOfAlbion` and `kZoo` the same object? So...
 
 kZoo.state = 'Ontario'
+
+*/
+
 var kZoo = railway.gotoStation(mcrr, 'Kalamazoo') // <- `kZoo` is an "opaque" type.
 console.log(kZoo.state)
 var albion = railway.goEast(kZoo, 2)
-    // ^^^ "station" object, "opaque" type, linked list node
+console.log(albion)
+var station = railway.getStationName(albion) // <- single string.
+console.log("Hello, dear user. You'll be traveling to: ", station)
+var city = railway.getCity(albion) // <- single string.
+console.log("Hello, dear user. You'll be traveling to: ", city)
 
-//var station = railway.getStationName(albion) // <- single string.
-  // ^^^ What is this JavaScript type? A string.
-  // ^^^ What properties does it have?
-//console.log("Hello, dear user. You'll be traveling to: ", station)
-
-// Does the use wanna see this?
 console.log("Hello, dear user. You'll be traveling to: ", albion) // <- albion
 
 // Dear *application* developer, `getObject` is a function that:
@@ -94,4 +87,6 @@ var object = railway.getObject(albion) // <- single object.
 console.log(object.state)
 
 console.log("Hello, dear user. You'll be traveling to: ", object.city)
-                                                          // ^^^ API data.
+
+var halifax = railway.goEast(albion, 999) // <- fix this
+console.log(halifax == null)
