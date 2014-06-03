@@ -1,14 +1,14 @@
 //node libraries
 var fs = require('fs')
 var util = require('util')
-
+var list = require('./list')
 //takes text file and makes an array of string objects split at each line.
 //var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
 
 function dump (list) { // <- dump
     console.log(util.inspect(list, null, null))
 }
-
+/*
 //functions to create objects from an array of string objects
 function objectFrom (string) {
     string = string.split(',')
@@ -33,7 +33,7 @@ function link (list, array) {
     return newNode
 }
 
-function linkedList (array) {
+function _linkedList (array) {
     var count = array.length
     var lines = objectify(array)
     for (var i = 0; i < count; i++) {
@@ -41,7 +41,7 @@ function linkedList (array) {
     }
     return list
 }
-
+*/
 //functions to be used on linked lists.
 function pop (object) {//this does not mutate that list.
     return object.east
@@ -100,10 +100,11 @@ function horribleDuplicates (array) {
 // Optionally provide a westward link if you can afford the memory to support
 // it. The westward link provides additional operations.
 function createRailway (data, west) {
+    // all the list functions here, moved to `list.js`.
     var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
-    var railway = linkedList(lines)
+    var railway = list.linkedList(lines)
     if (west) {
-        addWest(railway)
+        list.addWest(railway)
     }
     return railway
 }
@@ -340,7 +341,7 @@ function getStationName(object) {
 function getCity(object) {
     return object.city
 }
-
+/*
 function addWest (list) { // <- simple, west of
     var node = list
     var prev
@@ -353,6 +354,7 @@ function addWest (list) { // <- simple, west of
      }
     return list
 }
+*/
 
 function getObject (node) {
     return {
