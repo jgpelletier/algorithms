@@ -1,5 +1,9 @@
 var o = {} // <- list is assigned an empty object
 
+var a = o
+
+console.log(o===a)
+
 console.log(Object.keys(o)) // <- []
 console.log(Object.keys(o).length) // <- 0
 
@@ -98,6 +102,82 @@ var i = 'Ignatius J. Reilly'
 console.log(o[i])
 
 console.log(Object.keys(o)) // <- [ 'Fred Flintone', 'Ignatius J. Reilly', 'fredFlinstone' ]
+
+function barney (o) {
+    console.log('When I say Barney you say: ' + o['Barney Rubble'])
+    if (o['Barney Rubble']) {
+        console.log('Barney Rubble is truthy.')
+    } else {
+        console.log('Barney Rubble is falsey.')
+    }
+
+    if (o['Barney Rubble'] == null) {
+        console.log('Barney Rubble is somewhat equal to `null`.')
+    } else {
+        console.log('Barney Rubble is not somewhat equal to `null`.')
+    }
+
+    if (o['Barney Rubble'] === null) {
+        console.log('Barney Rubble is very much equal to `null`.')
+    } else {
+        console.log('Barney Rubble is not very much equal to `null`.')
+    }
+
+    if (o['Barney Rubble'] == undefined) {
+        console.log('Barney Rubble is somewhat equal to `undefined`.')
+    } else {
+        console.log('Barney Rubble is not somewhat equal to `undefined`.')
+    }
+
+    if (o['Barney Rubble'] === undefined) {
+        console.log('Barney Rubble is very much equal to `undefined`.')
+    } else {
+        console.log('Barney Rubble is not very much equal to `undefined`.')
+    }
+
+    if ('Barney Rubble' in o) {
+        console.log('Barney Rubble is `in` `o`.')
+    } else {
+        console.log('Barney Rubble is `in` `o`.')
+    }
+
+    console.log('Barney Rubble is my bosom buddy and lifelong pal.')
+}
+
+barney(o)
+
+o['Barney Rubble'] = null
+
+barney(o)
+
+o['Barney Rubble'] = 'Bedrock'
+
+barney(o)
+
+o['Barney Rubble'] = undefined
+
+barney(o)
+
+delete o['Barney Rubble']
+
+barney(o)
+
+if (o['Barney Rubble']) {
+    console.log('Barney Rubble is truthy.')
+}
+
+if ('Barney Rubble' in o) {
+    console.log('Barney Rubble is `in` `o`.')
+}
+
+if (o['Fred Flintstone']) {
+    console.log('Fred Flintstone is truthy.')
+}
+
+
+if ('Fred Flintstone' in o) {
+    console.log('Fred Flintstone is in `o`.')
+}
 
 o  = { fred: 1, barney: 2, betty: 3, wilma: 4 }
 
