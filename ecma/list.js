@@ -1,4 +1,4 @@
-// move linked list function, export, and use from railway.
+// linked list functions. They are exported, and used from railway.
 
 function objectFrom (string) {
     var object = null// <- what is this?
