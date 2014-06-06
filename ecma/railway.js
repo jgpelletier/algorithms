@@ -1,48 +1,45 @@
+// Design pattern: encapsulation -> it's all about railways
+//
+//      API:
+//
+//          railway = createRailway(datafile)
+//          eastOf(railway, city, count)
+//          westOf(railway, city, count)
+//          isCityEastOf(railway, city, count, sought)
+//          isStateEastOf(railway, city, count, sought)
+//          isStationEastOf(railway, city, count, sought)
+//          isEastOf(railway, property, city, count, sought)
+//
+//      User does not see data model -- a linked list.
+
+
 //node libraries
 var fs = require('fs')
 var util = require('util')
 var list = require('./list')
-//takes text file and makes an array of string objects split at each line.
-//var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
 
+
+
+// Create a railway.
+//
+// Optionally provide a westward link if you can afford the memory to support
+// it. The westward link provides additional operations.
+function createRailway (data, west) {
+    // all the list functions here, moved to `list.js`.
+    var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
+    var railway = list.linkedList(lines)
+    if (west) {
+        list.addWest(railway)
+    }
+    return railway
+}
+
+//functions to be used on linked lists.
 function dump (list) { // <- dump
     console.log(util.inspect(list, null, null))
 }
-/*
-//functions to create objects from an array of string objects
-function objectFrom (string) {
-    string = string.split(',')
-    var object
-    return { station: string[0].trim(), city: string[1].trim(), state: string[2].trim(), east: object }
-}
 
-function objectify (array) {
-    for (var i = 0; i < array.length-1; ++i) {
-        array[i] = objectFrom(array[i])
-    }
-    return array
-}
 
-function link (list, array) {
-    var newNode = array.pop()
-    if (!list) {
-        list =  newNode
-    } else {
-        newNode.east = list
-    }
-    return newNode
-}
-
-function _linkedList (array) {
-    var count = array.length
-    var lines = objectify(array)
-    for (var i = 0; i < count; i++) {
-       var list = link(list, lines)
-    }
-    return list
-}
-*/
-//functions to be used on linked lists.
 function pop (object) {//this does not mutate that list.
     return object.east
 }
@@ -83,7 +80,7 @@ function toArray (list) {
     return arr
 }
 
-// O(n * n)
+// O(n * n) <- Think about effeciency
 function horribleDuplicates (array) {
     for (var i = 0; i < array.length; i++) {
         for (var j = 0; j < array.length; j++) {
@@ -95,19 +92,7 @@ function horribleDuplicates (array) {
     return false
 }
 
-// Create a railway.
-//
-// Optionally provide a westward link if you can afford the memory to support
-// it. The westward link provides additional operations.
-function createRailway (data, west) {
-    // all the list functions here, moved to `list.js`.
-    var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
-    var railway = list.linkedList(lines)
-    if (west) {
-        list.addWest(railway)
-    }
-    return railway
-}
+
 
 // Big-O: What is the worst case performance? O(n)
 function eastOf (list, stop, count) {
@@ -177,7 +162,6 @@ function gotoStation (list, city) {
 function westOf (list, stop, count /* <- count */) {
     var arr = [] // <- it's not zero
     var node = list
-    // todo: this is correct. why are you only pushing once? why not twice?
     while (node && node.city != stop) {
         arr.push({
             state: node.state,
@@ -186,7 +170,7 @@ function westOf (list, stop, count /* <- count */) {
         })
         node = node.east
         if (arr.length > count) {
-            arr.shift() // <- what is `shift =`, leaking scope
+            arr.shift()
         }
     }
     return !node ? null : arr
@@ -196,7 +180,6 @@ function westOf (list, stop, count /* <- count */) {
 function westOfRecursive (list, city, count) {
     var node = list
     var arr = []
-    // todo: use push once and test for no node once.
     function goEast (node, arr) {
        if (!node) {
             return null
@@ -272,48 +255,6 @@ function isCityEastOf (railway, city, count, eastCity) {
     return  false
 }
 
-
-// Design pattern: encapsulation -> it's all about railways
-//
-//      API:
-//
-//          railway = createRailway(datafile)
-//          eastOf(railway, city, count)
-//          westOf(railway, city, count)
-//          isCityEastOf(railway, city, count, sought)
-//          isStateEastOf(railway, city, count, sought)
-//          isStationEastOf(railway, city, count, sought)
-//          isEastOf(railway, property, city, count, sought)
-//
-//      User does not see data model -- a linked list.
-
-//using the functions
-//var mcrr = createRailway(process.argv[2]) //creation of the linkedlist
- // ^^^ head of the linked list, however it is "opaque"
- //     in a different implementation `mcrr` could be an array, or it
- //         could by a MySQL database connection
-/*var eastOfKalamazoo = eastOf(mcrr, "Kalamazoo", 2)
-console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Battle Creek"))
-console.log(eastOf(mcrr, "Kalamazoo", 1))
-//console.log(westOf(mcrr, "Boston", 1))
-console.log(eastOf(mcrr, "Boston", 1))
-console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Battle Creek")) // exact match
-console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Detroit")) // exact match
-console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Niles")) // exact match
-console.log(isCityEastOf(mcrr, "Kalamazoo", 4, "Jackson")) // exact match
-console.log(isStateEastOf(mcrr, "Kalamazoo", 4, "Michigan"))
-console.log(isStationEastOf(mcrr, "Kalamazoo", 4, "Jackson Station"))
-console.log(westOf(mcrr, "Kalamazoo", 3))
-console.log(westOfRecursive(mcrr, "Boston", 3))
-var mccr
-console.log(westOfRecursive(mccr, "Kalamazoo", 3))
-console.log(westOfRecursive(mcrr, "Kalamazoo", 3))
-
-//console.log(isEastOf(mcrr, "station", "Kalamazoo", 4, "Jackson Station"))//rounds out api
-//console.log(isEastOf(mcrr, "city", "Battle Creek", 4, "Jackson Station"))
-//Not sure about the purpose of property*/
-
-
 function isEastOf (railway, city, count, property, value) { // <- add a parameter
     var array = eastOf(railway, city, count)//this will not change
     for (var i = 0; i < array.length; i++) {
@@ -324,16 +265,6 @@ function isEastOf (railway, city, count, property, value) { // <- add a paramete
     return  false
 }
 
-//console.log(isEastOf(mcrr, "Kalamazoo", 4, "station", "Jackson Station")) //true
-//console.log(isEastOf(mcrr, "Kalamazoo", 4, "city", "Battle Creek"))//true
-//console.log(isEastOf(mcrr, "Kalamazoo", 4, "city", "Niles"))//false
-//console.log(isEastOf(mcrr, "Kalamazoo", 4, "state", "Illinois"))//false
-//console.log(isEastOf(mcrr, "Kalamazoo", 4, "state", "Michigan"))///true
-//console.log(isEastOf(mcrr, "Kalamazoo", 99, "state", "Detroit"))//false
-
-// encapsulation over, back to hacking
-
-//console.log(mcrr)
 function getStationName(object) {
     return object.station
  }
@@ -341,20 +272,7 @@ function getStationName(object) {
 function getCity(object) {
     return object.city
 }
-/*
-function addWest (list) { // <- simple, west of
-    var node = list
-    var prev
-    while (node.east) {
-        prev = node
-        node = node.east
-        //console.log(node.city)
-        node.west = prev
-        //console.log(node.west.city)
-     }
-    return list
-}
-*/
+
 
 function getObject (node) {
     return {
@@ -363,15 +281,6 @@ function getObject (node) {
         stationName: node.station
     }
 }
-
-//var westMcrr = addWest(mcrr)
-//var test = toArray(westMcrr)
-//console.log(westMcrr.east.east.west.city)
-
-//console.log(test)
-// a test that ignores encapsulation
-
-//console.log(westMcrr.east.east.east.west.west.city == 'Hammond')
 
 exports.getStationName = getStationName
 exports.getCity = getCity
