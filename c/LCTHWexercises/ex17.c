@@ -5,7 +5,7 @@
 #include <string.h>
 
 #define MAX_DATA 512 //Constant Expression: Integer Constant
-#define MAX_ROWS 100 //Constant Expression: Integer Constant
+#define MAX_ROWS 100
 
 struct Address {//Structure declaration with the tag "address" and 4 members
     int id;
