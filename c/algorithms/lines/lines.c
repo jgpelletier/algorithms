@@ -17,12 +17,8 @@ int line_count (const char* fname) // <- 10
     FILE *f; // FILE is the data type used to represent streams. f is a pointer to that file.
     if (( f = fopen (fname, "r")) != NULL ) {
         length = fread(buffer, sizeof(char), sizeof(buffer), f); // How do I test if buffer is big enough?
-        //if (length) { // <- on the spectrum of wrong this is really wrong
-        //if (length > 0) { // <- on the spectrum of wrong this is really wrong
-        // This was the question: How do you know that an error DID NOT occur?
-        if (sizeof(length) == sizeof(int)) { // <- on the spectrum of wrong where does this test fall?WRONG
-       // if (length >= sizeof(char)) { // <- on the spectrum of wrong where does this test fall?
-
+        // How does one know that an error DID NOT occur?
+       if (length /* what is the right test? */) {
             for (i = 0; i < length; i++) {
                 if (buffer[i] == '\n') lines++; // <- don't change this
             }
@@ -41,3 +37,12 @@ int line_count (const char* fname) // <- 10
     }
     return -1; // <- guarded by the else? This is your error.
 }
+//To learn from
+        //if (length) { // <- on the spectrum of wrong this is really wrong
+        //if (length > 0) { // <- on the spectrum of wrong this is really wrong
+        // This was the question: How do you know that an error DID NOT occur?
+        //if (sizeof(length) == sizeof(int)) { // <- on the spectrum of wrong where does this test fall?WRONG
+        // if (length >= sizeof(char)) { // <- on the spectrum of wrong where does this test fall?
+        //if (*length) {// invalid type argument of unary '*'
+        //if (&length) {// the address of length will always evalutate to true
+        //if (length == buffer[length]) {// comp btw signed and unsigned int
