@@ -20,6 +20,7 @@ struct Person Person_create(char *name, int age, int height, int weight)
     return who;
 }
 
+
 void Person_print(struct Person who)
 {
     printf("Name: %s\n", who.name);
@@ -33,7 +34,7 @@ int main(int argc, char *argv[])
     struct Person joe = Person_create(
            "Joe Alex", 32, 64, 140);
 
-    struct Person frank = Person_create(
+    struct Person frank = Person_P_create(
            "Frank Blank", 20, 72, 180);
 
     printf("Joe is at memory location %p:\n", &joe);
