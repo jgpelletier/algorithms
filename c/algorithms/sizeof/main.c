@@ -22,7 +22,7 @@ struct attribute_s {
     int type;
     char *value;  // <- "0", `strdup`.
 };
-typedef struct attribute_s attribute_t;
+typedef struct attribute_s attribute_t;// _t is common practice to define the size
 // ^^^ learn?
 // struct attribute_s is type defined as attribute_t
 typedef attribute_t* ptr_attribute_t;
