@@ -18,8 +18,6 @@ var fs = require('fs')
 var util = require('util')
 var list = require('./list')
 
-
-
 // Create a railway.
 //
 // Optionally provide a westward link if you can afford the memory to support
@@ -290,5 +288,6 @@ exports.gotoStation = gotoStation
 exports.createRailway = createRailway
 exports.isEastOf = isEastOf
 exports.eastOf = eastOf
+exports.westOf = westOf
 exports.dump = dump
 exports.getObject = getObject
