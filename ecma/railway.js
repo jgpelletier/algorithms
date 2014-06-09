@@ -51,6 +51,7 @@ function find (list, city) {
     }
 }
 
+//counts the length of the list.
 function length (list) {
     var count = 0
     while (list) { // <- loop. loop one.
@@ -62,7 +63,7 @@ function length (list) {
     }
 }
 
-//functions that return arrays
+//functions that returns an array from the list.
 function toArray (list) {
     var arr = []
     var i = 0
@@ -71,13 +72,13 @@ function toArray (list) {
             state: list.state,
             city: list.city,
             station: list.station,
-            east: list.east
         })
         list = list.east
     }
     return arr
 }
 
+// Big-O: What is the worst case performance? O(n)
 // O(n * n) <- Think about effeciency
 function horribleDuplicates (array) {
     for (var i = 0; i < array.length; i++) {
@@ -91,8 +92,8 @@ function horribleDuplicates (array) {
 }
 
 
-
-// Big-O: What is the worst case performance? O(n)
+//Returns an array with the city, state and station properties from a list. This
+//is done both looping and recursively.
 function eastOf (list, stop, count) {
     var arr = []
     var i
@@ -142,20 +143,6 @@ function eastOfRecursive (list, city, count /* <- value does not change */) {
     return goToStation(node)//this happens first.
 }
 
-function gotoStation (list, city) {
-    var node = list
-    function toStation (node) {
-        if (!node) {
-            return null
-        } else if (node.city == city) {
-            return node
-        } else {
-           return toStation(node.east)
-        }
-    }
-    return toStation(node)
-}
-
 
 function westOf (list, stop, count /* <- count */) {
     var arr = [] // <- it's not zero
@@ -198,6 +185,8 @@ function westOfRecursive (list, city, count) {
     return goEast(node, arr)
 }
 
+//These functions return the list structure after moving either up or down the
+//list count number of times.
 function goEast (list, count) {
     var node = list
     for (var i = 0; i < count; i++) {
@@ -221,6 +210,23 @@ function goWest (list, count) {
     }
     return node
 }
+
+//this function returns the list structure with the requested station at the
+//head
+function gotoStation (list, city) {
+    var node = list
+    function toStation (node) {
+        if (!node) {
+            return null
+        } else if (node.city == city) {
+            return node
+        } else {
+           return toStation(node.east)
+        }
+    }
+    return toStation(node)
+}
+
 
 //functions to test the integrity of the data
 function isStationEastOf (railway, city, count, eastStation) {
@@ -263,6 +269,7 @@ function isEastOf (railway, city, count, property, value) { // <- add a paramete
     return  false
 }
 
+//function to return information about the object
 function getStationName(object) {
     return object.station
  }
@@ -280,14 +287,23 @@ function getObject (node) {
     }
 }
 
-exports.getStationName = getStationName
-exports.getCity = getCity
+exports.createRailway = createRailway
+exports.dump = dump
+exports.pop = pop
+exports.find = find
+exports.length = length
+exports.toArray = toArray
+exports.eastOf = eastOf
+exports.eastOfRecursive = eastOfRecursive
+exports.westOf = westOf
+exports.westOfRecursive = westOfRecursive
 exports.goEast = goEast
 exports.goWest = goWest
-exports.gotoStation = gotoStation
-exports.createRailway = createRailway
+exports.isStationEastOf = isStationEastOf
+exports.isStateEastOf = isStateEastOf
+exports.isCityEastOf = isCityEastOf
 exports.isEastOf = isEastOf
-exports.eastOf = eastOf
-exports.westOf = westOf
-exports.dump = dump
+exports.getStationName = getStationName
+exports.getCity = getCity
+exports.gotoStation = gotoStation
 exports.getObject = getObject
