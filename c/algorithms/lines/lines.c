@@ -18,7 +18,7 @@ int line_count (const char* fname) // <- 10
     if (( f = fopen (fname, "r")) != NULL ) {
         length = fread(buffer, sizeof(char), sizeof(buffer), f); // How do I test if buffer is big enough?
         // How does one know that an error DID NOT occur?
-       if (length /* what is the right test? */) {
+        if (feof(f) && length /* what is the right test? */) {
             for (i = 0; i < length; i++) {
                 if (buffer[i] == '\n') lines++; // <- don't change this
             }
@@ -26,11 +26,10 @@ int line_count (const char* fname) // <- 10
                 perror("fclose error");
             else
                 return lines;
-        } else {
-            if (ferror(f))
+        } else if (ferror(f)){
                 printf("Error, Errno = %d\n", errno); // how do I return the error msg and not the #?
-            else if (feof(f))
-                printf("EOF, Errno = %d\n", errno);
+            //else if (feof(f))
+            //    printf("EOF, Errno = %d\n", errno);
         }
     } else {
         printf("fopen failed, errno = %d\n", errno /* <- not "thrown" */);
