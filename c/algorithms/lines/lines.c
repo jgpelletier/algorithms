@@ -74,7 +74,6 @@
 
        //
 
-
 #define BUFFER_SIZE 1024
 
 // Counts the lines in the first 1024 bytes of a file.
@@ -83,29 +82,38 @@ int line_count (const char* fname) // <- 10
 {
     char buffer[BUFFER_SIZE];
     size_t i, length;// size_t is the preferred way to declare variables that hold the size of an object.
-    int  lines = 0;
-    int at_eof = 0;
+    int  lines, at_eof;
 
     // open the file fname.
     FILE *f; // FILE is the data type used to represent streams. f is a pointer to that file.
     if ((f = fopen (fname, "r")) != NULL ) {
 
-        // figure out what happened.
+        length = fread(buffer, sizeof(char), sizeof(buffer), f);
+        lines = 0;
+
         if (length == sizeof(buffer)) {
             // no error occurred
+            at_eof = 0;
         } else {
             // error or eof
             if (feof(f)) {
                 at_eof = 1;
             } else {
                 // FREAK OUT! Uh, huh!
-                perror();
+                perror("fclose error");
                 return -1;
             }
         }
 
         // do that thing you're supposed to do
         for (i = 0; i < length; i++) {
+            if (buffer[i] == '\n') lines++; // <- don't change this
+        }
+
+        if (fclose(f) != 0) {
+                perror("fclose error");
+        } else {
+            return lines;
         }
 
         // account for what happened
@@ -113,20 +121,6 @@ int line_count (const char* fname) // <- 10
             printf("End of file reached\n");
         }
 
-        if (length && !ferror(f) && (buffer[0] != EOF)) {
-            // ^^ NO AND / NO OR
-            for (i = 0; i < length; i++) {
-                if (buffer[i] == '\n') lines++; // <- don't change this
-            }
-            if (fclose(f) != 0)
-                perror("fclose error");
-            else
-                return lines;
-        } else
-            if (feof(f))
-                printf("EOF, Errno = %d\n", errno);
-            else if(ferror(f))
-                printf("Error, Errno = %d\n", errno); // how do I return the error msg and not the #?
     } else {
         printf("fopen failed, errno = %d\n", errno /* <- not "thrown" */);
     }
