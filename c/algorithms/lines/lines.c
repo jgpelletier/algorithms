@@ -1,36 +1,20 @@
 #include <stdio.h>
-//#include <string.h>
 #include <errno.h>
 #include "lines.h"
 
-// Fix, then `#define BUFFER_SIZE 16`.
+// Comments outline an approach to understand fread and the man pages
 // #define BUFFER_SIZE -1
 // #define BUFFER_SIZE 0 // <- file is larger than the buffer
 // #define BUFFER_SIZE 1 // <- file is larger than the buffer
 // #define BUFFER_SIZE 2 // <- file is larger than the buffer
 // #define BUFFER_SIZE 3 // <- file is larger than the buffer
-#define BUFFER_SIZE 4 // <- file is just right
+// #define BUFFER_SIZE 4 // <- file is just right
 // #define BUFFER_SIZE 5 // <- file is smaller than the buffer
 // #define BUFFER_SIZE 6 // <- file is smaller than the buffer
 // #define BUFFER_SIZE 7 // <- file is smaller than the buffer
 
-// todo: bring this back
-// #define BUFFER_SIZE 1024
-
-// Counts the lines in the first 1024 bytes of a file.
-
-int line_count (const char* fname) // <- 10
-{
-    char buffer[BUFFER_SIZE];
-    size_t i, length;// size_t is the preferred way to declare variables that hold the size of an object.
-    int  lines;
-    lines = 0;
-
-    // open the file fname.
-    FILE *f; // FILE is the data type used to represent streams. f is a pointer to that file.
-    if ((f = fopen (fname, "r")) != NULL ) {
         // -- start --
-        length = fread(buffer, sizeof(char), sizeof(buffer), f);
+        // length = fread(buffer, sizeof(char), sizeof(buffer), f);
         // ^^^ what values can length be? 0-4
 
         // size of item: 1
@@ -58,7 +42,53 @@ int line_count (const char* fname) // <- 10
         // 4 could mean that the file has four one byte long objects.
         // 4 means the buffer is full.
 
-        int at_eof = 0;
+        // How does one know that an error DID NOT occur without checking `ferror`?
+        //      If true: You know that an error DID NOT occur. <- !
+        //      If false: You do not know that an error DID NOT occur. <- !
+
+        // --- end --
+
+        // short item count? means what
+        // if (length < sizeof(buffer)) {
+            // could mean?
+            //
+            // (1) could be an error
+            // (2) could mean end of file was reached
+        //  } else {
+            // no error occurred
+        //  }
+        //
+        //  The flip side is:
+        // if (length == sizeof(buffer)) {
+        //    // no error occurred
+        //  } else {
+            // error or eof
+        //    if (feof(f)) {
+        //        at_eof = 1;
+        //    } else {
+                // FREAK OUT! Uh, huh!
+        //        perror();
+        //        return -1;
+        //    }
+        //  }
+
+       //
+
+
+#define BUFFER_SIZE 1024
+
+// Counts the lines in the first 1024 bytes of a file.
+
+int line_count (const char* fname) // <- 10
+{
+    char buffer[BUFFER_SIZE];
+    size_t i, length;// size_t is the preferred way to declare variables that hold the size of an object.
+    int  lines = 0;
+    int at_eof = 0;
+
+    // open the file fname.
+    FILE *f; // FILE is the data type used to represent streams. f is a pointer to that file.
+    if ((f = fopen (fname, "r")) != NULL ) {
 
         // figure out what happened.
         if (length == sizeof(buffer)) {
@@ -80,49 +110,10 @@ int line_count (const char* fname) // <- 10
 
         // account for what happened
         if (at_eof) {
-            printf("That's all folks!\n");
+            printf("End of file reached\n");
         }
 
-        // not short
-
-        // short item count? means what
-        if (length < sizeof(buffer)) {
-            // could mean?
-            //
-            // could be an error
-            // could mean end of file was reached
-        } else {
-            // no error occurred
-        }
-
-        // 5 cannot happen. <- error?
-
-        // Without checking `ferror` or `feof`, how do you know that an *error*
-        // did not occur?
-
-        //      If true: You know that an error DID NOT occur.
-        //      If false: You DO NOT know that an error DID NOT occur.
-
-        // --- end --
-
-        // How do you know when to go into "it"? <- NOT the question.
-
-        // --- ^^^ NO! ---
-
-        // How does one know that an error DID NOT occur without checking `ferror`?
-        //      If true: You know that an error DID NOT occur. <- !
-        //      If false: You do not know that an error DID NOT occur. <- !
-
-        if () {
-            printf("An error DID NOT occur\n");
-            exit(0);
-        } else {
-            printf("An error may or may not have occured.\n");
-            exit(1);
-        }
-
-
-        if (length && !ferror(f) && (buffer[0] != EOF) /* what is the right test? */) {
+        if (length && !ferror(f) && (buffer[0] != EOF)) {
             // ^^ NO AND / NO OR
             for (i = 0; i < length; i++) {
                 if (buffer[i] == '\n') lines++; // <- don't change this
