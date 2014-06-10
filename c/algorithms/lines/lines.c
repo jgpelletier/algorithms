@@ -117,6 +117,7 @@ int line_count (const char* fname) // <- 10
         }
 
         // account for what happened
+        // the program does not reach this branch. fix it.
         if (at_eof) {
             printf("End of file reached\n");
         }
