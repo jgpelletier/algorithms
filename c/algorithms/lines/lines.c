@@ -76,7 +76,11 @@
 
 #define BUFFER_SIZE 1024
 
-int line_count (const char* fname) // <- 10
+// count of lines, and the count of characters.
+//      how to you "return" two values from a C function?
+//                  ^^^ "get out of" -> means of output
+//                      how can a C function give?
+int line_count (const char* fname) // <- line_count
 {
     char buffer[BUFFER_SIZE];
     size_t i, length;// size_t is the preferred way to declare variables that hold the size of an object.
@@ -89,7 +93,12 @@ int line_count (const char* fname) // <- 10
 
         do {
             length = fread(buffer, sizeof(char), sizeof(buffer), f);
-
+            //         ^^^ how man values does fread "return" where return means
+            //                      "get out of"?
+            //             what does fread give you? a binary stream
+            //                                       count of items
+            //                                       an error
+            //                                       an eof
                 if (length == sizeof(buffer)) {
                     at_eof = 0;
                 }
@@ -99,7 +108,6 @@ int line_count (const char* fname) // <- 10
                     perror("fclose error");
                     return -1;
                 }
-           }
 
            for (i = 0; i < length; i++) {
                 if (buffer[i] == '\n') lines++; // <- don't change this
@@ -131,4 +139,36 @@ line_list_t* read_lines (const char* file)
 }
 
 // what else do you need? what other functions to create a complete API?
+*/
+
+/*
+line_list_t* read_lines (const char* file)
+  // ^^^ what is this type?
+{
+    char buffer[BUFFER_SIZE];
+    size_t i, count;
+    int lines, at_eof;
+
+    FILE *f; //
+    if ((f = fopen (fname, "r")) != NULL) {
+        lines = 0;
+
+        do {
+            count = fread(buffer, sizeof(char), sizeof(buffer), f);
+
+                if (count == sizeof(buffer)) {
+                    at_eof = 0;
+                }
+                else if (feof(f)) {
+                    at_eof = 1;
+                } else {
+                    perror("fclose error");
+                    return -1;
+                }
+           }
+
+           for (i = 0; i < length; i++) {
+                if (buffer[i] == '\n') lines++; // <- don't change this
+           }
+
 */
