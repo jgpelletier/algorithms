@@ -76,29 +76,47 @@
 
 #define BUFFER_SIZE 1024
 
+struct file_info *file_info_create (int lines, size_t length)
+{
+    struct file_info *file_info;
+    file_info = malloc(sizeof(struct file_info));
+    file_info->lines = lines;
+    file_info->length = length;
+    return file_info;
+}
+
 // count of lines, and the count of characters.
 //      how to you "return" two values from a C function?
 //                  ^^^ "get out of" -> means of output
 //                      how can a C function give?
-int line_count (const char* fname) // <- line_count
+//                      pointers and structs give values back
+struct file_info *line_count (const char* fname) // <- line_count
 {
     char buffer[BUFFER_SIZE];
     size_t i, length;// size_t is the preferred way to declare variables that hold the size of an object.
-    int lines, at_eof;
+    int at_eof, lines;
+    /*struct file_info {// move to header file or ourside of line_count
+        int lines;
+        size_t length;
+    };*/
+    FILE *f;
+    struct file_info *file_info_t;
 
-    // open the file fname.
-    FILE *f; // FILE is the data type used to represent streams. f is a pointer to that file.
     if ((f = fopen (fname, "r")) != NULL) {
         lines = 0;
+
+        //create struct here?
+
 
         do {
             length = fread(buffer, sizeof(char), sizeof(buffer), f);
             //         ^^^ how man values does fread "return" where return means
             //                      "get out of"?
             //             what does fread give you? a binary stream
-            //                                       count of items
-            //                                       an error
-            //                                       an eof
+            //                                    (access to the contents of a file through a pointer)?
+            //                                            count of items
+            //                                            an error
+            //                                            an eof
                 if (length == sizeof(buffer)) {
                     at_eof = 0;
                 }
@@ -117,7 +135,8 @@ int line_count (const char* fname) // <- line_count
         if (fclose(f) != 0) {
             perror("fclose error");
         } else {
-            return lines;
+            //create struct here?
+            return file_info_t = file_info_create(lines, length);
         }
 
     } else {
