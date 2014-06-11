@@ -76,43 +76,38 @@
 
 #define BUFFER_SIZE 1024
 
-// Counts the lines in the first 1024 bytes of a file.
-
 int line_count (const char* fname) // <- 10
 {
     char buffer[BUFFER_SIZE];
     size_t i, length;// size_t is the preferred way to declare variables that hold the size of an object.
-    int  lines, at_eof;
+    int lines, at_eof;
 
     // open the file fname.
     FILE *f; // FILE is the data type used to represent streams. f is a pointer to that file.
-    if ((f = fopen (fname, "r")) != NULL ) {
+    if ((f = fopen (fname, "r")) != NULL) {
         lines = 0;
 
         do {
             length = fread(buffer, sizeof(char), sizeof(buffer), f);
 
-            if (length == sizeof(buffer)) {
-                // no error occurred
-                at_eof = 0;
-            } else {
-                // error or eof
-                if (feof(f)) {
+                if (length == sizeof(buffer)) {
+                    at_eof = 0;
+                }
+                else if (feof(f)) {
                     at_eof = 1;
                 } else {
-                    // FREAK OUT! Uh, huh!
                     perror("fclose error");
                     return -1;
                 }
-            }
+           }
 
-            for (i = 0; i < length; i++) {
+           for (i = 0; i < length; i++) {
                 if (buffer[i] == '\n') lines++; // <- don't change this
-            }
-       } while (at_eof == 0);
+           }
+        } while (at_eof == 0);
 
         if (fclose(f) != 0) {
-                perror("fclose error");
+            perror("fclose error");
         } else {
             return lines;
         }
@@ -120,5 +115,20 @@ int line_count (const char* fname) // <- 10
     } else {
         printf("fopen failed, errno = %d\n", errno /* <- not "thrown" */);
     }
+
     return -1;
 }
+
+/*
+// implement as linked list.
+line_list_t* read_lines (const char* file)
+  // ^^^ what is this type?
+{
+    list_list_t* line_list;
+    // ... stuff ...
+    //   what goes here?
+    return line_list;
+}
+
+// what else do you need? what other functions to create a complete API?
+*/
