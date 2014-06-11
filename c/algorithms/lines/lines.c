@@ -87,39 +87,34 @@ int line_count (const char* fname) // <- 10
     // open the file fname.
     FILE *f; // FILE is the data type used to represent streams. f is a pointer to that file.
     if ((f = fopen (fname, "r")) != NULL ) {
-
-        length = fread(buffer, sizeof(char), sizeof(buffer), f);
         lines = 0;
 
-        if (length == sizeof(buffer)) {
-            // no error occurred
-            at_eof = 0;
-        } else {
-            // error or eof
-            if (feof(f)) {
-                at_eof = 1;
-            } else {
-                // FREAK OUT! Uh, huh!
-                perror("fclose error");
-                return -1;
-            }
-        }
+        do {
+            length = fread(buffer, sizeof(char), sizeof(buffer), f);
 
-        // do that thing you're supposed to do
-        for (i = 0; i < length; i++) {
-            if (buffer[i] == '\n') lines++; // <- don't change this
-        }
+            if (length == sizeof(buffer)) {
+                // no error occurred
+                at_eof = 0;
+            } else {
+                // error or eof
+                if (feof(f)) {
+                    at_eof = 1;
+                } else {
+                    // FREAK OUT! Uh, huh!
+                    perror("fclose error");
+                    return -1;
+                }
+            }
+
+            for (i = 0; i < length; i++) {
+                if (buffer[i] == '\n') lines++; // <- don't change this
+            }
+       } while (at_eof == 0);
 
         if (fclose(f) != 0) {
                 perror("fclose error");
         } else {
             return lines;
-        }
-
-        // account for what happened
-        // the program does not reach this branch. fix it.
-        if (at_eof) {
-            printf("End of file reached\n");
         }
 
     } else {
