@@ -4,6 +4,8 @@
 
 int main ()
 {
-    printf("lines: %d\n", line_count("wolverine.txt"));
+    struct file_info *info;
+    info = line_count("wolverineX2.txt");
+    printf("lines: %d length:%d\n", info->lines, info->length);
     return EXIT_SUCCESS;
 }
