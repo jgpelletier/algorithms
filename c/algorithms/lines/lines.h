@@ -3,6 +3,6 @@ struct file_info {
     size_t length;
 };
 
-typedef struct file_info file_info_t;
-struct file_info *file_info_create ();
+typedef struct file_info info;
+struct file_info *share_info (int lines, size_t length);
 struct file_info *line_count (const char* fname);
