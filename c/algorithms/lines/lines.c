@@ -76,13 +76,12 @@
 
 #define BUFFER_SIZE 1024
 
-struct file_info *file_info_create (int lines, size_t length)
+struct file_info *share_info (int lines, size_t length)
 {
-    struct file_info *file_info;
-    file_info = malloc(sizeof(struct file_info));
-    file_info->lines = lines;
-    file_info->length = length;
-    return file_info;
+    struct file_info *info = malloc(sizeof(struct file_info));
+    info->lines = lines;
+    info->length = length;
+    return info;
 }
 
 // count of lines, and the count of characters.
@@ -100,7 +99,7 @@ struct file_info *line_count (const char* fname) // <- line_count
         size_t length;
     };*/
     FILE *f;
-    struct file_info *file_info_t;
+    struct file_info *info;
 
     if ((f = fopen (fname, "r")) != NULL) {
         lines = 0;
@@ -110,7 +109,7 @@ struct file_info *line_count (const char* fname) // <- line_count
 
         do {
             length = fread(buffer, sizeof(char), sizeof(buffer), f);
-            //         ^^^ how man values does fread "return" where return means
+            //         ^^^ how many values does fread "return" where return means
             //                      "get out of"?
             //             what does fread give you? a binary stream
             //                                    (access to the contents of a file through a pointer)?
@@ -136,7 +135,8 @@ struct file_info *line_count (const char* fname) // <- line_count
             perror("fclose error");
         } else {
             //create struct here?
-            return file_info_t = file_info_create(lines, length);
+            info = share_info(lines, length);
+            return info;
         }
 
     } else {
