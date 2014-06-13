@@ -80,10 +80,18 @@
 struct file_info *share_info (int lines, size_t length, int error)
 {
     struct file_info *info = malloc(sizeof(struct file_info));
-    info->lines = lines;
-    info->length = length;
+    info->lines = lines; // <- count of lines
+    info->length = length; // <- count of characters
     info->error = error;
     return info;
+}
+
+struct file_info2 *share_info2 (int lines, size_t length)
+{
+    struct file_info2 *info2 = malloc(sizeof(struct file_info2));
+    info2->lines = lines; // <- count of lines
+    info2->length = length; // <- count of characters
+    return info2;
 }
 
 // count of lines, and the count of characters.
@@ -91,7 +99,7 @@ struct file_info *share_info (int lines, size_t length, int error)
 //                  ^^^ "get out of" -> means of output
 //                      how can a C function give?
 //                      pointers and structs give values back
-struct file_info *line_count (const char* fname) // <-must this return a struct, even if members are ints?
+struct file_info *line_count (const char* fname)
 {
     // This program does not use static memory.
     // The types below are automatic variables, and they rely on automatic storage
@@ -143,6 +151,50 @@ struct file_info *line_count (const char* fname) // <-must this return a struct,
 
     return info;
 }
+
+
+//pass the members or a struct
+void line_count_2 (const char* fname, struct file_info2 **info2, int *error)
+{
+    char buffer[BUFFER_SIZE];// automatic storage class
+    size_t i, length;// automatic storage class
+    int at_eof, lines, count;// automatic storage class
+    FILE *f;// automatic storage class
+    if ((f = fopen (fname, "r")) != NULL) {
+        lines = 0;
+        count = -1;
+        do {
+            count ++;
+            length = fread(buffer, sizeof(char), sizeof(buffer), f);
+                if (length == sizeof(buffer)) {
+                    at_eof = 0;
+                }
+                else if (feof(f)) {
+                    length = length + (count * sizeof(buffer));
+                    at_eof = 1;
+                } else {
+                    perror("fclose error");
+                    *error = -1;
+                }
+
+           for (i = 0; i < length; i++) {
+                if (buffer[i] == '\n') lines++; // <- don't change this
+           }
+        } while (at_eof == 0);
+
+        if (fclose(f) != 0) {
+             *error =  -1;
+            perror("fclose error");
+        } else {
+            *info2 = share_info2(lines, length);
+        }
+
+    } else {
+        *error = -1;
+        printf("fopen failed, errno = %d\n", errno);
+    }
+}
+
 
 /*
 // implement as linked list.
