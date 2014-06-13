@@ -77,15 +77,12 @@
 
 #define BUFFER_SIZE 1024// sympbolic constant
 
-struct file_info *share_info (int lines, size_t length)
+struct file_info *share_info (int lines, size_t length, int error)
 {
-    //there are 2 warnings on the line below.
-    //  1) implicit decleration on function "malloc"
-    //  2) incompatible implicit declartion of built in
-    //     function 'malloc'
     struct file_info *info = malloc(sizeof(struct file_info));
     info->lines = lines;
     info->length = length;
+    info->error = error;
     return info;
 }
 
@@ -94,7 +91,7 @@ struct file_info *share_info (int lines, size_t length)
 //                  ^^^ "get out of" -> means of output
 //                      how can a C function give?
 //                      pointers and structs give values back
-struct file_info *line_count (const char* fname) // <- line_count
+struct file_info *line_count (const char* fname) // <-must this return a struct, even if members are ints?
 {
     // This program does not use static memory.
     // The types below are automatic variables, and they rely on automatic storage
@@ -103,29 +100,16 @@ struct file_info *line_count (const char* fname) // <- line_count
     // their lifetime is limited to the time the function is executing
     char buffer[BUFFER_SIZE];// automatic storage class
     size_t i, length;// automatic storage class
-    int at_eof, lines, count;// automatic storage class
-    /*struct file_info {// move to header file or ourside of line_count
-        int lines;
-        size_t length;
-    };*/
+    int at_eof, lines, count, error;// automatic storage class
     FILE *f;// automatic storage class
     struct file_info *info;// dynamic memory?
-
+    error = 0;
     if ((f = fopen (fname, "r")) != NULL) {
         lines = 0;
         count = -1;
-        //create struct here?
-
         do {
             count ++;
             length = fread(buffer, sizeof(char), sizeof(buffer), f);
-            //         ^^^ how many values does fread "return" where return means
-            //                      "get out of"?
-            //             what does fread give you? a binary stream
-            //                                    (access to the contents of a file through a pointer)?
-            //                                            count of items
-            //                                            an error
-            //                                            an eof
                 if (length == sizeof(buffer)) {
                     at_eof = 0;
                 }
@@ -134,7 +118,7 @@ struct file_info *line_count (const char* fname) // <- line_count
                     at_eof = 1;
                 } else {
                     perror("fclose error");
-                    return  -1;// return makes pointer from integer wo cast.
+                    error = -1;
                 }
 
            for (i = 0; i < length; i++) {
@@ -145,16 +129,19 @@ struct file_info *line_count (const char* fname) // <- line_count
         if (fclose(f) != 0) {
             perror("fclose error");
         } else {
-            //create struct here?
-            info = share_info(lines, length);
+            info = share_info(lines, length, error);
             return info;
         }
 
     } else {
+        length = -1;
+        lines = -1;
+        error = -1;
+        info = share_info(lines, length, error);
         printf("fopen failed, errno = %d\n", errno /* <- not "thrown" */);
     }
 
-    return -1;// return makes pointer from integer wo cast.
+    return info;
 }
 
 /*
