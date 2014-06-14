@@ -163,36 +163,36 @@ void line_count_2 (const char* fname, struct file_info2 **info2, int *error)
     if ((f = fopen (fname, "r")) != NULL) {
         lines = 0;
         count = -1;
-        do {
-            count ++;
-            length = fread(buffer, sizeof(char), sizeof(buffer), f);
-                if (length == sizeof(buffer)) {
-                    at_eof = 0;
-                }
-                else if (feof(f)) {
-                    length = length + (count * sizeof(buffer));
-                    at_eof = 1;
-                } else {
-                    perror("fclose error");
-                    *error = -1;
-                }
-
-           for (i = 0; i < length; i++) {
-                if (buffer[i] == '\n') lines++; // <- don't change this
-           }
-        } while (at_eof == 0);
-
-        if (fclose(f) != 0) {
-             *error =  -1;
-            perror("fclose error");
-        } else {
-            *info2 = share_info2(lines, length);
-        }
-
     } else {
-        *error = -1;
+        error = -1;
         printf("fopen failed, errno = %d\n", errno);
+
+    do {
+        count ++;
+        length = fread(buffer, sizeof(char), sizeof(buffer), f);
+            if (length == sizeof(buffer)) {
+                at_eof = 0;
+            }
+            else if (feof(f)) {
+                length = length + (count * sizeof(buffer));
+                at_eof = 1;
+            } else {
+                perror("fclose error");
+                *error = -1;
+            }
+
+       for (i = 0; i < length; i++) {
+            if (buffer[i] == '\n') lines++;
+       }
+    } while (at_eof == 0);
+
+    if (fclose(f) != 0) {
+         *error =  -1;
+        perror("fclose error");
+    } else {
+        *info2 = share_info2(lines, length);
     }
+
 }
 
 
