@@ -164,8 +164,9 @@ void line_count_2 (const char* fname, struct file_info2 **info2, int *error)
         lines = 0;
         count = -1;
     } else {
-        error = -1;
+        *error = -1;
         printf("fopen failed, errno = %d\n", errno);
+    }
 
     do {
         count ++;
