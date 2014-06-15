@@ -152,8 +152,6 @@ struct file_info *line_count (const char* fname)
     return info;
 }
 
-
-//pass the members or a struct
 void line_count_2 (const char* fname, struct file_info2 **info2, int *error)
 {
     char buffer[BUFFER_SIZE];// automatic storage class
