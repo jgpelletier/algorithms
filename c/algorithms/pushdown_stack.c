@@ -39,7 +39,7 @@ int stackempty()//is this only a test or are the 2 blks in use at exit in hear?
 
 void delete_stack()//not in Sedegwick code.
 {
-    free(struct z);
+    free(z);
     free(head);
 }
 // how do you release all blks of memory
