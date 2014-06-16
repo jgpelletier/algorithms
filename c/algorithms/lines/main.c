@@ -4,7 +4,7 @@
 
 void call_line_count ()
 {
-    struct file_info *info;
+    struct _file_info *info;
     info = line_count("wolverineX2.txt");
     printf("If any value is negative then an error occured. "
         "error: %d lines: %d length: %d\n", info->error, info->lines, info->length);
@@ -14,7 +14,7 @@ void call_line_count ()
 void call_line_count_2 ()
 {
     int error = 0;
-    struct file_info2* info2;
+    struct _file_info2* info2;
         // ^^^ raw material for 12 different API calls.
         //          words, words, words
 
@@ -22,7 +22,7 @@ void call_line_count_2 ()
     printf("If any value is negative then an error occured. error: %d lines: %d length:%d\n", error, info2->lines, info2->length);
  // try a different way.
     free(info2);    // <- why is this necessary?
-    free(&error);   // <- necessary?
+    //free(&error);   // <- necessary? WARNING: ATTEMPT TO FREE A NON-HEAP OBJECT
 }
 
 int main ()

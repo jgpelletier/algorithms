@@ -76,19 +76,20 @@
        //
 
 #define BUFFER_SIZE 1024// sympbolic constant
-
-struct file_info *share_info (int lines, size_t length, int error)
+//Dynamic memory: Define
+//
+struct _file_info *share_info (int lines, size_t length, int error)
 {
-    struct file_info *info = malloc(sizeof(struct file_info));
+    struct _file_info *info = malloc(sizeof(struct _file_info));
     info->lines = lines; // <- count of lines
     info->length = length; // <- count of characters
     info->error = error;
     return info;
 }
 
-struct file_info2 *share_info2 (int lines, size_t length)
+struct _file_info2 *share_info2 (int lines, size_t length)
 {
-    struct file_info2 *info2 = malloc(sizeof(struct file_info2));
+    struct _file_info2 *info2 = malloc(sizeof(struct _file_info2));
     info2->lines = lines; // <- count of lines
     info2->length = length; // <- count of characters
     return info2;
@@ -99,7 +100,7 @@ struct file_info2 *share_info2 (int lines, size_t length)
 //                  ^^^ "get out of" -> means of output
 //                      how can a C function give?
 //                      pointers and structs give values back
-struct file_info *line_count (const char* fname)
+struct _file_info *line_count (const char* fname)
 {
     // This program does not use static memory.
     // The types below are automatic variables, and they rely on automatic storage
@@ -110,7 +111,7 @@ struct file_info *line_count (const char* fname)
     size_t i, length;// automatic storage class
     int at_eof, lines, count, error;// automatic storage class
     FILE *f;// automatic storage class
-    struct file_info *info;// dynamic memory?
+    struct _file_info *info;// dynamic memory?
     error = 0;
     if ((f = fopen (fname, "r")) != NULL) {
         lines = 0;
@@ -152,7 +153,7 @@ struct file_info *line_count (const char* fname)
     return info;
 }
 
-void line_count_2 (const char* fname, struct file_info2 **info2, int *error)
+void line_count_2 (const char* fname, struct _file_info2 **info2, int *error)
 {
     char buffer[BUFFER_SIZE];// automatic storage class
     size_t i, length;// automatic storage class
