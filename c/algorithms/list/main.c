@@ -4,7 +4,7 @@
 
 int main ()
 {
-    struct node *list;
+    struct node *list; // <- this is the type that is used
     list = list_create();
     list_push(list, 5);
     list_push(list, 15);
