@@ -1,13 +1,13 @@
-// linked list functions. They are exported, and used from railway.
+// linked list functions. They are exported, and used in railway.
 
 function objectFrom (string) {
-    var object = null// <- what is this?
+    var object = null
     string = string.split(',')
     return {
         station: string[0].trim(),
         city: string[1].trim(),
         state: string[2].trim(),
-        east: object // <- what is this?
+        east: object
     }
 }
 
