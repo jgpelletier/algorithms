@@ -76,9 +76,10 @@
        //
 
 #define BUFFER_SIZE 1024// sympbolic constant
-//Dynamic memory: Define
-//
-struct _file_info *share_info (int lines, size_t length, int error)
+// Dynamic memory: memory is managed explicitly and flexibly
+// Typically, it is taken from the heap. External fragmentation
+// -- small gaps between allocated blocks --is a problem.
+struct _file_info *share_info (int lines, size_t length, int error) // <-definition
 {
     struct _file_info *info = malloc(sizeof(struct _file_info));
     info->lines = lines; // <- count of lines
@@ -87,7 +88,8 @@ struct _file_info *share_info (int lines, size_t length, int error)
     return info;
 }
 
-struct _file_info2 *share_info2 (int lines, size_t length)
+struct _file_info2 *share_info2 (int lines, size_t length) // <-definition
+
 {
     struct _file_info2 *info2 = malloc(sizeof(struct _file_info2));
     info2->lines = lines; // <- count of lines
@@ -95,14 +97,8 @@ struct _file_info2 *share_info2 (int lines, size_t length)
     return info2;
 }
 
-// count of lines, and the count of characters.
-//      how to you "return" two values from a C function?
-//                  ^^^ "get out of" -> means of output
-//                      how can a C function give?
-//                      pointers and structs give values back
-struct _file_info *line_count (const char* fname)
+struct _file_info *line_count (const char* fname) // <-definition
 {
-    // This program does not use static memory.
     // The types below are automatic variables, and they rely on automatic storage
     // This means the variables are declared within the function and are created
     // when the function is called. Scope is restricted to the function, and
@@ -111,7 +107,7 @@ struct _file_info *line_count (const char* fname)
     size_t i, length;// automatic storage class
     int at_eof, lines, count, error;// automatic storage class
     FILE *f;// automatic storage class
-    struct _file_info *info;// dynamic memory?
+    struct _file_info *info;// dynamic memory
     error = 0;
     if ((f = fopen (fname, "r")) != NULL) {
         lines = 0;
@@ -153,7 +149,8 @@ struct _file_info *line_count (const char* fname)
     return info;
 }
 
-void line_count_2 (const char* fname, struct _file_info2 **info2, int *error)
+void line_count_2 (const char* fname, struct _file_info2 **info2, int *error) // <-definition
+
 {
     char buffer[BUFFER_SIZE];// automatic storage class
     size_t i, length;// automatic storage class
@@ -195,6 +192,46 @@ void line_count_2 (const char* fname, struct _file_info2 **info2, int *error)
 
 }
 
+void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-definition
+{
+    char buffer[BUFFER_SIZE];// automatic storage class
+    size_t i, len;// automatic storage class
+    int at_eof, count, line_count;// automatic storage class
+    FILE *f;// automatic storage class
+    if ((f = fopen (fname, "r")) != NULL) {
+        count = -1;
+        //line_count = 0;
+        do {
+            count ++;
+            len = fread(buffer, sizeof(char), sizeof(buffer), f);
+                if (len == sizeof(buffer)) {
+                    at_eof = 0;
+                }
+                else if (feof(f)) {
+                    len = len + (count * sizeof(buffer));
+                    *length = len;
+                    at_eof = 1;
+                } else {
+                    perror("fclose error");
+                    *error = -1;
+                }
+
+           for (i = 0; i < len; i++) {
+                if (buffer[i] == '\n') line_count++; // <- don't change this
+           }
+           *lines = line_count;
+        } while (at_eof == 0);
+
+
+        if (fclose(f) != 0) {
+            *error = -1;
+            perror("fclose error");
+        }
+    } else {
+        *error = -1;
+        printf("fopen failed, errno = %d\n", errno /* <- not "thrown" */);
+    }
+}
 
 /*
 // implement as linked list.
