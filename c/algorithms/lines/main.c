@@ -19,7 +19,7 @@ void call_line_count_2 ()
         //          words, words, words
 
     line_count_2("_x.txt", &info2, &error);
-    printf("If any value is negative then an error occured. error: %d lines: %d length:%d\n", error, info2->lines, info2->length);
+    printf("If any value is negative then an error occured. error: %d lines: %d length: %d\n", error, info2->lines, info2->length);
  // try a different way.
     free(info2);    // <- why is this necessary?
     //free(&error);   // <- necessary? WARNING: ATTEMPT TO FREE A NON-HEAP OBJECT
@@ -27,14 +27,17 @@ void call_line_count_2 ()
 
 void call_line_count_3 ()
 {
-    int error = 0;
-    int length = 0;
-    int lines = 0;
+    // allocate both the pointer and pointee
+    // does not seem to make difference
+    int error, length, lines;
+    int* ptr_err = &error;
+    int* ptr_length = &length;
+    int* ptr_lines = &lines;
+    error = lines = length = -1;
 
-    line_count_4("_x.txt", &lines, &length, &error);
+    // no dynamic allocation
+    line_count_4("_x.txt", &lines/* ptr_lines*/, &length /*ptr_length*/, &error/*ptr_err*/);
     printf("If any value is negative then an error occured. error: %d lines: %d length:%d\n", error, lines, length);
-   // free(info2);    // <- why is this necessary?
-   //free(&error);   // <- necessary? WARNING: ATTEMPT TO FREE A NON-HEAP OBJECT
 }
 
 int main ()

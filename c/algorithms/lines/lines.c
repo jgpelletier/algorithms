@@ -194,13 +194,18 @@ void line_count_2 (const char* fname, struct _file_info2 **info2, int *error) //
 
 void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-definition
 {
+    //conflict btw paramter in variable
     char buffer[BUFFER_SIZE];// automatic storage class
-    size_t i, len;// automatic storage class
-    int at_eof, count, line_count;// automatic storage class
+    size_t i, len;// this is an int outside of the function
+    int at_eof, count, line_count, err;// automatic storage class
     FILE *f;// automatic storage class
+
+    len = *length;
+    line_count = *lines;
+    err = *error;
+
     if ((f = fopen (fname, "r")) != NULL) {
         count = -1;
-        //line_count = 0;
         do {
             count ++;
             len = fread(buffer, sizeof(char), sizeof(buffer), f);
@@ -209,28 +214,30 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-
                 }
                 else if (feof(f)) {
                     len = len + (count * sizeof(buffer));
-                    *length = len;
                     at_eof = 1;
                 } else {
                     perror("fclose error");
-                    *error = -1;
+                    error = -1;
                 }
 
            for (i = 0; i < len; i++) {
-                if (buffer[i] == '\n') line_count++; // <- don't change this
+                if (buffer[i] == '\n') {
+                    line_count++;
+                    printf("line count: %d\n", line_count);
+                }
            }
-           *lines = line_count;
         } while (at_eof == 0);
 
 
         if (fclose(f) != 0) {
-            *error = -1;
+            error = -1;
             perror("fclose error");
         }
     } else {
-        *error = -1;
+        error = -1;
         printf("fopen failed, errno = %d\n", errno /* <- not "thrown" */);
     }
+    error = 0;
 }
 
 /*
