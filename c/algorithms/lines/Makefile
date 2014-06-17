@@ -4,4 +4,4 @@ CFLAGS=-Wall -g  -Wextra
 lines: lines.c main.c
 
 clean:
-	rm -f *.o compile
+	rm -f *.o lines 

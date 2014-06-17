@@ -75,15 +75,15 @@
 
        //
 
-#define BUFFER_SIZE 1024// sympbolic constant
+#define BUFFER_SIZE 1024// symbolic constant
 // Dynamic memory: memory is managed explicitly and flexibly
 // Typically, it is taken from the heap. External fragmentation
 // -- small gaps between allocated blocks --is a problem.
 struct _file_info *share_info (int lines, size_t length, int error) // <-definition
 {
     struct _file_info *info = malloc(sizeof(struct _file_info));
-    info->lines = lines; // <- count of lines
-    info->length = length; // <- count of characters
+    info->lines = lines;
+    info->length = length;
     info->error = error;
     return info;
 }
@@ -92,8 +92,8 @@ struct _file_info2 *share_info2 (int lines, size_t length) // <-definition
 
 {
     struct _file_info2 *info2 = malloc(sizeof(struct _file_info2));
-    info2->lines = lines; // <- count of lines
-    info2->length = length; // <- count of characters
+    info2->lines = lines;
+    info2->length = length;
     return info2;
 }
 
@@ -199,11 +199,13 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-
     size_t i, len;// this is an int outside of the function
     int at_eof, count, line_count, err;// automatic storage class
     FILE *f;// automatic storage class
-
+    
+    //where is this memory
     len = *length;
     line_count = *lines;
-    err = *error;
-
+    err = *error;// <- is this not being used?
+    err = 0;// <- defined as 0
+    printf("error: %d err: %d\n", *error, err);// <-error prints 1 and err prints 0
     if ((f = fopen (fname, "r")) != NULL) {
         count = -1;
         do {
@@ -217,27 +219,26 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-
                     at_eof = 1;
                 } else {
                     perror("fclose error");
-                    error = -1;
+                    err = -1;
                 }
 
            for (i = 0; i < len; i++) {
                 if (buffer[i] == '\n') {
                     line_count++;
-                    printf("line count: %d\n", line_count);
                 }
            }
         } while (at_eof == 0);
 
-
         if (fclose(f) != 0) {
-            error = -1;
+            err = -1;
             perror("fclose error");
         }
     } else {
-        error = -1;
-        printf("fopen failed, errno = %d\n", errno /* <- not "thrown" */);
+        err = -1;
+        //printf("fopen failed, errno = %d\n", errno /* <- not "thrown" */);
     }
-    error = 0;
+    err = *error;// <-how is this 1 
+    printf("err: %d\n", err);// <-^
 }
 
 /*

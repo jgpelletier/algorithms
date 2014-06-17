@@ -28,15 +28,14 @@ void call_line_count_2 ()
 void call_line_count_3 ()
 {
     // allocate both the pointer and pointee
-    // does not seem to make difference
+    // I get an error, but the correct values with the pointers 
     int error, length, lines;
     int* ptr_err = &error;
     int* ptr_length = &length;
     int* ptr_lines = &lines;
-    error = lines = length = -1;
 
     // no dynamic allocation
-    line_count_4("_x.txt", &lines/* ptr_lines*/, &length /*ptr_length*/, &error/*ptr_err*/);
+    line_count_4("_x.txt", /*&lines*/ ptr_lines, /*&length*/ ptr_length, /*&error*/ ptr_err);
     printf("If any value is negative then an error occured. error: %d lines: %d length:%d\n", error, lines, length);
 }
 
