@@ -201,11 +201,12 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-
     FILE *f;// automatic storage class
     
     //where is this memory
+    err = *error;// tried in 2 different places
     len = *length;
     line_count = *lines;
-    err = *error;// <- is this not being used?
-    err = 0;// <- defined as 0
-    printf("error: %d err: %d\n", *error, err);// <-error prints 1 and err prints 0
+    //err = *error;// <- is this not being used?
+    //err = 0;// <- defined as 0
+    //printf("error: %d err: %d\n", *error, err);// <-error prints 1 and err prints 0
     if ((f = fopen (fname, "r")) != NULL) {
         count = -1;
         do {
@@ -237,7 +238,9 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-
         err = -1;
         //printf("fopen failed, errno = %d\n", errno /* <- not "thrown" */);
     }
-    err = *error;// <-how is this 1 
+    //err = *error;// <-how is this 1
+    err = 0;// <-with this assignment of 0 how is the memory addresed at error still 1?
+            // ^^^ is the 1 taken from old memory? What does 1 represent?
     printf("err: %d\n", err);// <-^
 }
 

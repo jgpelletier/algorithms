@@ -15,7 +15,7 @@ struct _file_info3 { // <- 8 bytes
     size_t length;
 };
 
-typedef struct _file_info info; // <-allocation of memory
+typedef struct _file_info info; // <-allocation of memory for the type.
 typedef struct _file_info2 info2;
 typedef struct _file_info3 info3;
 struct _file_info *share_info (int lines, size_t length, int error);

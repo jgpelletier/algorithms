@@ -33,7 +33,8 @@ void call_line_count_3 ()
     int* ptr_err = &error;
     int* ptr_length = &length;
     int* ptr_lines = &lines;
-
+    //error = -1;// how come this does not change when passes
+    printf("error %d\n", error);//<- why is this one
     // no dynamic allocation
     line_count_4("_x.txt", /*&lines*/ ptr_lines, /*&length*/ ptr_length, /*&error*/ ptr_err);
     printf("If any value is negative then an error occured. error: %d lines: %d length:%d\n", error, lines, length);
