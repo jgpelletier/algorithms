@@ -18,7 +18,7 @@ void call_line_count_2 ()
         // ^^^ raw material for 12 different API calls.
         //          words, words, words
 
-    line_count_2("_x.txt", &info2, &error);
+    line_count_2("_x.txt", &info2, &error); //&info2 is being passed as a pointer to a pointer
     printf("If any value is negative then an error occured. error: %d lines: %d length: %d\n", error, info2->lines, info2->length);
  // try a different way.
     free(info2);    // <- why is this necessary?
@@ -34,16 +34,28 @@ void call_line_count_3 ()
     int* ptr_length = &length;
     int* ptr_lines = &lines;
     //error = -1;// how come this does not change when passes
-    printf("error %d\n", error);//<- why is this one
+    printf("error %d\n", error);//<- why is this 1. it is not assigned.
     // no dynamic allocation
     line_count_4("_x.txt", /*&lines*/ ptr_lines, /*&length*/ ptr_length, /*&error*/ ptr_err);
-    printf("If any value is negative then an error occured. error: %d lines: %d length:%d\n", error, lines, length);
+    printf("If any value is negative then an error occured. error: %d lines: %d length:%d\n", error, lines, length);// <-printf has its own stackframe.
+}
+
+
+void call_line_count_4 ()
+{
+
+    struct _file_info3* info; // will act as temp
+    line_count_3 (const char* fname, struct _file_info3* info3, int* error);
+
 }
 
 int main ()
 {
+    struct _file_info3* info; // will act as temp
+
     call_line_count();
     call_line_count_2();
     call_line_count_3();
+    call_line_count_4();
     return EXIT_SUCCESS;
 }

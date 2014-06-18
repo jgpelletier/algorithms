@@ -192,6 +192,8 @@ void line_count_2 (const char* fname, struct _file_info2 **info2, int *error) //
 
 }
 
+
+// Because its void, there is no need for a return value
 void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-definition
 {
     //conflict btw paramter in variable
@@ -244,6 +246,13 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-
     printf("err: %d\n", err);// <-^
 }
 
+
+
+// how do I implement the function below.
+void line_count_3 (const char* fname, struct _file_info3* info3, int* error);
+{
+
+}
 /*
 // implement as linked list.
 line_list_t* read_lines (const char* file)
