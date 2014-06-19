@@ -98,7 +98,7 @@ struct _file_info2 *share_info2 (int lines, size_t length) // <-definition
 }
 
 struct _file_info *line_count (const char* fname) // <-definition
-{
+{// <- uninitialised value was created here
     // The types below are automatic variables, and they rely on automatic storage
     // This means the variables are declared within the function and are created
     // when the function is called. Scope is restricted to the function, and
@@ -127,7 +127,7 @@ struct _file_info *line_count (const char* fname) // <-definition
                 }
 
            for (i = 0; i < length; i++) {
-                if (buffer[i] == '\n') lines++; // <- don't change this
+                if (buffer[i] == '\n') lines++; // <- conditional jump at here
            }
         } while (at_eof == 0);
 
@@ -248,12 +248,12 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-
 
 
 
-// how do I implement the function below.
+/*// how do I implement the function below.
 void line_count_3 (const char* fname, struct _file_info3* info3, int* error);
 {
 
 }
-/*
+*
 // implement as linked list.
 line_list_t* read_lines (const char* file)
   // ^^^ what is this type?
