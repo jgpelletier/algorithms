@@ -9,7 +9,7 @@ void call_line_count ()
     struct _file_info /**tmp,*/ *info;// declared memory
     //tmp = share_info(lines, length, error);
     //info = tmp;
-    info = line_count("wolverineX2.txt"); // <- 1st valgrind error here by lines.c 130
+    info = line_count("_x.txt"); // <- 1st valgrind error here by lines.c 130
     //^^^ does the error occur because it has not been defined until line_count
     //    has finished running? mallocing memory into tmp does nothing but use
     //    more memory
