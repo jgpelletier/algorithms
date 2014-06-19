@@ -109,6 +109,7 @@ struct _file_info *line_count (const char* fname) // <-definition
     FILE *f;// automatic storage class
     struct _file_info *info;// dynamic memory
     error = 0;
+    // Start:
     if ((f = fopen (fname, "r")) != NULL) {
         lines = 0;
         count = -1;
@@ -126,11 +127,11 @@ struct _file_info *line_count (const char* fname) // <-definition
                     error = -1;
                 }
 
-           for (i = 0; i < length; i++) {
-                if (buffer[i] == '\n') lines++; // <- conditional jump at here
+           for (i = 0; i < length; i++) { // <- conditional jump
+                if (buffer[i] == '\n') lines++; // <- conditional jump in here
            }
         } while (at_eof == 0);
-
+        // ^^looking between here END
         if (fclose(f) != 0) {
             perror("fclose error");
         } else {

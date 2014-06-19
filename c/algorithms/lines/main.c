@@ -4,11 +4,19 @@
 
 void call_line_count ()
 {
-    struct _file_info *info;
+    //int lines, length, error;
+    //lines = length = error = 0;
+    struct _file_info /**tmp,*/ *info;// declared memory
+    //tmp = share_info(lines, length, error);
+    //info = tmp;
     info = line_count("wolverineX2.txt"); // <- 1st valgrind error here by lines.c 130
+    //^^^ does the error occur because it has not been defined until line_count
+    //    has finished running? mallocing memory into tmp does nothing but use
+    //    more memory
     printf("If any value is negative then an error occured. "
         "error: %d lines: %d length: %d\n", info->error, info->lines, info->length);
     free(info);
+    //free(tmp);
 }
 
 void call_line_count_2 ()
@@ -37,9 +45,10 @@ void call_line_count_3 ()
     //printf("error %d\n", error);//<- why is this 1. it is not assigned. 2nd valgrind error, caused at _itoa_word and  libc
     // no dynamic allocation
     line_count_4("_x.txt", /*&lines*/ ptr_lines, /*&length*/ ptr_length, /*&error*/ ptr_err);
-    //printf("If any value is negative then an error occured. error: %d lines: %d length:%d\n", error, lines, length);
+    //printf("If any value is negative then an error occured."
+    //        "error: %d lines: %d length: %d\n", error, lines, length);
     // ^^^printf has its own stackframe. There 7 valgrind contexts for errors here. If
-    //    it is removed the errors are removed.
+    //    printf is removed the errors are removed.
 }
 
 /*
@@ -51,6 +60,8 @@ void call_line_count_4 ()
 
 }
 */
+
+
 int main ()
 {
     //struct _file_info3* info; // will act as temp
