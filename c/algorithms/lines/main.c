@@ -27,14 +27,17 @@ void call_line_count_2 ()
         //          words, words, words
 
     line_count_2("_x.txt", &info2, &error); //&info2 is being passed as a pointer to a pointer
-    printf("If any value is negative then an error occured. error: %d lines: %d length: %d\n", error, info2->lines, info2->length);
+    printf("If any value is negative then an error occured."
+	   " error: %d lines: %d length: %d\n", error, info2->lines, info2->length);
  // try a different way.
     free(info2);    // <- why is this necessary?
     //free(&error);   // <- necessary? WARNING: ATTEMPT TO FREE A NON-HEAP OBJECT
 }
 
 void call_line_count_3 ()
-{ // <- uninitialised value was created by a stack allocation here. This error shows up in 7 contexts.
+{ // <- uninitialised value was created by a stack allocation here. 
+  //This error shows up in 7 contexts.
+    
     // allocate both the pointer and pointee
     // I get an error, but the correct values with the pointers 
     /*static*/ int error, length, lines; // <- with static all variables are 0
@@ -42,7 +45,8 @@ void call_line_count_3 ()
     int* ptr_length = &length;
     int* ptr_lines = &lines;
     //error = -1;// how come this does not change when passes
-    //printf("error %d\n", error);//<- why is this 1. it is not assigned. 2nd valgrind error, caused at _itoa_word and  libc
+    //printf("error %d\n", error);//<- why is this 1. it is not assigned.
+				// 2nd valgrind error, caused at _itoa_word and  libc
     // no dynamic allocation
     line_count_4("_x.txt", /*&lines*/ ptr_lines, /*&length*/ ptr_length, /*&error*/ ptr_err);
     printf("If any value is negative then an error occured."
@@ -50,7 +54,6 @@ void call_line_count_3 ()
     // ^^^printf has its own stackframe. There 7 valgrind contexts for errors here. If
     //    printf is removed the errors are removed.
 }
-
 
 void call_line_count_4 ()
 {
@@ -66,8 +69,6 @@ void call_line_count_4 ()
     //free(tmp);
 
 }
-
-
 
 int main ()
 {
