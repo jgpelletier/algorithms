@@ -1,4 +1,4 @@
-#include <stdio.h>
+include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
 #include "lines.h"
@@ -247,8 +247,6 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-
     printf("err: %d\n", err);// <-^
 }
 
-
-
 // how do I implement the function below.
 void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
 {
@@ -256,6 +254,8 @@ void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
     size_t i, len;
     int at_eof, count, line_count, err;
     FILE *f;
+    err = *error;
+
 
     if ((f = fopen (fname, "r")) != NULL) {
         count = -1;
