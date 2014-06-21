@@ -45,8 +45,8 @@ void call_line_count_3 ()
     //printf("error %d\n", error);//<- why is this 1. it is not assigned. 2nd valgrind error, caused at _itoa_word and  libc
     // no dynamic allocation
     line_count_4("_x.txt", /*&lines*/ ptr_lines, /*&length*/ ptr_length, /*&error*/ ptr_err);
-    //printf("If any value is negative then an error occured."
-    //        "error: %d lines: %d length: %d\n", error, lines, length);
+    printf("If any value is negative then an error occured."
+            "error: %d lines: %d length: %d\n", error, lines, length);
     // ^^^printf has its own stackframe. There 7 valgrind contexts for errors here. If
     //    printf is removed the errors are removed.
 }
