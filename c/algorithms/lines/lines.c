@@ -1,4 +1,4 @@
-include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
 #include "lines.h"
@@ -103,7 +103,7 @@ struct _file_info *line_count (const char* fname) // <-definition
     // This means the variables are declared within the function and are created
     // when the function is called. Scope is restricted to the function, and
     // their lifetime is limited to the time the function is executing
-    char buffer[BUFFER_SIZE];// automatic storage class
+    char buffer[BUFFER_SIZE] = NULL;// automatic storage class
     size_t i, length;// automatic storage class
     int at_eof, lines, count, error;// automatic storage class
     FILE *f;// automatic storage class
