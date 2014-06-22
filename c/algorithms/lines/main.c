@@ -75,8 +75,8 @@ int main ()
     //struct _file_info3* info; // will act as temp
 
     call_line_count();// <- 1st valgrind error caused by lines.c 130
-   // call_line_count_2();
-   // call_line_count_3();// <- valgrind error 7 counts
+    call_line_count_2();
+    call_line_count_3();// <- valgrind error 7 counts
    // call_line_count_4();
     return EXIT_SUCCESS;
 }

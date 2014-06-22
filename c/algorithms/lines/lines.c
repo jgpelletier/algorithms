@@ -103,11 +103,15 @@ struct _file_info *line_count (const char* fname) // <-definition
     // This means the variables are declared within the function and are created
     // when the function is called. Scope is restricted to the function, and
     // their lifetime is limited to the time the function is executing
-    static char buffer[BUFFER_SIZE];// automatic storage class
     size_t i, length;// automatic storage class
     int at_eof, lines, count, error;// automatic storage class
     FILE *f;// automatic storage class
-    struct _file_info *info;// dynamic memory
+    struct _file_info *info;// automatic memory
+    //reserving memory at compile time removes the valgrind error.
+    // variables declared as static inside a function are statically allocated,
+    // thus keep their memory cell throughout all program execution, while
+    // having the same scope of visibility
+    static char buffer[BUFFER_SIZE];//  storage class
     error = 0;
     // Start:
     if ((f = fopen (fname, "r")) != NULL) {
@@ -198,7 +202,7 @@ void line_count_2 (const char* fname, struct _file_info2 **info2, int *error) //
 void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-definition
 {
     //conflict btw paramter in variable
-    char buffer[BUFFER_SIZE];// automatic storage class
+    static char buffer[BUFFER_SIZE];// automatic storage class
     size_t i, len;// this is an int outside of the function
     int at_eof, count, line_count, err;// automatic storage class
     FILE *f;// automatic storage class
