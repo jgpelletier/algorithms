@@ -10,7 +10,7 @@ void call_line_count ()
     //tmp = share_info(lines, length, error);
     //info = tmp;
     info = line_count("wolverineX2.txt"); // <- 1st valgrind error here by lines.c 130
-    //^^^ does the error occur because it has not been defined until line_count
+    //^^^ does the error occur beause it has not been defined until line_count
     //    has finished running? mallocing memory into tmp does nothing but use
     //    more memory
     printf("If any value is negative then an error occured. "
@@ -75,8 +75,8 @@ int main ()
     //struct _file_info3* info; // will act as temp
 
     call_line_count();// <- 1st valgrind error caused by lines.c 130
-    call_line_count_2();
-    call_line_count_3();// <- valgrind error 7 counts
-    call_line_count_4();
+   // call_line_count_2();
+   // call_line_count_3();// <- valgrind error 7 counts
+   // call_line_count_4();
     return EXIT_SUCCESS;
 }
