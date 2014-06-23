@@ -26,7 +26,7 @@ void call_line_count_2 ()
         // ^^^ raw material for 12 different API calls.
         //          words, words, words
 
-    line_count_2("_x.txt", &info2, &error); //&info2 is being passed as a pointer to a pointer
+    line_count_2("wolverineX2.txt", &info2, &error); //&info2 is being passed as a pointer to a pointer
     printf("If any value is negative then an error occured."
 	   " error: %d lines: %d length: %d\n", error, info2->lines, info2->length);
  // try a different way.
@@ -40,7 +40,8 @@ void call_line_count_3 ()
     
     // allocate both the pointer and pointee
     // I get an error, but the correct values with the pointers 
-    /*static*/ int error, length, lines; // <- with static all variables are 0
+    /*static*/ /*extern*/ int error, length, lines; // <- with static
+    // all variables are 0. Extern gives an undefined reference.
     int* ptr_err = &error;
     int* ptr_length = &length;
     int* ptr_lines = &lines;
@@ -48,27 +49,31 @@ void call_line_count_3 ()
     //printf("error %d\n", error);//<- why is this 1. it is not assigned.
 				// 2nd valgrind error, caused at _itoa_word and  libc
     // no dynamic allocation
-    line_count_4("_x.txt", /*&lines*/ ptr_lines, /*&length*/ ptr_length, /*&error*/ ptr_err);
-    printf("If any value is negative then an error occured."
-            "error: %d lines: %d length: %d\n", error, lines, length);
+    line_count_4("wolverineX2.txt", /*&lines*/ ptr_lines, /*&length*/ ptr_length, /*&error*/ ptr_err);
+    //printf("If any value is negative then an error occured."
+    //        "error: %d lines: %d length: %d\n", error, lines, length);
     // ^^^printf has its own stackframe. There 7 valgrind contexts for errors here. If
     //    printf is removed the errors are removed.
 }
 
+/*
 void call_line_count_4 ()
 {
 
     int lines, length, error;
     lines = length = error = 0;
-    struct _file_info3* info;
+    struct _file_info3 * info;
     info = share_info2(lines, length);
+    // assignment from incompatible pointer type given
     line_count_3 ("_x.txt", &info, &error);
+    // ^^^ passing arg 2 from ^^^an incompatible pointer type
     printf("call_line_count_4: If any value is negative then an error occured. "
         "error: %d lines: %d length: %d\n", error, info->lines, info->length);
     free(info);
     //free(tmp);
 
 }
+*/
 
 int main ()
 {

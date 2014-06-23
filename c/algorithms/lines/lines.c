@@ -113,7 +113,6 @@ struct _file_info *line_count (const char* fname) // <-definition
     // having the same scope of visibility
     static char buffer[BUFFER_SIZE];//  storage class
     error = 0;
-    // Start:
     if ((f = fopen (fname, "r")) != NULL) {
         lines = 0;
         count = -1;
@@ -131,11 +130,10 @@ struct _file_info *line_count (const char* fname) // <-definition
                     error = -1;
                 }
 
-           for (i = 0; i < length; i++) { // <- spot of the conditional jump?
-                if (buffer[i] == '\n') lines++; // <- conditional jump in here
+           for (i = 0; i < length; i++) {
+                if (buffer[i] == '\n') lines++;
            }
         } while (at_eof == 0);
-        // ^^looking between here END
         if (fclose(f) != 0) {
             perror("fclose error");
         } else {
@@ -157,10 +155,10 @@ struct _file_info *line_count (const char* fname) // <-definition
 void line_count_2 (const char* fname, struct _file_info2 **info2, int *error) // <-definition
 
 {
-    char buffer[BUFFER_SIZE];// automatic storage class
-    size_t i, length;// automatic storage class
-    int at_eof, lines, count;// automatic storage class
-    FILE *f;// automatic storage class
+    static char buffer[BUFFER_SIZE];
+    size_t i, length;
+    int at_eof, lines, count;
+    FILE *f;
     if ((f = fopen (fname, "r")) != NULL) {
         lines = 0;
         count = -1;
@@ -204,7 +202,7 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-
     //conflict btw paramter in variable
     static char buffer[BUFFER_SIZE];// automatic storage class
     size_t i, len;// this is an int outside of the function
-    int at_eof, count, line_count, err;// automatic storage class
+    int at_eof, count, line_count, err;
     FILE *f;// automatic storage class
     
     //where is this memory
@@ -252,6 +250,7 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-
 }
 
 // how do I implement the function below.
+/*
 void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
 {
     char buffer[BUFFER_SIZE];
@@ -296,7 +295,7 @@ void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
     err = 0;
     printf("err: %d\n", err);
 }
-
+*/
 /*
 // implement as linked list.
 line_list_t* read_lines (const char* file)

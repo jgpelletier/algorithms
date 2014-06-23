@@ -1,3 +1,4 @@
+// external - located outside the function
 struct _file_info { // <-declaration
     int lines;
     size_t length;
