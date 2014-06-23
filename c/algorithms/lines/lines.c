@@ -200,17 +200,16 @@ void line_count_2 (const char* fname, struct _file_info2 **info2, int *error) //
 void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-definition
 {
     //conflict btw paramter in variable
-    static char buffer[BUFFER_SIZE];// automatic storage class
+    char buffer[BUFFER_SIZE];
     size_t i, len;// this is an int outside of the function
-    int at_eof, count, line_count;//, err;
+    int at_eof, count, line_count, err;
     FILE *f;// automatic storage class
     
     //where is this memory
     //*err = *error;// tried in 2 different places
     len = *length;
     line_count = *lines;
-    //err = *error;// <- is this not being used?
-    //err = 0;// <- defined as 0
+    err = *error;// <- is this not being used?
     //printf("error: %d err: %d\n", *error, err);// <-error prints 1 and err prints 0
     if ((f = fopen (fname, "r")) != NULL) {
         count = -1;
@@ -225,9 +224,9 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-
                     at_eof = 1;
                 } else {
                     perror("fclose error");
-                    error = -1;
+                    err = -1;
                 }
-
+           printf("len: %d\n", len);
            for (i = 0; i < len; i++) {
                 if (buffer[i] == '\n') {
                     line_count++;
@@ -236,15 +235,15 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-
         } while (at_eof == 0);
 
         if (fclose(f) != 0) {
-            error = -1;
+            err = -1;
             perror("fclose error");
         }
     } else {
-       error = -1;
+      err = -1;
         //printf("fopen failed, errno = %d\n", errno /* <- not "thrown" */);
     }
     //err = *error;// <-how is this 1
-    error = 0;// <-with this assignment of 0 how is the memory addresed at error still 1?
+    err = 0;// <-with this assignment of 0 how is the memory addresed at error still 1?
             // ^^^ is the 1 taken from old memory? What does 1 represent?
     //printf("err: %d\n", error);// <-^
 }

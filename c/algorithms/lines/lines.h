@@ -1,6 +1,6 @@
 // nameing external breaks the program. using storage class static at this level
 // does nothing
-/*extern*/ /*static*/ int error, length, lines;
+///*extern*/ /*static*/ int error, lines, length;
 
 /*int* ptr_err;
 int* ptr_length;
