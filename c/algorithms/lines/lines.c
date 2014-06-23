@@ -202,11 +202,11 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-
     //conflict btw paramter in variable
     static char buffer[BUFFER_SIZE];// automatic storage class
     size_t i, len;// this is an int outside of the function
-    int at_eof, count, line_count, err;
+    int at_eof, count, line_count;//, err;
     FILE *f;// automatic storage class
     
     //where is this memory
-    err = *error;// tried in 2 different places
+    //*err = *error;// tried in 2 different places
     len = *length;
     line_count = *lines;
     //err = *error;// <- is this not being used?
@@ -225,7 +225,7 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-
                     at_eof = 1;
                 } else {
                     perror("fclose error");
-                    err = -1;
+                    error = -1;
                 }
 
            for (i = 0; i < len; i++) {
@@ -236,17 +236,17 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-
         } while (at_eof == 0);
 
         if (fclose(f) != 0) {
-            err = -1;
+            error = -1;
             perror("fclose error");
         }
     } else {
-        err = -1;
+       error = -1;
         //printf("fopen failed, errno = %d\n", errno /* <- not "thrown" */);
     }
     //err = *error;// <-how is this 1
-    err = 0;// <-with this assignment of 0 how is the memory addresed at error still 1?
+    error = 0;// <-with this assignment of 0 how is the memory addresed at error still 1?
             // ^^^ is the 1 taken from old memory? What does 1 represent?
-    printf("err: %d\n", err);// <-^
+    //printf("err: %d\n", error);// <-^
 }
 
 // how do I implement the function below.

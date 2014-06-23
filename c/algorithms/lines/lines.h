@@ -1,4 +1,11 @@
-// external - located outside the function
+// nameing external breaks the program. using storage class static at this level
+// does nothing
+/*extern*/ /*static*/ int error, length, lines;
+
+/*int* ptr_err;
+int* ptr_length;
+int* ptr_lines;
+*/
 struct _file_info { // <-declaration
     int lines;
     size_t length;

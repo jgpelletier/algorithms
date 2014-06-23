@@ -35,25 +35,14 @@ void call_line_count_2 ()
 }
 
 void call_line_count_3 ()
-{ // <- uninitialised value was created by a stack allocation here. 
-  //This error shows up in 7 contexts.
+{
     
-    // allocate both the pointer and pointee
-    // I get an error, but the correct values with the pointers 
-    /*static*/ /*extern*/ int error, length, lines; // <- with static
-    // all variables are 0. Extern gives an undefined reference.
-    int* ptr_err = &error;
-    int* ptr_length = &length;
-    int* ptr_lines = &lines;
-    //error = -1;// how come this does not change when passes
-    //printf("error %d\n", error);//<- why is this 1. it is not assigned.
-				// 2nd valgrind error, caused at _itoa_word and  libc
-    // no dynamic allocation
-    line_count_4("wolverineX2.txt", /*&lines*/ ptr_lines, /*&length*/ ptr_length, /*&error*/ ptr_err);
-    //printf("If any value is negative then an error occured."
-    //        "error: %d lines: %d length: %d\n", error, lines, length);
-    // ^^^printf has its own stackframe. There 7 valgrind contexts for errors here. If
-    //    printf is removed the errors are removed.
+    // moved the length, lines and error identifies to the h file.
+    // the conditional jump error is gone but, now the variables do not
+    // recieve there new assignments.
+    line_count_4("wolverineX2.txt", &lines,/* ptr_lines*/ &length /* ptr_length*/, &error /* ptr_err*/);
+    printf("If any value is negative then an error occured."
+            "error: %d lines: %d length: %d\n", error, lines, length);
 }
 
 /*
@@ -79,7 +68,7 @@ int main ()
 {
     //struct _file_info3* info; // will act as temp
 
-    call_line_count();// <- 1st valgrind error caused by lines.c 130
+    call_line_count();
     call_line_count_2();
     call_line_count_3();// <- valgrind error 7 counts
    // call_line_count_4();
