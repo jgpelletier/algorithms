@@ -259,10 +259,9 @@ void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
     size_t i, len;
     int at_eof, count, line_count, err;
     FILE *f;
-    struct _file_info3 info;
-
+    line_count = 0;
     err = 0;
-
+    len = 0;
 
     if ((f = fopen (fname, "r")) != NULL) {
         count = -1;
@@ -286,6 +285,9 @@ void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
                 }
            }
         } while (at_eof == 0);
+
+        info3->length = len;
+        info3->lines = line_count;
 
         if (fclose(f) != 0) {
             err = -1;

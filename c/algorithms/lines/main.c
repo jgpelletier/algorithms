@@ -51,14 +51,14 @@ void call_line_count_4 ()
 {
 
     int lines, length, error;
-    struct info3 info;
+    struct _file_info3 info;
 
     lines = length = error = 0;
     info = share_info3(lines, length);
     line_count_3 ("_x.txt", &info, &error);
     printf("call_line_count_4: If any value is negative then an error occured. "
         "error: %d lines: %d length: %d\n", error, info.lines, info.length);
-    free(info);
+    //free(info);
 
 }
 
