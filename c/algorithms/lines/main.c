@@ -37,17 +37,13 @@ void call_line_count_2 ()
 void call_line_count_3 ()
 {
     
-    // moved the length, lines and error identifies to the h file.
-    // the conditional jump error is gone but, now the variables do not
-    // recieve there new assignments.
     int length, lines, error;
     int * ptr_lines = &lines;
     int * ptr_length = &length;
     int * ptr_err = &error;
-    length = lines = error = 1;
-    line_count_4("wolverineX2.txt",/*&lines*/ ptr_lines, /* &length */ ptr_length, /* &error */ ptr_err);
+    line_count_4("_x.txt",/*&lines*/ ptr_lines, /* &length */ ptr_length, /* &error */ ptr_err);
     printf("If any value is negative then an error occured."
-           "error: %d lines: %d length: %d\n", error, lines, length);
+           " error: %d lines: %d length: %d\n", error, lines, length);
 }
 
 /*

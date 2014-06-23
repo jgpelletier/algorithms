@@ -200,17 +200,13 @@ void line_count_2 (const char* fname, struct _file_info2 **info2, int *error) //
 void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-definition
 {
     //conflict btw paramter in variable
-    char buffer[BUFFER_SIZE];
+    char buffer[BUFFER_SIZE]; //with static storage class there is a seg fault
     size_t i, len;// this is an int outside of the function
     int at_eof, count, line_count, err;
     FILE *f;// automatic storage class
-    
-    //where is this memory
-    //*err = *error;// tried in 2 different places
-    len = *length;
-    line_count = *lines;
-    err = *error;// <- is this not being used?
-    //printf("error: %d err: %d\n", *error, err);// <-error prints 1 and err prints 0
+    err = 0;
+    line_count = 0;
+    len = 0;
     if ((f = fopen (fname, "r")) != NULL) {
         count = -1;
         do {
@@ -226,13 +222,17 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-
                     perror("fclose error");
                     err = -1;
                 }
-           printf("len: %d\n", len);
+           //printf("len: %d\n", len);
            for (i = 0; i < len; i++) {
-                if (buffer[i] == '\n') {
+                if (buffer[i] == '\n') {// conditional jump?
                     line_count++;
                 }
            }
+           //printf("line_count: %d\n", line_count);
+           *length = len;
+           //*lines = line_count;
         } while (at_eof == 0);
+           *lines = line_count;
 
         if (fclose(f) != 0) {
             err = -1;
@@ -240,11 +240,9 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-
         }
     } else {
       err = -1;
-        //printf("fopen failed, errno = %d\n", errno /* <- not "thrown" */);
+        printf("fopen failed, errno = %d\n", errno /* <- not "thrown" */);
     }
-    //err = *error;// <-how is this 1
-    err = 0;// <-with this assignment of 0 how is the memory addresed at error still 1?
-            // ^^^ is the 1 taken from old memory? What does 1 represent?
+    *error = err;
     //printf("err: %d\n", error);// <-^
 }
 
