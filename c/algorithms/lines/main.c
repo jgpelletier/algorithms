@@ -46,24 +46,22 @@ void call_line_count_3 ()
            " error: %d lines: %d length: %d\n", error, lines, length);
 }
 
-/*
+
 void call_line_count_4 ()
 {
 
     int lines, length, error;
+    struct info3 info;
+
     lines = length = error = 0;
-    struct _file_info3 * info;
-    info = share_info2(lines, length);
-    // assignment from incompatible pointer type given
+    info = share_info3(lines, length);
     line_count_3 ("_x.txt", &info, &error);
-    // ^^^ passing arg 2 from ^^^an incompatible pointer type
     printf("call_line_count_4: If any value is negative then an error occured. "
-        "error: %d lines: %d length: %d\n", error, info->lines, info->length);
+        "error: %d lines: %d length: %d\n", error, info.lines, info.length);
     free(info);
-    //free(tmp);
 
 }
-*/
+
 
 int main ()
 {
@@ -71,7 +69,7 @@ int main ()
 
     call_line_count();
     call_line_count_2();
-    call_line_count_3();// <- valgrind error 7 counts
-   // call_line_count_4();
+    call_line_count_3();
+    call_line_count_4();
     return EXIT_SUCCESS;
 }

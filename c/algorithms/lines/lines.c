@@ -89,7 +89,6 @@ struct _file_info *share_info (int lines, size_t length, int error) // <-definit
 }
 
 struct _file_info2 *share_info2 (int lines, size_t length) // <-definition
-
 {
     struct _file_info2 *info2 = malloc(sizeof(struct _file_info2));
     info2->lines = lines;
@@ -97,8 +96,17 @@ struct _file_info2 *share_info2 (int lines, size_t length) // <-definition
     return info2;
 }
 
+// no dynamic memory allocation
+struct _file_info3 share_info3 (int lines, size_t length)
+{
+    struct _file_info3 info;
+    info.lines = lines;
+    info.length = length;
+    return info;
+}
+
 struct _file_info *line_count (const char* fname) // <-definition
-{// <- uninitialised value was created here
+{
     // The types below are automatic variables, and they rely on automatic storage
     // This means the variables are declared within the function and are created
     // when the function is called. Scope is restricted to the function, and
@@ -192,16 +200,14 @@ void line_count_2 (const char* fname, struct _file_info2 **info2, int *error) //
     } else {
         *info2 = share_info2(lines, length);
     }
-
 }
 
 
-// Because its void, there is no need for a return value
 void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-definition
 {
     //conflict btw paramter in variable
     char buffer[BUFFER_SIZE]; //with static storage class there is a seg fault
-    size_t i, len;// this is an int outside of the function
+    size_t i, len;
     int at_eof, count, line_count, err;
     FILE *f;// automatic storage class
     err = 0;
@@ -222,17 +228,18 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-
                     perror("fclose error");
                     err = -1;
                 }
-           //printf("len: %d\n", len);
+
            for (i = 0; i < len; i++) {
                 if (buffer[i] == '\n') {// conditional jump?
                     line_count++;
                 }
            }
-           //printf("line_count: %d\n", line_count);
+
            *length = len;
-           //*lines = line_count;
+
         } while (at_eof == 0);
-           *lines = line_count;
+
+        *lines = line_count;
 
         if (fclose(f) != 0) {
             err = -1;
@@ -243,18 +250,18 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-
         printf("fopen failed, errno = %d\n", errno /* <- not "thrown" */);
     }
     *error = err;
-    //printf("err: %d\n", error);// <-^
 }
 
 // how do I implement the function below.
-/*
 void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
 {
     char buffer[BUFFER_SIZE];
     size_t i, len;
     int at_eof, count, line_count, err;
     FILE *f;
-    err = *error;
+    struct _file_info3 info;
+
+    err = 0;
 
 
     if ((f = fopen (fname, "r")) != NULL) {
@@ -286,13 +293,12 @@ void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
         }
     } else {
         err = -1;
-        //printf("fopen failed, errno = %d\n", errno);
+        printf("fopen failed, errno = %d\n", errno);
     }
-    //err = *error;
-    err = 0;
+    *error = err;
     printf("err: %d\n", err);
 }
-*/
+
 /*
 // implement as linked list.
 line_list_t* read_lines (const char* file)

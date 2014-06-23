@@ -1,4 +1,4 @@
-// nameing external breaks the program. using storage class static at this level
+// naming extern breaks the program. using storage class static at this level
 // does nothing
 ///*extern*/ /*static*/ int error, lines, length;
 
@@ -28,6 +28,7 @@ typedef struct _file_info2 info2;
 typedef struct _file_info3 info3;
 struct _file_info *share_info (int lines, size_t length, int error);
 struct _file_info2 *share_info2 (int lines, size_t length);
+struct _file_info3 share_info3 (int lines, size_t length);
 struct _file_info *line_count (const char* fname);
 void line_count_2 (const char* fname, struct _file_info2** info2, int* error);
 //^^^ function passes pointer to pointer allowing the argument pointer to be
