@@ -27,7 +27,6 @@ void call_line_count_2 ()
 
 void call_line_count_3 ()
 {
-    
     int length, lines, error;
     int * ptr_lines = &lines;
     int * ptr_length = &length;
@@ -40,16 +39,14 @@ void call_line_count_3 ()
 
 void call_line_count_4 ()
 {
-
     int lines, length, error;
     struct _file_info3 info;
 
     lines = length = error = 0;
     info = share_info3(lines, length);
-    line_count_3 ("_x.txt", &info, &error);
+    line_count_3 ("wolverineX2.txt", &info, &error);
     printf("call_line_count_4: If any value is negative then an error occured. "
         "error: %d lines: %d length: %d\n", error, info.lines, info.length);
-
 }
 
 

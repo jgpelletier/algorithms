@@ -252,7 +252,7 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-
 
 void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
 {
-    char buffer[BUFFER_SIZE];
+    static char buffer[BUFFER_SIZE];
     size_t i, len;
     int at_eof, count, line_count, err;
     FILE *f;
@@ -265,22 +265,23 @@ void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
         do {
             count ++;
             len = fread(buffer, sizeof(char), sizeof(buffer), f);
-                if (len == sizeof(buffer)) {
-                    at_eof = 0;
-                }
-                else if (feof(f)) {
-                    len = len + (count * sizeof(buffer));
-                    at_eof = 1;
-                } else {
-                    perror("fclose error");
-                    err = -1;
-                }
 
-           for (i = 0; i < len; i++) {
+            if (len == sizeof(buffer)) {
+                at_eof = 0;
+            } else if (feof(f)) {
+                len = len + (count * sizeof(buffer));
+                at_eof = 1;
+            } else {
+                perror("fclose error");
+                err = -1;
+            }
+
+            for (i = 0; i < len; i++) {
+                fprintf(stderr, "loop %c, %d, %d, %d\n", buffer[i], i, len, at_eof);
                 if (buffer[i] == '\n') {
                     line_count++;
                 }
-           }
+            }
         } while (at_eof == 0);
 
         info3->length = len;
