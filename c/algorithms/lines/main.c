@@ -4,19 +4,11 @@
 
 void call_line_count ()
 {
-    //int lines, length, error;
-    //lines = length = error = 0;
-    struct _file_info /**tmp,*/ *info;// declared memory
-    //tmp = share_info(lines, length, error);
-    //info = tmp;
-    info = line_count("wolverineX2.txt"); // <- 1st valgrind error here by lines.c 130
-    //^^^ does the error occur beause it has not been defined until line_count
-    //    has finished running? mallocing memory into tmp does nothing but use
-    //    more memory
+    struct _file_info *info;// declared memory
+    info = line_count("wolverineX2.txt");
     printf("If any value is negative then an error occured. "
         "error: %d lines: %d length: %d\n", info->error, info->lines, info->length);
     free(info);
-    //free(tmp);
 }
 
 void call_line_count_2 ()
@@ -31,7 +23,6 @@ void call_line_count_2 ()
 	   " error: %d lines: %d length: %d\n", error, info2->lines, info2->length);
  // try a different way.
     free(info2);    // <- why is this necessary?
-    //free(&error);   // <- necessary? WARNING: ATTEMPT TO FREE A NON-HEAP OBJECT
 }
 
 void call_line_count_3 ()
@@ -58,15 +49,12 @@ void call_line_count_4 ()
     line_count_3 ("_x.txt", &info, &error);
     printf("call_line_count_4: If any value is negative then an error occured. "
         "error: %d lines: %d length: %d\n", error, info.lines, info.length);
-    //free(info);
 
 }
 
 
 int main ()
 {
-    //struct _file_info3* info; // will act as temp
-
     call_line_count();
     call_line_count_2();
     call_line_count_3();

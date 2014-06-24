@@ -160,8 +160,7 @@ struct _file_info *line_count (const char* fname) // <-definition
     return info;
 }
 
-void line_count_2 (const char* fname, struct _file_info2 **info2, int *error) // <-definition
-
+void line_count_2 (const char* fname, struct _file_info2 **info2, int *error)
 {
     static char buffer[BUFFER_SIZE];
     size_t i, length;
@@ -205,11 +204,10 @@ void line_count_2 (const char* fname, struct _file_info2 **info2, int *error) //
 
 void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-definition
 {
-    //conflict btw paramter in variable
     char buffer[BUFFER_SIZE]; //with static storage class there is a seg fault
     size_t i, len;
     int at_eof, count, line_count, err;
-    FILE *f;// automatic storage class
+    FILE *f;
     err = 0;
     line_count = 0;
     len = 0;
@@ -247,12 +245,11 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-
         }
     } else {
       err = -1;
-        printf("fopen failed, errno = %d\n", errno /* <- not "thrown" */);
+        printf("fopen failed, errno = %d\n", errno);
     }
     *error = err;
 }
 
-// how do I implement the function below.
 void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
 {
     char buffer[BUFFER_SIZE];
