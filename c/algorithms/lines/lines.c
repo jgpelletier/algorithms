@@ -162,7 +162,7 @@ struct _file_info *line_count (const char* fname) // <-definition
 
 void line_count_2 (const char* fname, struct _file_info2 **info2, int *error)
 {
-    static char buffer[BUFFER_SIZE];
+    char buffer[BUFFER_SIZE];
     size_t i, length;
     int at_eof, lines, count;
     FILE *f;
@@ -177,20 +177,21 @@ void line_count_2 (const char* fname, struct _file_info2 **info2, int *error)
     do {
         count ++;
         length = fread(buffer, sizeof(char), sizeof(buffer), f);
-            if (length == sizeof(buffer)) {
-                at_eof = 0;
-            }
-            else if (feof(f)) {
-                length = length + (count * sizeof(buffer));
-                at_eof = 1;
-            } else {
-                perror("fclose error");
-                *error = -1;
-            }
 
-       for (i = 0; i < length; i++) {
+        for (i = 0; i < length; i++) {
             if (buffer[i] == '\n') lines++;
-       }
+        }
+
+        if (length == sizeof(buffer)) {
+            at_eof = 0;
+        }  else if (feof(f)) {
+            length = length + (count * sizeof(buffer));
+            at_eof = 1;
+        } else {
+            perror("fclose error");
+            *error = -1;
+        }
+
     } while (at_eof == 0);
 
     if (fclose(f) != 0) {
