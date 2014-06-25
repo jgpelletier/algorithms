@@ -213,25 +213,28 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-
     len = 0;
     if ((f = fopen (fname, "r")) != NULL) {
         count = -1;
+
         do {
             count ++;
-            len = fread(buffer, sizeof(char), sizeof(buffer), f);
-                if (len == sizeof(buffer)) {
-                    at_eof = 0;
-                }
-                else if (feof(f)) {
-                    len = len + (count * sizeof(buffer));
-                    at_eof = 1;
-                } else {
-                    perror("fclose error");
-                    err = -1;
-                }
 
-           for (i = 0; i < len; i++) {
-                if (buffer[i] == '\n') {// conditional jump?
+            len = fread(buffer, sizeof(char), sizeof(buffer), f);
+
+            for (i = 0; i < len; i++) {
+                if (buffer[i] == '\n') {
                     line_count++;
                 }
-           }
+            }
+
+           if (len == sizeof(buffer)) {
+                at_eof = 0;
+            }
+            else if (feof(f)) {
+                len = len + (count * sizeof(buffer));
+                at_eof = 1;
+            } else {
+                perror("fclose error");
+                err = -1;
+            }
 
            *length = len;
 
@@ -252,7 +255,7 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-
 
 void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
 {
-    static char buffer[BUFFER_SIZE];
+    char buffer[BUFFER_SIZE];
     size_t i, len;
     int at_eof, count, line_count, err;
     FILE *f;
@@ -267,7 +270,7 @@ void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
             len = fread(buffer, sizeof(char), sizeof(buffer), f);
 
             for (i = 0; i < len; i++) {
-                fprintf(stderr, "loop %c, %d, %d, %d\n", buffer[i], i, len, at_eof);
+                //fprintf(stderr, "loop %c, %d, %d, %d\n", buffer[i], i, len, at_eof);
                 if (buffer[i] == '\n') {
                     line_count++;
                 }
