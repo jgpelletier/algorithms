@@ -39,6 +39,7 @@ struct _file_info3 foo ()
     struct _file_info3 info; //struct _file_info2 foo1?
     line_count_5("wolverineX2.txt", &error);
     //struct _file_info2 foo_1;  // <- until you call another function
+    printf("in foo. lines: %d length:%d\n", info.lines, info.length);
     return info; //this returned &foo_1
 }
 
@@ -67,5 +68,6 @@ int main ()
     call_line_count_3();
     call_line_count_4();
     foo();
+    printf("in main. lines: %d\n", info.lines);
     return EXIT_SUCCESS;
 }

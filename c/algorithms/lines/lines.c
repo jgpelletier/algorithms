@@ -206,14 +206,15 @@ struct _file_info3 line_count_5 (const char* fname, int* error)
                         // unused parameters ^^^   and   ^^^
 {
     struct _file_info3 info;
-    void line_count_3(const char* fname, struct _file_info3 *info, int *error);
+    line_count_3(fname, &info, &error);
+    // why does the absense of void create errors?
     return info;
 }
 
 
 void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-definition
 {
-    char buffer[BUFFER_SIZE]; //with static storage class there is a seg fault
+    char buffer[BUFFER_SIZE];
     size_t i, len;
     int at_eof, count, line_count, err;
     FILE *f;
@@ -310,7 +311,6 @@ void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
         printf("fopen failed, errno = %d\n", errno);
     }
     *error = err;
-    printf("err: %d\n", err);
 }
 
 /*
