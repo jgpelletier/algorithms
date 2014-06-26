@@ -29,3 +29,5 @@ struct _file_info *line_count (const char* fname);
 void line_count_2 (const char* fname, struct _file_info2** info2, int* error);
 void line_count_4 (const char* fname, int *lines, int *length, int *error);
 void line_count_3 (const char* fname, struct _file_info3* info3, int* error);
+//struct _file_info2 line_count_5 (const char* fname, int* error);
+                                                // ^^^

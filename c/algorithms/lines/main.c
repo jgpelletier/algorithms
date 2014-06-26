@@ -32,17 +32,28 @@ void call_line_count_3 ()
            " error: %d lines: %d length: %d\n", error, lines, length);
 }
 
+/*
+struct _file_info2* foo ()
+{
+    struct _file_info2 foo_1;  // <- until you call another function
+    return &foo_1;
+}
+*/
 
 void call_line_count_4 ()
 {
-    int lines, length, error;
+    int error; //lines, length, error;
     struct _file_info3 info;
+    // ^^^ type followed by the name.
 
-    lines = length = error = 0;// Un-needed but removes warning
-    info = share_info3(lines, length); // <- what is this? pass by value
+    // lines = length = error = 0;// Un-needed but removes warning
+    // info = share_info3(lines, length); // <- what is this? pass by value
+        // ^^^ what does this do? nothin' useful
     line_count_3 ("wolverineX2.txt", &info, &error);
+    int i = 0;  // <- declartion, allocation, definition
     printf("If any value is negative then an error occured. "
         "error: %d lines: %d length: %d\n", error, info.lines, info.length);
+    // <- gone here
 }
 
 

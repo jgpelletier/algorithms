@@ -102,6 +102,7 @@ struct _file_info3 share_info3 (int lines, size_t length)
     struct _file_info3 info;
     info.lines = lines;
     info.length = length;
+    // can return local auto storage bc it is copied
     return info; // <- by reference or by value? Value- this is a copy of info.
 }
 
@@ -200,6 +201,14 @@ void line_count_2 (const char* fname, struct _file_info2 **info2, int *error)
     }
 }
 
+/*
+struct foo line_count_5 ()
+{
+    struct foo;
+    line_count_x(foo->bar, &foo.baz);
+    return foo;
+}
+*/
 
 void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-definition
 {
