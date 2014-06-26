@@ -32,13 +32,15 @@ void call_line_count_3 ()
            " error: %d lines: %d length: %d\n", error, lines, length);
 }
 
-/*
-struct _file_info2* foo ()
+// was struct _file_info2 * foo chosen specifically
+struct _file_info3 foo ()
 {
-    struct _file_info2 foo_1;  // <- until you call another function
-    return &foo_1;
+    int error;
+    struct _file_info3 info; //struct _file_info2 foo1?
+    line_count_5("wolverineX2.txt", &error);
+    //struct _file_info2 foo_1;  // <- until you call another function
+    return info; //this returned &foo_1
 }
-*/
 
 void call_line_count_4 ()
 {
@@ -50,7 +52,6 @@ void call_line_count_4 ()
     // info = share_info3(lines, length); // <- what is this? pass by value
         // ^^^ what does this do? nothin' useful
     line_count_3 ("wolverineX2.txt", &info, &error);
-    int i = 0;  // <- declartion, allocation, definition
     printf("If any value is negative then an error occured. "
         "error: %d lines: %d length: %d\n", error, info.lines, info.length);
     // <- gone here
@@ -59,9 +60,12 @@ void call_line_count_4 ()
 
 int main ()
 {
+
+    struct _file_info3 info;// unused
     call_line_count();
     call_line_count_2();
     call_line_count_3();
     call_line_count_4();
+    foo();
     return EXIT_SUCCESS;
 }

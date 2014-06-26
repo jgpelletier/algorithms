@@ -201,14 +201,15 @@ void line_count_2 (const char* fname, struct _file_info2 **info2, int *error)
     }
 }
 
-/*
-struct foo line_count_5 ()
+
+struct _file_info3 line_count_5 (const char* fname, int* error)
+                        // unused parameters ^^^   and   ^^^
 {
-    struct foo;
-    line_count_x(foo->bar, &foo.baz);
-    return foo;
+    struct _file_info3 info;
+    void line_count_3(const char* fname, struct _file_info3 *info, int *error);
+    return info;
 }
-*/
+
 
 void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-definition
 {
