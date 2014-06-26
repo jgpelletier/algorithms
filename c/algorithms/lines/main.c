@@ -38,8 +38,8 @@ void call_line_count_4 ()
     int lines, length, error;
     struct _file_info3 info;
 
-    lines = length = error = 0;
-    info = share_info3(lines, length);
+    lines = length = error = 0;// Un-needed but removes warning
+    info = share_info3(lines, length); // <- what is this? pass by value
     line_count_3 ("wolverineX2.txt", &info, &error);
     printf("If any value is negative then an error occured. "
         "error: %d lines: %d length: %d\n", error, info.lines, info.length);

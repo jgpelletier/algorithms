@@ -102,7 +102,7 @@ struct _file_info3 share_info3 (int lines, size_t length)
     struct _file_info3 info;
     info.lines = lines;
     info.length = length;
-    return info;
+    return info; // <- by reference or by value? Value- this is a copy of info.
 }
 
 struct _file_info *line_count (const char* fname) // <-definition
