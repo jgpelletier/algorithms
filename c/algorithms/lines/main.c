@@ -32,17 +32,6 @@ void call_line_count_3 ()
            " error: %d lines: %d length: %d\n", error, lines, length);
 }
 
-// was struct _file_info2 * foo chosen specifically
-struct _file_info3 foo ()
-{
-    int error;
-    struct _file_info3 info; //struct _file_info2 foo1?
-    line_count_5("wolverineX2.txt", &error);
-    //struct _file_info2 foo_1;  // <- until you call another function
-    printf("in foo. lines: %d length:%d\n", info.lines, info.length);
-    return info; //this returned &foo_1
-}
-
 void call_line_count_4 ()
 {
     int error; //lines, length, error;
@@ -58,16 +47,24 @@ void call_line_count_4 ()
     // <- gone here
 }
 
+// was struct _file_info2 * foo chosen specifically
+struct _file_info2 * foo ()
+{
+    int error;
+    struct _file_info3 info = line_count_5("wolverineX2.txt", &error);
+    struct _file_info2 *info_ptr = share_info2(info.lines, info.length); //struct _file_info2 foo1?
+    return info_ptr; //this returned &foo_1
+}
 
 int main ()
 {
-
-    struct _file_info3 info;// unused
+    struct _file_info2 * info;
     call_line_count();
     call_line_count_2();
     call_line_count_3();
     call_line_count_4();
-    foo();
-    printf("in main. lines: %d\n", info.lines);
+    info = foo();
+    printf("in main. length: %d  lines: %d\n", info->length, info->lines);
+    free(info);
     return EXIT_SUCCESS;
 }

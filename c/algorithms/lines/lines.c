@@ -202,13 +202,54 @@ void line_count_2 (const char* fname, struct _file_info2 **info2, int *error)
 }
 
 
-struct _file_info3 line_count_5 (const char* fname, int* error)
-                        // unused parameters ^^^   and   ^^^
+void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
 {
-    struct _file_info3 info;
-    line_count_3(fname, &info, &error);
-    // why does the absense of void create errors?
-    return info;
+    char buffer[BUFFER_SIZE];
+    size_t i, len;
+    int at_eof, count, line_count, err;
+    FILE *f;
+    line_count = 0;
+    err = 0;
+    len = 0;
+
+    if ((f = fopen (fname, "r")) != NULL) {
+        count = -1;
+        do {
+            count ++;
+            len = fread(buffer, sizeof(char), sizeof(buffer), f);
+
+            for (i = 0; i < len; i++) {
+                //fprintf(stderr, "loop %c, %d, %d, %d\n", buffer[i], i, len, at_eof);
+                if (buffer[i] == '\n') {
+                    line_count++;
+                }
+            }
+
+            if (len == sizeof(buffer)) {
+                at_eof = 0;
+            } else if (feof(f)) {
+                len = len + (count * sizeof(buffer));
+                at_eof = 1;
+            } else {
+                perror("fclose error");
+                err = -1;
+            }
+
+
+        } while (at_eof == 0);
+
+        info3->length = len;
+        info3->lines = line_count;
+
+        if (fclose(f) != 0) {
+            err = -1;
+            perror("fclose error");
+        }
+    } else {
+        err = -1;
+        printf("fopen failed, errno = %d\n", errno);
+    }
+    *error = err;
 }
 
 
@@ -263,54 +304,11 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-
     *error = err;
 }
 
-void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
+struct _file_info3 line_count_5 (const char* fname, int* error)
 {
-    char buffer[BUFFER_SIZE];
-    size_t i, len;
-    int at_eof, count, line_count, err;
-    FILE *f;
-    line_count = 0;
-    err = 0;
-    len = 0;
-
-    if ((f = fopen (fname, "r")) != NULL) {
-        count = -1;
-        do {
-            count ++;
-            len = fread(buffer, sizeof(char), sizeof(buffer), f);
-
-            for (i = 0; i < len; i++) {
-                //fprintf(stderr, "loop %c, %d, %d, %d\n", buffer[i], i, len, at_eof);
-                if (buffer[i] == '\n') {
-                    line_count++;
-                }
-            }
-
-            if (len == sizeof(buffer)) {
-                at_eof = 0;
-            } else if (feof(f)) {
-                len = len + (count * sizeof(buffer));
-                at_eof = 1;
-            } else {
-                perror("fclose error");
-                err = -1;
-            }
-
-
-        } while (at_eof == 0);
-
-        info3->length = len;
-        info3->lines = line_count;
-
-        if (fclose(f) != 0) {
-            err = -1;
-            perror("fclose error");
-        }
-    } else {
-        err = -1;
-        printf("fopen failed, errno = %d\n", errno);
-    }
-    *error = err;
+    struct _file_info3 info;
+    line_count_3(fname, &info, error);
+    return info;
 }
 
 /*
