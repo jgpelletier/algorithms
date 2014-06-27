@@ -56,15 +56,28 @@ struct _file_info2 * foo ()
     return info_ptr; //this returned &foo_1
 }
 
+struct _file_info* bar ()
+{
+    int error;
+    struct _file_info3 info3;
+    line_count_3 ("wolverineX2.txt", &info3, &error);
+    struct _file_info * info = share_info(info3.length, info3.lines, error);
+    return info;
+
+}
+
 int main ()
 {
-    struct _file_info2 * info;
+    struct _file_info2 * info2;
+    struct _file_info * info;
     call_line_count();
     call_line_count_2();
     call_line_count_3();
     call_line_count_4();
-    info = foo();
+    info2 = foo();
+    info = bar();
     printf("in main. length: %d  lines: %d\n", info->length, info->lines);
+    free(info2);
     free(info);
     return EXIT_SUCCESS;
 }

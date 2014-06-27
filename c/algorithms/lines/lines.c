@@ -106,7 +106,7 @@ struct _file_info3 share_info3 (int lines, size_t length)
     return info; // <- by reference or by value? Value- this is a copy of info.
 }
 
-struct _file_info *line_count (const char* fname) // <-definition
+struct _file_info *line_count (const char* fname) // <-definition using / line_count_3
 {
     // The types below are automatic variables, and they rely on automatic storage
     // This means the variables are declared within the function and are created
@@ -310,6 +310,7 @@ struct _file_info3 line_count_5 (const char* fname, int* error)
     line_count_3(fname, &info, error);
     return info;
 }
+
 
 /*
 // implement as linked list.
