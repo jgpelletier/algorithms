@@ -14,4 +14,4 @@ function inker (number) {
 
 var number = inker(2)
 
-console.log(number) // <- 3
+console.log(number(1)) // <- 3
