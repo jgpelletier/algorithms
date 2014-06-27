@@ -57,6 +57,7 @@ struct _file_info2 * foo ()
 }
 
 struct _file_info* bar ()
+// not certain this is the desired function.
 {
     int error;
     struct _file_info3 info3;
