@@ -127,8 +127,8 @@ void line_count_2 (const char* fname, struct _file_info2 **info2, int *error)
     // ^^^ implement using line_count_3
 {
     struct _file_info3 info3;
-    line_count_3(fname, info2, error);
-    info2 = share_info2(info3.lines, info3.length);
+    line_count_3(fname, &info3, error);
+    *info2 = share_info2(info3.lines, info3.length);
 }
 
 
@@ -186,53 +186,10 @@ void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
 void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-definition
     // ^^^ implement using line_count_3
 {
-    char buffer[BUFFER_SIZE];
-    size_t i, len;
-    int at_eof, count, line_count, err;
-    FILE *f;
-    err = 0;
-    line_count = 0;
-    len = 0;
-    if ((f = fopen (fname, "r")) != NULL) {
-        count = -1;
-
-        do {
-            count ++;
-
-            len = fread(buffer, sizeof(char), sizeof(buffer), f);
-
-            for (i = 0; i < len; i++) {
-                if (buffer[i] == '\n') {
-                    line_count++;
-                }
-            }
-
-           if (len == sizeof(buffer)) {
-                at_eof = 0;
-            }
-            else if (feof(f)) {
-                len = len + (count * sizeof(buffer));
-                at_eof = 1;
-            } else {
-                perror("fclose error");
-                err = -1;
-            }
-
-           *length = len;
-
-        } while (at_eof == 0);
-
-        *lines = line_count;
-
-        if (fclose(f) != 0) {
-            err = -1;
-            perror("fclose error");
-        }
-    } else {
-      err = -1;
-        printf("fopen failed, errno = %d\n", errno);
-    }
-    *error = err;
+    struct _file_info3 info3;
+    line_count_3(fname, &info3, error);
+    *lines = info3.lines;
+    *length = info3.length;
 }
 
 struct _file_info3 line_count_5 (const char* fname, int* error)
