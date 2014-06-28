@@ -106,99 +106,29 @@ struct _file_info3 share_info3 (int lines, size_t length)
     return info; // <- by reference or by value? Value- this is a copy of info.
 }
 
-struct _file_info *line_count (const char* fname) // <-definition using / line_count_3
+
+struct _file_info *line_count (const char* fname) // <- implement using line_count_3
+                                                     //    ^^^
+            // ^^^ definition, return type, name, a parameter signature; count
+            // of parameters, name of each paramer.
+            //
+            // what it does.
+            //
+            // how it does it. here it will delegate/defer to line_count_3.
 {
-    // The types below are automatic variables, and they rely on automatic storage
-    // This means the variables are declared within the function and are created
-    // when the function is called. Scope is restricted to the function, and
-    // their lifetime is limited to the time the function is executing
-    size_t i, length;// automatic storage class
-    int at_eof, lines, count, error;// automatic storage class
-    FILE *f;// automatic storage class
-    struct _file_info *info;// automatic memory
-    char buffer[BUFFER_SIZE];// automatic storage class
-    error = 0;
-    if ((f = fopen (fname, "r")) != NULL) {
-        lines = 0;
-        count = -1;
-        do {
-            count ++;
-            length = fread(buffer, sizeof(char), sizeof(buffer), f);
-            for (i = 0; i < length; i++) {
-                if (buffer[i] == '\n') lines++;
-            }
-
-            if (length == sizeof(buffer)) {
-                at_eof = 0;
-            }
-            else if (feof(f)) {
-                length = length + (count * sizeof(buffer));
-                at_eof = 1;
-            } else {
-                perror("fclose error");
-                error = -1;
-            }
-
-        } while (at_eof == 0);
-
-        if (fclose(f) != 0) {
-            perror("fclose error");
-        } else {
-            info = share_info(lines, length, error);
-            return info;
-        }
-
-    } else {
-        length = -1;
-        lines = -1;
-        error = -1;
-        info = share_info(lines, length, error);
-        printf("fopen failed, errno = %d\n", errno /* <- not "thrown" */);
-    }
-
+    int error;
+    struct _file_info3 info3;
+    line_count_3(fname, &info3, &error);
+    struct _file_info * info = share_info(info3.lines, info3.length, error);
     return info;
 }
 
 void line_count_2 (const char* fname, struct _file_info2 **info2, int *error)
+    // ^^^ implement using line_count_3
 {
-    char buffer[BUFFER_SIZE];
-    size_t i, length;
-    int at_eof, lines, count;
-    FILE *f;
-    if ((f = fopen (fname, "r")) != NULL) {
-        lines = 0;
-        count = -1;
-    } else {
-        *error = -1;
-        printf("fopen failed, errno = %d\n", errno);
-    }
-
-    do {
-        count ++;
-        length = fread(buffer, sizeof(char), sizeof(buffer), f);
-
-        for (i = 0; i < length; i++) {
-            if (buffer[i] == '\n') lines++;
-        }
-
-        if (length == sizeof(buffer)) {
-            at_eof = 0;
-        }  else if (feof(f)) {
-            length = length + (count * sizeof(buffer));
-            at_eof = 1;
-        } else {
-            perror("fclose error");
-            *error = -1;
-        }
-
-    } while (at_eof == 0);
-
-    if (fclose(f) != 0) {
-         *error =  -1;
-        perror("fclose error");
-    } else {
-        *info2 = share_info2(lines, length);
-    }
+    struct _file_info3 info3;
+    line_count_3(fname, info2, error);
+    info2 = share_info2(info3.lines, info3.length);
 }
 
 
@@ -254,6 +184,7 @@ void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
 
 
 void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-definition
+    // ^^^ implement using line_count_3
 {
     char buffer[BUFFER_SIZE];
     size_t i, len;

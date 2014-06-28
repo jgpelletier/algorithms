@@ -5,7 +5,7 @@
 void call_line_count ()
 {
     struct _file_info *info;// declared memory
-    info = line_count("wolverineX2.txt");
+    info = line_count("wolverineX2.txt"); // <- this DOES NOT change
     printf("If any value is negative then an error occured. "
         "error: %d lines: %d length: %d\n", info->error, info->lines, info->length);
     free(info);
@@ -47,38 +47,11 @@ void call_line_count_4 ()
     // <- gone here
 }
 
-// was struct _file_info2 * foo chosen specifically
-struct _file_info2 * foo ()
-{
-    int error;
-    struct _file_info3 info = line_count_5("wolverineX2.txt", &error);
-    struct _file_info2 *info_ptr = share_info2(info.lines, info.length); //struct _file_info2 foo1?
-    return info_ptr; //this returned &foo_1
-}
-
-struct _file_info* bar ()
-// not certain this is the desired function.
-{
-    int error;
-    struct _file_info3 info3;
-    line_count_3 ("wolverineX2.txt", &info3, &error);
-    struct _file_info * info = share_info(info3.length, info3.lines, error);
-    return info;
-
-}
-
 int main ()
 {
-    struct _file_info2 * info2;
-    struct _file_info * info;
     call_line_count();
     call_line_count_2();
     call_line_count_3();
     call_line_count_4();
-    info2 = foo();
-    info = bar();
-    printf("in main. length: %d  lines: %d\n", info->length, info->lines);
-    free(info2);
-    free(info);
     return EXIT_SUCCESS;
 }
