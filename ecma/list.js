@@ -48,6 +48,11 @@ function addWest (list) { // <- simple, west of
     return list
 }
 
+function map (list, f) {
+    // returns an array that applys `f` to every member of the list.
+    // convert the node to an object for the user.
+}
+
 exports.objectFrom = objectFrom
 exports.objectify = objectify
 exports.link = link
