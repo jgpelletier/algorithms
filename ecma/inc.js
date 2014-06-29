@@ -31,3 +31,5 @@ var number = inker(2)
 console.log(number()) // <- 3
 
 console.log(number()) // <- 3, why is this 4?
+
+console.log(number()) // <- 5 how come this increments
