@@ -156,6 +156,7 @@ void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
             }
 
             if (len == sizeof(buffer)) {
+console.log(number()) // <- 3
                 at_eof = 0;
             } else if (feof(f)) {
                 len = len + (count * sizeof(buffer));
