@@ -64,10 +64,16 @@ console.log(number()) // <- 4
         // maintains state, changes
 
 function multiply (by) {
-    return function (value) {
-        return value * by
+    return function (value) {// inner function allowed access to var
+                             // and parameters of outer function.
+        return value * by    // <- 2 identifiers 'by' is the outer parameter, value inner
     }
 }
+//^^ When the global code executes the call to mutiply, a new execution
+// context is created for the inner function as well as an Activation/
+// Variable object. the scope of the new execution context becomes a chain
+// consisting of the new activation object followed by the chain referred
+// to by the multiply function.
 
 var byTwo = multiply(2)
   // ^^^ pure functions, deterministic.
