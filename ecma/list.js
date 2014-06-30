@@ -51,14 +51,17 @@ function addWest (list) { // <- simple, west of
 function map (list, f) {
     // returns an array that applys `f` to every member of the list.
     // convert the node to an object for the user.
-    var station = list
     var arr = []
-    while (station) {
-        return function (station) {
-            station: station.city,
-            station: station.state
+    while (list) {
+        return function (list) {
+           var station = list.station
+            return console.log(station)
+//            station: station.city,
+//            station: station.state
         }
+        list = list.east
     }
+    return arr
 }
 
 exports.objectFrom = objectFrom
