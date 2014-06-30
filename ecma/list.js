@@ -48,21 +48,24 @@ function addWest (list) { // <- simple, west of
     return list
 }
 
-function map (list, f) {
+// originally I looked to add west to add an additional property to each object
+// this was the wrong defintion of member.
+function map (list, f) { //available in map and anonymous founctions
     // returns an array that applys `f` to every member of the list.
+    // In OOP members refer to properties and methods)
     // convert the node to an object for the user.
-    //var arr = []
-    //while (list.east) {
-    return function (f/*what goes here*/) {// inner function has accesss to outer parameters
-        return {
-               f: list.city,
-               f: list.state
-               }
+    var arr = [] // this will be my array that maps works on
+    while (list.east) {
+        return function (f) {// inner function has accesss to outer parameters
+            arr.push({
+              f: list.city,
+              f: list.state,
+              f: list.station
+           })
         }
-
-    //    list = list.east
-    //}
-    //return arr
+    list = list.east
+    }
+    return arr
 }
 
 exports.objectFrom = objectFrom
