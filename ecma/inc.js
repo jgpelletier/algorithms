@@ -81,7 +81,7 @@ console.log(byTwo(3)) // <- 6 determined by argument, deterministic
 console.log(byTwo(3)) // <- 6 pure function f(x)
 console.log(byTwo(3)) // <- 6
 console.log(byTwo(4)) // <- 8
-console.log(multiply(4)(6)) // <- 20
+console.log(multiply(4)(6)) // <- 24
 
 console.log([ 1, 2, 3, 4, 5, 6, 7 ].map(byTwo))
             // ^^^ four different machines
