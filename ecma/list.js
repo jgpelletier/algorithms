@@ -51,6 +51,14 @@ function addWest (list) { // <- simple, west of
 function map (list, f) {
     // returns an array that applys `f` to every member of the list.
     // convert the node to an object for the user.
+    var station = list
+    var arr = []
+    while (station) {
+        return function (station) {
+            station: station.city,
+            station: station.state
+        }
+    }
 }
 
 exports.objectFrom = objectFrom
@@ -58,3 +66,4 @@ exports.objectify = objectify
 exports.link = link
 exports.linkedList = linkedList
 exports.addWest = addWest
+exports.map = map
