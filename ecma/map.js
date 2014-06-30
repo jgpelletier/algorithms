@@ -7,6 +7,12 @@ var railway = list.linkedList(lines)
 
 // The function below does not change
 console.log(list.map(railway, function (station) {
-                    // ^^ list   ^^ f    ^^ parameter in closure
-    return station.city + ', ' + station.state
+                    // ^^ list   ^^ f?    ^^ parameter in closure is f?
+    return station.city + ', ' + station.state //this confuses me
 }))
+
+// Is this an example of a returned object from the map function:
+//                                  {
+//                                      Detroit Station: Detroit,
+//                                      Detroit Station: Michigan
+//                                  }
