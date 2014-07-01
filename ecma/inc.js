@@ -81,10 +81,10 @@ function multiply (by) {
 // to by the multiply function.
 
 var byTwo = multiply(2)
-  // ^^^ pure functions, deterministic. it stores both a body defintion and a
+  // ^^^ pure functions, deterministic. it stores both a body definition and a
   //     specfic environment.
 console.log(byTwo(3)) // <- 6
-
+ //         ^^ stores the environment of the outer scope
 
 console.log(number()) // <- 5
 console.log(number()) // <- 6
