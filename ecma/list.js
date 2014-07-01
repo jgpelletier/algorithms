@@ -54,10 +54,10 @@ function map (list, f) { //available in map and anonymous founctions
     // returns an array that applys `f` to every member of the list.
     // In OOP members refer to properties and methods)
     // convert the node to an object for the user.
-    var station = []
+    f = []
     var arr = []
     while (list) {
-        station.push({ list.station})
+        f.push({station: list.station})
         arr.push({
             state: list.state,
             city: list.city,
@@ -65,10 +65,15 @@ function map (list, f) { //available in map and anonymous founctions
         })
         list = list.east
     }
-    console.log(station)
 
     return function (f) {// inner function has accesss to outer parameters
-        return arr.map(f)
+        for( var i= 0; i < f.length; i++) {
+            f[i].station.state = arr[i].state
+            f[i].station.city = arr[i].city
+            console.log(f[i])
+        }
+        console.log(f)
+        return f
     }
 }
 
