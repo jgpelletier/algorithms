@@ -66,15 +66,15 @@ function map (list, f) { //available in map and anonymous founctions
         list = list.east
     }
 
-    return function (f) {// inner function has accesss to outer parameters
+   // return function (f) {// inner function has accesss to outer parameters
         for( var i= 0; i < f.length; i++) {
-            f[i].station.state = arr[i].state
+            //f[i].station.state = arr[i].state
             f[i].station.city = arr[i].city
-            console.log(f[i])
+     //       console.log(f[i])
         }
-        console.log(f)
-        return f
-    }
+      //  console.log(f)
+        return f[0]
+    //}
 }
 
 exports.objectFrom = objectFrom

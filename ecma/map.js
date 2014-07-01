@@ -8,6 +8,7 @@ var railway = list.linkedList(lines)
 // The function below does not change
 console.log(list.map(railway, function (station) {
                     // ^^ list   ^^ f?    ^^ parameter in closure is f?
+                    //           ^^ anonymous: passed as argument
     return station.city + ', ' + station.state //this confuses me
 }))
 
