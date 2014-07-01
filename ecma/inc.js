@@ -63,11 +63,16 @@ console.log(number()) // <- 3
 console.log(number()) // <- 4
         // maintains state, changes
 
+// the following function multiply takes a single argument and returns a
+// function. The function it returns takes a single argument and returns the
+// product of the outer function's parameter by and the inner functions
+// parameter value.
 function multiply (by) {
     return function (value) {// inner function allowed access to var
                              // and parameters of outer function.
         return value * by    // <- 2 identifiers 'by' is the outer parameter, value inner
     }
+    return
 }
 //^^ When the global code executes the call to mutiply, a new execution
 // context is created for the inner function as well as an Activation/
@@ -76,8 +81,10 @@ function multiply (by) {
 // to by the multiply function.
 
 var byTwo = multiply(2)
-  // ^^^ pure functions, deterministic.
+  // ^^^ pure functions, deterministic. it stores both a body defintion and a
+  //     specfic environment.
 console.log(byTwo(3)) // <- 6
+
 
 console.log(number()) // <- 5
 console.log(number()) // <- 6
