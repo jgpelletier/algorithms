@@ -78,14 +78,18 @@ function map (list, f) {
         })
         list = list.east
     }
-    return function (object) {
-        var length = arr.length
-        for (var i = 0; i < length; ++i) {
-           object = arr[i]
-           console.log(object)
-         }
-    return arr
-    }()
+    var length = arr.length
+    for (var i = 0; i < length; ++i) {
+        object = arr[i]
+        return function (object) {//<- object here is local to anonymous funtion
+            console.log(object)   //<- therefore this is undefined
+            /*arr.push({
+                station: object.city
+            })*/
+
+        //return arr
+        }()//<- invokes the function
+    }
 }
 
 exports.objectFrom = objectFrom
