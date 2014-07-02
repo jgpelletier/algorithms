@@ -50,8 +50,18 @@ function addWest (list) { // <- simple, west of
 
 
 // Assignment
-    // returns an array that applys `f` to every member of the list.
-    // convert the node to an object for the user.
+    // map(list, f)
+    //
+    // The argument `f` is a function.
+    //
+    // Return an array.
+    // For each item in the list, call `f`.
+    //          then add the return value to the array.
+    //
+    // For each element in the list, call `f` with the element as an argument,
+    // then push the return value of `f` onto an array.
+    //
+    // Return the array.
 
 // To think about:
     // What state am I trying to create?
@@ -73,16 +83,6 @@ function map (list/* may be captured */, f) {
             city: list.city
         })
         list = list.east
-    }
-    // ^^ the above code gives me an array containing objects with the
-    // properties station, state, and city. These are my members.  Uncertain
-    // if it better fits here or in the function below.
-    return function (f) {// f is what is applied to each member
-        // what goes in this function so f is mapped to each member
-        // and station.city and station.state are returned
-        // var mapped = (arr.map(f)) // <- is an undefined function.
-
-        return //mapped // what am I returning
     }
 }
 
