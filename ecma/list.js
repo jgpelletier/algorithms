@@ -80,15 +80,13 @@ function map (list, f) {
     }
     var length = arr.length
     for (var i = 0; i < length; ++i) {
-        object = arr[i]
-        return function (object) {//<- object here is local to anonymous funtion
-            console.log(object)   //<- therefore this is undefined
-            /*arr.push({
-                station: object.city
-            })*/
-
-        //return arr
+        element = arr[i]
+        return function (object) {//<- object here is local to anonymous function
+            object = arr[i].station // this gives me a string
+            arr.push(object)// this pushes the string on
+        return arr // this returns the array with one string element pushed on
         }()//<- invokes the function
+    //return arr // arr is undefined if it is returned here.
     }
 }
 
