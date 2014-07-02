@@ -7,8 +7,13 @@ var railway = list.linkedList(lines)
 
 // The function below does not change
 console.log(list.map(railway, function (station) {
-                    // ^^ list   ^^ anonyamos function with one parameter
-    return station.city + ', ' + station.state //this confuses me
+                    // ^^ list   ^^ anonymous function with one parameter,
+                    //              which will be applied to every member
+    return station.city + ', ' + station.state //each member will have the station property
 }))
 
+var mapped = list.map(railway, function (station) {
+    return station.city + ', ' + station.state //each member will have the station property
+})
+console.log(mapped())
 // What is the shape of the data that is returned?

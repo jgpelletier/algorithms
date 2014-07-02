@@ -50,29 +50,34 @@ function addWest (list) { // <- simple, west of
 
 
 
-function map (list, f) {
+function map (list/* may be captured */, f) {
     // returns an array that applys `f` to every member of the list.
     // In OOP members refer to properties and methods)
     // convert the node to an object for the user.
 
     // What state am I trying to create?
-    // what is captured and what are the free variables? list and arr are 2
+    // what is captured or the free variables? list and arr are 2
     // possible variables that may be captured by the inner function
     // map is a function that takes a linked list object and returns a function
 
-    var arr = []
+    var arr = []// may be captured
     while (list) {
         arr.push({
-            station: list.station
+            station: list.station,
             state: list.state,
-            city: list.city,
+            city: list.city
         })
         list = list.east
     }
     // ^^ the above code gives me an array containing objects with the
-    // properties station, state, and city
+    // properties station, state, and city. Uncertain if it better fits
+    // here or in the function below.
     return function (f) {// f is what is applied to each member
-        return // what am I returning
+        // what goes in this function so f is mapped to each member
+        // and station.city and station.state are returned
+        // var mapped = arr.map(f) // <- is an undefined function.
+
+        return /*mapped*/ // what am I returning
     }
 }
 
