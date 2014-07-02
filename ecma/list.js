@@ -62,20 +62,14 @@ function addWest (list) { // <- simple, west of
     // then push the return value of `f` onto an array.
     //
     // Return the array.
-
-// To think about:
-    // What state am I trying to create?
+    //
     // map is a function that takes a linked list object and returns a function.
     // the function it returns has one parameter. that parameter is be applied
     // to every member of the list.
-    //
-    // Define Member: In OOP members refer to properties and methods.
-    // Each property in my list is a member
-    //
-    //  list and arr are 2
-    // possible variables that may be captured by the inner function
-function map (list/* may be captured */, f) {
-    var arr = []// may be captured
+function map (list, f) {
+    var i
+    var arr = []
+    var station
     while (list) {
         arr.push({
             station: list.station,
@@ -84,6 +78,14 @@ function map (list/* may be captured */, f) {
         })
         list = list.east
     }
+    return function (object) {
+        var length = arr.length
+        for (var i = 0; i < length; ++i) {
+           object = arr[i]
+           console.log(object)
+         }
+    return arr
+    }()
 }
 
 exports.objectFrom = objectFrom
