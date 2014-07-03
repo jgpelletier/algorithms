@@ -78,7 +78,8 @@ function map (list, f) {
         })
         list = list.east
     }
-    return function (object) {// <- What is supposed to happen with this parameter?
+    return function (object) {// <- What is supposed to happen with this parameter, how do I pass in
+                              //    station as seen in the map.js file?
         var length = arr.length
         for (var i = 0; i < length; ++i) {
              object = {}
@@ -86,7 +87,7 @@ function map (list, f) {
              arr.push(object)
        }
        return arr.slice(-length)
-    }//<- invokes the function
+    }//<- () invokes the function and assigns the result of invoking the function to a var.
 }
 
 exports.objectFrom = objectFrom

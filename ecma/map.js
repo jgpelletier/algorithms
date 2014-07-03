@@ -13,7 +13,9 @@ console.log(list.map(railway, function (station) {
 }))
 
 var mapped = list.map(railway, function () {// <- this runs without parameter
-    return station.city + ', ' + station.state //each member will have the station property
+    return station.city + ', ' + station.state //each member will have the station property.
+                                               //Something is station. city and
+                                               //station.state is not returned
 })
 
-console.log(mapped())
+console.log(typeof mapped()) //<- with () evaluates object, without function
