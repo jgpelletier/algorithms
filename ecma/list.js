@@ -78,7 +78,7 @@ function map (list, f) {
         })
         list = list.east
     }
-    return function (object) {
+    return function (object) {// <- What is supposed to happen with this parameter?
         var length = arr.length
         for (var i = 0; i < length; ++i) {
              object = {}
@@ -86,7 +86,7 @@ function map (list, f) {
              arr.push(object)
        }
        return arr.slice(-length)
-    }()//<- invokes the function
+    }//<- invokes the function
 }
 
 exports.objectFrom = objectFrom

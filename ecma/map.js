@@ -11,3 +11,9 @@ console.log(list.map(railway, function (station) {
                     //              which will be applied to every member
     return station.city + ', ' + station.state //each member will have the station property
 }))
+
+var mapped = list.map(railway, function () {// <- this runs without parameter
+    return station.city + ', ' + station.state //each member will have the station property
+})
+
+console.log(mapped())
