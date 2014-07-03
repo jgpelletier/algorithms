@@ -62,32 +62,23 @@ function addWest (list) { // <- simple, west of
     // then push the return value of `f` onto an array.
     //
     // Return the array.
+    //      ^^^ what do you return?
     //
-    // map is a function that takes a linked list object and returns a function.
-    // the function it returns has one parameter. that parameter is be applied
-    // to every member of the list.
+    // Return an array
 function map (list, f) {
-    var i
     var arr = []
-    var station
     while (list) {
-        arr.push({
+        var userObject = {  // <- create an object that the user expects.
             station: list.station,
             state: list.state,
             city: list.city
-        })
-        list = list.east
+        }
+        // <- something else: what is to be done here?
+        arr.push() // <- push something
+        list = list.east // <- move to next item.
     }
-    return function (object) {// <- What is supposed to happen with this parameter, how do I pass in
-                              //    station as seen in the map.js file?
-        var length = arr.length
-        for (var i = 0; i < length; ++i) {
-             object = {}
-             object[arr[i].station] = arr[i] // this could also be object.station, but that seems wrong
-             arr.push(object)
-       }
-       return arr.slice(-length)
-    }//<- () invokes the function and assigns the result of invoking the function to a var.
+    // <- something is returned, what is returned?
+    return arr// yes, this is what is returned
 }
 
 exports.objectFrom = objectFrom
