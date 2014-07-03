@@ -67,20 +67,7 @@ function addWest (list) { // <- simple, west of
     // the function it returns has one parameter. that parameter is be applied
     // to every member of the list.
 function map (list, f) {
-    var arr = []
-    return function (f) {
-        while (list) {
-            arr.push({
-                station: list.station,
-                state: list.state,
-                city: list.city,
-            })
-            list = list.east
-        }
-    return arr
-    }
-}
-/*    var i
+    var i
     var arr = []
     var station
     while (list) {
@@ -102,7 +89,7 @@ function map (list, f) {
        return arr.slice(-length)
     }//<- () invokes the function and assigns the result of invoking the function to a var.
 }
-*/
+
 exports.objectFrom = objectFrom
 exports.objectify = objectify
 exports.link = link
