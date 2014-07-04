@@ -74,7 +74,7 @@ function map (list, f) {
             city: list.city
         }
         // <- something else: what is to be done here?
-        arr.push() // <- push something
+        arr.push(f(userObject)) // <- push something
         list = list.east // <- move to next item.
     }
     // <- something is returned, what is returned?

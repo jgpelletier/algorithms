@@ -5,7 +5,6 @@ var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
 var railway = list.linkedList(lines)
 
 
-// Am I allowed to change the function below?
 console.log(list.map(railway, function (station) {
                     // ^^ list   ^^ anonymous function with one parameter,
                     //              which will be applied to every member
