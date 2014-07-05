@@ -21,3 +21,7 @@ console.log(list.map(railway, function (state) {
 //                                  whereas its environment is hidden.
     return state.city + ', ' + state.station + ', ' + state.state
 }))
+
+var mapped = list.map(railway, function (state) {
+    return state.city + ', ' + state.station + ', ' + state.state
+})

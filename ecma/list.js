@@ -61,9 +61,6 @@ function addWest (list) { // <- simple, west of
     // For each element in the list, call `f` with the element as an argument,
     // then push the return value of `f` onto an array.
     //
-    // Return the array.
-    //      ^^^ what do you return?
-    //
     // Return an array
 function map (list, f) {
     var arr = []
@@ -77,8 +74,8 @@ function map (list, f) {
         arr.push(f(userObject)) // <- push something
         list = list.east // <- move to next item.
     }
-    // <- something is returned, what is returned?
-    return arr// yes, this is what is returned
+// Return the array.
+    return arr
 }
 
 exports.objectFrom = objectFrom
