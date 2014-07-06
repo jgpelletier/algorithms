@@ -55,8 +55,8 @@ function addWest (list) { // <- simple, west of
     // The argument `f` is a function.
     //
     // Return an array.
-    // For each item in the list, call `f`.
-    //          then add the return value to the array.
+    // For each item in the list, call `f`. Use its lexical environment to
+    //          add the return value to the array.
     //
     // For each element in the list, call `f` with the element as an argument,
     // then push the return value of `f` onto an array.

@@ -14,14 +14,18 @@ console.log(list.map(railway, function (station) {
 //        called the scople chain.
 
 
-console.log(list.map(railway, function (state) {
+console.log(list.map(railway, function (object) {
 //                              ^^^ the anonymous function's lexical environment
 //                                  is currently between the {}. It has
 //                                  access to the variables in the outer function,
 //                                  whereas its environment is hidden.
-    return state.city + ', ' + state.station + ', ' + state.state
+    return object.city + ', ' + object.station + ', ' + object.state
 }))
 
-var mapped = list.map(railway, function (state) {
-    return state.city + ', ' + state.station + ', ' + state.state
+var mapped = list.map(railway, function (object) {
+    return object.city + ', ' + object.station + ', ' + object.state
+})
+
+var mapped = list.map(railway, function (object) {
+    return object.station + ', ' + object.city + ', ' + object.state
 })
