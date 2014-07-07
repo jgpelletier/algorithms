@@ -19,9 +19,6 @@ struct Database {// Declaration with nested structure
 };
 
 //Look more into what is happening with this section.
-//     - There is a nested struct.
-//     - There is a pointer to the location of the database
-//     - What is happening with FILE *file. There is a pointer.
 struct Connection {
     FILE *file;// FILE struct defined by the C standard library.
     struct Database *db; // Pointer
@@ -44,8 +41,8 @@ void Address_print(struct Address *addr) // Function prints. It takes a struct a
             addr->id, addr->name, addr->email);
 } // void functions do not return a type.
 
-// Fread is aa binary stream input. The function reads nmemb elements of
-// data, each size bytes long, from the stream pointedd to by stream,
+// Fread is a binary stream input. The function reads nmemb elements of
+// data, each size bytes long, from the stream pointed to by stream,
 // storing them at the location given by ptr.
 void Database_load(struct Connection *conn)
 {
@@ -121,14 +118,18 @@ void Database_set(struct Connection *conn, int id, const char *name, const char 
 
     addr->set = 1;
     // WARNING: bug, read the "How To Break It" and fix this
-    char *res = strncpy(addr->name, name, MAX_DATA);
-    // demonstrate the strncpy bug
-    if(!res) die("Email copy failed");
-
     // strncpy: copies the string pointed to by the src, including the
     // terminating null byte to the buffer pointed to by the dest. The strings
     // must not overlap and the destrination string must be large enought to
     // receive the copy.
+    //
+    // I need to allocate some memory in here and make sure each string is null
+    // terminated.
+
+    char *res = strncpy(addr->name, name, MAX_DATA);
+    // demonstrate the strncpy bug
+    if(!res) die("Email copy failed");
+
     res = strncpy(addr->email, email, MAX_DATA);
     if(!res) die("Email copy failed");
 }
