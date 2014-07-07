@@ -42,19 +42,17 @@ void Address_print(struct Address *addr) //Function prints. It takes a struct an
 {
     printf("%d %s %s\n",
             addr->id, addr->name, addr->email);
-} //why no return
+} // void functions do not return a type.
 
-//What is happening with Fread? There is a need to know the sizeof the database
-//There is a pointer to the struct connection with the variable conn.
-//The conn variable has a member named file.
+// Fread is aa binary stream input. The function reads nmemb elements of
+// data, each size bytes long, from the stream pointedd to by stream,
+// storing them at the location given by ptr.
 void Database_load(struct Connection *conn)
 {
     int rc = fread(conn->db, sizeof(struct Database), 1, conn->file);
     if(rc != 1) die("Failed to load database.");
-} //why no return
+}
 
-//Is this the function that intializes the structure?
-//
 struct Connection *Database_open(const char *filename, char mode)
 {
     //allocate memory for an instance.
@@ -65,11 +63,13 @@ struct Connection *Database_open(const char *filename, char mode)
     conn->db = malloc(sizeof(struct Database));
     if(!conn->db) die("Memory error");
 
-    //fopen is a part of FILE struct
+    // fopen is a part of FILE struct. It opens the file whose name is
+    // the string pointed to by path and associates a stream with it.
     if(mode == 'c') {
-        conn->file = fopen(filename, "w");
+        conn->file = fopen(filename, "w");// <- truncates file to 0 length or create text file
+                                          //    for writing.
     } else {
-        conn->file = fopen(filename, "r+");
+        conn->file = fopen(filename, "r+");// <-open for reading and writing
 
        if(conn->file) {
            Database_load(conn);
