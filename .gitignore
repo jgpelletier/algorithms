@@ -5,4 +5,5 @@
 /c/algorithms/list/*.o
 /c/algorithms/sizeof/*.o
 /c/LCTHWexercises/*.o
+/c/LCTHWexercises/*.dat
 /ecma/*.o
