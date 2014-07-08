@@ -20,3 +20,40 @@ y = 2
 
 console.log(x) //prints 1
 console.log(y) //prints 2
+
+function foo (o) {
+    o = { a: 2 }
+}
+
+function bar (o) {
+    a = 1
+    var o, a
+    var a, a, a, a
+    o.a = 2
+    var a
+}
+
+var o = { a: 1 }
+console.log(o.a) // <- 1
+foo(o)
+console.log(o.a) // <- 1
+bar(o)
+console.log(o.a) // <- ?
+
+function f () {
+    var i = 0 // <- only visible to function below
+    return function (num) { return i = i + num }
+}
+
+var n = f()
+console.log(n(1)) // <- 1
+console.log(n(1)) // <- 2
+console.log(n(8)) // <- 10
+
+function print (n) { console.log(n(0)) }
+
+function zero (n) { n(-n(0)) }
+
+print(n)
+zero(n)
+print(n)
