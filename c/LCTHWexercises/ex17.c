@@ -18,13 +18,21 @@ struct Database {// Declaration with nested structure
     struct Address rows[MAX_ROWS];// fixed sized on rows
 };
 
-//Look more into what is happening with this section.
 struct Connection {
     FILE *file;// FILE struct defined by the C standard library.
     struct Database *db; // Pointer
 };
 
 struct Connection *conn;
+
+void Database_close()
+{
+    if(conn) {
+        if(conn->file) fclose(conn->file);// <- closes file
+        if(conn->db) free(conn->db);
+        free(conn);
+    }
+} // this releases memory
 
 // aborts with an error.
 void die(const char *message){
@@ -34,6 +42,8 @@ void die(const char *message){
        printf("ERROR: %s\n", message);
     }
 
+    Database_close();
+
     exit(1); // exit: program failed.
 }
 
@@ -41,7 +51,7 @@ void Address_print(struct Address *addr) // Function prints. It takes a struct a
 {
     printf("%d %s %s\n",
             addr->id, addr->name, addr->email);
-} // void functions do not return a type.
+}
 
 // Fread is a binary stream input. The function reads nmemb elements of
 // data, each size bytes long, from the stream pointed to by stream,
@@ -79,15 +89,6 @@ void Database_open(const char *filename, char mode)
 
     //return conn;
 }
-
-void Database_close()
-{
-    if(conn) {
-        if(conn->file) fclose(conn->file);// <- closes file
-        if(conn->db) free(conn->db);
-        free(conn);
-    }
-} // this releases memory
 
 void Database_write()
 {
