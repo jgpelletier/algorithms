@@ -36,9 +36,9 @@ function bar (o) {
 var o = { a: 1 }
 console.log(o.a) // <- 1
 foo(o)
-console.log(o.a) // <- 1
+console.log('function foo passed a reference to object o evaluates to', o.a) // <- 1
 bar(o)
-console.log(o.a) // <- ?
+console.log('function foo passed a reference to object o evaluates to', o.a) // <- ?
 
 function f () {
     var i = 0 // <- only visible to function below
@@ -46,7 +46,7 @@ function f () {
 }
 
 var n = f()
-console.log(n(1)) // <- 1
+console.log(n(1)) // <- 1 // <- what are variables that reference functions called in JavaScipt
 console.log(n(1)) // <- 2
 console.log(n(8)) // <- 10
 
