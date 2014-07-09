@@ -130,17 +130,20 @@ void Database_create()
     int string_size = (sizeof(char) * max_data);
     int address_size = (sizeof(int) * 2) + (string_size * 2);
     int rows_size = address_size * max_rows;
-    conn->db->rows = malloc(row_size);
+    conn->db->rows = malloc(rows_size);
 
     int i = 0;
     for(i = 0; i < max_rows; i++) {
         struct Address addr = {.id = i, .set = 0};
+        addr.name = malloc(sizeof(char) * max_data);
+        addr.email = malloc(sizeof(char) * max_rows);
         conn->db->rows[i] = addr;
     }
 }
 
 void Database_set(int id, const char *name, const char *email)
 {
+    int max_data = conn->db->max_data;
     struct Address *addr = &conn->db->rows[id];
     if(addr->set) die("Already set, delete it first");
 
@@ -184,7 +187,7 @@ void Database_list()
     int i = 0;
     struct Database *db = conn->db;
 
-    for(i = 0; i < max_rows; i++) {
+    for(i = 0; i < db->max_rows; i++) {
         struct Address *cur = &db->rows[i];
 
         if(cur->set) {
@@ -204,7 +207,7 @@ int main(int argc, char *argv[])
     int id = 0;
     // atoi converts the intial portion of the string pointed to by nptr to int.
     if(argc > 3) id = atoi(argv[3]);
-    if(id >= max_rows) die("There's not that many records.");// To much for memory
+    if(id >= conn->db->max_rows) die("There's not that many records.");// To much for memory
 
     switch(action) { // control flow - 5 choices with 9 different functions
         case 'c':
