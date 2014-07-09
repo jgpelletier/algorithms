@@ -133,10 +133,8 @@ void Database_create()
     conn->db->rows = malloc(row_size);
 
     int i = 0;
-    for(i = 0; i < MAX_ROWS; i++) {
-        // make a prototype to initialize it
+    for(i = 0; i < max_rows; i++) {
         struct Address addr = {.id = i, .set = 0};
-        // then just assign it
         conn->db->rows[i] = addr;
     }
 }
@@ -156,11 +154,11 @@ void Database_set(int id, const char *name, const char *email)
     // I need to allocate some memory in here and make sure each string is null
     // terminated.
 
-    char *res = strncpy(addr->name, name, MAX_DATA);
+    char *res = strncpy(addr->name, name, max_data);
     // demonstrate the strncpy bug
     if(!res) die("Email copy failed");
 
-    res = strncpy(addr->email, email, MAX_DATA);
+    res = strncpy(addr->email, email, max_data);
     if(!res) die("Email copy failed");
 }
 
@@ -186,7 +184,7 @@ void Database_list()
     int i = 0;
     struct Database *db = conn->db;
 
-    for(i = 0; i < MAX_ROWS; i++) {
+    for(i = 0; i < max_rows; i++) {
         struct Address *cur = &db->rows[i];
 
         if(cur->set) {
@@ -206,7 +204,7 @@ int main(int argc, char *argv[])
     int id = 0;
     // atoi converts the intial portion of the string pointed to by nptr to int.
     if(argc > 3) id = atoi(argv[3]);
-    if(id >= MAX_ROWS) die("There's not that many records.");// To much for memory
+    if(id >= max_rows) die("There's not that many records.");// To much for memory
 
     switch(action) { // control flow - 5 choices with 9 different functions
         case 'c':
