@@ -63,8 +63,34 @@ void Address_print(struct Address *addr) // Function prints. It takes a struct a
 // be arbitrarily.
 void Database_load()
 {
-    int rc = fread(conn->db, sizeof(struct Database), 1, conn->file);
+    int rc = 1;
+
+    rc = fread(conn->db->max_data, sizeof(int), 1, conn->file);
+    rc = fread(conn->db->max_rows, sizeof(int), 1, conn->file);
+
     if(rc != 1) die("Failed to load database.");
+
+    int string_size = (sizeof(char) * max_data);
+    int address_size = (sizeof(int) * 2) + (string_size * 2);
+    int rows_size = address_size * max_rows;
+    conn->db->rows = malloc(rows_size);
+
+    int i = 0;
+    for (i = 0; i < conn->db->max_rows; i++) {
+        struct Address *addr = &conn->db->rows[i];
+
+        fread(&addr->id, sizeof(int), 1, conn->file);
+        fread(&addr->set, sizeof(int), 1, conn->file);
+
+        addr->name = malloc(string_size);
+        fread(addr->name, string_size, 1, conn->file);
+
+        addr->email = malloc(string_size);
+        fread(addr->email, string_size, 1, conn->file);
+
+
+    if(rc != 1) die("Failed to load database.");
+
 }
 
 
@@ -95,7 +121,7 @@ void Database_open(const char *filename, char mode)
         conn->file = fopen(filename, "r+");// <-open for reading and writing
 
        if(conn->file) {
-           Database_load(conn);
+           Database_load();// <- need to figure out what is happening here
        }
     }
 
@@ -205,8 +231,11 @@ int main(int argc, char *argv[])
     char action = argv[2][0];
     Database_open(filename, action);
     int id = 0;
+
+    if (action != 'c' && argc > 3) {
     // atoi converts the intial portion of the string pointed to by nptr to int.
-    if(argc > 3) id = atoi(argv[3]);
+        id = atoi(argv[3]);
+    }
     if(id >= conn->db->max_rows) die("There's not that many records.");// To much for memory
 
     switch(action) { // control flow - 5 choices with 9 different functions
