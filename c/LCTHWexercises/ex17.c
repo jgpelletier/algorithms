@@ -4,18 +4,20 @@
 #include <errno.h> // defines macros to report error conditions through error codes
 #include <string.h>
 
-#define MAX_DATA 512 // Constant Expression: Integer Constant
-#define MAX_ROWS 100
+//#define MAX_DATA 512 // Constant Expression: Integer Constant
+//#define MAX_ROWS 100
 
 struct Address {// Structure declaration with the tag "address" and 4 members
     int id;
     int set;
-    char name[MAX_DATA]; // fixed size
-    char email[MAX_DATA];
+    char *name; //[MAX_DATA]; // fixed size
+    char *email; //[MAX_DATA];
 };
 
 struct Database {// Declaration with nested structure
-    struct Address rows[MAX_ROWS];// fixed sized on rows
+    int max_data;
+    int max_rows;
+    struct Address *rows; //[MAX_ROWS];// fixed sized on rows
 };
 
 // pairs the file and database together
@@ -57,24 +59,35 @@ void Address_print(struct Address *addr) // Function prints. It takes a struct a
 // Fread is a binary stream input. The function reads nmemb elements of
 // data, each size bytes long, from the stream pointed to by stream,
 // storing them at the location given by ptr.
+// this is the place where the database size must be adjusted so it may
+// be arbitrarily.
 void Database_load()
 {
     int rc = fread(conn->db, sizeof(struct Database), 1, conn->file);
     if(rc != 1) die("Failed to load database.");
 }
 
+
+
+
+
 void Database_open(const char *filename, char mode)
 {
     // allocate memory for an instance.
     conn = malloc(sizeof(struct Connection)); // 8 bytes. 2 pointers
-    if(!conn) die("Memory error");
+
+    if(!conn)
+        die("Memory error");
 
     // pointer to member where memory is allocated.
     conn->db = malloc(sizeof(struct Database));
-    if(!conn->db) die("Memory error");
+
+    if(!conn->db)
+        die("Memory error");
 
     // fopen is a part of FILE struct. It opens the file whose name is
     // the string pointed to by path and associates a stream with it.
+    // while both options below open, the 2nd arg is the mode.
     if(mode == 'c') {
         conn->file = fopen(filename, "w");// <- truncates file to 0 length or create text file
                                           //    for writing.
@@ -86,7 +99,8 @@ void Database_open(const char *filename, char mode)
        }
     }
 
-    if(!conn->file) die("Failed to open the file");
+    if(!conn->file)
+        die("Failed to open the file");
 
     //return conn;
 }
@@ -105,10 +119,20 @@ void Database_write()
     if(rc == -1) die("Cannot flush database.");
 }
 
+
+// this is where I will need to make max_size an max_data variables.
 void Database_create()
 {
-    int i = 0;
 
+    int max_data = conn->db->max_data;
+    int max_rows = conn->db->max_rows;
+
+    int string_size = (sizeof(char) * max_data);
+    int address_size = (sizeof(int) * 2) + (string_size * 2);
+    int rows_size = address_size * max_rows;
+    conn->db->rows = malloc(row_size);
+
+    int i = 0;
     for(i = 0; i < MAX_ROWS; i++) {
         // make a prototype to initialize it
         struct Address addr = {.id = i, .set = 0};
