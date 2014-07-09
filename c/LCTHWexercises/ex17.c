@@ -18,6 +18,7 @@ struct Database {// Declaration with nested structure
     struct Address rows[MAX_ROWS];// fixed sized on rows
 };
 
+// pairs the file and database together
 struct Connection {
     FILE *file;// FILE struct defined by the C standard library.
     struct Database *db; // Pointer
@@ -65,7 +66,7 @@ void Database_load()
 void Database_open(const char *filename, char mode)
 {
     // allocate memory for an instance.
-    conn = malloc(sizeof(struct Connection));
+    conn = malloc(sizeof(struct Connection)); // 8 bytes. 2 pointers
     if(!conn) die("Memory error");
 
     // pointer to member where memory is allocated.
