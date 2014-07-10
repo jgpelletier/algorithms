@@ -47,20 +47,27 @@ function f () {
 
 var n = f()
 console.log(n(1)) // <- 1 // <- what are variables that reference functions called
-console.log(n(1)) // <- 2
-console.log(n(8)) // <- 10
+//console.log(n(1)) // <- 2
+//console.log(n(8)) // <- 10
 
 function print (n) { console.log(n(0)) }
 
 
-function zero (n) { n(-n(-1000)) }// removing the negative doubles it.
-        //                  ^^ no matter what number is her the function
+function zero (n) { n(-n(10)) }// removing the negative doubles it.
+        //                  ^^ no matter what number is here the function
         //                     returns zero
+        //                     What is the order of operations
+        //                     1) function n evalutes and assigns i value.
+        //                     2) returned number is made negative and passed
+        //                        as parameter
+        //                     3) negative number negates number assigned to i
+        //                        hence, print(n) returns 0.
 
-function doubs (n) { n(n(0)) }
+//function doubs (n) { n(n(0)) }
 
 print(n)
-doubs(n)
+//doubs(n)
 print(n)
+zero(n)
 zero(n)
 print(n)
