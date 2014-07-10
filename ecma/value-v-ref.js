@@ -52,7 +52,11 @@ console.log(n(8)) // <- 10
 
 function print (n) { console.log(n(0)) }
 
+
 function zero (n) { n(-n(0)) }// removing the negative doubles it.
+        //             ^^ this function returns the negative value
+        //                and this cancels out the current
+
 function doubs (n) { n(n(0)) }
 
 print(n)
