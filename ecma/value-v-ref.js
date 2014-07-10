@@ -53,9 +53,9 @@ console.log(n(8)) // <- 10
 function print (n) { console.log(n(0)) }
 
 
-function zero (n) { n(-n(0)) }// removing the negative doubles it.
-        //             ^^ this function returns the negative value
-        //                and this cancels out the current i value.
+function zero (n) { n(-n(-1000)) }// removing the negative doubles it.
+        //                  ^^ no matter what number is her the function
+        //                     returns zero
 
 function doubs (n) { n(n(0)) }
 
