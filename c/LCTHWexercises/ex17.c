@@ -65,8 +65,8 @@ void Database_load()
 {
     int rc = 1;
 
-    rc = fread(conn->db->max_data, sizeof(int), 1, conn->file);
-    rc = fread(conn->db->max_rows, sizeof(int), 1, conn->file);
+    rc = fread(&conn->db->max_data, sizeof(int), 1, conn->file);
+    rc = fread(&conn->db->max_rows, sizeof(int), 1, conn->file);
 
     if(rc != 1) die("Failed to load database.");
 
