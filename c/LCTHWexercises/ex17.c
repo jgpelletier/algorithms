@@ -143,6 +143,16 @@ void Database_write()
 
     int string_size = sizeof(char) * conn->db->max_data;
 
+    int i;
+
+    for ( i = 0; i < conn->db->max_rows; i++ ) {
+        struct Address *addr = &conn->db->rows[i];
+        fwrite(&addr->id, sizeof(int), 1, conn->file);
+        fwrite(&addr->set, sizeof(int), 1, conn->file);
+        fwrite(addr->name, string_size, 1, conn->file);
+        rc = fwrite(addr->email, string_size, 1, conn->file);
+
+
     if (rc != 1) die("Failed to write database.");
     // fflush forces a write of all user-space buffered data for the given
     // output or update stream via stream's underlying write function.
@@ -245,6 +255,8 @@ int main(int argc, char *argv[])
 
     switch(action) { // control flow - 5 choices with 9 different functions
         case 'c':
+            conn->db->max_data = atoi(argv[3]);
+            conn->db->max_rows = atoi(argv[4]);
             Database_create();
             Database_write(); // writes to the database
             break;
