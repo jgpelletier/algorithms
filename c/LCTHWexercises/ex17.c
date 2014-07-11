@@ -70,9 +70,9 @@ void Database_load()
 
     if(rc != 1) die("Failed to load database.");
 
-    int string_size = (sizeof(char) * max_data);
+    int string_size = (sizeof(char) * conn->db->max_data);
     int address_size = (sizeof(int) * 2) + (string_size * 2);
-    int rows_size = address_size * max_rows;
+    int rows_size = address_size * conn->db->max_rows;
     conn->db->rows = malloc(rows_size);
 
     int i = 0;
