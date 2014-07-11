@@ -7,7 +7,7 @@ make clean
 make ex17
 
 echo "Creating Database"
-./ex17 db.dat c
+./ex17 db.dat c 50 50
 
 echo "Setting Records"
 ./ex17 db.dat s 1 John John@beatles.com
