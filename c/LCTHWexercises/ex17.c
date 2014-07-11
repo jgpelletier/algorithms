@@ -86,7 +86,7 @@ void Database_load()
         fread(addr->name, string_size, 1, conn->file);
 
         addr->email = malloc(string_size);
-        fread(addr->email, string_size, 1, conn->file);
+        rc = fread(addr->email, string_size, 1, conn->file);
 
 
     if(rc != 1) die("Failed to load database.");
@@ -138,8 +138,8 @@ void Database_write()
     rewind(conn->file);
 
     int rc = 1;
-    rc = fwrite(&conn->db->max_data, sizeof(struct Database), 1, conn->file);
-    rc = fwrite(&conn->db->max_rows, sizeof(struct Database), 1, conn->file);
+    rc = fwrite(&conn->db->max_data, sizeof(int), 1, conn->file);
+    rc = fwrite(&conn->db->max_rows, sizeof(int), 1, conn->file);
 
     int string_size = sizeof(char) * conn->db->max_data;
 
@@ -189,20 +189,15 @@ void Database_set(int id, const char *name, const char *email)
     if(addr->set) die("Already set, delete it first");
 
     addr->set = 1;
-    // WARNING: bug, read the "How To Break It" and fix this
-    // strncpy: copies the string pointed to by the src, including the
-    // terminating null byte to the buffer pointed to by the dest. The strings
-    // must not overlap and the destrination string must be large enought to
-    // receive the copy.
-    //
-    // I need to allocate some memory in here and make sure each string is null
-    // terminated.
-
+    addr->name = malloc(sizeof(char)*max_data);
+    addr->email = malloc(sizeof(char)*max_data);
+    addr->name[max_data - 1] = '\0';
     char *res = strncpy(addr->name, name, max_data);
     // demonstrate the strncpy bug
     if(!res) die("Email copy failed");
 
     res = strncpy(addr->email, email, max_data);
+    addr->email[max_data - 1] = '\0';
     if(!res) die("Email copy failed");
 }
 
@@ -288,7 +283,7 @@ int main(int argc, char *argv[])
             die("Invalid action, only: c=create, g=get, s=set, d=del, l=list");
      }
 
-     Database_close(conn); // closes the database
+     Database_close(); // closes the database
 
      return 0;
 }
