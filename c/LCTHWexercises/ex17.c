@@ -137,12 +137,17 @@ void Database_write()
     // the stream pointed to by stream to the beginning of the file.
     rewind(conn->file);
 
-    int rc = fwrite(conn->db, sizeof(struct Database), 1, conn->file);
-    if(rc != 1) die("Failed to write database.");
+    int rc = 1;
+    rc = fwrite(&conn->db->max_data, sizeof(struct Database), 1, conn->file);
+    rc = fwrite(&conn->db->max_rows, sizeof(struct Database), 1, conn->file);
+
+    int string_size = sizeof(char) * conn->db->max_data;
+
+    if (rc != 1) die("Failed to write database.");
     // fflush forces a write of all user-space buffered data for the given
     // output or update stream via stream's underlying write function.
     rc = fflush(conn->file);
-    if(rc == -1) die("Cannot flush database.");
+    if (rc == -1) die("Cannot flush database.");
 }
 
 
