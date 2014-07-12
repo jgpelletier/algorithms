@@ -122,14 +122,12 @@ void Database_open(const char *filename, char mode)
         conn->file = fopen(filename, "r+");// <-open for reading and writing
 
        if(conn->file) {
-           Database_load();// <- need to figure out what is happening here
+           Database_load();
        }
     }
 
     if(!conn->file)
         die("Failed to open the file");
-
-    //return conn;
 }
 
 void Database_write()
@@ -193,7 +191,7 @@ void Database_set(int id, const char *name, const char *email)
 
     char *res = strncpy(addr->name, name, max_data);
     addr->name[max_data - 1] = '\0';
-    // demonstrate the strncpy bug
+
     if(!res) die("Email copy failed");
 
     res = strncpy(addr->email, email, max_data);
@@ -247,7 +245,7 @@ int main (int argc, char *argv[])
     // atoi converts the intial portion of the string pointed to by nptr to int.
         id = atoi(argv[3]);
     }
-    if (id >= conn->db->max_rows) die("There's not that many records.");// To much for memory
+    if (id >= conn->db->max_rows) die("There's not that many records.");
     switch (action) { // control flow - 5 choices with 9 different functions
         case 'c':
             if (argc != 5) die("MAX_DATA and MAX_ROWS needed");
@@ -273,7 +271,7 @@ int main (int argc, char *argv[])
             if(argc != 4) die("Need id to delete");
 
             Database_delete(id);// deletes a record
-            Database_write();// writes to the database?
+            Database_write();
             break;
 
         case 'l':
