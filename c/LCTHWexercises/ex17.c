@@ -31,8 +31,16 @@ struct Connection *conn;
 void Database_close()
 {
     if(conn) {
+        int i;
+        for (i = 0; i < conn->db->max_rows; i++) {
+            free(conn->db->rows[i].name);
+            free(conn->db->rows[i].email);
+        }
+
         if(conn->file) fclose(conn->file);// <- closes file
+
         if(conn->db) free(conn->db);
+
         free(conn);
     }
 } // this releases memory
@@ -186,13 +194,15 @@ void Database_set(int id, const char *name, const char *email)
 {
     int max_data = conn->db->max_data;
     struct Address *addr = &conn->db->rows[id];
+
     if(addr->set) die("Already set, delete it first");
 
     addr->set = 1;
     addr->name = malloc(sizeof(char)*max_data);
     addr->email = malloc(sizeof(char)*max_data);
-    addr->name[max_data - 1] = '\0';
+
     char *res = strncpy(addr->name, name, max_data);
+    addr->name[max_data - 1] = '\0';
     // demonstrate the strncpy bug
     if(!res) die("Email copy failed");
 
@@ -215,6 +225,8 @@ void Database_get(int id)
 void Database_delete(int id)
 {
     struct Address addr = {.id = id, .set = 0};
+    addr.name = malloc(sizeof(char)* conn->db->max_data);
+    addr.email = malloc(sizeof(char)* conn->db->max_data);
     conn->db->rows[id] = addr;
 }
 
