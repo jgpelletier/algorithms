@@ -4,9 +4,6 @@
 #include <errno.h> // defines macros to report error conditions through error codes
 #include <string.h>
 
-//#define MAX_DATA 512 // Constant Expression: Integer Constant
-//#define MAX_ROWS 100
-
 struct Address {// Structure declaration with the tag "address" and 4 members
     int id;
     int set;
@@ -95,15 +92,11 @@ void Database_load()
 
         addr->email = malloc(string_size);
         rc = fread(addr->email, string_size, 1, conn->file);
-
+    }
 
     if(rc != 1) die("Failed to load database.");
 
 }
-
-
-
-
 
 void Database_open(const char *filename, char mode)
 {
@@ -159,8 +152,7 @@ void Database_write()
         fwrite(&addr->set, sizeof(int), 1, conn->file);
         fwrite(addr->name, string_size, 1, conn->file);
         rc = fwrite(addr->email, string_size, 1, conn->file);
-
-
+    }
     if (rc != 1) die("Failed to write database.");
     // fflush forces a write of all user-space buffered data for the given
     // output or update stream via stream's underlying write function.
@@ -168,8 +160,6 @@ void Database_write()
     if (rc == -1) die("Cannot flush database.");
 }
 
-
-// this is where I will need to make max_size an max_data variables.
 void Database_create()
 {
 
@@ -244,9 +234,9 @@ void Database_list()
     }
 }
 
-int main(int argc, char *argv[])
+int main (int argc, char *argv[])
 {
-    if(argc < 3) die("USAGE: ex17 <dbfile> <action> [action params]");
+    if (argc < 3) die("USAGE: ex17 <dbfile> <action> [action params]");
 
     char *filename = argv[1]; // points to input argument 1
     char action = argv[2][0];
@@ -257,9 +247,8 @@ int main(int argc, char *argv[])
     // atoi converts the intial portion of the string pointed to by nptr to int.
         id = atoi(argv[3]);
     }
-    if(id >= conn->db->max_rows) die("There's not that many records.");// To much for memory
-
-    switch(action) { // control flow - 5 choices with 9 different functions
+    if (id >= conn->db->max_rows) die("There's not that many records.");// To much for memory
+    switch (action) { // control flow - 5 choices with 9 different functions
         case 'c':
             if (argc != 5) die("MAX_DATA and MAX_ROWS needed");
             conn->db->max_data = atoi(argv[3]);
@@ -267,7 +256,6 @@ int main(int argc, char *argv[])
             Database_create();
             Database_write(); // writes to the database
             break;
-
         case 'g':
             if(argc != 4) die("Need an id to get");
 
