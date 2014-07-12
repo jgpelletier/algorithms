@@ -10,14 +10,14 @@
 struct Address {// Structure declaration with the tag "address" and 4 members
     int id;
     int set;
-    char *name; //[MAX_DATA]; // fixed size
-    char *email; //[MAX_DATA];
+    char *name;
+    char *email;
 };
 
 struct Database {// Declaration with nested structure
     int max_data;
     int max_rows;
-    struct Address *rows; //[MAX_ROWS];// fixed sized on rows
+    struct Address *rows;
 };
 
 // pairs the file and database together
@@ -246,7 +246,6 @@ void Database_list()
 
 int main(int argc, char *argv[])
 {
-    // kills the program if arguments are less than 3
     if(argc < 3) die("USAGE: ex17 <dbfile> <action> [action params]");
 
     char *filename = argv[1]; // points to input argument 1
@@ -262,6 +261,7 @@ int main(int argc, char *argv[])
 
     switch(action) { // control flow - 5 choices with 9 different functions
         case 'c':
+            if (argc != 5) die("MAX_DATA and MAX_ROWS needed");
             conn->db->max_data = atoi(argv[3]);
             conn->db->max_rows = atoi(argv[4]);
             Database_create();
@@ -291,6 +291,7 @@ int main(int argc, char *argv[])
         case 'l':
             Database_list();// lists the records
             break;
+
         default:
             die("Invalid action, only: c=create, g=get, s=set, d=del, l=list");
      }
