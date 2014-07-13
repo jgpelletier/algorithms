@@ -280,6 +280,11 @@ int main (int argc, char *argv[])
            Database_set( id, argv[4], argv[5]); // will need to look at the code.
            Database_write();// writes to the database
            break;
+        case 'f':
+            if (argc != 4)
+                die("enter a search term");
+            Database_find(argv[3]);
+            break;
 
         case 'd':
             if(argc != 4) die("Need id to delete");
