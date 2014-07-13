@@ -232,6 +232,20 @@ void Database_list()
     }
 }
 
+void Database_find(char *term)
+{
+    int i;
+    for (i=0; i <conn->db->max_rows; i++) {
+    struct Address *addr = &conn->db->rows[i];
+
+        if (strcmp(addr->name, term) == 0 || strcmp(addr->email, term) == 0) {
+
+            Address_print(addr);
+            return;
+        }
+    }
+}
+
 int main (int argc, char *argv[])
 {
     if (argc < 3) die("USAGE: ex17 <dbfile> <action> [action params]");
