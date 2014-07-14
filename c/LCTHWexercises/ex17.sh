@@ -16,6 +16,9 @@ echo "Setting Records"
 ./ex17 db.dat s 4 Paul Paul@beatles.com
 ./ex17 db.dat s 5 George George@beatles.com
 
+echo "Find record with George"
+./ex17 db.dat f George
+
 echo "Retrieving record 2"
 ./ex17 db.dat g 2
 
