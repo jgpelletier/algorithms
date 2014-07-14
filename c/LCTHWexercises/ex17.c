@@ -27,7 +27,7 @@ struct Connection *conn;
 
 void Database_close()
 {
-    if(conn) {
+    if (conn) {
         int i;
         for (i = 0; i < conn->db->max_rows; i++) {
             free(conn->db->rows[i].name);
@@ -75,7 +75,7 @@ void Database_load()
 
     if(rc != 1) die("Failed to load database.");
 
-    int string_size = (sizeof(char) * conn->db->max_data);
+    int string_size = sizeof(char) * conn->db->max_data;
     int address_size = (sizeof(int) * 2) + (string_size * 2);
     int rows_size = address_size * conn->db->max_rows;
     conn->db->rows = malloc(rows_size);
@@ -253,13 +253,17 @@ int main (int argc, char *argv[])
     char *filename = argv[1]; // points to input argument 1
     char action = argv[2][0];
     Database_open(filename, action);
+
     int id = 0;
 
-    if (action != 'c' && argc > 3) {
+    if (action != 'c' && action != 'f' && argc > 3) {
     // atoi converts the intial portion of the string pointed to by nptr to int.
         id = atoi(argv[3]);
-    }
-    if (id >= conn->db->max_rows) die("There's not that many records.");
+
+        if (id >= conn->db->max_rows)
+            die("There's not that many records.");// breaks here
+    } // moved curly to here
+
     switch (action) { // control flow - 5 choices with 9 different functions
         case 'c':
             if (argc != 5) die("MAX_DATA and MAX_ROWS needed");
