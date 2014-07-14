@@ -261,8 +261,8 @@ int main (int argc, char *argv[])
         id = atoi(argv[3]);
 
         if (id >= conn->db->max_rows)
-            die("There's not that many records.");// breaks here
-    } // moved curly to here
+            die("There's not that many records.");
+    }
 
     switch (action) { // control flow - 5 choices with 9 different functions
         case 'c':
