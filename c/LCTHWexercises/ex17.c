@@ -68,8 +68,7 @@ void Address_print(struct Address *addr) // Function prints. It takes a struct a
 // be arbitrarily.
 void Database_load()
 {
-    int rc = 1;
-    int wc = 1;
+    size_t rc, wc;
 
     rc = fread(&conn->db->max_data, sizeof(int), 1, conn->file);
     wc = fread(&conn->db->max_rows, sizeof(int), 1, conn->file);
@@ -136,8 +135,7 @@ void Database_write()
     // the stream pointed to by stream to the beginning of the file.
     rewind(conn->file);
 
-    int rc = 1;
-    int wc = 1;
+    size_t rc, wc;
 
     rc = fwrite(&conn->db->max_data, sizeof(int), 1, conn->file);
     if (rc != 1) die("Failed to write database.");
