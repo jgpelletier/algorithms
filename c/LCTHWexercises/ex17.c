@@ -137,7 +137,12 @@ void Database_write()
 
     size_t rc, wc;
 
+    // size_t fwrite(const voit *ptr, size_t size, size_t nmemb, FILE*stream);
+    // the function fwrite() writes nmem elements of data, each size bytes long
+    // to the stream pointed to by stream, obtaining them from the location given
+    // by ptr
     rc = fwrite(&conn->db->max_data, sizeof(int), 1, conn->file);
+//  ^^size_t     ^^const void *ptr,   ^^size      ^^nmemb  ^^File*stream
     if (rc != 1) die("Failed to write database.");
 
     wc = fwrite(&conn->db->max_rows, sizeof(int), 1, conn->file);
