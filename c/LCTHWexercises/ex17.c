@@ -141,12 +141,9 @@ void Database_write()
 
     rc = fwrite(&conn->db->max_data, sizeof(int), 1, conn->file);
     if (rc != 1) die("Failed to write database.");
-    printf("1st rc is %d.\n", rc);
 
     wc = fwrite(&conn->db->max_rows, sizeof(int), 1, conn->file);
-
     if (wc != 1) die("Failed to write database.");
-    printf("2nd rc is %d.\n", rc);
 
     int string_size = sizeof(char) * conn->db->max_data;
 
@@ -161,7 +158,6 @@ void Database_write()
 
         if (rc != 1 || wc != 1) die("Failed to write database.");
     }
-    // if (rc != 1) die("Failed to write database.");
     // fflush forces a write of all user-space buffered data for the given
     // output or update stream via stream's underlying write function.
     rc = fflush(conn->file);
