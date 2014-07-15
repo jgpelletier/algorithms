@@ -69,11 +69,12 @@ void Address_print(struct Address *addr) // Function prints. It takes a struct a
 void Database_load()
 {
     int rc = 1;
+    int wc = 1;
 
     rc = fread(&conn->db->max_data, sizeof(int), 1, conn->file);
-    rc = fread(&conn->db->max_rows, sizeof(int), 1, conn->file);
+    wc = fread(&conn->db->max_rows, sizeof(int), 1, conn->file);
 
-    if(rc != 1) die("Failed to load database.");
+    if(rc != 1 || wc != 1) die("Failed to load database.");
 
     int string_size = sizeof(char) * conn->db->max_data;
     int address_size = (sizeof(int) * 2) + (string_size * 2);
@@ -88,14 +89,13 @@ void Database_load()
         fread(&addr->set, sizeof(int), 1, conn->file);
 
         addr->name = malloc(string_size);
-        fread(addr->name, string_size, 1, conn->file);
+        rc =fread(addr->name, string_size, 1, conn->file);
 
         addr->email = malloc(string_size);
-        rc = fread(addr->email, string_size, 1, conn->file);
+        wc = fread(addr->email, string_size, 1, conn->file);
+
+        if(rc != 1 || wc != 1) die("Failed to load database.");
     }
-
-    if(rc != 1) die("Failed to load database.");
-
 }
 
 void Database_open(const char *filename, char mode)
@@ -161,7 +161,7 @@ void Database_write()
 
         if (rc != 1 || wc != 1) die("Failed to write database.");
     }
-    //if (rc != 1) die("Failed to write database.");
+    // if (rc != 1) die("Failed to write database.");
     // fflush forces a write of all user-space buffered data for the given
     // output or update stream via stream's underlying write function.
     rc = fflush(conn->file);
