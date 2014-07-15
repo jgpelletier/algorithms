@@ -138,8 +138,9 @@ void Database_write()
 
     int rc = 1;
     rc = fwrite(&conn->db->max_data, sizeof(int), 1, conn->file);
+    printf("1st rc is %d.\n", rc);
     rc = fwrite(&conn->db->max_rows, sizeof(int), 1, conn->file);
-
+    printf("2nd rc is %d.\n", rc);
     int string_size = sizeof(char) * conn->db->max_data;
 
     int i;
@@ -150,6 +151,7 @@ void Database_write()
         fwrite(&addr->set, sizeof(int), 1, conn->file);
         fwrite(addr->name, string_size, 1, conn->file);
         rc = fwrite(addr->email, string_size, 1, conn->file);
+        printf("3rd rc is %d.\n", rc);
     }
     if (rc != 1) die("Failed to write database.");
     // fflush forces a write of all user-space buffered data for the given
