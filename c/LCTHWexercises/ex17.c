@@ -27,16 +27,17 @@ struct Connection *conn;
 
 void Database_close()
 {
+    int i;
+
     if (conn) {
-        int i;
         for (i = 0; i < conn->db->max_rows; i++) {
             free(conn->db->rows[i].name);
             free(conn->db->rows[i].email);
         }
 
-        if(conn->file) fclose(conn->file);// <- closes file
+        if (conn->file) fclose(conn->file);// <- closes file
 
-        if(conn->db) free(conn->db);
+        if (conn->db) free(conn->db);
 
         free(conn);
     }
@@ -69,7 +70,8 @@ void Address_print(struct Address *addr) // Function prints. It takes a struct a
 void Database_load()
 {
     size_t rc, wc;
-
+    int i = 0;
+    struct Address *addr;
     rc = fread(&conn->db->max_data, sizeof(int), 1, conn->file);
     wc = fread(&conn->db->max_rows, sizeof(int), 1, conn->file);
 
@@ -80,9 +82,8 @@ void Database_load()
     int rows_size = address_size * conn->db->max_rows;
     conn->db->rows = malloc(rows_size);
 
-    int i = 0;
     for (i = 0; i < conn->db->max_rows; i++) {
-        struct Address *addr = &conn->db->rows[i];
+        addr = &conn->db->rows[i];
 
         fread(&addr->id, sizeof(int), 1, conn->file);
         fread(&addr->set, sizeof(int), 1, conn->file);
@@ -131,13 +132,15 @@ void Database_open(const char *filename, char mode)
 
 void Database_write()
 {
+    int string_size, i;
+    size_t rc, wc;
+    struct Address *addr;
+
     // rewind is part of FILE struct: sets the file position indicator for
     // the stream pointed to by stream to the beginning of the file.
     rewind(conn->file);
 
-    size_t rc, wc;
-
-    // size_t fwrite(const voit *ptr, size_t size, size_t nmemb, FILE*stream);
+    // size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE*stream);
     // the function fwrite() writes nmem elements of data, each size bytes long
     // to the stream pointed to by stream, obtaining them from the location given
     // by ptr
@@ -148,12 +151,10 @@ void Database_write()
     wc = fwrite(&conn->db->max_rows, sizeof(int), 1, conn->file);
     if (wc != 1) die("Failed to write database.");
 
-    int string_size = sizeof(char) * conn->db->max_data;
-
-    int i;
+    string_size = sizeof(char) * conn->db->max_data;
 
     for ( i = 0; i < conn->db->max_rows; i++ ) {
-        struct Address *addr = &conn->db->rows[i];
+        addr = &conn->db->rows[i];
         fwrite(&addr->id, sizeof(int), 1, conn->file);
         fwrite(&addr->set, sizeof(int), 1, conn->file);
         wc = fwrite(addr->name, string_size, 1, conn->file);
@@ -180,7 +181,7 @@ void Database_create()
 
     int i = 0;
     for(i = 0; i < max_rows; i++) {
-        struct Address addr = {.id = i, .set = 0};
+        struct Address addr = {.id = i, .set = 0};// how to declare at the beginning?
         addr.name = malloc(sizeof(char) * max_data);
         addr.email = malloc(sizeof(char) * max_rows);
         conn->db->rows[i] = addr;
@@ -191,6 +192,7 @@ void Database_set(int id, const char *name, const char *email)
 {
     int max_data = conn->db->max_data;
     struct Address *addr = &conn->db->rows[id];
+    char *res;
 
     if(addr->set) die("Already set, delete it first");
 
@@ -198,7 +200,7 @@ void Database_set(int id, const char *name, const char *email)
     addr->name = malloc(sizeof(char)*max_data);
     addr->email = malloc(sizeof(char)*max_data);
 
-    char *res = strncpy(addr->name, name, max_data);
+    res = strncpy(addr->name, name, max_data);
     addr->name[max_data - 1] = '\0';
 
     if(!res) die("Email copy failed");
@@ -231,9 +233,9 @@ void Database_list()
 {
     int i = 0;
     struct Database *db = conn->db;
-
+    struct Address *cur;
     for(i = 0; i < db->max_rows; i++) {
-        struct Address *cur = &db->rows[i];
+        cur = &db->rows[i];
 
         if(cur->set) {
             Address_print(cur);
@@ -244,8 +246,9 @@ void Database_list()
 void Database_find(char *term)
 {
     int i;
+    struct Address *addr;
     for (i=0; i <conn->db->max_rows; i++) {
-    struct Address *addr = &conn->db->rows[i];
+        addr = &conn->db->rows[i];
 
         if (strcmp(addr->name, term) == 0 || strcmp(addr->email, term) == 0) {
 
