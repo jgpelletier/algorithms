@@ -78,7 +78,7 @@ int *insert_sort(int *numbers, int count, compare_cb cmp)
 
     memcpy(target, numbers, count * sizeof(int));
 
-    for (i = 0; i < (count-1); i++) {
+    for (i = 0; i < (count); i++) {
        j = i;
        while ( j > 0  && cmp(target[j-1], target[j]) > 0) {
                 temp = target[j];
@@ -163,7 +163,7 @@ int main(int argc, char *argv[])
     }
 
     test_sorting(numbers, count, insert_sort, sorted_order);
-    test_sorting(numbers, count, insert_sort, reverse_order);
+    test_sorting(numbers, count, insert_sort, reverse_order);// This is wrong
     test_sorting(numbers, count, insert_sort, strange_order);
 
 
