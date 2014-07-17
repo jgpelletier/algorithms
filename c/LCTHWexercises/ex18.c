@@ -35,6 +35,10 @@ int *bubble_sort(int *numbers, int count, compare_cb cmp)
     if(!target) die("Memory error.");
 
     memcpy(target, numbers, count * sizeof(int));
+    //      ^^*dest   ^^*src     ^^n
+    // this function copies n bytes from memory area src to memory
+    // are dest.
+    //
     // ^^ the lines above create variables on the stack as well as
     //    an array of integers from the heap using malloc.
     //    EXPLAIN count*sizeof(int)
@@ -104,6 +108,14 @@ void test_sorting(int *numbers, int count, compare_cb cmp)
     printf("\n");
 
     free(sorted);
+
+    unsigned char *data = (unsigned char *)cmp;
+
+    for(i = 0; i < 25; i++) {
+        printf("%02x:", data[i]);
+        }
+
+    printf("\n");
 }
 
 
