@@ -18,6 +18,7 @@ void die(const char *message)
 // a typedef creates a fake type, in this
 // case for a function pointer
 typedef int (*compare_cb)(int a, int b);
+typedef int *(*sort_cb) (int *numbers, int count, compare_cb cmp);
 
 /**
  * A classic bubble sort function that uses the
@@ -66,6 +67,30 @@ int *bubble_sort(int *numbers, int count, compare_cb cmp)
     // ^^^return the newly created and sorted array result.
 }
 
+int *insert_sort(int *numbers, int count, compare_cb cmp)
+{
+    int temp = 0;
+    int i = 0;
+    int j = 0;
+    int *target = malloc(count * sizeof(int));
+
+    if(!target) die("Memory error.");
+
+    memcpy(target, numbers, count * sizeof(int));
+
+    for (i = 0; i < (count-1); i++) {
+       j = i;
+       while ( j > 0  && cmp(target[j-1], target[j]) > 0) {
+                temp = target[j];
+                target[j] = target[j-1];
+                target[j-1] = temp;
+                --j;
+            }
+        }
+    return target;
+}
+
+
 // Below are three different versions of the compare_cb
 // function, which needs to have the same definition as
 // the typedef we created. If they do not match the typedef
@@ -93,12 +118,12 @@ int strange_order(int a, int b)
  * Used to test that we are sorting things correctly
  * by doing the sort and printing it out.
  */
-void test_sorting(int *numbers, int count, compare_cb cmp)
+void test_sorting(int *numbers, int count, sort_cb sort, compare_cb cmp)
 // this is a tester for the bubble_sort function. Notice how
 // functions are passed around like any other pointer.
 {
     int i = 0;
-    int *sorted = bubble_sort(numbers, count, cmp);
+    int *sorted = sort(numbers, count, cmp);
 
     if(!sorted) die("Failed to sort as requested.");
 
@@ -109,13 +134,13 @@ void test_sorting(int *numbers, int count, compare_cb cmp)
 
     free(sorted);
 
-    unsigned char *data = (unsigned char *)cmp;
+/*    unsigned char *data = (unsigned char *)cmp;
 
     for(i = 0; i < 25; i++) {
         printf("%02x:", data[i]);
         }
 
-    printf("\n");
+    printf("\n");*/
 }
 
 
@@ -137,11 +162,16 @@ int main(int argc, char *argv[])
         numbers[i] = atoi(inputs[i]);
     }
 
+    test_sorting(numbers, count, insert_sort, sorted_order);
+    test_sorting(numbers, count, insert_sort, reverse_order);
+    test_sorting(numbers, count, insert_sort, strange_order);
+
+
     // example of typedef usage in 3rd argument of test_sorting
     // function below.
-    test_sorting(numbers, count, sorted_order);
-    test_sorting(numbers, count, reverse_order);
-    test_sorting(numbers, count, strange_order);
+    test_sorting(numbers, count, bubble_sort, sorted_order);
+    test_sorting(numbers, count, bubble_sort, reverse_order);
+    test_sorting(numbers, count, bubble_sort, strange_order);
 
     free(numbers); // free up array of numbers
 
