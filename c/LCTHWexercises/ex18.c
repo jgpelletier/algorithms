@@ -189,19 +189,22 @@ int main(int argc, char *argv[])
         numbers[i] = atoi(inputs[i]);
     }
 
-    //test_sorting(numbers, count, insert_sort, sorted_order);
-    //test_sorting(numbers, count, insert_sort, reverse_order);
-    //test_sorting(numbers, count, insert_sort, strange_order);
+    printf("Insertion sort\n");
+    test_sorting(numbers, count, insert_sort, sorted_order);
+    test_sorting(numbers, count, insert_sort, reverse_order);
+    test_sorting(numbers, count, insert_sort, strange_order);
 
+    printf("Selection sort\n");
     test_sorting(numbers, count, selection_sort, sorted_order);
     test_sorting(numbers, count, selection_sort, reverse_order);
     test_sorting(numbers, count, selection_sort, strange_order);
 
     // example of typedef usage in 3rd argument of test_sorting
     // function below.
-    // test_sorting(numbers, count, bubble_sort, sorted_order);
-    // test_sorting(numbers, count, bubble_sort, reverse_order);
-    // test_sorting(numbers, count, bubble_sort, strange_order);
+    printf("Bubble sort\n");
+    test_sorting(numbers, count, bubble_sort, sorted_order);
+    test_sorting(numbers, count, bubble_sort, reverse_order);
+    test_sorting(numbers, count, bubble_sort, strange_order);
 
     free(numbers); // free up array of numbers
 
