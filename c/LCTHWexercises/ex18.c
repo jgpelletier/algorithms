@@ -92,6 +92,7 @@ int *insert_sort(int *numbers, int count, compare_cb cmp)
 
 int *selection_sort(int *numbers, int count, compare_cb cmp)
 {
+    int position;
     int temp = 0;
     int i = 0;
     int j = 0;
@@ -101,15 +102,19 @@ int *selection_sort(int *numbers, int count, compare_cb cmp)
 
     memcpy(target, numbers, count * sizeof(int));
 
-    for (i = 0; i < (count - 1); i++) {
-       j = i;
+    for (i = 0; i < (count); i++) {
+       position = i;
        for ( j = i + 1; j < count; j++) {
-          if (cmp(target[j-1], target[j] > 0))
-                temp = target[j];
-                target[j] = target[j-1];
-                target[j-1] = temp;
-            }
-        }
+          if (cmp(target[i], target[j]) > 0) {
+                position = j;
+          }
+          if (position != i) {
+                temp = target[i];
+                target[i] = target[position];
+                target[position] = temp;
+          }
+       }
+    }
     return target;
 }
 
@@ -173,7 +178,7 @@ int main(int argc, char *argv[])
 {
     if(argc < 2) die("USAGE: ex18 4 3 1 5 6");
 
-    int count = argc - 1;
+    int count = argc -1;
     int i = 0;
     char **inputs = argv + 1;
 
@@ -185,20 +190,18 @@ int main(int argc, char *argv[])
     }
 
     //test_sorting(numbers, count, insert_sort, sorted_order);
-    //test_sorting(numbers, count, insert_sort, reverse_order);// This is wrong
+    //test_sorting(numbers, count, insert_sort, reverse_order);
     //test_sorting(numbers, count, insert_sort, strange_order);
 
     test_sorting(numbers, count, selection_sort, sorted_order);
-    test_sorting(numbers, count, selection_sort, reverse_order);// This is wrong
+    test_sorting(numbers, count, selection_sort, reverse_order);
     test_sorting(numbers, count, selection_sort, strange_order);
-
-
 
     // example of typedef usage in 3rd argument of test_sorting
     // function below.
-    test_sorting(numbers, count, bubble_sort, sorted_order);
-    test_sorting(numbers, count, bubble_sort, reverse_order);
-    test_sorting(numbers, count, bubble_sort, strange_order);
+    // test_sorting(numbers, count, bubble_sort, sorted_order);
+    // test_sorting(numbers, count, bubble_sort, reverse_order);
+    // test_sorting(numbers, count, bubble_sort, strange_order);
 
     free(numbers); // free up array of numbers
 
