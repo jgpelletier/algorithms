@@ -90,6 +90,28 @@ int *insert_sort(int *numbers, int count, compare_cb cmp)
     return target;
 }
 
+int *selection_sort(int *numbers, int count, compare_cb cmp)
+{
+    int temp = 0;
+    int i = 0;
+    int j = 0;
+    int *target = malloc(count * sizeof(int));
+
+    if(!target) die("Memory error.");
+
+    memcpy(target, numbers, count * sizeof(int));
+
+    for (i = 0; i < (count - 1); i++) {
+       j = i;
+       for ( j = i + 1; j < count; j++) {
+          if (cmp(target[j-1], target[j] > 0))
+                temp = target[j];
+                target[j] = target[j-1];
+                target[j-1] = temp;
+            }
+        }
+    return target;
+}
 
 // Below are three different versions of the compare_cb
 // function, which needs to have the same definition as
@@ -162,9 +184,14 @@ int main(int argc, char *argv[])
         numbers[i] = atoi(inputs[i]);
     }
 
-    test_sorting(numbers, count, insert_sort, sorted_order);
-    test_sorting(numbers, count, insert_sort, reverse_order);// This is wrong
-    test_sorting(numbers, count, insert_sort, strange_order);
+    //test_sorting(numbers, count, insert_sort, sorted_order);
+    //test_sorting(numbers, count, insert_sort, reverse_order);// This is wrong
+    //test_sorting(numbers, count, insert_sort, strange_order);
+
+    test_sorting(numbers, count, selection_sort, sorted_order);
+    test_sorting(numbers, count, selection_sort, reverse_order);// This is wrong
+    test_sorting(numbers, count, selection_sort, strange_order);
+
 
 
     // example of typedef usage in 3rd argument of test_sorting
