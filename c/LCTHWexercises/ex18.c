@@ -20,10 +20,6 @@ void die(const char *message)
 typedef int (*compare_cb)(int a, int b);
 typedef int *(*sort_cb) (int *numbers, int count, compare_cb cmp);
 
-/**
- * A classic bubble sort function that uses the
- * compare_cb to do the sorting.
- */
 int *bubble_sort(int *numbers, int count, compare_cb cmp)
 // ^^This is where the typedef compare_is used ^^^
 //   as the last parameter.
@@ -160,14 +156,6 @@ void test_sorting(int *numbers, int count, sort_cb sort, compare_cb cmp)
     printf("\n");
 
     free(sorted);
-
-/*    unsigned char *data = (unsigned char *)cmp;
-
-    for(i = 0; i < 25; i++) {
-        printf("%02x:", data[i]);
-        }
-
-    printf("\n");*/
 }
 
 
