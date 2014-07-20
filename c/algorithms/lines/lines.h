@@ -15,6 +15,11 @@ struct _file_info3 { // <- 8 bytes
     size_t length;
 };
 
+struct _line_t {
+    char line[120];
+    struct _line_t*  next;
+};
+
 typedef struct _file_info info; // <-allocation of memory for the type.
 typedef struct _file_info2 info2;
 typedef struct _file_info3 info3;
@@ -28,3 +33,4 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error);
 void line_count_3 (const char* fname, struct _file_info3* info3, int* error);
 struct _file_info3 line_count_5 (const char* fname, int* error);
                                                 // ^^^ using line_count_3
+void read_lines (const char*, _line_t lines);

@@ -108,10 +108,12 @@ void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
 // line_t contains a 120 character buffer.
 // the buffer is ASCII and zero-terminated.
 // zero is no error, non-zero is an error, return.
-int read_lines (const char* fname, line_t lines)
+/*
+int read_lines (const char* fname, _line_t lines)
 {
 
 }
+*/
 
 void line_count_4 (const char* fname, int *lines, int *length, int *error)
 {
