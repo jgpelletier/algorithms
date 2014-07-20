@@ -1,5 +1,6 @@
 var fs = require('fs')
 
+// fs.readFile / File System section of the Node.js API docs.
 var buffer = fs.readFileSync('wolverine.txt', 'ascii')
     // ^^ String
 var i = 0
