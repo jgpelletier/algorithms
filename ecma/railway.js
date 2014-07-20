@@ -13,7 +13,7 @@
 //      User does not see data model -- a linked list.
 
 
-//node libraries
+// node libraries
 var fs = require('fs')
 var util = require('util')
 var list = require('./list')
@@ -32,13 +32,13 @@ function createRailway (data, west) {
     return railway
 }
 
-//functions to be used on linked lists.
+// functions to be used on linked lists.
 function dump (list) { // <- dump
     console.log(util.inspect(list, null, null))
 }
 
 
-function pop (object) {//this does not mutate that list.
+function pop (object) {// this does not mutate that list.
     return object.east
 }
 
@@ -51,7 +51,7 @@ function find (list, city) {
     }
 }
 
-//counts the length of the list.
+// counts the length of the list.
 function length (list) {
     var count = 0
     while (list) { // <- loop. loop one.
@@ -63,7 +63,7 @@ function length (list) {
     }
 }
 
-//functions that returns an array from the list.
+// functions that returns an array from the list.
 function toArray (list) {
     var arr = []
     var i = 0
@@ -92,8 +92,8 @@ function horribleDuplicates (array) {
 }
 
 
-//Returns an array with the city, state and station properties from a list. This
-//is done both looping and recursively.
+// Returns an array with the city, state and station properties from a list. This
+// is done both looping and recursively.
 function eastOf (list, stop, count) {
     var arr = []
     var i
@@ -104,7 +104,7 @@ function eastOf (list, stop, count) {
         for (i = 0; i < count && list.east; i++) {
             var node = list.east
             list = list.east
-            arr.push({ //<-Remember this process and the creation of the objects
+            arr.push({ // <- Remember this process and the creation of the objects
                 state: node.state,
                 city: node.city,
                 station: node.station,
@@ -118,10 +118,10 @@ function eastOf (list, stop, count) {
 }
 
 function eastOfRecursive (list, city, count /* <- value does not change */) {
-    var node = list//<remind yourself.
+    var node = list// <-remind yourself.
     function goEast (node, array, count /* <- local count */) {
         if (!node || count == 0) {// condition. 1 returns an array. 0 evaluation moves to else branch.
-            return array//returns the requested data in usable form.
+            return array// returns the requested data in usable form.
         } else {
             array.push({
                 state: node.state,
@@ -132,15 +132,15 @@ function eastOfRecursive (list, city, count /* <- value does not change */) {
         }
     }
     function goToStation (node) {
-        if (!node) {//if no more nodes.
+        if (!node) {// if no more nodes.
             return null// always return null and not undefined.
-        } else if (node.city == city) {//found city and passes parameters to goEast
-            return goEast(node.east, [], count)//type is entered as parameter. type called array.
-        } else {//calls self
-            return goToStation(node.east)//path is through this branch until not node or node city.
+        } else if (node.city == city) {// found city and passes parameters to goEast
+            return goEast(node.east, [], count)// type is entered as parameter. type called array.
+        } else {// calls self
+            return goToStation(node.east)// path is through this branch until not node or node city.
         }
     }
-    return goToStation(node)//this happens first.
+    return goToStation(node)// this happens first.
 }
 
 
@@ -185,8 +185,8 @@ function westOfRecursive (list, city, count) {
     return goEast(node, arr)
 }
 
-//These functions return the list structure after moving either up or down the
-//list count number of times.
+// These functions return the list structure after moving either up or down the
+// list count number of times.
 function goEast (list, count) {
     var node = list
     for (var i = 0; i < count; i++) {
@@ -211,8 +211,8 @@ function goWest (list, count) {
     return node
 }
 
-//this function returns the list structure with the requested station at the
-//head
+// this function returns the list structure with the requested station at the
+// head
 function gotoStation (list, city) {
     var node = list
     function toStation (node) {
@@ -228,7 +228,7 @@ function gotoStation (list, city) {
 }
 
 
-//functions to test the integrity of the data
+// functions to test the integrity of the data
 function isStationEastOf (railway, city, count, eastStation) {
     var array = eastOf(railway, city, count)
     for (var i = 0; i < array.length; i++) {
@@ -260,16 +260,16 @@ function isCityEastOf (railway, city, count, eastCity) {
 }
 
 function isEastOf (railway, city, count, property, value) { // <- add a parameter
-    var array = eastOf(railway, city, count)//this will not change
+    var array = eastOf(railway, city, count)// this will not change
     for (var i = 0; i < array.length; i++) {
-        if (array[i][property] == value) {//objects can use any string as a key
+        if (array[i][property] == value) {// objects can use any string as a key
             return true
         }
     }
     return  false
 }
 
-//function to return information about the object
+// function to return information about the object
 function getStationName(object) {
     return object.station
  }
