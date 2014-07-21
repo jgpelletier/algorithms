@@ -49,7 +49,9 @@ void call_line_count_4 ()
 
 void call_read_lines ()
 {
-
+    //struct _lines_t *lines;
+    //int;
+    read_lines ("wolverineX2.txt"/*, &lines*/);
 }
 
 int main ()
