@@ -117,16 +117,8 @@ int read_lines (const char* fname , struct _line_t *lines) // passed by value?
     FILE *f;
     if ((f = fopen (fname, "r")) != NULL) {
 
-       //do {
-            // track and add to tail
-            // need to malloc line_t
-            //lines = malloc (sizeof(struct _lines_t))
-            // use fgets for new line
-            while (fgets(lines->line, 120, f) != NULL) {
-                puts(lines->line);
-            }
-
-        // } while (at_eof == 0)
+        (fgets(lines->line, 120, f));
+            puts(lines->line);
     }
 
     return 0;
