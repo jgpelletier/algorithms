@@ -111,9 +111,8 @@ void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
 
 int read_lines (const char* fname/*, struct _line_t *lines*/) // passed by value?
 {
-
-   // char buffer[120];
-    char line[120];
+    struct _line_t lines;
+    //char line[120];
     //int error, at_eof;
     FILE *f;
     if ((f = fopen (fname, "r")) != NULL) {
@@ -123,8 +122,8 @@ int read_lines (const char* fname/*, struct _line_t *lines*/) // passed by value
             // need to malloc line_t
             //lines = malloc (sizeof(struct _lines_t))
             // use fgets for new line
-            while  (fgets(line, 120, f) != NULL) {
-                puts(line);
+            while (fgets(lines.line, 120, f) != NULL) {
+                puts(lines.line);
             }
 
         // } while (at_eof == 0)
