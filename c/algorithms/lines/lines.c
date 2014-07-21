@@ -123,7 +123,7 @@ int read_lines (const char* fname/*, struct _line_t *lines*/) // passed by value
             // need to malloc line_t
             //lines = malloc (sizeof(struct _lines_t))
             // use fgets for new line
-            if (fgets(line, 120, f)) {
+            while  (fgets(line, 120, f) != NULL) {
                 puts(line);
             }
 
