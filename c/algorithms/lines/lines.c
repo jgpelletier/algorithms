@@ -109,9 +109,9 @@ void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
 // the buffer is ASCII and zero-terminated.
 // zero is no error, non-zero is an error, return.
 
-int read_lines (const char* fname/*, struct _line_t *lines*/) // passed by value?
+int read_lines (const char* fname , struct _line_t *lines) // passed by value?
 {
-    struct _line_t lines;
+    //struct _line_t lines;
     //char line[120];
     //int error, at_eof;
     FILE *f;
@@ -122,8 +122,8 @@ int read_lines (const char* fname/*, struct _line_t *lines*/) // passed by value
             // need to malloc line_t
             //lines = malloc (sizeof(struct _lines_t))
             // use fgets for new line
-            while (fgets(lines.line, 120, f) != NULL) {
-                puts(lines.line);
+            while (fgets(lines->line, 120, f) != NULL) {
+                puts(lines->line);
             }
 
         // } while (at_eof == 0)

@@ -35,4 +35,4 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error);
 void line_count_3 (const char* fname, struct _file_info3* info3, int* error);
 struct _file_info3 line_count_5 (const char* fname, int* error);
                                                 // ^^^ using line_count_3
-int read_lines (const char* fname/*, struct _line_t *lines*/);
+int read_lines (const char* fname, struct _line_t *lines);

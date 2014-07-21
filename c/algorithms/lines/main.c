@@ -49,10 +49,11 @@ void call_line_count_4 ()
 
 void call_read_lines ()
 {
-    //struct _lines_t *lines;
+    struct _line_t lines;
     //int;
-    read_lines ("_x.txt"/*, &lines*/);
+    read_lines ("_x.txt", &lines);
 }
+
 
 int main ()
 {
