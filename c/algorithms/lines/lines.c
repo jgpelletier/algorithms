@@ -130,8 +130,14 @@ int read_lines (const char* fname , struct _line_t *lines) // passed by value?
 
                     lines->next = new_line;
                 }
-        } while (s != NULL);
+
+                while (lines->next) {
+                    printf(lines->line);
+                    lines = lines->next;
+                }
+         } while (s != NULL);
     }
+
 
     while (lines->next) {
         printf(lines->line);
