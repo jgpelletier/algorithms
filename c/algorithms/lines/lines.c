@@ -111,15 +111,28 @@ void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
 
 int read_lines (const char* fname , struct _line_t *lines) // passed by value?
 {
-    //struct _line_t lines;
+    struct _line_t *new_line;
     //char line[120];
     //int error, at_eof;
     FILE *f;
+
     if ((f = fopen (fname, "r")) != NULL) {
 
-        fgets(lines->line, 120, f);
-            puts(lines->line);
+        if (!lines->next) {
+           fgets(lines->line, 120, f);
+        }
+        else {
+            while (lines) {
+                if (!lines->next) {
+                    new_line = malloc(sizeof(struct _line_t));
+                    fgets(new_line->line, 120, f);
+                    lines->next = new_line;
+                }
+            lines = lines->next;
+            }
+        }
     }
+
     fclose(f);
     return 0;
 }
