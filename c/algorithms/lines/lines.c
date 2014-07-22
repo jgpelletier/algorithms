@@ -117,10 +117,10 @@ int read_lines (const char* fname , struct _line_t *lines) // passed by value?
     FILE *f;
     if ((f = fopen (fname, "r")) != NULL) {
 
-        (fgets(lines->line, 120, f));
+        fgets(lines->line, 120, f);
             puts(lines->line);
     }
-
+    fclose(f);
     return 0;
 }
 
