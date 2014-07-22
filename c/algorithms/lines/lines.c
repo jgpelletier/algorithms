@@ -113,24 +113,31 @@ int read_lines (const char* fname , struct _line_t *lines) // passed by value?
 {
     struct _line_t *new_line;
     //char line[120];
-    //int error, at_eof;
+    char* s;
     FILE *f;
 
     if ((f = fopen (fname, "r")) != NULL) {
 
-        if (!lines->next) {
-           fgets(lines->line, 120, f);
-        }
-        else {
-            while (lines) {
-                if (!lines->next) {
-                    new_line = malloc(sizeof(struct _line_t));
-                    fgets(new_line->line, 120, f);
-                    lines->next = new_line;
-                }
-            lines = lines->next;
+        do {
+            if (!lines->next) {
+                 s = fgets(lines->line, 120, f);
             }
-        }
+            else {
+                while (lines) {
+                    if (!lines->next) {
+                        new_line = malloc(sizeof(struct _line_t));
+                        s = fgets(new_line->line, 120, f);
+                        lines->next = new_line;
+                    }
+                lines = lines->next;
+                }
+            }
+        } while (s != NULL);
+    }
+
+    while (lines) {
+        printf(lines->line);
+        lines = lines->next;
     }
 
     fclose(f);
