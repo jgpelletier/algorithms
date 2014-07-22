@@ -117,33 +117,36 @@ int read_lines (const char* fname , struct _line_t *lines) // passed by value?
 
     if ((f = fopen (fname, "r")) != NULL) {
 
+        s = fgets(lines->line, 120, f);
         do {
-                if (!lines->line) {
-                    s = fgets(lines->line, 120, f);
-                } else {
-                    new_line = malloc(sizeof(struct _line_t));
-                    s = fgets(new_line->line, 120, f);
+                // removed if/else statement. the do loop
+                // never entered into the if statement.
+                // there was garbage in the lines->line member.
+                new_line = malloc(sizeof(struct _line_t));
+                s = fgets(new_line->line, 120, f);
 
-                    while (lines->next != NULL) {
-                        lines = lines->next;
-                    }
-
-                    lines->next = new_line;
-                }
-
-                while (lines->next) {
-                    printf(lines->line);
+                while (lines->next != NULL) {
                     lines = lines->next;
                 }
+
+                lines->next = new_line;
+                // there is a linked list here
+                while (lines->next) {
+                    printf(lines->line);//this prints but breaks the list
+                    lines = lines->next;
+                }
+                // the linked list is broken here
          } while (s != NULL);
     }
 
 
+//the loop below does nothing
+/*
     while (lines->next) {
         printf(lines->line);
         lines = lines->next;
     }
-
+*/
     fclose(f);
     return 0;
 }
