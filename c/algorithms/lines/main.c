@@ -57,10 +57,10 @@ void call_read_lines ()
 
 int main ()
 {
-    call_line_count();
+    /*call_line_count();
     call_line_count_2();
     call_line_count_3();
-    call_line_count_4();
+    call_line_count_4();*/
     call_read_lines();
     return EXIT_SUCCESS;
 }
