@@ -131,22 +131,22 @@ int read_lines (const char* fname , struct _line_t *lines) // passed by value?
 
                 lines->next = new_line;
                 // there is a linked list here
-                while (lines->next) {
+             /*   while (lines->next) {
                     printf(lines->line);//this prints but breaks the list
                     lines = lines->next;
-                }
+                }*/
                 // the linked list is broken here
          } while (s != NULL);
     }
 
 
 //the loop below does nothing
-/*
+
     while (lines->next) {
         printf(lines->line);
         lines = lines->next;
     }
-*/
+
     fclose(f);
     return 0;
 }
