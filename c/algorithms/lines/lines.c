@@ -109,39 +109,36 @@ void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
 // the buffer is ASCII and zero-terminated.
 // zero is no error, non-zero is an error, return.
 
-int read_lines (const char* fname , struct _line_t *lines) // passed by value?
+struct _line_t * append (struct _line_t *lines, struct _line_t *new_line)
 {
-    struct _line_t *new_line;
-    char *s;
-    FILE *f;
-
-    if ((f = fopen (fname, "r")) != NULL) {
-
-        s = fgets(lines->line, 120, f);
-        do {
-                // removed if/else statement. the do loop
-                // never entered into the if statement.
-                // there was garbage in the lines->line member.
-                new_line = malloc(sizeof(struct _line_t));
-                s = fgets(new_line->line, 120, f);
-
-                while (lines->next != NULL) {
-                    lines = lines->next;
-                }
-
-                lines->next = new_line;
-                // there is a linked list here
-             /*   while (lines->next) {
-                    printf(lines->line);//this prints but breaks the list
-                    lines = lines->next;
-                }*/
-                // the linked list is broken here
-         } while (s != NULL);
+    struct _line_t *node = malloc(sizeof(struct _line_t));
+    
+node = lines;
+    while (node->next != NULL) {
+	node = node->next;
     }
 
+    node->next = new_line;
+    return lines;
+}
 
+int read_lines (const char* fname , struct _line_t *lines) // lines is the head
+{
+    struct _line_t *new_line; // <- this is the node
+    char *s;
+    FILE *f;
+    //int i = 1;
+    if ((f = fopen (fname, "r")) != NULL) {
+
+        //s = fgets(lines->line, 120, f); // <- fills the data section of node
+        do {
+               new_line = malloc(sizeof(struct _line_t));
+               s = fgets(new_line->line, 120, f);
+               append(lines, new_line);		
+
+         } while (s != NULL);
+    }
 //the loop below does nothing
-
     while (lines->next) {
         printf(lines->line);
         lines = lines->next;
