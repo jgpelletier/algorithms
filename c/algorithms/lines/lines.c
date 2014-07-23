@@ -113,7 +113,7 @@ struct _line_t * append (struct _line_t *lines, struct _line_t *new_line)
 {
     struct _line_t *node = malloc(sizeof(struct _line_t));
     
-node = lines;
+    node = lines;
     while (node->next != NULL) {
 	node = node->next;
     }
@@ -129,6 +129,8 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
     FILE *f;
     //int i = 1;
     if ((f = fopen (fname, "r")) != NULL) {
+	
+        s = fgets(lines->line, 120, f);
 
         do {
                new_line = malloc(sizeof(struct _line_t));
@@ -137,8 +139,8 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
 
          } while (s != NULL);
     }
-//the loop below does nothing
-    while (lines) {
+    
+    while (lines->next) {
         printf(lines->line);
         lines = lines->next;
     }
