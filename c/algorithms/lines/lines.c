@@ -130,16 +130,15 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
     //int i = 1;
     if ((f = fopen (fname, "r")) != NULL) {
 
-        //s = fgets(lines->line, 120, f); // <- fills the data section of node
         do {
                new_line = malloc(sizeof(struct _line_t));
                s = fgets(new_line->line, 120, f);
-               append(lines, new_line);		
+               lines = append(lines, new_line);		
 
          } while (s != NULL);
     }
 //the loop below does nothing
-    while (lines->next) {
+    while (lines) {
         printf(lines->line);
         lines = lines->next;
     }
