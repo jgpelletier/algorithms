@@ -137,7 +137,7 @@ void delete_lines (struct _line_t *lines) //definition
         node = lines;
         lines = lines->next;
         free(node);
-    } while (lines->next);
+    } while (lines);
 }
 
 int read_lines (const char* fname , struct _line_t *lines) // lines is the head
