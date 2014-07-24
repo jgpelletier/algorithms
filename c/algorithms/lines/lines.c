@@ -122,6 +122,14 @@ struct _line_t * append (struct _line_t *lines, struct _line_t *new_line)
     return lines;
 }
 
+void print_lines (struct _line_t* lines) //definition
+{
+    while (lines->next) {
+        printf(lines->line);
+        lines = lines->next;
+    }
+}
+
 
 
 int read_lines (const char* fname , struct _line_t *lines) // lines is the head
