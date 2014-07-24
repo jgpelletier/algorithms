@@ -37,3 +37,4 @@ struct _file_info3 line_count_5 (const char* fname, int* error);
                                                 // ^^^ using line_count_3
 int read_lines (const char* fname, struct _line_t *lines);
 void print_lines(struct _line_t *lines);
+void delete_lines (struct _line_t *lines);

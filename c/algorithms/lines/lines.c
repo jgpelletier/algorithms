@@ -130,7 +130,15 @@ void print_lines (struct _line_t* lines) //definition
     }
 }
 
-
+void delete_lines (struct _line_t *lines) //definition
+{
+    struct _line_t *node;
+    do {
+        node = lines;
+        lines = lines->next;
+        free(node);
+    } while (lines->next);
+}
 
 int read_lines (const char* fname , struct _line_t *lines) // lines is the head
 {
@@ -151,8 +159,6 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
          } while (s != NULL);
     }
     
-    puts(lines->next->next->next->next->line);
-
     fclose(f);
     return 0;
 }
