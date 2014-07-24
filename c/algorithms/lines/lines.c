@@ -111,7 +111,7 @@ void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
 
 struct _line_t * append (struct _line_t *lines, struct _line_t *new_line)
 {
-    struct _line_t *node = malloc(sizeof(struct _line_t));
+    struct _line_t *node; // = malloc(sizeof(struct _line_t));
     
     node = lines;
     while (node->next != NULL) { // in inputrc, a segfault occurs here
