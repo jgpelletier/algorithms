@@ -50,8 +50,10 @@ void call_line_count_4 ()
 void call_read_lines ()
 {
     struct _line_t lines;
+    lines.next= NULL;
     //int;
     read_lines ("_x.txt", &lines);
+    print_lines(&lines);
 }
 
 

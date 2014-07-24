@@ -114,13 +114,15 @@ struct _line_t * append (struct _line_t *lines, struct _line_t *new_line)
     struct _line_t *node = malloc(sizeof(struct _line_t));
     
     node = lines;
-    while (node->next != NULL) {
-	node = node->next;
+    while (node->next != NULL) { // in inputrc, a segfault occurs here
+        node = node->next;
     }
 
     node->next = new_line;
     return lines;
 }
+
+
 
 int read_lines (const char* fname , struct _line_t *lines) // lines is the head
 {
@@ -134,16 +136,14 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
 
         do {
                new_line = malloc(sizeof(struct _line_t));
+               new_line->next = NULL;
                s = fgets(new_line->line, 120, f);
-               lines = append(lines, new_line);		
+               append(lines, new_line);
 
          } while (s != NULL);
     }
     
-    while (lines->next) {
-        printf(lines->line);
-        lines = lines->next;
-    }
+    puts(lines->next->next->next->next->line);
 
     fclose(f);
     return 0;
