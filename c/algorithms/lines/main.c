@@ -53,8 +53,8 @@ void call_read_lines ()
     lines.next= NULL;
     //int;
     read_lines ("_x.txt", &lines);
-    print_lines(&lines);
-    delete_lines(&lines);
+    //print_lines(&lines);
+    //delete_lines(&lines);
 }
 
 

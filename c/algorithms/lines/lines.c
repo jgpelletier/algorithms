@@ -159,6 +159,9 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
          } while (s != NULL);
     }
     
+    print_lines(lines);
+    delete_lines(new_line);
+
     fclose(f);
     return 0;
 }
