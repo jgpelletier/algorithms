@@ -150,13 +150,13 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
 	
         s = fgets(lines->line, 120, f);
 
-        do {
+        while (s != NULL) {
                new_line = malloc(sizeof(struct _line_t));
                new_line->next = NULL;
                s = fgets(new_line->line, 120, f);
                append(lines, new_line);
 
-         } while (s != NULL);
+         };
     }
     new_line = lines->next;
     print_lines(lines);
