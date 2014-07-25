@@ -114,11 +114,11 @@ struct _line_t * append (struct _line_t *lines, struct _line_t *new_line)
     struct _line_t *node; // = malloc(sizeof(struct _line_t));
     
     node = lines;
-    while (node->next != NULL) { // in inputrc, a segfault occurs here
+    while (node->next != NULL) {
         node = node->next;
     }
 
-    node->next = new_line;
+    node->next = new_line; // <- paint can
     return lines;
 }
 
@@ -140,9 +140,9 @@ void delete_lines (struct _line_t *lines) //definition
     } while (lines);
 }
 
-int read_lines (const char* fname , struct _line_t *lines) // lines is the head
+int read_lines_fgets (const char* fname , struct _line_t *lines) // lines is the head
 {
-    struct _line_t *new_line; // <- this is the node
+    struct _line_t *new_line, *node; // <- this is the node
     char *s;
     FILE *f;
     //int i = 1;
@@ -155,7 +155,11 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
                new_line->next = NULL;
                s = fgets(new_line->line, 120, f);
                append(lines, new_line);
-
+               /*node = lines;
+               while (node->next != NULL) {
+                   node = node->next;
+                }
+               node->next = new_line;*/
          };
     }
     new_line = lines->next;
