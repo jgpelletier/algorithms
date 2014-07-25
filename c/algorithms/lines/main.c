@@ -47,15 +47,20 @@ void call_line_count_4 ()
     // <- gone here
 }
 
+void call_read_lines_fgets ()
+{
+    struct _line_t lines;
+    lines.next= NULL;
+    read_lines_fgets ("_x.txt", &lines);
+}
+
 void call_read_lines ()
 {
     struct _line_t lines;
     lines.next= NULL;
-    //int;
-    read_lines_fgets ("_x.txt", &lines);
-    //print_lines(&lines);
-    //delete_lines(&lines);
+    read_lines ("_x.txt", &lines);
 }
+
 
 
 int main ()
@@ -65,5 +70,6 @@ int main ()
     call_line_count_3();
     call_line_count_4();*/
     call_read_lines();
+    //call_read_lines_fgets();
     return EXIT_SUCCESS;
 }

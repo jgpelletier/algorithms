@@ -170,6 +170,65 @@ int read_lines_fgets (const char* fname , struct _line_t *lines) // lines is the
     return 0;
 }
 
+// Use fread not fgets
+int read_lines (const char* fname , struct _line_t *lines) // lines is the head
+{
+    struct _line_t *new_line, *node; // <- this is the node
+    char *s;
+    FILE *f;
+    char buffer[BUFFER_SIZE];
+    size_t i, len;
+    int at_eof, count, line_count, err;
+    line_count = 0;
+
+    if ((f = fopen (fname, "r")) != NULL) {
+        count = -1;
+        do {
+            count ++;
+            len = fread(buffer, sizeof(char), sizeof(buffer), f);
+
+            for (i = 0; i < len; i++) {
+                if (buffer[i] == '\n') {
+                    line_count++;
+                }
+            }
+
+            if (len == sizeof(buffer)) {
+                at_eof = 0;
+            } else if (feof(f)) {
+                len = len + (count * sizeof(buffer));
+                at_eof = 1;
+            } else {
+                perror("fclose error");
+                err = -1;
+            }
+
+
+        } while (at_eof == 0);
+
+
+
+        s = fgets(lines->line, 120, f);
+
+        while (s != NULL) {
+               new_line = malloc(sizeof(struct _line_t));
+               new_line->next = NULL;
+               s = fgets(new_line->line, 120, f);
+               node = lines;
+               while (node->next != NULL) {
+                   node = node->next;
+                }
+               node->next = new_line;
+         };
+    }
+    new_line = lines->next;
+    print_lines(lines);
+    delete_lines(new_line);
+
+    fclose(f);
+    return 0;
+}
+
 void line_count_4 (const char* fname, int *lines, int *length, int *error)
 {
     struct _file_info3 info3;
