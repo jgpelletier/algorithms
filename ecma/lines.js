@@ -1,7 +1,9 @@
 var fs = require('fs')
 
 // fs.readFile / File System section of the Node.js API docs.
-fs.readFile('wolverine.txt', 'ascii', function(error, buffer) {
+fs.readFile('wolverine.zxt', 'ascii', function (err, buffer) {
+    if(err) throw err
+
     var line_count = 0
     for (var i = 0; i < buffer.length; i++) {
         if (buffer[i] == '\n') {
