@@ -154,12 +154,12 @@ int read_lines_fgets (const char* fname , struct _line_t *lines) // lines is the
                new_line = malloc(sizeof(struct _line_t));
                new_line->next = NULL;
                s = fgets(new_line->line, 120, f);
-               append(lines, new_line);
-               /*node = lines;
+               //append(lines, new_line);
+               node = lines;
                while (node->next != NULL) {
                    node = node->next;
                 }
-               node->next = new_line;*/
+               node->next = new_line;
          };
     }
     new_line = lines->next;
