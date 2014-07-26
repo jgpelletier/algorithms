@@ -178,7 +178,7 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
     FILE *f;
     char buffer[BUFFER_SIZE];
     size_t i, len;
-    int at_eof, count, line_count, err;
+    int at_eof, count, line_count, err, c;
     line_count = 0;
 
     if ((f = fopen (fname, "r")) != NULL) {
@@ -187,8 +187,15 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
             count ++;
             len = fread(buffer, sizeof(char), sizeof(buffer), f);
 
+            new_line = malloc(sizeof(struct _line_t));
+            new_line->next = NULL;
+
             for (i = 0; i < len; i++) {
-                if (buffer[i] == '\n') {
+                if (buffer[i] != '\n') { // When this occurs need to replace wih '\0'
+                   new_line->line[i] =  buffer[i];
+                } else {
+                   while ((c = getchar()) != '\n' || EOF)
+                       putchar
                     line_count++;
                 }
             }
