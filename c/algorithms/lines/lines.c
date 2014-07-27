@@ -184,6 +184,7 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
     if ((f = fopen (fname, "r")) != NULL) {
         count = -1;
         do {
+
             count ++;
             len = fread(buffer, sizeof(char), sizeof(buffer), f);
 
@@ -191,12 +192,12 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
             new_line->next = NULL;
 
             for (i = 0; i < len; i++) {
-                if (buffer[i] != '\n') { // When this occurs need to replace wih '\0'
-                   new_line->line[i] =  buffer[i];
-                } else {
-                   while ((c = getchar()) != '\n' || EOF)
-                       putchar
-                    line_count++;
+                new_line->line[i] =  buffer[i];
+                if (buffer[i] == '\n') { // When this occurs need to replace wih '\0'
+                    new_line->line[i] = '\0';
+                    lines->next = new_line;
+                    new_line = malloc(sizeof(struct _line_t));
+                    new_line->next = NULL;
                 }
             }
 
@@ -212,25 +213,11 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
 
 
         } while (at_eof == 0);
-
-
-
-        s = fgets(lines->line, 120, f);
-
-        while (s != NULL) {
-               new_line = malloc(sizeof(struct _line_t));
-               new_line->next = NULL;
-               s = fgets(new_line->line, 120, f);
-               node = lines;
-               while (node->next != NULL) {
-                   node = node->next;
-                }
-               node->next = new_line;
-         };
     }
-    new_line = lines->next;
-    print_lines(lines);
-    delete_lines(new_line);
+
+    // new_line = lines->next;
+    // print_lines(lines);
+    // delete_lines(new_line);
 
     fclose(f);
     return 0;
