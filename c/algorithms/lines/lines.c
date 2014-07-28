@@ -174,7 +174,7 @@ int read_lines_fgets (const char* fname , struct _line_t *lines) // lines is the
 int read_lines (const char* fname , struct _line_t *lines) // lines is the head
 {
     struct _line_t *new_line, *node, *node_t; // <- this is the node
-    char *s;
+    char s;
     FILE *f;
     char buffer[BUFFER_SIZE];
     size_t i, len;
@@ -199,14 +199,16 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
 
             for (i = 0; i < len; i++) {
                 if (c == 0) {
-                    lines->line[i] =  buffer[i];
+                    lines->line[i] =  buffer[i];// <- moves together
                     if (buffer[i] == '\n') {
                         lines->line[i+1] = '\0';
                         //node = lines;
                         c = 1;
                     }
                 } else {
-                    new_line->line[j] =  buffer[i];//  the i's are off
+                    s = buffer[i];
+                    new_line->line[j] =  s;//  i and j  are off
+                    ++j;
                     if (buffer[i] == '\n') {
                         new_line->line[j+1] = '\0';
 
@@ -219,6 +221,7 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
                         new_line = malloc(sizeof(struct _line_t));
                         new_line->next = NULL;
                         node->next = new_line;
+                        j = 0;
                     }
                 }
             }
