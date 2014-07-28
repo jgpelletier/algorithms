@@ -178,8 +178,8 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
     FILE *f;
     char buffer[BUFFER_SIZE];
     size_t i, len;
-    int at_eof, count, line_count, err, c;
-    line_count = c = 0;
+    int at_eof, count, line_count, err, c, j;
+    line_count = c = j = 0;
 
     if ((f = fopen (fname, "r")) != NULL) {
         count = -1;
@@ -192,18 +192,24 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
             new_line->next = NULL;
 
             //lines->next = new_line;// <- this skips the data in the lines node
-            //node = lines
+            node = lines;
+            while (node->next != NULL) {
+                   node = node->next;
+            }
 
             for (i = 0; i < len; i++) {
-                if (c == 0)
+                if (c == 0) {
                     lines->line[i] =  buffer[i];
                     if (buffer[i] == '\n') {
                         lines->line[i+1] = '\0';
-                        node = lines;
+                        //node = lines;
                         c = 1;
-                        break;
-                    } else {
-                        new_line->line[i] =  buffer[i];
+                    }
+                } else {
+                    new_line->line[j] =  buffer[i];//  the i's are off
+                    if (buffer[i] == '\n') {
+                        new_line->line[j+1] = '\0';
+
                         node->next = new_line;//
 
                         while (node->next != NULL) {
@@ -214,6 +220,7 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
                         new_line->next = NULL;
                         node->next = new_line;
                     }
+                }
             }
 
             if (len == sizeof(buffer)) {
@@ -226,11 +233,11 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
                 err = -1;
             }
 
-
         } while (at_eof == 0);
     }
 
-    // new_line = lines->next;
+    //new_line = lines->next;
+    //lines = node;
     print_lines(lines);
     // delete_lines(new_line);
 
