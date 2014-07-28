@@ -1,5 +1,5 @@
-#ifndef _object_h
-#define _object_h
+#ifndef _object_h // <- logic check to see ther is a #define _object_h
+#define _object_h // if not defined this defines it.
 typedef enum {
     NORTH, SOUTH, EAST, WEST
 } Direction;
@@ -20,7 +20,10 @@ void *Object_move(void *self, Direction direction);
 int Object_attack(void *self, int damage);
 void *Object_new(size_t size, Object proto, char *description);
 
-#define NEW(T, N) Object_new(sizeof(T), T##Proto, N)
+#define NEW(T, N) Object_new(sizeof(T), T##Proto, N) // this makes a macro. works like templete.
+                                                     // T and N inject into the
+                                                     // line of code to the
+                                                     // right in Object_new
 #define _(N) proto.N
 
 #endif

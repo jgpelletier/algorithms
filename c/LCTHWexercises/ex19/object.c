@@ -38,6 +38,8 @@ int Object_attack(void *self, int damage)
     return 0;
 }
 
+// uses aspect structs by putting the base prototype at the
+// beginning of the struct.
 void *Object_new(size_t size, Object proto, char *description)
 {
     // setup the default function in case they are not set
