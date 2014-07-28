@@ -191,11 +191,20 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
             new_line = malloc(sizeof(struct _line_t));
             new_line->next = NULL;
 
+            node = lines;
+
+            while (node->next != NULL) {
+                   node = node->next;
+            }
+
+            node->next = new_line;
+
             for (i = 0; i < len; i++) {
                 new_line->line[i] =  buffer[i];
                 if (buffer[i] == '\n') { // When this occurs need to replace wih '\0'
-                    new_line->line[i] = '\0';
-                    lines->next = new_line;
+                    new_line->line[i+1] = '\0';
+                    node->next = new_line;// <-Something else needs to happen here
+                    node = node->next;
                     new_line = malloc(sizeof(struct _line_t));
                     new_line->next = NULL;
                 }
@@ -216,7 +225,7 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
     }
 
     // new_line = lines->next;
-    // print_lines(lines);
+    print_lines(lines);
     // delete_lines(new_line);
 
     fclose(f);
