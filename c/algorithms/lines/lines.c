@@ -173,13 +173,13 @@ int read_lines_fgets (const char* fname , struct _line_t *lines) // lines is the
 // Use fread not fgets
 int read_lines (const char* fname , struct _line_t *lines) // lines is the head
 {
-    struct _line_t *new_line, *node, *node_t; // <- this is the node
+    struct _line_t *new_line, *node; // <- this is the node
     char s;
     FILE *f;
     char buffer[BUFFER_SIZE];
     size_t i, len;
-    int at_eof, count, line_count, err, c, j;
-    line_count = c = j = 0;
+    int at_eof, err, count, c, j;
+    err = c = j = 0;
 
     if ((f = fopen (fname, "r")) != NULL) {
         count = -1;
@@ -191,7 +191,6 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
             new_line = malloc(sizeof(struct _line_t));
             new_line->next = NULL;
 
-            //lines->next = new_line;// <- this skips the data in the lines node
             node = lines;
             while (node->next != NULL) {
                    node = node->next;
@@ -199,15 +198,14 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
 
             for (i = 0; i < len; i++) {
                 if (c == 0) {
-                    lines->line[i] =  buffer[i];// <- moves together
+                    lines->line[i] =  buffer[i];
                     if (buffer[i] == '\n') {
                         lines->line[i+1] = '\0';
-                        //node = lines;
                         c = 1;
                     }
                 } else {
                     s = buffer[i];
-                    new_line->line[j] =  s;//  i and j  are off
+                    new_line->line[j] =  s;
                     ++j;
                     if (s == '\n') {
                         new_line->line[j+1] = '\0';
@@ -229,7 +227,6 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
             if (len == sizeof(buffer)) {
                 at_eof = 0;
             } else if (feof(f)) {
-                len = len + (count * sizeof(buffer));
                 at_eof = 1;
             } else {
                 perror("fclose error");
@@ -240,12 +237,11 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
     }
 
     new_line = lines->next;
-    //lines = node;
     print_lines(lines);
     delete_lines(new_line);
 
     fclose(f);
-    return 0;
+    return err;
 }
 
 void line_count_4 (const char* fname, int *lines, int *length, int *error)
