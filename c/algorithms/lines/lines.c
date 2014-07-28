@@ -173,13 +173,13 @@ int read_lines_fgets (const char* fname , struct _line_t *lines) // lines is the
 // Use fread not fgets
 int read_lines (const char* fname , struct _line_t *lines) // lines is the head
 {
-    struct _line_t *new_line, *node; // <- this is the node
+    struct _line_t *new_line, *node, *node_t; // <- this is the node
     char *s;
     FILE *f;
     char buffer[BUFFER_SIZE];
     size_t i, len;
     int at_eof, count, line_count, err, c;
-    line_count = 0;
+    line_count = c = 0;
 
     if ((f = fopen (fname, "r")) != NULL) {
         count = -1;
@@ -191,23 +191,29 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
             new_line = malloc(sizeof(struct _line_t));
             new_line->next = NULL;
 
-            node = lines;
-
-            while (node->next != NULL) {
-                   node = node->next;
-            }
-
-            node->next = new_line;
+            //lines->next = new_line;// <- this skips the data in the lines node
+            //node = lines
 
             for (i = 0; i < len; i++) {
-                new_line->line[i] =  buffer[i];
-                if (buffer[i] == '\n') { // When this occurs need to replace wih '\0'
-                    new_line->line[i+1] = '\0';
-                    node->next = new_line;// <-Something else needs to happen here
-                    node = node->next;
-                    new_line = malloc(sizeof(struct _line_t));
-                    new_line->next = NULL;
-                }
+                if (c == 0)
+                    lines->line[i] =  buffer[i];
+                    if (buffer[i] == '\n') {
+                        lines->line[i+1] = '\0';
+                        node = lines;
+                        c = 1;
+                        break;
+                    } else {
+                        new_line->line[i] =  buffer[i];
+                        node->next = new_line;//
+
+                        while (node->next != NULL) {
+                           node = node->next;
+                        }
+
+                        new_line = malloc(sizeof(struct _line_t));
+                        new_line->next = NULL;
+                        node->next = new_line;
+                    }
             }
 
             if (len == sizeof(buffer)) {
