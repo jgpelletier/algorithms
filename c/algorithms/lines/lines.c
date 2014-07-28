@@ -209,7 +209,7 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
                     s = buffer[i];
                     new_line->line[j] =  s;//  i and j  are off
                     ++j;
-                    if (buffer[i] == '\n') {
+                    if (s == '\n') {
                         new_line->line[j+1] = '\0';
 
                         node->next = new_line;//
@@ -239,10 +239,10 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
         } while (at_eof == 0);
     }
 
-    //new_line = lines->next;
+    new_line = lines->next;
     //lines = node;
     print_lines(lines);
-    // delete_lines(new_line);
+    delete_lines(new_line);
 
     fclose(f);
     return 0;
