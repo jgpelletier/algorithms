@@ -156,7 +156,7 @@ int read_lines_fgets (const char* fname , struct _line_t *lines) // lines is the
                s = fgets(new_line->line, 120, f);
                //append(lines, new_line);
                node = lines;
-               while (node->next != NULL) {
+               while (node->next != NULL) { // <- schelmiel the painter
                    node = node->next;
                 }
                node->next = new_line;
@@ -170,7 +170,6 @@ int read_lines_fgets (const char* fname , struct _line_t *lines) // lines is the
     return 0;
 }
 
-// Use fread not fgets
 int read_lines (const char* fname , struct _line_t *lines) // lines is the head
 {
     struct _line_t *new_line, *node; // <- this is the node
@@ -184,7 +183,6 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
     if ((f = fopen (fname, "r")) != NULL) {
         count = -1;
         do {
-
             count ++;
             len = fread(buffer, sizeof(char), sizeof(buffer), f);
 
@@ -192,7 +190,7 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
             new_line->next = NULL;
 
             node = lines;
-            while (node->next != NULL) {
+            while (node->next != NULL) { // <- scheliel the painter
                    node = node->next;
             }
 
@@ -234,13 +232,15 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
             }
 
         } while (at_eof == 0);
+    } else {
+        // ???
     }
 
     new_line = lines->next;
     print_lines(lines);
     delete_lines(new_line);
 
-    fclose(f);
+    fclose(f); // <-- returns?
     return err;
 }
 
