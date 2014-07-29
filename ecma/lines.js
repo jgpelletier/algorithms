@@ -1,29 +1,35 @@
 var fs = require('fs')
 
-// fs.readFile / File System section of the Node.js API docs.
-fs.readFile('wolverine.zxt', 'ascii', function (err, buffer) {
-    if(err) throw err
+function lineCount (????) { // <- vvvvvv async vvvvvv
+    // fs.readFile / File System section of the Node.js API docs.
+    fs.readFile('wolverine.zxt', 'ascii', function (err, buffer) {
+        if (err) throw err
 
+        var line_count = 0
+        for (var i = 0; i < buffer.length; i++) {
+            if (buffer[i] == '\n') {
+                line_count++
+            }
+        }
+    })
+} // ^^^^^^ function ^^^^^^^
+
+console.log("This is the first function:\nline count: ", line_count, "\ncharacter count: ", i)
+
+function lineCountSync (filename) {
+    var buffer = fs.readFileSync(filename, 'ascii')
+        // ^^ String
+    var i = 0
     var line_count = 0
-    for (var i = 0; i < buffer.length; i++) {
+
+
+    for (i; i < buffer.length; i++) {
         if (buffer[i] == '\n') {
             line_count++
         }
     }
-    console.log("This is the first function:\nline count: ", line_count, "\ncharacter count: ", i)
-})
-
-
-var buffer = fs.readFileSync('wolverine.txt', 'ascii')
-    // ^^ String
-var i = 0
-var line_count = 0
-
-
-for (i; i < buffer.length; i++) {
-    if (buffer[i] == '\n') {
-        line_count++
-    }
+    return line_count
 }
 
+var line_count = lineCountSync('wolverine.txt')
 console.log("This is the second function:\nline count: ", line_count, "\ncharacter count: ", i)
