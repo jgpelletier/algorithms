@@ -180,6 +180,7 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
     int at_eof, err, count, c, j;
     err = c = j = 0;
     tail = lines->next;
+    node = lines;
     if ((f = fopen (fname, "r")) != NULL) {
         count = -1;
         do {
@@ -189,7 +190,6 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
             new_line = malloc(sizeof(struct _line_t));
             new_line->next = NULL;
 
-            node = lines;
             /*
             while (node->next != NULL) { // <- schemiel the painter
                    node = node->next;
