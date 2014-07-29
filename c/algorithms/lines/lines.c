@@ -172,14 +172,14 @@ int read_lines_fgets (const char* fname , struct _line_t *lines) // lines is the
 
 int read_lines (const char* fname , struct _line_t *lines) // lines is the head
 {
-    struct _line_t *new_line, *node; // <- this is the node
+    struct _line_t *new_line, *node, *tail;
     char s;
     FILE *f;
     char buffer[BUFFER_SIZE];
     size_t i, len;
     int at_eof, err, count, c, j;
     err = c = j = 0;
-
+    tail = lines->next;
     if ((f = fopen (fname, "r")) != NULL) {
         count = -1;
         do {
@@ -190,9 +190,10 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
             new_line->next = NULL;
 
             node = lines;
-            while (node->next != NULL) { // <- scheliel the painter
+            /*
+            while (node->next != NULL) { // <- schemiel the painter
                    node = node->next;
-            }
+            }*/
 
             for (i = 0; i < len; i++) {
                 if (c == 0) {
@@ -208,15 +209,17 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
                     if (s == '\n') {
                         new_line->line[j+1] = '\0';
 
+                        new_line->next = tail;
                         node->next = new_line;//
-
+                        //tail = new_line->next;
+                        /*
                         while (node->next != NULL) {
                            node = node->next;
-                        }
+                        }*/
 
                         new_line = malloc(sizeof(struct _line_t));
                         new_line->next = NULL;
-                        node->next = new_line;
+                        node = node->next;
                         j = 0;
                     }
                 }
@@ -232,8 +235,9 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
             }
 
         } while (at_eof == 0);
-    } else {
-        // ???
+    /*} else {
+        // ??? What happens here?
+    */
     }
 
     new_line = lines->next;

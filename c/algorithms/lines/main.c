@@ -58,7 +58,7 @@ void call_read_lines ()
 {
     struct _line_t lines;
     lines.next= NULL;
-    read_lines ("wolverineX2.txt", &lines);
+    read_lines ("_x.txt", &lines);
 }
 
 
