@@ -225,6 +225,8 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
                 }
             }
 
+            free(new_line);
+
             if (len == sizeof(buffer)) {
                 at_eof = 0;
             } else if (feof(f)) {
