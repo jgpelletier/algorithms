@@ -124,7 +124,7 @@ struct _line_t * append (struct _line_t *lines, struct _line_t *new_line)
 
 void print_lines (struct _line_t* lines) //definition
 {
-    while (lines->next) {
+    while (lines) {
         printf(lines->line);
         lines = lines->next;
     }
