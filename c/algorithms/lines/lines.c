@@ -142,11 +142,13 @@ void delete_lines (struct _line_t *lines) //definition
 
 int read_lines_fgets (const char* fname , struct _line_t *lines) // lines is the head
 {
-    struct _line_t *new_line, *node; // <- this is the node
+    struct _line_t *new_line, *node, *tail; // <- this is the node
     char *s;
     FILE *f;
     int  err;
     err = 0;
+    tail = lines->next;
+    node = lines;
     if ((f = fopen (fname, "r")) != NULL) {
 	
         s = fgets(lines->line, 120, f);
@@ -155,12 +157,9 @@ int read_lines_fgets (const char* fname , struct _line_t *lines) // lines is the
                new_line = malloc(sizeof(struct _line_t));
                new_line->next = NULL;
                s = fgets(new_line->line, 120, f);
-               //append(lines, new_line);
-               node = lines;
-               while (node->next != NULL) { // <- schelmiel the painter
-                   node = node->next;
-                }
+               new_line->next = tail;
                node->next = new_line;
+               node = node->next;
          };
     } else {
         perror("file open  error");
@@ -169,7 +168,7 @@ int read_lines_fgets (const char* fname , struct _line_t *lines) // lines is the
     }
 
     new_line = lines->next;
-    print_lines(lines);
+    //print_lines(lines);// <-conditional jump in here
     delete_lines(new_line);
 
     err = fclose(f); // <-- returns?
@@ -259,7 +258,7 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
     print_lines(lines);
     delete_lines(new_line);
 
-    err = fclose(f); // <-- returns?
+    err = fclose(f);
     if (err == EOF) {
         perror("file error");
         printf("errno = %d\n", errno);
