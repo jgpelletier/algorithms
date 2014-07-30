@@ -145,7 +145,8 @@ int read_lines_fgets (const char* fname , struct _line_t *lines) // lines is the
     struct _line_t *new_line, *node; // <- this is the node
     char *s;
     FILE *f;
-    //int i = 1;
+    int  err;
+    err = 0;
     if ((f = fopen (fname, "r")) != NULL) {
 	
         s = fgets(lines->line, 120, f);
@@ -161,13 +162,24 @@ int read_lines_fgets (const char* fname , struct _line_t *lines) // lines is the
                 }
                node->next = new_line;
          };
+    } else {
+        perror("file open  error");
+        printf("errno = %d\n", errno);
+        return -1;
     }
+
     new_line = lines->next;
     print_lines(lines);
     delete_lines(new_line);
 
-    fclose(f);
-    return 0;
+    err = fclose(f); // <-- returns?
+    if (err == EOF) {
+        perror("file error");
+        printf("errno = %d\n", errno);
+        return -1;
+    } else {
+        return err;
+    }
 }
 
 int read_lines (const char* fname , struct _line_t *lines) // lines is the head
