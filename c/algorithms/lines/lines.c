@@ -237,17 +237,24 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
             }
 
         } while (at_eof == 0);
-    /*} else {
-        // ??? What happens here?
-    */
+    } else {
+        perror("file open  error");
+        printf("errno = %d\n", errno);
+        return -1;
     }
 
     new_line = lines->next;
     print_lines(lines);
     delete_lines(new_line);
 
-    fclose(f); // <-- returns?
-    return err;
+    err = fclose(f); // <-- returns?
+    if (err == EOF) {
+        perror("file error");
+        printf("errno = %d\n", errno);
+        return -1;
+    } else {
+        return err;
+   }
 }
 
 void line_count_4 (const char* fname, int *lines, int *length, int *error)
