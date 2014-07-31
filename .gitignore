@@ -1,6 +1,7 @@
 /ecma/node_modules
 /c/algorithms/*.o
 /c/algorithms/freader/freader
+/c/algorithms/lines/lines
 /c/algorithms/lines/*.o
 /c/algorithms/list/*.o
 /c/algorithms/sizeof/*.o
