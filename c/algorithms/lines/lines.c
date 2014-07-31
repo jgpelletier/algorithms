@@ -168,7 +168,6 @@ int read_lines_fgets (const char* fname , struct _line_t *lines) // lines is the
     }
 
     new_line = lines->next;
-    //print_lines(lines);// <-conditional jump in here
     delete_lines(new_line);
 
     err = fclose(f); // <-- returns?
@@ -181,10 +180,12 @@ int read_lines_fgets (const char* fname , struct _line_t *lines) // lines is the
     }
 }
 
+
+// I added struct to the signiture. Is that incorrect?
 int read_lines (const char* fname, struct _line_t* lines) // <- work with this, extrapolate the rest of
                                                   // the interface in this compliation unit/module.
 {
-     struct _line_t *new_line, *node, *tail;
+    struct _line_t *new_line, *node, *tail;
     char s;
     FILE *f;
     char buffer[BUFFER_SIZE];
