@@ -24,7 +24,7 @@ var list = require('./list')
 // it. The westward link provides additional operations.
 function createRailway (data, west) {
     // all the list functions here, moved to `list.js`.
-    var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
+    var lines = fs.readFileSync(data, 'utf8').split('\n')
     var railway = list.linkedList(lines)
     if (west) {
         list.addWest(railway)

@@ -1,6 +1,5 @@
 var fs = require('fs')
-var line_count = 0
-var i
+var line_count
 
 // Each time LineCount is run the variable line_count is incremented by the
 // number of lines in the file if the line_count variable is not set to 0 within
@@ -26,15 +25,13 @@ lineCount(function() {
     console.log(line_count)
 })
 
-// ^^^^^^ function ^^^^^^^
-
 function lines() {
     console.log(line_count)
 }
 
 lineCount(lines)
 
-
+// ^^^^^^ function ^^^^^^^
 
 
 function lineCountSync (filename, i) {
@@ -42,16 +39,12 @@ function lineCountSync (filename, i) {
         // ^^ String
     var line_count = 0
 
-
     for (i = 0; i < buffer.length; i++) {
         if (buffer[i] == '\n') {
             line_count++
         }
     }
-    return {
-            count: line_count,
-            character: i
-           }
+    return { count: line_count, character: i }
 
 }
 
