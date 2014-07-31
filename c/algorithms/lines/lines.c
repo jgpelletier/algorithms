@@ -18,7 +18,7 @@ struct _file_info *share_info (int lines, size_t length, int error) // <-definit
 
 struct _file_info2 *share_info2 (int lines, size_t length)
 {
-    struct _file_info2 *info2 = malloc(sizeof(struct _file_info2));
+    struct _file_info2 *info2 = malloc(sizeof(struct _file_info2)); // <- not deleted
     info2->lines = lines;
     info2->length = length;
     return info2;
@@ -181,7 +181,84 @@ int read_lines_fgets (const char* fname , struct _line_t *lines) // lines is the
     }
 }
 
-int read_lines (const char* fname , struct _line_t *lines) // lines is the head
+int read_lines (const char* fname, struct _line_t* lines) // <- work with this, extrapolate the rest of
+                                                  // the interface in this compliation unit/module.
+{
+     struct _line_t *new_line, *node, *tail;
+    char s;
+    FILE *f;
+    char buffer[BUFFER_SIZE];
+    size_t i, len;
+    int at_eof, err, count, c, j;
+    err = c = j = 0;
+    tail = lines->next;
+    node = lines;
+    if ((f = fopen (fname, "r")) != NULL) {
+        count = -1;
+        do {
+            count ++;
+            len = fread(buffer, sizeof(char), sizeof(buffer), f);
+
+            new_line = malloc(sizeof(struct _line_t));
+            new_line->next = NULL;
+
+            for (i = 0; i < len; i++) {
+                if (c == 0) {
+                    lines->line[i] =  buffer[i];
+                    if (buffer[i] == '\n') {
+                        lines->line[i+1] = '\0';
+                        c = 1;
+                    }
+                } else {
+                    s = buffer[i];
+                    new_line->line[j] =  s;
+                    ++j;
+                    if (s == '\n') {
+                        new_line->line[j+1] = '\0';
+
+                        new_line->next = tail;
+                        node->next = new_line;//
+
+                        new_line = malloc(sizeof(struct _line_t));
+                        new_line->next = NULL;
+                        node = node->next;
+                        j = 0;
+                    }
+                }
+            }
+
+            free(new_line);
+
+            if (len == sizeof(buffer)) {
+                at_eof = 0;
+            } else if (feof(f)) {
+                at_eof = 1;
+            } else {
+                perror("fclose error");
+                err = -1;
+            }
+
+        } while (at_eof == 0);
+    } else {
+        perror("file open  error");
+        printf("errno = %d\n", errno);
+        return -1;
+    }
+
+    err = fclose(f);
+    if (err == EOF) {
+        perror("file error");
+        printf("errno = %d\n", errno);
+        return -1;
+    } else {
+        return err;
+    }
+}
+
+// mocking vvv
+
+int read_and_dump_all_over_the_screen_a_bunch_of_lines
+    (const char* fname , struct _line_t *lines) // lines is the head
 {
     struct _line_t *new_line, *node, *tail;
     char s;
@@ -255,7 +332,7 @@ int read_lines (const char* fname , struct _line_t *lines) // lines is the head
     }
 
     new_line = lines->next;
-    print_lines(lines);
+    print_lines(lines); // <- what?
     delete_lines(new_line);
 
     err = fclose(f);
