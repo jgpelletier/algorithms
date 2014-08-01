@@ -190,9 +190,10 @@ int read_lines (const char* fname, struct _line_t* lines) // <- work with this, 
     char s;
     FILE *f;
     char buffer[BUFFER_SIZE];
+    char carry[120];
     size_t i, len;
-    int at_eof, err, count, c, j;
-    err = c = j = 0;
+    int at_eof, err, count, c, j, x, flag;
+    err = c = j = x = 0;
     tail = lines->next;
     node = lines;
     if ((f = fopen (fname, "r")) != NULL) {
@@ -217,6 +218,15 @@ int read_lines (const char* fname, struct _line_t* lines) // <- work with this, 
                 //    makes sure the strings are null terminated. does memset
                 //    also make sure the pointer points to NULL?
 
+            if (flag == 1) {
+                for (i = 0; i < x; i++) {
+                    s = carry[i];
+                    new_line->line[i] = s;
+                }
+                memset(carry, 0, 120);
+                x = 0;
+            }
+
             for (i = 0; i < len; i++) {
              /*            // ^^^ len = 1024
                 if (c == 0) { // fine, ish, but there is seg fault, so it's not.
@@ -229,6 +239,7 @@ int read_lines (const char* fname, struct _line_t* lines) // <- work with this, 
                 } else {*/
                 s = buffer[i];
                 new_line->line[j] =  s; // j is 34
+                carry[x] = s;
                 ++j;
                 if ((j +i) < len) { // never hits this condition, until next time through the loop
                    if (s == '\n') {// && ((j +i) < len))
@@ -245,11 +256,10 @@ int read_lines (const char* fname, struct _line_t* lines) // <- work with this, 
                         j = 0; // <- misses reset if buffer[0]=\n
                     }
                } else {
-                    j = 0;
-                    break;
-                }
+                    flag = 1;
+               }
             }
-
+            j = 0;
             free(new_line);
 
             if (len == sizeof(buffer)) {
