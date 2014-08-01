@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <memory.h>
 #include "lines.h"
 
 #define BUFFER_SIZE 1024// symbolic constant
@@ -196,15 +197,23 @@ int read_lines (const char* fname, struct _line_t* lines) // <- work with this, 
     node = lines;
     if ((f = fopen (fname, "r")) != NULL) {
         count = -1;
+        printf("sizeof line_t %d \n", sizeof(struct _line_t));
         do {
             count ++;
             len = fread(buffer, sizeof(char), sizeof(buffer), f);
 
+            printf("------\n");
+
             new_line = malloc(sizeof(struct _line_t));
             new_line->next = NULL;
 
+            //memset(new_line, 0, sizeof(struct _line_t)); // <- broke it.
+                // ^^^ jeez, wadya do that for?
+
             for (i = 0; i < len; i++) {
-                if (c == 0) {
+                         // ^^^ len = 1024
+                if (c == 0) { // fine, ish, but there is seg fault, so it's not.
+                              // must fix the edge case.
                     lines->line[i] =  buffer[i];
                     if (buffer[i] == '\n') {
                         lines->line[i+1] = '\0';
@@ -212,10 +221,11 @@ int read_lines (const char* fname, struct _line_t* lines) // <- work with this, 
                     }
                 } else {
                     s = buffer[i];
-                    new_line->line[j] =  s;
+                    new_line->line[j] =  s; // j is 34
                     ++j;
                     if (s == '\n') {
                         new_line->line[j+1] = '\0';
+                        printf("Print: %d, %d, %s", i, j, new_line->line);
 
                         new_line->next = tail;
                         node->next = new_line;//
@@ -223,12 +233,15 @@ int read_lines (const char* fname, struct _line_t* lines) // <- work with this, 
                         new_line = malloc(sizeof(struct _line_t));
                         new_line->next = NULL;
                         node = node->next;
-                        j = 0;
+                        j = 0; // <- misses reset if buffer[0]=\n
                     }
                 }
             }
 
-            free(new_line);
+            free(new_line); // <- jackson station exist here, but memory is freed.
+                            //    this section of memory, however, happens to be
+                            //    the correct size to create the structure again
+                            //    above. Hanging pointer?
 
             if (len == sizeof(buffer)) {
                 at_eof = 0;
