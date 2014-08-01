@@ -205,45 +205,34 @@ int read_lines (const char* fname, struct _line_t* lines) // <- work with this, 
 
             printf("------\n");
 
-            //printf("Print: %d, %d, %s\n", i, j, new_line->line);
             new_line = malloc(sizeof(struct _line_t));
             // ^^^ with memset, when I step over this Jackson station is gone.
             //     Shouldn't new_line hold Jackson station until function is
             //     run?
-            //new_line->next = NULL;
 
-            //printf("Print: %d, %d, %s\n", i, j, new_line->line);
             memset(new_line, 0, sizeof(struct _line_t)); // <- broke it.
                 // ^^^ jeez, wadya do that for? it initializes the structure
                 //    makes sure the strings are null terminated. does memset
                 //    also make sure the pointer points to NULL?
 
-            if (flag == 1) {
+            /*if (flag == 1) {
                 for (i = 0; i < x; i++) {
                     s = carry[i];
                     new_line->line[i] = s;
                 }
                 memset(carry, 0, 120);
                 x = 0;
-            }
+            }*/
 
             for (i = 0; i < len; i++) {
-             /*            // ^^^ len = 1024
-                if (c == 0) { // fine, ish, but there is seg fault, so it's not.
-                              // must fix the edge case.
-                    lines->line[i] =  buffer[i];
-                    if (buffer[i] == '\n') {
-                        lines->line[i+1] = '\0';
-                        c = 1;
-                    }
-                } else {*/
+                         // ^^^ len = 1024
                 s = buffer[i];
                 new_line->line[j] =  s; // j is 34
                 carry[x] = s;
                 ++j;
-                if ((j +i) < len) { // never hits this condition, until next time through the loop
-                   if (s == '\n') {// && ((j +i) < len))
-                        //new_line->line[j+1] = '\0';
+
+                if ((j +i) < len) {
+                    if (s == '\n') {// never hits this condition, until next time through the loop
                         printf("Print: %d, %d, %s", i, j, new_line->line);
 
                         new_line->next = tail;
@@ -251,14 +240,14 @@ int read_lines (const char* fname, struct _line_t* lines) // <- work with this, 
 
                         new_line = malloc(sizeof(struct _line_t));
                         memset(new_line, 0, sizeof(struct _line_t)); // <- broke it.
-                        //new_line->next = NULL;
                         node = node->next;
                         j = 0; // <- misses reset if buffer[0]=\n
-                    }
-               } else {
+                  }
+                } else {
                     flag = 1;
                }
             }
+
             j = 0;
             free(new_line);
 
