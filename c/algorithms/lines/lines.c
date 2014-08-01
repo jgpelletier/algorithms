@@ -204,11 +204,18 @@ int read_lines (const char* fname, struct _line_t* lines) // <- work with this, 
 
             printf("------\n");
 
+            printf("Print: %d, %d, %s\n", i, j, new_line->line);
             new_line = malloc(sizeof(struct _line_t));
+            // ^^^ with memset, when I step over this Jackson station is gone.
+            //     Shouldn't new_line hold Jackson station until function is
+            //     run?
             new_line->next = NULL;
 
-            //memset(new_line, 0, sizeof(struct _line_t)); // <- broke it.
-                // ^^^ jeez, wadya do that for?
+            printf("Print: %d, %d, %s\n", i, j, new_line->line);
+            memset(new_line, 0, sizeof(struct _line_t)); // <- broke it.
+                // ^^^ jeez, wadya do that for? it initializes the structure
+                //    makes sure the strings are null terminated. does memset
+                //    also make sure the pointer points to NULL?
 
             for (i = 0; i < len; i++) {
                          // ^^^ len = 1024
@@ -223,7 +230,7 @@ int read_lines (const char* fname, struct _line_t* lines) // <- work with this, 
                     s = buffer[i];
                     new_line->line[j] =  s; // j is 34
                     ++j;
-                    if (s == '\n') {
+                    if (s == '\n') { // never hits this condition, until next time through the loop
                         new_line->line[j+1] = '\0';
                         printf("Print: %d, %d, %s", i, j, new_line->line);
 
@@ -238,10 +245,7 @@ int read_lines (const char* fname, struct _line_t* lines) // <- work with this, 
                 }
             }
 
-            free(new_line); // <- jackson station exist here, but memory is freed.
-                            //    this section of memory, however, happens to be
-                            //    the correct size to create the structure again
-                            //    above. Hanging pointer?
+            free(new_line);
 
             if (len == sizeof(buffer)) {
                 at_eof = 0;
