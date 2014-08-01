@@ -215,14 +215,14 @@ int read_lines (const char* fname, struct _line_t* lines) // <- work with this, 
                 //    makes sure the strings are null terminated. does memset
                 //    also make sure the pointer points to NULL?
 
-            /*if (flag == 1) {
-                for (i = 0; i < x; i++) {
-                    s = carry[i];
-                    new_line->line[i] = s;
+            if (flag == 1) {
+                for (j = 0; j < x; j++) {
+                    s = carry[j];
+                    new_line->line[j] = s;
                 }
                 memset(carry, 0, 120);
                 x = 0;
-            }*/
+            }
 
             for (i = 0; i < len; i++) {
                          // ^^^ len = 1024
@@ -231,8 +231,11 @@ int read_lines (const char* fname, struct _line_t* lines) // <- work with this, 
                 carry[x] = s;
                 ++j;
 
-                if ((j +i) < len) {
-                    if (s == '\n') {// never hits this condition, until next time through the loop
+                if ((j +i) >=  len) {
+                    flag = 1;
+                } else {
+                    if (s == '\n') {
+                        //new_line->line[j+1] = '\0';
                         printf("Print: %d, %d, %s", i, j, new_line->line);
 
                         new_line->next = tail;
@@ -240,11 +243,10 @@ int read_lines (const char* fname, struct _line_t* lines) // <- work with this, 
 
                         new_line = malloc(sizeof(struct _line_t));
                         memset(new_line, 0, sizeof(struct _line_t)); // <- broke it.
+                        //new_line->next = NULL;
                         node = node->next;
                         j = 0; // <- misses reset if buffer[0]=\n
                   }
-                } else {
-                    flag = 1;
                }
             }
 
