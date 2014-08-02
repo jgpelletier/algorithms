@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <memory.h>
 #include "lines.h"
 
 #define BUFFER_SIZE 1024// symbolic constant
@@ -112,7 +113,7 @@ void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
 struct _line_t * append (struct _line_t *lines, struct _line_t *new_line)
 {
     struct _line_t *node; // = malloc(sizeof(struct _line_t));
-    
+
     node = lines;
     while (node->next != NULL) {
         node = node->next;
@@ -150,7 +151,7 @@ int read_lines_fgets (const char* fname , struct _line_t *lines) // lines is the
     tail = lines->next;
     node = lines;
     if ((f = fopen (fname, "r")) != NULL) {
-	
+
         s = fgets(lines->line, 120, f);
 
         while (s != NULL) {
@@ -168,7 +169,6 @@ int read_lines_fgets (const char* fname , struct _line_t *lines) // lines is the
     }
 
     new_line = lines->next;
-    //print_lines(lines);// <-conditional jump in here
     delete_lines(new_line);
 
     err = fclose(f); // <-- returns?
@@ -181,53 +181,84 @@ int read_lines_fgets (const char* fname , struct _line_t *lines) // lines is the
     }
 }
 
+
+// I added struct to the signiture. Is that incorrect?
 int read_lines (const char* fname, struct _line_t* lines) // <- work with this, extrapolate the rest of
                                                   // the interface in this compliation unit/module.
 {
-     struct _line_t *new_line, *node, *tail;
+    struct _line_t *new_line, *node, *tail;
     char s;
     FILE *f;
     char buffer[BUFFER_SIZE];
+    char carry[120];
     size_t i, len;
-    int at_eof, err, count, c, j;
-    err = c = j = 0;
+    int at_eof, err, count, c, j, x, flag;
+    err = c = j = x = 0;
     tail = lines->next;
     node = lines;
     if ((f = fopen (fname, "r")) != NULL) {
         count = -1;
+        printf("sizeof line_t %d \n", sizeof(struct _line_t));
         do {
             count ++;
             len = fread(buffer, sizeof(char), sizeof(buffer), f);
 
-            new_line = malloc(sizeof(struct _line_t));
-            new_line->next = NULL;
+            printf("------\n");
+
+            new_line = malloc(sizeof(struct _line_t)); // <- after initial malloc
+            // ^^^ with memset, when I step over this Jackson station is gone.
+            //     Shouldn't new_line hold Jackson station until function is
+            //     run?
+
+            memset(new_line, 0, sizeof(struct _line_t)); // <- broke it.
+                // ^^^ jeez, wadya do that for? it initializes the structure
+                //    makes sure the strings are null terminated. does memset
+                //    also make sure the pointer points to NULL?
+
+            if (flag == 1) {
+                printf("%s\n", carry);
+               /* for (j = 0; j < x; j++) {
+                    s = carry[j];
+                    new_line->line[j] = s;
+                }
+                memset(carry, 0, 120);
+                x = 0;*/
+                flag = 0;
+            }
 
             for (i = 0; i < len; i++) {
-                if (c == 0) {
-                    lines->line[i] =  buffer[i];
-                    if (buffer[i] == '\n') {
-                        lines->line[i+1] = '\0';
-                        c = 1;
-                    }
-                } else {
+                         // ^^^ len = 1024
+                s = buffer[i];
+                new_line->line[j] =  s; // j is 34
+                carry[x] = s;
+                ++j;
+
+                if ((j + i) >=  len) {
+                    for ( ; i < len; i++){
                     s = buffer[i];
-                    new_line->line[j] =  s;
-                    ++j;
+                    carry[x] = s;
+                    }
+                    printf("%s\n", carry);
+                    flag = 1;
+                } else {
                     if (s == '\n') {
-                        new_line->line[j+1] = '\0';
+                        //new_line->line[j+1] = '\0';
+                        printf("Print: %d, %d, %s", i, j, new_line->line);
 
                         new_line->next = tail;
                         node->next = new_line;//
 
                         new_line = malloc(sizeof(struct _line_t));
-                        new_line->next = NULL;
+                        memset(new_line, 0, sizeof(struct _line_t)); // <- broke it.
+                        //new_line->next = NULL;
                         node = node->next;
-                        j = 0;
-                    }
-                }
+                        j = 0; // <- misses reset if buffer[0]=\n
+                  }
+               }
             }
 
-            free(new_line);
+            j = 0;  // <- losing your spot, i think you
+            free(new_line); // <- throwing it away
 
             if (len == sizeof(buffer)) {
                 at_eof = 0;
