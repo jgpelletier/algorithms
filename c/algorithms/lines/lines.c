@@ -205,7 +205,7 @@ int read_lines (const char* fname, struct _line_t* lines) // <- work with this, 
 
             printf("------\n");
 
-            new_line = malloc(sizeof(struct _line_t));
+            new_line = malloc(sizeof(struct _line_t)); // <- after initial malloc
             // ^^^ with memset, when I step over this Jackson station is gone.
             //     Shouldn't new_line hold Jackson station until function is
             //     run?
@@ -257,8 +257,8 @@ int read_lines (const char* fname, struct _line_t* lines) // <- work with this, 
                }
             }
 
-            j = 0;
-            free(new_line);
+            j = 0;  // <- losing your spot, i think you
+            free(new_line); // <- throwing it away
 
             if (len == sizeof(buffer)) {
                 at_eof = 0;
