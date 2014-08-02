@@ -216,12 +216,14 @@ int read_lines (const char* fname, struct _line_t* lines) // <- work with this, 
                 //    also make sure the pointer points to NULL?
 
             if (flag == 1) {
-                for (j = 0; j < x; j++) {
+                printf("%s\n", carry);
+               /* for (j = 0; j < x; j++) {
                     s = carry[j];
                     new_line->line[j] = s;
                 }
                 memset(carry, 0, 120);
-                x = 0;
+                x = 0;*/
+                flag = 0;
             }
 
             for (i = 0; i < len; i++) {
@@ -231,7 +233,12 @@ int read_lines (const char* fname, struct _line_t* lines) // <- work with this, 
                 carry[x] = s;
                 ++j;
 
-                if ((j +i) >=  len) {
+                if ((j + i) >=  len) {
+                    for ( ; i < len; i++){
+                    s = buffer[i];
+                    carry[x] = s;
+                    }
+                    printf("%s\n", carry);
                     flag = 1;
                 } else {
                     if (s == '\n') {
