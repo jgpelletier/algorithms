@@ -65,7 +65,14 @@ void call_read_lines ()
     // -> deallocation is part of the API.
 }
 
-
+void call_read_lines_m ()
+{
+    struct _line_t lines;
+    lines.next = NULL; // -> initialize in `read_lines`.
+    read_lines_m("wolverineX2.txt", &lines);
+    print_lines(&lines);
+    delete_lines (lines.next);
+}
 
 int main ()
 {
@@ -73,7 +80,8 @@ int main ()
     call_line_count_2();
     call_line_count_3();
     call_line_count_4();*/
-    call_read_lines();
+    //call_read_lines();
+    call_read_lines_m();
    // call_read_lines_fgets();
     return EXIT_SUCCESS;
 }
