@@ -214,7 +214,8 @@ int read_lines (const char* fname, struct _line_t* lines) // <- work with this, 
                     new_line->line[j] =  s;
                     ++j;
                     if (s == '\n') {
-                        new_line->line[j+1] = '\0';
+                        new_line->line[j+1] = '\0';// <- bc j has not been set to zero 
+						   //    it reclaims the bytes from memory.
 
                         new_line->next = tail;
                         node->next = new_line;//
@@ -227,7 +228,7 @@ int read_lines (const char* fname, struct _line_t* lines) // <- work with this, 
                 }
             }
 
-            free(new_line);
+            free(new_line);// this frees the structure but does not change the memory on the stack
 
             if (len == sizeof(buffer)) {
                 at_eof = 0;
@@ -254,6 +255,106 @@ int read_lines (const char* fname, struct _line_t* lines) // <- work with this, 
         return err;
     }
 }
+
+int read_lines_m (const char* fname, struct _line_t* lines)
+{
+    struct _line_t *new_line, *node, *tail;
+    char s;
+    FILE *f;
+    char buffer[BUFFER_SIZE];
+    char carry[120];
+    size_t i, len;
+    int at_eof, err, count, c, j, x, flag;
+    err = c = j = x = 0;
+    tail = lines->next;
+    node = lines;
+    if ((f = fopen (fname, "r")) != NULL) {
+        count = -1;
+        printf("sizeof line_t %d \n", sizeof(struct _line_t));
+        do {
+            count ++;
+            len = fread(buffer, sizeof(char), sizeof(buffer), f);
+
+            printf("------\n");
+
+            new_line = malloc(sizeof(struct _line_t));
+
+            memset(new_line, 0, sizeof(struct _line_t));
+                // ^^^memset initializes the structure
+                //    makes sure the strings are null terminated. does memset
+                //    also make sure the pointer points to NULL?
+
+            if (flag == 1) {
+                printf("%s\n", carry);
+               /* for (j = 0; j < x; j++) {
+                    s = carry[j];
+                    new_line->line[j] = s;
+                }
+                memset(carry, 0, 120);
+                x = 0;*/
+                flag = 0;
+            }
+
+            for (i = 0; i < len; i++) {
+                         // ^^^ len = 1024
+                s = buffer[i];
+                new_line->line[j] =  s; // j is 34
+                carry[x] = s;
+                ++j;
+
+                if ((j + i) >=  len) {
+                    for ( ; i < len; i++){
+                    s = buffer[i];
+                    carry[x] = s;
+                    }
+                    printf("%s\n", carry);
+                    flag = 1;
+                } else {
+                    if (s == '\n') {
+                        //new_line->line[j+1] = '\0';
+                        printf("Print: %d, %d, %s", i, j, new_line->line);
+
+                        new_line->next = tail;
+                        node->next = new_line;//
+
+                        new_line = malloc(sizeof(struct _line_t));
+                        memset(new_line, 0, sizeof(struct _line_t)); // <- broke it.
+                        //new_line->next = NULL;
+                        node = node->next;
+                        j = 0; // <- misses reset if buffer[0]=\n
+                  }
+               }
+            }
+
+            j = 0;  // <- losing your spot, i think you
+            free(new_line); // <- throwing it away
+
+            if (len == sizeof(buffer)) {
+                at_eof = 0;
+            } else if (feof(f)) {
+                at_eof = 1;
+            } else {
+                perror("fclose error");
+                err = -1;
+            }
+
+        } while (at_eof == 0);
+    } else {
+        perror("file open  error");
+        printf("errno = %d\n", errno);
+        return -1;
+    }
+
+    err = fclose(f);
+    if (err == EOF) {
+        perror("file error");
+        printf("errno = %d\n", errno);
+        return -1;
+    } else {
+        return err;
+    }
+}
+
 
 // mocking vvv
 
