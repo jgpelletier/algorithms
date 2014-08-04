@@ -19,15 +19,30 @@ console.log(process.argv)
 
 // When you get an ENOENT error, print *only*, "error: file not found\n".
 // Any other error, propagate to unhandled exception handler (stack trace dump.)
-
+/*
 try {
-    var line_count = linecountsync(process.argv[2])
+    var line_count = lineCountSync(process.argv[2])
     console.log("line count: ", line_count.count , "\ncharacter count: ", line_count.character)
 } catch (e) {
     console.log('I caught an error.')
 }
+*/
 
+try {
+    var line_count = lineCountSync(process.argv[2])
+    console.log("line count: ", line_count.count , "\ncharacter count: ", line_count.character)
+} catch (ENOENT) {
+    console.log('error: file not found\n.')
+}
 
+/*
 var line_count = linecountsync(process.argv[2])
-console.log("line count: ", line_count.count , "\ncharacter count: ", line_count.character)
+
+/*
+// the process.on works for signals
+process.on('ENONET', function () {
+    console.log("error: file not found\n")
+})
+*/
+//console.log("line count: ", line_count.count , "\ncharacter count: ", line_count.character)
 // ^^ propagates unhandled exception (stack trace dump).
