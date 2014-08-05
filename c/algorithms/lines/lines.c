@@ -171,7 +171,7 @@ int read_lines_fgets (const char* fname , struct _line_t *lines) // lines is the
     //print_lines(lines);// <-conditional jump in here
     delete_lines(new_line);
 
-    err = fclose(f); // <-- returns?
+    err = fclose(f);
     if (err == EOF) {
         perror("file error");
         printf("errno = %d\n", errno);
@@ -181,10 +181,9 @@ int read_lines_fgets (const char* fname , struct _line_t *lines) // lines is the
     }
 }
 
-int read_lines (const char* fname, struct _line_t* lines) // <- work with this, extrapolate the rest of
-                                                  // the interface in this compliation unit/module.
+int read_lines (const char* fname, struct _line_t* lines)
 {
-     struct _line_t *new_line, *node, *tail;
+    struct _line_t *new_line, *node, *tail;
     char s;
     FILE *f;
     char buffer[BUFFER_SIZE];
@@ -298,7 +297,7 @@ int read_lines_m (const char* fname, struct _line_t* lines)
             for (i = 0; i < len; i++) {
                          // ^^^ len = 1024
                 s = buffer[i];
-                new_line->line[j] =  s; // j is 34
+                new_line->line[j] =  s;
                 carry[x] = s;
                 ++j;
 
@@ -318,15 +317,14 @@ int read_lines_m (const char* fname, struct _line_t* lines)
                         node->next = new_line;//
 
                         new_line = malloc(sizeof(struct _line_t));
-                        memset(new_line, 0, sizeof(struct _line_t)); // <- broke it.
-                        //new_line->next = NULL;
+                        memset(new_line, 0, sizeof(struct _line_t));
                         node = node->next;
                         j = 0; // <- misses reset if buffer[0]=\n
                   }
                }
             }
 
-            j = 0;  // <- losing your spot, i think you
+            j = 0;  // <- losing your spot
             free(new_line); // <- throwing it away
 
             if (len == sizeof(buffer)) {
