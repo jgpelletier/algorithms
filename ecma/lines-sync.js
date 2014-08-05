@@ -27,27 +27,13 @@ try {
     console.log('I caught an error.')
 }
 
-// this catches the ENOENT of the file not existing but fails to seperate the
-// file I am unable to access.
 try {
     var line_count = lineCountSync(process.argv[2])
     console.log("line count: ", line_count.count , "\ncharacter count: ", line_count.character)
 } catch (e) {
-    if (/^ENOENT$/) {
+    if (e.code == 'ENOENT') {
         console.log('error: file not found.')
     } else {
         throw e
    }
 }
-
-/*
-var line_count = linecountsync(process.argv[2])
-
-/*
-// the process.on works for signals
-process.on('ENONET', function () {
-    console.log("error: file not found\n")
-})
-*/
-//console.log("line count: ", line_count.count , "\ncharacter count: ", line_count.character)
-// ^^ propagates unhandled exception (stack trace dump).
