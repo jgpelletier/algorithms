@@ -283,17 +283,6 @@ int read_lines_m (const char* fname, struct _line_t* lines)
                 //    makes sure the strings are null terminated. does memset
                 //    also make sure the pointer points to NULL?
 
-            if (flag == 1) {
-                printf("%s\n", carry);
-               /* for (j = 0; j < x; j++) {
-                    s = carry[j];
-                    new_line->line[j] = s;
-                }
-                memset(carry, 0, 120);
-                x = 0;*/
-                flag = 0;
-            }
-
             for (i = 0; i < len; i++) {
                          // ^^^ len = 1024
                 s = buffer[i];
@@ -301,26 +290,17 @@ int read_lines_m (const char* fname, struct _line_t* lines)
                 carry[x] = s;
                 ++j;
 
-                if ((j + i) >=  len) {
-                    for ( ; i < len; i++){
-                    s = buffer[i];
-                    carry[x] = s;
-                    }
-                    printf("%s\n", carry);
-                    flag = 1;
-                } else {
-                    if (s == '\n') {
-                        //new_line->line[j+1] = '\0';
-                        printf("Print: %d, %d, %s", i, j, new_line->line);
+                if (s == '\n') {
+                    //new_line->line[j+1] = '\0';
+                    printf("Print: %d, %d, %s", i, j, new_line->line);
 
-                        new_line->next = tail;
-                        node->next = new_line;//
+                    new_line->next = tail;
+                    node->next = new_line;//
 
-                        new_line = malloc(sizeof(struct _line_t));
-                        memset(new_line, 0, sizeof(struct _line_t));
-                        node = node->next;
-                        j = 0; // <- misses reset if buffer[0]=\n
-                  }
+                    new_line = malloc(sizeof(struct _line_t));
+                    memset(new_line, 0, sizeof(struct _line_t));
+                    node = node->next;
+                    j = 0; // <- misses reset if buffer[0]=\n
                }
             }
 
