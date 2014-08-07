@@ -265,6 +265,8 @@ int read_lines_m (const char* fname, struct _line_t* lines)
     size_t i, len;
     int at_eof, err, count, c, j, x, flag;
     err = c = j = x = 0;
+    //lines->next = NULL;
+    memset(lines, 0, sizeof(struct _line_t));
     tail = lines->next;
     node = lines;
     if ((f = fopen (fname, "r")) != NULL) {
