@@ -133,6 +133,7 @@ void print_lines (struct _line_t* lines) //definition
 void delete_lines (struct _line_t *lines) //definition
 {
     struct _line_t *node;
+    lines = lines->next;
     do {
         node = lines;
         lines = lines->next;

@@ -60,7 +60,7 @@ void call_read_lines ()
     lines.next = NULL; // -> initialize in `read_lines`.
     read_lines("wolverineX2.txt", &lines);
     print_lines(&lines);
-    delete_lines (lines.next); // inconsistant.
+    delete_lines (&lines); // inconsistant.
     // -> here you can print
     // -> deallocation is part of the API.
 }
@@ -71,7 +71,7 @@ void call_read_lines_m ()
     //lines.next = NULL; // -> initialize in `read_lines`.
     read_lines_m("wolverineX2.txt", &lines);
     print_lines(&lines);
-    delete_lines (lines.next);
+    delete_lines (&lines);
 }
 
 int main ()
@@ -80,8 +80,8 @@ int main ()
     call_line_count_2();
     call_line_count_3();
     call_line_count_4();*/
-    //call_read_lines();
-    call_read_lines_m();
+    call_read_lines();
+    //call_read_lines_m();
    // call_read_lines_fgets();
     return EXIT_SUCCESS;
 }
