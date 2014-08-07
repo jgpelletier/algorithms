@@ -57,7 +57,7 @@ void call_read_lines_fgets ()
 void call_read_lines ()
 {
     struct _line_t lines;
-    lines.next = NULL; // -> initialize in `read_lines`.
+    //lines.next = NULL; // -> initialize in `read_lines`.
     read_lines("wolverineX2.txt", &lines);
     print_lines(&lines);
     delete_lines (&lines); // inconsistant.
