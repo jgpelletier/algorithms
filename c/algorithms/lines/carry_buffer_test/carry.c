@@ -1,7 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <string.h>
 #include "carry.h"
+
+void print_lines (struct _line_t* lines) //definition
+{
+    while (lines) {
+        printf(lines->line);
+        lines = lines->next;
+    }
+}
+
 
 int carry (const char* fname, struct _line_t* lines)
 {
@@ -44,7 +54,7 @@ int carry (const char* fname, struct _line_t* lines)
                     new_line = malloc(sizeof(struct _line_t));
                     memset(new_line, 0, sizeof(struct _line_t));
                     node = node->next;
-                    j = 0; // <- misses reset if buffer[0]=\n
+                    j = 0;
                }
             }
 
@@ -76,5 +86,3 @@ int carry (const char* fname, struct _line_t* lines)
         return err;
     }
 }
-
-

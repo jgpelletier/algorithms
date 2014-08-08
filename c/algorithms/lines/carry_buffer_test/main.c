@@ -7,6 +7,7 @@ void call_carry()
 {
     struct _line_t lines;
     carry ("carry.txt", &lines);
+    print_lines(&lines);
 }
 
 
