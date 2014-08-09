@@ -37,8 +37,20 @@ function lineCount (file, callback) { // <- vvvvvv async vvvvvv
 // Hebrew to stderr and then throw an exception that you can't catch.
 //
 // ^^^ See if that's in Node.js docs. If not, how should it be done?
+//      possible solutions:
+//          - throw an error
+//          - callback
+//          - event emitter
+//          - domains? (what is this?)
+//  need to understand difference btw error and exception
+//      - it is more common to use an error in node then to throw it
+//        bc most errors are async. Sync functions need to be thrown/caught.
 //
 //  Google-fu ~ error first callback pattern Node.js
+//  Defining the error-first callback:
+//  -  the 1st argument is always reserved for the error object
+//          - on a successful response, the err is null
+//          - on a unsuccessful response the err is set.
 
 // If it is not there, print the English message.
 // Any other error, throw.
