@@ -38,27 +38,28 @@ int carry (const char* fname, struct _line_t* lines)
             new_line = malloc(sizeof(struct _line_t));
 
             memset(new_line, 0, sizeof(struct _line_t));
-
+            strcpy(new_line->line, carry);
             for (i = 0; i < len; i++) {
                 s = buffer[i];
-                new_line->line[j] =  s;
+                //new_line->line[j] =  s;
                 carry[x] = s;
-                ++j;
+                ++x;
 
                 if (s == '\n') {
+                    strcpy(new_line->line, carry);
+                    memset(carry, 0, 10);
                     printf("Print: %d, %d, %s", i, j, new_line->line);
-
                     new_line->next = tail;
                     node->next = new_line;
 
                     new_line = malloc(sizeof(struct _line_t));
                     memset(new_line, 0, sizeof(struct _line_t));
                     node = node->next;
-                    j = 0;
+                    x = 0;
                }
             }
 
-            j = 0;
+//            x = 0;
             free(new_line);
 
             if (len == sizeof(buffer)) {

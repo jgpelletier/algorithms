@@ -283,13 +283,17 @@ int read_lines_m (const char* fname, struct _line_t* lines)
 
             memset(new_line, 0, sizeof(struct _line_t));
 
+            strcpy(new_line->line, carry);
+            //memset(carry, 0, 120);
             for (i = 0; i < len; i++) {
                 s = buffer[i];
-                new_line->line[j] =  s;
-                carry[x] = s;
+                //new_line->line[j] =  s;
+                carry[j] = s;
                 ++j;
 
                 if (s == '\n') {
+                    strcpy(new_line->line, carry);
+                    memset(carry, 0, 120);
                     printf("Print: %d, %d, %s", i, j, new_line->line);
 
                     new_line->next = tail;
@@ -304,6 +308,7 @@ int read_lines_m (const char* fname, struct _line_t* lines)
 
             j = 0;
             free(new_line);
+            free(new_line); // <- throwing it away
 
             if (len == sizeof(buffer)) {
                 at_eof = 0;
