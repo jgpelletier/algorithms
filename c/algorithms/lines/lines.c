@@ -265,7 +265,7 @@ int read_lines_m (const char* fname, struct _line_t* lines)
     char buffer[BUFFER_SIZE];
     char carry[120];
     size_t i, len;
-    int at_eof, err, count, c, j, x, flag;
+    int at_eof, err, count, c, j, x;
     err = c = j = x = 0;
     memset(lines, 0, sizeof(struct _line_t));
     tail = lines->next;
@@ -282,23 +282,18 @@ int read_lines_m (const char* fname, struct _line_t* lines)
             new_line = malloc(sizeof(struct _line_t));
 
             memset(new_line, 0, sizeof(struct _line_t));
-                // ^^^memset initializes the structure
-                //    makes sure the strings are null terminated. does memset
-                //    also make sure the pointer points to NULL?
 
             for (i = 0; i < len; i++) {
-                         // ^^^ len = 1024
                 s = buffer[i];
                 new_line->line[j] =  s;
                 carry[x] = s;
                 ++j;
 
                 if (s == '\n') {
-                    //new_line->line[j+1] = '\0';
                     printf("Print: %d, %d, %s", i, j, new_line->line);
 
                     new_line->next = tail;
-                    node->next = new_line;//
+                    node->next = new_line;
 
                     new_line = malloc(sizeof(struct _line_t));
                     memset(new_line, 0, sizeof(struct _line_t));
@@ -307,8 +302,8 @@ int read_lines_m (const char* fname, struct _line_t* lines)
                }
             }
 
-            j = 0;  // <- losing your spot
-            free(new_line); // <- throwing it away
+            j = 0;
+            free(new_line);
 
             if (len == sizeof(buffer)) {
                 at_eof = 0;
