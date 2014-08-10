@@ -286,14 +286,18 @@ int read_lines_m (const char* fname, struct _line_t* lines)
                 //    makes sure the strings are null terminated. does memset
                 //    also make sure the pointer points to NULL?
 
+	    strcpy(new_line->line, carry);
+            //memset(carry, 0, 120);
             for (i = 0; i < len; i++) {
                          // ^^^ len = 1024
                 s = buffer[i];
-                new_line->line[j] =  s;
-                carry[x] = s;
+                //new_line->line[j] =  s;
+                carry[j] = s;
                 ++j;
 
                 if (s == '\n') {
+		    strcpy(new_line->line, carry);
+		    memset(carry, 0, 120);
                     //new_line->line[j+1] = '\0';
                     printf("Print: %d, %d, %s", i, j, new_line->line);
 
@@ -307,7 +311,6 @@ int read_lines_m (const char* fname, struct _line_t* lines)
                }
             }
 
-            j = 0;  // <- losing your spot
             free(new_line); // <- throwing it away
 
             if (len == sizeof(buffer)) {
