@@ -60,7 +60,7 @@ int carry (const char* fname, struct _line_t* lines)
                }
             }
 
-            j = 0;
+//            x = 0;
             free(new_line);
 
             if (len == sizeof(buffer)) {
