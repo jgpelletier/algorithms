@@ -37,8 +37,11 @@ function lineCount (file, callback) { // <- vvvvvv async vvvvvv
         // vvv only this is waiting
         //console.log('file is ready', new Error('').stack) // <- that <-
         // ^^HAPPENS 5th
-        if (err) return console.log(err); // <- should throw or return err be used?
-                                         //     Joyant suggests throw should be
+        if ('ENOENT') {
+            return console.error("File does not exist", err.code); // <- should throw or return err be used?
+        } else {
+            return console.error(err)
+        }                                //     Joyant suggests throw should be
                                          //     used with sync functions.
 
         line_count = 0// <- line_count needs to be set within the function
