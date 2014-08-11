@@ -1,25 +1,42 @@
+/*
+ * Joyant Suggestions:
+ *
+ * Count the number of lines in the given file. Arguments:
+ *
+ *  file            a file within the directory
+ *
+ *  callback        invoked when the file is read or it fails.
+ *                  Upon success, callback is invoked as callback(null, buffer)
+ *                  Upon failure, callbock is invoked as callback(err) instead.
+ *
+ * This function may fail for several reasons:
+ *  File does not exist
+ *
+ *  Do not have access to file
+ *
+ *  all errors will have the conventional 'errno' properties.
+ */
+
+
 // needed api vvv
 var fs = require('fs')
 // possible api's vvv
 // domain - not stable
 // event - stable, but is this to used with the file system api?
-
-
+// assert
 
 var line_count
 
-// Each time LineCount is run the variable line_count is incremented by the
-// number of lines in the file if the line_count variable is not set to 0 within
-// the function.
 // vvv Not an API function. If you put the English message in here, how do I use
 // your library if my users are French?
 function lineCount (file, callback) { // <- vvvvvv async vvvvvv
     // fs.readFile / File System section of the Node.js API docs.
-    console.log('asking for file')
+    console.log('asking for file')// <- HAPPENS 1st
     fs.readFile(file, 'ascii', function (err, buffer) { // <- here this, a new main
         // vvv only this is waiting
         console.log('file is ready', new Error('').stack) // <- that <-
-        if (err) throw err; // <- not created here, NO STACK
+        // ^^HAPPENS 5th
+        if (err) throw err; // <- should this throw err be used?
 
         line_count = 0// <- line_count needs to be set within the function
 
@@ -36,8 +53,36 @@ function lineCount (file, callback) { // <- vvvvvv async vvvvvv
         }, 7000)
     })
     console.log('asked for file', new Error('').stack) // <- this come before ^^^
+    // ^^^ HAPPENS 2nd
 }
 
+function main (file) { // <- nowhere in a stack
+    /*lineCount(file, function() {
+        console.log(line_count)
+    })*/
+
+    function lines() {
+        console.log('lines is called', new Error('').stack) // <- that <-
+        // ^^ HAPPENS 6th.
+        console.log(line_count)
+    }
+
+    lineCount(file, lines)
+
+    console.log('going bye-bye', new Error('').stack)
+    // ^^ HAPPENS 3rd.
+}
+
+main(process.argv[2])
+
+console.log('gone', new Error('').stack)
+// ^^ HAPPENS 4th
+
+
+// <- we are gone
+
+
+// Assignment
 // -> lineCount(file, callback)
 //
 // If something is wrong, I'll print out a message, laced with profanity, and in
@@ -61,25 +106,3 @@ function lineCount (file, callback) { // <- vvvvvv async vvvvvv
 
 // If it is not there, print the English message.
 // Any other error, throw.
-
-function main (file) { // <- nowhere in a stack
-    /*lineCount(file, function() {
-        console.log(line_count)
-    })*/
-
-    function lines() {
-        console.log('lines is called', new Error('').stack) // <- that <-
-        console.log(line_count)
-    }
-
-    lineCount(file, lines)
-
-    console.log('going bye-bye', new Error('').stack)
-}
-
-main(process.argv[2])
-
-console.log('gone', new Error('').stack)
-
-
-// <- we are gone
