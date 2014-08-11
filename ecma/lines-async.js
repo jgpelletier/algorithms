@@ -22,8 +22,9 @@
 var fs = require('fs')
 // possible api's vvv
 // domain - not stable
-// event - stable, but is this to used with the file system api?
+// event - stable, but is this to used with the readFile function?
 // assert
+
 
 var line_count
 
@@ -31,12 +32,14 @@ var line_count
 // your library if my users are French?
 function lineCount (file, callback) { // <- vvvvvv async vvvvvv
     // fs.readFile / File System section of the Node.js API docs.
-    console.log('asking for file')// <- HAPPENS 1st
-    fs.readFile(file, 'ascii', function (err, buffer) { // <- here this, a new main
+    //console.log('asking for file')// <- HAPPENS 1st
+    fs.readFile(file, 'ascii', function (err, buffer) { // <- a new stack is here
         // vvv only this is waiting
-        console.log('file is ready', new Error('').stack) // <- that <-
+        //console.log('file is ready', new Error('').stack) // <- that <-
         // ^^HAPPENS 5th
-        if (err) throw err; // <- should this throw err be used?
+        if (err) return console.log(err); // <- should throw or return err be used?
+                                         //     Joyant suggests throw should be
+                                         //     used with sync functions.
 
         line_count = 0// <- line_count needs to be set within the function
 
@@ -52,7 +55,7 @@ function lineCount (file, callback) { // <- vvvvvv async vvvvvv
             callback() // <- call the callback, inclosed in a closure
         }, 7000)
     })
-    console.log('asked for file', new Error('').stack) // <- this come before ^^^
+    //console.log('asked for file', new Error('').stack) // <- this come before ^^^
     // ^^^ HAPPENS 2nd
 }
 
@@ -62,20 +65,20 @@ function main (file) { // <- nowhere in a stack
     })*/
 
     function lines() {
-        console.log('lines is called', new Error('').stack) // <- that <-
+        //console.log('lines is called', new Error('').stack) // <- that <-
         // ^^ HAPPENS 6th.
         console.log(line_count)
     }
 
     lineCount(file, lines)
 
-    console.log('going bye-bye', new Error('').stack)
+   // console.log('going bye-bye', new Error('').stack)
     // ^^ HAPPENS 3rd.
 }
 
 main(process.argv[2])
 
-console.log('gone', new Error('').stack)
+//console.log('gone', new Error('').stack)
 // ^^ HAPPENS 4th
 
 
