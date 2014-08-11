@@ -37,7 +37,7 @@ function lineCount (file, callback) { // <- vvvvvv async vvvvvv
         // vvv only this is waiting
         //console.log('file is ready', new Error('').stack) // <- that <-
         // ^^HAPPENS 5th
-        if ('ENOENT') {
+        if (err.code == 'ENOENT') {
             return console.error("File does not exist", err.code); // <- should throw or return err be used?
         } else {
             return console.error(err)
