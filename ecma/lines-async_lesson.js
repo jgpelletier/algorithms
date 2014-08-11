@@ -1,16 +1,10 @@
-// needed api vvv
 var fs = require('fs')
-// possible api's vvv
-// domain - not stable
-// event - stable, but is this to used with the file system api?
-
-
-
 var line_count
 
 // Each time LineCount is run the variable line_count is incremented by the
 // number of lines in the file if the line_count variable is not set to 0 within
 // the function.
+
 // vvv Not an API function. If you put the English message in here, how do I use
 // your library if my users are French?
 function lineCount (file, callback) { // <- vvvvvv async vvvvvv
@@ -63,9 +57,9 @@ function lineCount (file, callback) { // <- vvvvvv async vvvvvv
 // Any other error, throw.
 
 function main (file) { // <- nowhere in a stack
-    /*lineCount(file, function() {
+    lineCount(file, function() {
         console.log(line_count)
-    })*/
+    })
 
     function lines() {
         console.log('lines is called', new Error('').stack) // <- that <-
