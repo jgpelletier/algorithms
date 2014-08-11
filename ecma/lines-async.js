@@ -38,7 +38,7 @@ function lineCount (file, callback) { // <- vvvvvv async vvvvvv
         //console.log('file is ready', new Error('').stack) // <- that <-
         // ^^HAPPENS 5th
         if (err.code == 'ENOENT') {
-            return console.error("File does not exist", err.code); // <- should throw or return err be used?
+            return console.error(err.code,":", "File does not exist") // <- should throw or return err be used?
         } else {
             return console.error(err)
         }                                //     Joyant suggests throw should be
