@@ -3,12 +3,13 @@
 //
 // Find the sum of all the multiples of 3 or 5 below 1000
 
+var ceiling = process.argv[2]
 var i
 var threes = 0
 var fives = 0
 var total
 
-for (i = 0; i < 1000; i++) {
+for (i = 0; i < ceiling; i++) {
     if ( i%3 == 0) {
         threes = i + threes
     }
