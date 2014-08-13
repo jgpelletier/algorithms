@@ -5,14 +5,15 @@
 // is a multiple of any number between 2 and square route of n.
 
 
-var i = 2
+var i = 1
 var zeroes = 0
-var x = 2
+var x
 var list = {value: null, next: null}
 var node = {}
 var target = 10
 var sqrRt = Math.sqrt(i)
-console.log('square root:', sqrRt)
+var whole = Math.ceil(sqrRt)
+
 function dump (list) {
     var node = list
     while (node){
@@ -27,24 +28,27 @@ function dump (list) {
 for ( i; i < target; i++) {
     console.log('1st for loop', i)
     sqrRt = Math.sqrt(i)
-    console.log('square root:', sqrRt)
-    while ( i < sqrRt) {
-        console.log('2nd for loop', sqrRt)
-        console.log(x)
+    whole = Math.ceil(sqrRt)
 
+    console.log('square root:', sqrRt)
+    console.log('whole:', whole)
+    x = 0
+    for (x; x <= whole; x++) {
+        console.log('counting zeroes:', zeroes)
         if (i%x == 0) {
-            console.log('counting zeroes:', zeroes)
             zeroes++
             if (zeroes == 3) {
-                x = i
                 break
-            } else if ( x == sqrRt-1) {
+            } else if ( zeroes == 2) {
                 node.value = i
-                node. next = list.next
-                list.next = node
+                node.next = list.next
+                //list.next = node
             }
-       }
+        }
     }
+
+    zeroes = 0
+
 }
 
 dump(list)
