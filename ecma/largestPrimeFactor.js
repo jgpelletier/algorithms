@@ -11,6 +11,7 @@ var x
 var list = {value: null, next: null}
 var node = {}
 var target = 10
+
 var sqrRt = Math.sqrt(i)
 var whole = Math.ceil(sqrRt)
 
@@ -26,29 +27,43 @@ function dump (list) {
 
 
 for ( i; i < target; i++) {
-    console.log('1st for loop', i)
+    console.log('\n')
+    console.log('\n1st for loop. i =', i)
     sqrRt = Math.sqrt(i)
     whole = Math.ceil(sqrRt)
 
-    console.log('square root:', sqrRt)
-    console.log('whole:', whole)
-    x = 0
-    for (x; x <= whole; x++) {
-        console.log('counting zeroes:', zeroes)
+    x = 1
+    for (x; x <= whole; x++) { // <- the while num
+        console.log('------------')
+        console.log('2nd for loop. x =', x)
         if (i%x == 0) {
             zeroes++
-            if (zeroes == 3) {
+            console.log('------------')
+            console.log('\t counting zeroes:', zeroes)
+            console.log('\t square root', sqrRt )
+            console.log('\t whole', whole )
+            if (zeroes >= 3 && x == whole) {
+                console.log('\n')
                 break
-            } else if ( zeroes == 2) {
+            }
+            else if (zeroes == 2 && x == whole) {
+                console.log('------------')
+                console.log('\t counting zeroes:', zeroes)
+                console.log('\t square root', sqrRt )
+                console.log('\t whole', whole )
                 node.value = i
-                node.next = list.next
+                console.log('\t node', node.value)
+                console.log('\n')
+            //node.next = list.next
                 //list.next = node
+                break
             }
         }
     }
 
     zeroes = 0
+    console.log('------------')
 
 }
 
-dump(list)
+//dump(list)
