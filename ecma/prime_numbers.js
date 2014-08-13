@@ -1,9 +1,4 @@
-// The prime factors of 13195 are 5, 7, 13 and 29.
-// What is the largest prime factor of the number 600851475143?
-//
-// a simple but slow way of testing for primality consist to testing whether n
-// is a multiple of any number between 2 and square route of n.
-
+// This creates a linked list with each node value representing a prime number.
 
 var i = 3
 var zeroes = 0
