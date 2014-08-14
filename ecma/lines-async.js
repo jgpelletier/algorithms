@@ -26,7 +26,7 @@ var fs = require('fs')
 // assert
 
 
-var line_count
+//var line_count
 
 // vvv Not an API function. If you put the English message in here, how do I use
 // your library if my users are French?
@@ -34,44 +34,62 @@ var line_count
 function lineCount (file, callback) { // <- vvvvvv async vvvvvv
     // fs.readFile / File System section of the Node.js API docs.
     fs.readFile(file, 'ascii', function (err, buffer) { // <- a new stack is here
-        if (err) {
-            if (err.code == 'ENOENT') {
-                return console.error(err.code,":", "File does not exist") // <- should throw or return err be used?
-            } else {
-                return console.error(err)
-            }                                   //     Joyant suggests throw should be
-        }                                 //     used with sync functions.
+        if (err){
+                callback(err)
+        } else {
+            line_count = 0
 
-        line_count = 0
-
-        for (var i = 0; i < buffer.length; i++) {
-            if (buffer[i] == '\n') {
-                line_count++
+            for (var i = 0; i < buffer.length; i++) {
+                if (buffer[i] == '\n') {
+                    line_count++
+                }
             }
-        }
 
-        console.log(new Date)
-        setTimeout(function () {
             console.log(new Date)
-            callback() // <- call the callback, inclosed in a closure
-        }, 7000)
+            setTimeout(function () {
+                console.log(new Date)
+                callback(null, line_count)
+            }, 7000)
+        }
     })
 }
 
-function main (file) { // <- nowhere in a stack
-    /*lineCount(file, function() {
-        console.log(line_count)
-    })*/
+function main (file) {
 
-    function lines() {
-        if (process.argv[3] == 'french') {
-            console.log('Voici votre compte de lignes.')
-        } else {
-            console.log('Here is your count of lines.')
+    function lines(err, line_count) {
+        if (process.argv[3] == 'french' && err) {
+            if (err.code == 'ENOENT') {
+                console.log('Le fichier n\'existe pas')
+            } else {
+                console.log('Une erreur s\'est produite.')
+            }
+            return
         }
-        console.log(line_count)
+        else if (err) {
+            if (err.code == 'ENOENT') {
+                console.log('File does not exist.')
+            } else {
+                console.log('An error occured.')
+            }
+            return
+        } else {
+            if (process.argv[3] == 'french') {
+                console.log('Voici votre compte de lignes.')
+            } else {
+                console.log('Here is your count of lines.')
+            }
+            console.log(line_count)
+        }
     }
 
+lineCount(file, lines)
+}
+
+
+main(process.argv[2])
+
+
+/*
     if (process.argv[3] == 'french') {
         try {
             lineCount(file, lines)
@@ -87,8 +105,9 @@ function main (file) { // <- nowhere in a stack
         console.log('Je suis sûr que vous pouvez lire tout ici, car il est tout en français.')
     } else {
         try {
-            lineCount(file, lines)
-        } catch (e) {
+            console.log('in else')
+            lineCount(file, lines) // <- new stack from async function.
+        } catch (e) {  // <- this is passed by before the stack returns and just returns
             console.log('Is this how line count would report an error?')
             if (e.code == 'ENOENT') {
                 console.log('File does not exist.')
@@ -104,10 +123,7 @@ function main (file) { // <- nowhere in a stack
         console.log('I swear on all that is holy that are now reading a count of lines.')
     }
 }
-
-main(process.argv[2])
-
-
+*/
 
 
 
