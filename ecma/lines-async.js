@@ -30,6 +30,7 @@ var line_count
 
 // vvv Not an API function. If you put the English message in here, how do I use
 // your library if my users are French?
+// vvv Still not a function that anyone can use.
 function lineCount (file, callback) { // <- vvvvvv async vvvvvv
     // fs.readFile / File System section of the Node.js API docs.
     fs.readFile(file, 'ascii', function (err, buffer) { // <- a new stack is here
@@ -63,11 +64,45 @@ function main (file) { // <- nowhere in a stack
     })*/
 
     function lines() {
+        if (process.argv[3] == 'french') {
+            console.log('Voici votre compte de lignes.')
+        } else {
+            console.log('Here is your count of lines.')
+        }
         console.log(line_count)
     }
 
-    lineCount(file, lines)
-
+    if (process.argv[3] == 'french') {
+        try {
+            lineCount(file, lines)
+        } catch (e) {
+            if (e.code == 'ENOENT') {
+                console.log('Le fichier n\'existe pas')
+            }  else {
+                console.log('Une erreur s\'est produite.')
+            }
+            return
+        }
+        console.log('Tout est réussie.')
+        console.log('Je suis sûr que vous pouvez lire tout ici, car il est tout en français.')
+    } else {
+        try {
+            lineCount(file, lines)
+        } catch (e) {
+            console.log('Is this how line count would report an error?')
+            if (e.code == 'ENOENT') {
+                console.log('File does not exist.')
+            } else {
+                console.log('An error occured.')
+            }
+            return
+        }
+        console.log('Everying went just prefectly. There were no errors.')
+        console.log('Isn\'t that wonderful.')
+        console.log('I called `lineCount` and everything was glorius and swell.')
+        console.log('What could possibly go wrong when calling line count?')
+        console.log('I swear on all that is holy that are now reading a count of lines.')
+    }
 }
 
 main(process.argv[2])
@@ -87,7 +122,7 @@ main(process.argv[2])
 //          - throw an error
 //          - callback
 //          - event emitter
-//          - domains? (what is this?)
+//          - domains? (what is this?) (nausea.)
 //  need to understand difference btw error and exception
 //      - it is more common to use an error in node then to throw it
 //        bc most errors are async. Sync functions need to be thrown/caught.
