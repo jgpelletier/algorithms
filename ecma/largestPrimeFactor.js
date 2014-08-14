@@ -4,60 +4,74 @@
 // a simple but slow way of testing for primality consist to testing whether n
 // is a multiple of any number between 2 and square route of n.
 
+var arr = []
+var primesBelow = 50
+var target = 13195
+var largest
 
-var i = 3
+function arrayOfPrimes (arr, primesBelow) {
+var i = 2
 var zeroes = 0
 var x
-var list = {value: null, next: null}
-var node = {}
-var target = 13195
-
+var y
 var sqrRt = Math.sqrt(i)
 var whole = Math.ceil(sqrRt)
 
-function create (list) {
-   var list = { value: null , next: null }
-   return list
-}
 
-function dump (list) {
-    var node = list
-    while (node){
-        if (node.value != null) {
-            console.log(node.value)
-        }
-        node = node.next
-    }
-}
-
-function push (list, value) {
-    var node = { value: value, next: list.next }
-    list.next = node
-}
-
-list = create(list)
-push(list, 1)
-push(list, 2)
-
-for ( i; i < target; i++) {
-    sqrRt = Math.sqrt(i)
-    whole = Math.ceil(sqrRt)
-
-    x = 1
-    for (x; x <= i; x++) { // <- the while num
-        if (i%x == 0) {
-            zeroes++
-            if (zeroes >= 3 || x == whole) {
-                break
+    for ( i; i < primesBelow; i++) {
+        sqrRt = Math.sqrt(i)
+        whole = Math.ceil(sqrRt)
+        if ( i == 2) {
+              y = 0
+              arr[y] = i
+              y++
+        } else {
+            //console.log(i)
+            x = 1
+            for (x; x <= i; x++) { // <- the while num
+                if (i%x == 0) {
+                    zeroes++
+                    if (zeroes >= 3 || x == whole) {
+                        break
+                    }
+                    else if (x == i) {
+                        arr[y] = i
+                        y++
+                    }
+                }
             }
-            else if (x == i) {
-                push(list, i)
-            }
+            zeroes = 0
         }
     }
-
-    zeroes = 0
-
+    return arr
 }
 
-dump(list)
+
+function largestPrimeFactor ( arr, target ) {
+    var length = arr.length
+    var i = 0
+    var x
+    var largest
+    console.log(target)
+
+    for ( i; i < length; i++) {
+        x = arr[i]
+        console.log(x)
+        var test = target%x
+        console.log(test)
+
+        if (test == 0) {
+            //largest = x
+            console.log(largest)
+        }
+     }
+
+     largest
+}
+
+
+console.log(arrayOfPrimes(arr, primesBelow))
+
+largestPrimeFactor(arr, target)
+
+console.log(largest)
