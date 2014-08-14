@@ -1,12 +1,15 @@
 // The prime factors of 13195 are 5, 7, 13 and 29.
 // What is the largest prime factor of the number 600851475143?
 //
-// a simple but slow way of testing for primality consist to testing whether n
-// is a multiple of any number between 2 and square route of n.
+// I used this simple but slow program to find the number above. This makes an
+// array of the primal numbers between n and the square route of n, and then
+// visits each number to looking for the largest.
 
 var arr = []
-var primesBelow = 50
-var target = 13195
+var target = process.argv[2]
+var primesBelow = Math.sqrt(target)
+console.log(primesBelow)
+console.log(new Date)
 var largest
 
 function arrayOfPrimes (arr, primesBelow) {
@@ -51,18 +54,12 @@ function largestPrimeFactor ( arr, target ) {
     var length = arr.length
     var i = 0
     var x
-    var largest
     console.log(target)
 
     for ( i; i < length; i++) {
         x = arr[i]
-        console.log(x)
-        var test = target%x
-        console.log(test)
-
-        if (test == 0) {
-            //largest = x
-            console.log(largest)
+        if (target%x == 0) {
+            largest = x
         }
      }
 
@@ -70,8 +67,7 @@ function largestPrimeFactor ( arr, target ) {
 }
 
 
-console.log(arrayOfPrimes(arr, primesBelow))
-
+arrayOfPrimes(arr, primesBelow)
 largestPrimeFactor(arr, target)
 
 console.log(largest)
