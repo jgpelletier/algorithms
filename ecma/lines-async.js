@@ -33,12 +33,13 @@ var line_count
 function lineCount (file, callback) { // <- vvvvvv async vvvvvv
     // fs.readFile / File System section of the Node.js API docs.
     fs.readFile(file, 'ascii', function (err, buffer) { // <- a new stack is here
-        if (err.code == 'ENOENT') {
-            return console.error(err.code,":", "File does not exist") // <- should throw or return err be used?
-        } else {
-            return console.error(err)
-        }                                //     Joyant suggests throw should be
-                                         //     used with sync functions.
+        if (err) {
+            if (err.code == 'ENOENT') {
+                return console.error(err.code,":", "File does not exist") // <- should throw or return err be used?
+            } else {
+                return console.error(err)
+            }                                   //     Joyant suggests throw should be
+        }                                 //     used with sync functions.
 
         line_count = 0
 
