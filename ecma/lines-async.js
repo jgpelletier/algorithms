@@ -20,13 +20,7 @@
 
 // needed api vvv
 var fs = require('fs')
-// possible api's vvv
-// domain - not stable
-// event - stable, but is this to used with the readFile function?
-// assert
 
-
-//var line_count
 
 // vvv Not an API function. If you put the English message in here, how do I use
 // your library if my users are French?
@@ -87,44 +81,6 @@ lineCount(file, lines)
 
 
 main(process.argv[2])
-
-
-/*
-    if (process.argv[3] == 'french') {
-        try {
-            lineCount(file, lines)
-        } catch (e) {
-            if (e.code == 'ENOENT') {
-                console.log('Le fichier n\'existe pas')
-            }  else {
-                console.log('Une erreur s\'est produite.')
-            }
-            return
-        }
-        console.log('Tout est réussie.')
-        console.log('Je suis sûr que vous pouvez lire tout ici, car il est tout en français.')
-    } else {
-        try {
-            console.log('in else')
-            lineCount(file, lines) // <- new stack from async function.
-        } catch (e) {  // <- this is passed by before the stack returns and just returns
-            console.log('Is this how line count would report an error?')
-            if (e.code == 'ENOENT') {
-                console.log('File does not exist.')
-            } else {
-                console.log('An error occured.')
-            }
-            return
-        }
-        console.log('Everying went just prefectly. There were no errors.')
-        console.log('Isn\'t that wonderful.')
-        console.log('I called `lineCount` and everything was glorius and swell.')
-        console.log('What could possibly go wrong when calling line count?')
-        console.log('I swear on all that is holy that are now reading a count of lines.')
-    }
-}
-*/
-
 
 
 // Assignment
