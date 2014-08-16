@@ -4,7 +4,7 @@
 // What is the 10001st prime number?
 
 var arr = []
-var target = 6
+var target = process.argv[2]
 
 function findPrimes (arr, target) {
     var i = 0
@@ -14,6 +14,7 @@ function findPrimes (arr, target) {
     var sqrRt = Math.sqrt(i)
     var whole = Math.ceil(sqrRt)
     var z = arr.length
+    var popped
     while (z < target) {
         i++
         sqrRt = Math.sqrt(i)
@@ -40,7 +41,8 @@ function findPrimes (arr, target) {
         }
     z = arr.length
     }
-    console.log(arr[target])
+    popped = arr.pop()
+    console.log(popped)
 }
 
 findPrimes(arr, target)
