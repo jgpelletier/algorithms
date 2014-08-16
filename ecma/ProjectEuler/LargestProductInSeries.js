@@ -29,7 +29,8 @@ var arr = string.split("")
 var i = arr.length
 var interval = 13
 var y = 1
-
+var greatest
+var popped
 //while (i >= 13) {
 
     var multiply = arr.slice(-(interval))
@@ -41,6 +42,17 @@ var y = 1
         }
          y = y * z
     }
-/*
-    if
-}*/
+
+    if (!greatest) {
+        greatest = y
+        popped = arr.pop()
+    }
+    else if (greatest <= y) {
+        greatest = y
+        popped = arr.pop()
+    } else {
+        popped = arr.pop()
+    }
+
+    console.log(arr)
+//}
