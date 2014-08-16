@@ -13,34 +13,32 @@ function findPrimes (arr, target) {
     var y
     var sqrRt = Math.sqrt(i)
     var whole = Math.ceil(sqrRt)
-    var z
-
-    while (z != target) {
-        for ( i; i<1000000 ;i++) {
-            sqrRt = Math.sqrt(i)
-            whole = Math.ceil(sqrRt)
-            if ( i == 2) {
-                  y = 0
-                  arr[y] = i
-                  y++
-            } else {
-                x = 1
-                for (x; x <= i; x++) { // <- the while num
-                    if (i%x == 0) {
-                        zeroes++
-                        if (zeroes >= 3 || x == whole) {
-                            break
-                        }
-                        else if (x == i) {
-                            arr[y] = i
-                            y++
-                        }
+    var z = arr.length
+    while (z < target) {
+        i++
+        sqrRt = Math.sqrt(i)
+        whole = Math.ceil(sqrRt)
+        if ( i == 2) {
+              y = 0
+              arr[y] = i
+              y++
+        } else {
+            x = 1
+            for (x; x <= i; x++) {
+                if (i%x == 0) {
+                    zeroes++
+                    if (zeroes >= 3 || x == whole) {
+                        break
+                    }
+                    else if (x == i) {
+                        arr[y] = i
+                        y++
                     }
                 }
-                zeroes = 0
             }
-            z = arr.length
+        zeroes = 0
         }
+    z = arr.length
     }
     console.log(arr[target])
 }
