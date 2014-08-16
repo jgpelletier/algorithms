@@ -31,7 +31,7 @@ var interval = 13
 var y = 1
 var greatest
 var popped
-//while (i >= 13) {
+while (i >= 13) {
 
     var multiply = arr.slice(-(interval))
     for ( var x = 0; x < interval; x++) {
@@ -51,8 +51,11 @@ var popped
         greatest = y
         popped = arr.pop()
     } else {
+        greatest = greatest
         popped = arr.pop()
     }
+    y = 1
+    i = arr.length
+}
 
-    console.log(arr)
-//}
+console.log(greatest)
