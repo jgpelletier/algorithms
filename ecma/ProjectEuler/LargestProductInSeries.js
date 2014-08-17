@@ -29,33 +29,30 @@ var arr = string.split("")
 var i = arr.length
 var interval = 13
 var y = 1
-var greatest
+var greatest = 1
 var popped
 while (i >= 13) {
 
     var multiply = arr.slice(-(interval))
     for ( var x = 0; x < interval; x++) {
-        if (multiply[x] == 0) {
-            z = 1
-        } else {
+        //if (multiply[x] == 0) {
+        //    z = 1
+        //} else {
          z = multiply[x].valueOf()
-        }
+        //}
          y = y * z
     }
 
-    if (!greatest) {
-        greatest = y
-        popped = arr.pop()
-    }
-    else if (greatest <= y) {
+    if (greatest <= y) {
         greatest = y
         popped = arr.pop()
     } else {
-        greatest = greatest
         popped = arr.pop()
     }
+    console.log
     y = 1
     i = arr.length
+    console.log(i)
 }
 
 console.log(greatest)
