@@ -145,7 +145,7 @@ function eastOfRecursive (list, city, count /* <- value does not change */) {
 
 
 function westOf (list, stop, count /* <- count */) {
-    var arr = [] // <- it's not zero
+    var arr = []
     var node = list
     while (node && node.city != stop) {
         arr.push({
@@ -193,7 +193,7 @@ function goEast (list, count) {
         if (!node.east) {
             return null
         } else {
-        node = node.east
+            node = node.east
         }
     }
     return node
@@ -205,7 +205,7 @@ function goWest (list, count) {
         if (!node.west) {
             return null
         } else {
-        node = node.west
+            node = node.west
         }
     }
     return node
@@ -259,10 +259,10 @@ function isCityEastOf (railway, city, count, eastCity) {
     return  false
 }
 
-function isEastOf (railway, city, count, property, value) { // <- add a parameter
-    var array = eastOf(railway, city, count)// this will not change
+function isEastOf (railway, city, count, property, value) {
+    var array = eastOf(railway, city, count)
     for (var i = 0; i < array.length; i++) {
-        if (array[i][property] == value) {// objects can use any string as a key
+        if (array[i][property] == value) {
             return true
         }
     }
@@ -272,7 +272,7 @@ function isEastOf (railway, city, count, property, value) { // <- add a paramete
 // function to return information about the object
 function getStationName(object) {
     return object.station
- }
+}
 
 function getCity(object) {
     return object.city
