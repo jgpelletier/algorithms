@@ -29,7 +29,7 @@ function lineCount (file, callback) { // <- vvvvvv async vvvvvv
     // fs.readFile / File System section of the Node.js API docs.
     fs.readFile(file, 'ascii', function (err, buffer) { // <- a new stack is here
         if (err){
-                callback(err)
+            callback(err)
         } else {
             line_count = 0
 
@@ -58,8 +58,7 @@ function main (file) {
                 console.log('Une erreur s\'est produite.')
             }
             return
-        }
-        else if (err) {
+        } else if (err) {
             if (err.code == 'ENOENT') {
                 console.log('File does not exist.')
             } else {
@@ -76,7 +75,7 @@ function main (file) {
         }
     }
 
-lineCount(file, lines)
+    lineCount(file, lines)
 }
 
 
