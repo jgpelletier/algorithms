@@ -49,6 +49,38 @@ function addWest (list) { // <- simple, west of
 }
 
 
+// functions to be used on linked lists.
+function dump (list) { // <- dump
+    console.log(util.inspect(list, null, null))
+}
+
+
+function pop (object) {// this does not mutate that list.
+    return object.east
+}
+
+function find (list, city) {
+    while (list) {
+        if (list.city == city) {
+            return list
+        }
+        list = list.east
+    }
+}
+
+// counts the length of the list.
+function length (list) {
+    var count = 0
+    while (list) { // <- loop. loop one.
+        if (!list.east) {
+            return count
+        }
+        list = list.east
+        count++
+    }
+}
+
+
 // Assignment
     // map(list, f)
     //
@@ -78,6 +110,10 @@ function map (list, f) {
     return arr
 }
 
+exports.dump = dump
+exports.pop = pop
+exports.find = find
+exports.length = length
 exports.objectFrom = objectFrom
 exports.objectify = objectify
 exports.link = link

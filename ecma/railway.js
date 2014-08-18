@@ -32,37 +32,6 @@ function createRailway (data, west) {
     return railway
 }
 
-// functions to be used on linked lists.
-function dump (list) { // <- dump
-    console.log(util.inspect(list, null, null))
-}
-
-
-function pop (object) {// this does not mutate that list.
-    return object.east
-}
-
-function find (list, city) {
-    while (list) {
-        if (list.city == city) {
-            return list
-        }
-        list = list.east
-    }
-}
-
-// counts the length of the list.
-function length (list) {
-    var count = 0
-    while (list) { // <- loop. loop one.
-        if (!list.east) {
-            return count
-        }
-        list = list.east
-        count++
-    }
-}
-
 // functions that returns an array from the list.
 function toArray (list) {
     var arr = []
@@ -288,10 +257,6 @@ function getObject (node) {
 }
 
 exports.createRailway = createRailway
-exports.dump = dump
-exports.pop = pop
-exports.find = find
-exports.length = length
 exports.toArray = toArray
 exports.eastOf = eastOf
 exports.eastOfRecursive = eastOfRecursive
