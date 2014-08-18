@@ -35,11 +35,7 @@ while (i >= 13) {
 
     var multiply = arr.slice(-(interval))
     for ( var x = 0; x < interval; x++) {
-        //if (multiply[x] == 0) {
-        //    z = 1
-        //} else {
          z = multiply[x].valueOf()
-        //}
          y = y * z
     }
 

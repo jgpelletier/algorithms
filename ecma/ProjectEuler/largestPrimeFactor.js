@@ -13,13 +13,12 @@ console.log(new Date)
 var largest
 
 function arrayOfPrimes (arr, primesBelow) {
-var i = 2
-var zeroes = 0
-var x
-var y
-var sqrRt = Math.sqrt(i)
-var whole = Math.ceil(sqrRt)
-
+    var i = 2
+    var zeroes = 0
+    var x
+    var y
+    var sqrRt = Math.sqrt(i)
+    var whole = Math.ceil(sqrRt)
 
     for ( i; i < primesBelow; i++) {
         sqrRt = Math.sqrt(i)
