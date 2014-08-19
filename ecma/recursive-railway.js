@@ -35,9 +35,10 @@ var railway = require('./railway')
 
 function travel (list, callback) {
     var offset = 0
-    node= railway.gotoStation(list, 'Kalamazoo')
+    node= railway.gotoStation(list, 'Kalamazoo') // <- Use of string literal is incorrect
+                                                 //    No literals.
 
-    while(node.west) { // goes west until it can go no further
+    while(node.west) { // needs to recursively go west.
         offset--
         node = node.west
     }
