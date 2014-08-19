@@ -34,27 +34,30 @@ var list = require('./list')
 var railway = require('./railway')
 
 function travel (list, callback) {
-
+    var offset = 0
     node= railway.gotoStation(list, 'Kalamazoo')
 
     while(node.west) { // goes west until it can go no further
+        offset--
         node = node.west
     }
 
-    callback(null, node)
+    callback(offset, node)
 }
 
 
 function main (file) {
     var node
+
     var mcrr = railway.createRailway(file, true)
 
-    function iterateEast(err, node) {
+    function iterateEast(offset, node) {
 
             if (node) {
-                console.log(node.station)
+                console.log(node.station, offset)
+                offset++
                 node = node.east
-                iterateEast(null, node) // calls itself
+                iterateEast(offset, node) // calls itself
             }
     }
 
