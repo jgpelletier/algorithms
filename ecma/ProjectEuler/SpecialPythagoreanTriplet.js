@@ -11,33 +11,37 @@
 var m = 1
 var n = m + 1
 var a, b, c
-var target = 100
+var target_m = 25
+var target_n = 100
 
-    while (m < target ) { // need to account for the pythagorean trip in the loop
+while (m < target_m ) {
+    console.log('while loop', m)
+    for ( n; n < target_n; n++ ) {
+        a = (Math.pow(n,2)) - (Math.pow(m,2))
+        b = 2*m*n
+        c = (Math.pow(m,2)) + (Math.pow(n,2))
 
-        for ( n; n < target; n++ ) {
-            a = (Math.pow(n,2)) - (Math.pow(m,2))
-            b = 2*m*n
-            c = (Math.pow(m,2)) + (Math.pow(n,2))
-            //console.log(a,b,c)
-
-            /*if ((Math.pow(a,2)) + (Math.pow(b,2)) == (Math.pow(c,2))) {
-                    console.log('triplet', a, b, c)
-            }
-           */
-
-            if ( a > b) {
-                break
-            }
-            else if (b > c) {
-                break
-            }
-            else {
-                    console.log('triplet', a, b, c, (a + b + c))
-            }
-            /*else if ( a + b + c == 1000 ) {
-                console.log('here I am:', a*b*c)
-            }*/
+        if ( a > b) {
+            //console.log('\t\ta is greater', a,b,c)
+            break
         }
-        m++
+        else {
+           while ((a%2 == 0) && (b%2 == 0) && (c%2 == 0)) {
+                a = a/2
+                b = b/2
+                c = c/2
+            }
+
+            if ( a + b + c == 1000 ) {
+                var y = a * b * c
+                //console.log('\t\t\t\there I am:', a*b*c)
+            }
+
+            console.log('\ttriplet', a, b, c, (a + b + c))
+        }
     }
+    m++
+    n = m + 1
+}
+
+console.log(y)
