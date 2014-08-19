@@ -1,7 +1,5 @@
-
 // go to Kalamazoo and get a node.
 // return node, but it is an abstract.
-
 
 // travel
 
@@ -16,10 +14,46 @@
 // iterateEast(node, count)
 // iterateEast(node, count + 1)
 //
-console.log(getObject(objectYouGaveMe))
+/*
+//vvv this is WRONG!!
+console.log(getObject(objectYouGaveMe)) // we do not want to give the user the object.
+                                        // if we do they will get an ugly
+                                        // recursive object
 
-gotoStation(node, 'city', 'Kalamazoo')
+// vvv this is more of what we are looking to provide to the user
+gotoStation(node, 'city', 'Kalamazoo') // the user gets an object property
 
 travel(node, function (station, offset) {
-    console.log(offset, station
+    console.log(offset, station)
 })
+*/
+
+var list = require('./list')
+var railway = require('./railway')
+
+function travel (node, callback) {
+    var mcrr = railway.createRailway(process.argv[2], true) // <- this is inside the function?
+    var node = railway.gotoStation(mcrr, node)
+}
+
+function iterateEast(node) { // need to recursively call this
+    railway.getStationName(node)
+}
+
+
+
+//console.log(typeof(mcrr))
+//list.dump(mcrr)
+
+/*
+  function travel(node, function(station, offset) {
+
+ })
+ */
+
+/*
+// vvv callbacks
+function iterateWest(node, count)
+function iterateEast(node, count) // focus on this one
+
+*/
