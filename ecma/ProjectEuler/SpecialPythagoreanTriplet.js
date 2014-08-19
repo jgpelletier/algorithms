@@ -19,11 +19,25 @@ var target = 100
             a = (Math.pow(n,2)) - (Math.pow(m,2))
             b = 2*m*n
             c = (Math.pow(m,2)) + (Math.pow(n,2))
-            console.log(a,b,c)
-            if ( a + b + c == 1000 ) {
-                console.log(a*b*c)
-            }
-        }
+            //console.log(a,b,c)
 
+            /*if ((Math.pow(a,2)) + (Math.pow(b,2)) == (Math.pow(c,2))) {
+                    console.log('triplet', a, b, c)
+            }
+           */
+
+            if ( a > b) {
+                break
+            }
+            else if (b > c) {
+                break
+            }
+            else {
+                    console.log('triplet', a, b, c, (a + b + c))
+            }
+            /*else if ( a + b + c == 1000 ) {
+                console.log('here I am:', a*b*c)
+            }*/
+        }
         m++
     }
