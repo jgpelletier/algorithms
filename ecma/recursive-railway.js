@@ -31,15 +31,32 @@ travel(node, function (station, offset) {
 var list = require('./list')
 var railway = require('./railway')
 
-function travel (node, callback) {
-    var mcrr = railway.createRailway(process.argv[2], true) // <- this is inside the function?
-    var node = railway.gotoStation(mcrr, node)
+//                  vvv uses fs.readFileSync
+var mcrr = railway.createRailway(process.argv[2], true) // <- does this need to be passed as an argument?
+                                                        //    at some point I could use fs.readfile
+                                                        //    it is synchronous right now
+
+var node
+
+function travel (list, callback) {
+
+    node= railway.gotoStation(list, 'Kalamazoo')
+    callback(null, node)
 }
 
-function iterateEast(node) { // need to recursively call this
-    railway.getStationName(node)
+function main (file) {
+    var mcrr = railway.createRailway(file, true) // <- does this need to be passed as an argument?
+
+    function iterateEast(err, node) { // need to recursively call this
+        console.log(node)
+       // railway.getStationName(node)
+    }
+
+
+    travel(mcrr, iterateEast) //iterateEast)
 }
 
+main(process.argv[2])
 
 
 //console.log(typeof(mcrr))
