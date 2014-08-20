@@ -9,7 +9,7 @@
 // Kalamazoo, call the callback you pass in `getObject`, first argument, second
 // argument position on railway relative to Kalamazoo, where Dogwinac is -1 and
 // Ann Arbor is 3 (or 4).
-//
+// 2 different callbacks/
 // iterateWest(node, count - 1)
 // iterateEast(node, count)
 // iterateEast(node, count + 1)
@@ -27,7 +27,20 @@ gotoStation(node, 'city', 'Kalamazoo') // the user gets an object property
                         vvv this variable is not available to the outer closure
 travel(node, function (station, offset) {
     console.log(offset, station)
-})
+
+----------------------------------------------
+
+NOTES:
+
+the emblematic pattern for asynchronous call:
+       asyncFunc(args, function(err, result) {
+        if (err)
+            // error: propagate it or handle it
+        else
+          // do something with result
+        });
+
+what pattern do I need to use for the functions below?
 */
 
 
@@ -41,17 +54,14 @@ function travel (list, offset, callback) {// <- this must be the recursive funct
     //vvv this may be the wrong way to get here. how do I use a recursive
     //function to get to this node?
     //node= railway.gotoStation(list, 'Kalamazoo') // <- Use of string literal is incorrect
-                                                   //    No literals.
 
+    // How do I keep the callback for the final iteration, while also call
+    // travel recursivally?
     var node = list
     if (node.west) { // needs to recursively go west.
-        offset--
-        node = node.west
-        console.log(node.station, offset)
-        travel(node, offset, null) // <- both are passed
+        travel(node.west, offset, callback) // <- both are passed
     }
 
-    console.log(typeof(callback))
 
 
     callback(offset, node)
@@ -64,22 +74,31 @@ function main (file) {
     var voyageFrom = process.argv[3] // <- where does this go?
 
     var mcrr = railway.createRailway(file, true)
-    node= railway.gotoStation(mcrr, voyageFrom) // <- Use of string literal is incorrect
+    node= railway.gotoStation(mcrr, voyageFrom)
 
-    console.log(node.station)
+/*
+    function traverseWest(offset, node) { // use same recursive function for each direction.
 
-    function traverse(offset, node) { // use same recursive function for each direction.
+        if (node.west) { // needs to recursively go west.
+            offset--
+            node = node.west
+            travel(node, offset, callback) // <- both are passed
+        }
+    }
+*/
 
-            if (node) {
-                console.log(node.station, offset)
-                offset++
-                node = node.east
-                traverse(offset, node) // calls itself
-            }
 
+    function traverse(offset, node) {
+        if (node) {
+            console.log(node.station, offset)
+            offset++
+            node = node.east
+            traverse(offset, node) // calls itself
+        }
+    }
 
-//         vvv
-    travel(node, offset, traverse) // this sets the node, whic is passed to the callback
+         // vvv
+    travel(node, offset, traverse) // this sets the node, which is passed to the callback
 
 }
 
