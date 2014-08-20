@@ -31,7 +31,7 @@ function lineCount (file, callback) { // <- vvvvvv async vvvvvv
         if (err){
             callback(err)
         } else {
-            line_count = 0
+            var line_count = 0
 
             for (var i = 0; i < buffer.length; i++) {
                 if (buffer[i] == '\n') {

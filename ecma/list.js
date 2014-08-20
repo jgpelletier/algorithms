@@ -1,4 +1,6 @@
 // linked list functions. They are exported, and used in railway.
+var fs = require('fs')
+var util = require('util')
 
 function objectFrom (string) {
     var object = null
