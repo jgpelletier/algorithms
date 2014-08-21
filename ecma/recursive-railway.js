@@ -27,44 +27,45 @@ gotoStation(node, 'city', 'Kalamazoo') // the user gets an object property
                         vvv this variable is not available to the outer closure
 travel(node, function (station, offset) {
     console.log(offset, station)
-
-----------------------------------------------
-
-NOTES:
-
-the emblematic pattern for asynchronous call:
-       asyncFunc(args, function(err, result) {
-        if (err)
-            // error: propagate it or handle it
-        else
-          // do something with result
-        });
-
-what pattern do I need to use for the functions below?
 */
-
-
 
 var list = require('./list')
 var railway = require('./railway')
 
-function travel (list, offset, callback) {// <- this must be the recursive function
-    //var offset = 0 // <- off set inside the recursive function is an issue.
 
-    //vvv this may be the wrong way to get here. how do I use a recursive
-    //function to get to this node?
-    //node= railway.gotoStation(list, 'Kalamazoo') // <- Use of string literal is incorrect
+function traverseWest(offset, node) { // recursive function for west direction.
+        //if (node.west) {
+            offset--
+            node = node.west
+            //console.log(node.station, offset)
+            //traverseWest(offset, node) // calls itself
+        //}
+        console.log(node.station, offset)
+        return node
+}
 
-    // How do I keep the callback for the final iteration, while also call
-    // travel recursivally?
+
+function travel (list, callback) {
+
+    var offset = 0
     var node = list
-    if (node.west) { // needs to recursively go west.
-        travel(node.west, offset, callback) // <- both are passed
+       console.log(node.city)
+    function traverseWest(offset, node) { // recursive function for west direction.
+       console.log(node.city)
+       if (!node) {
+            console.log('in if')
+            return node
+        } else {
+            return traverseWest(--offset, node.west) // calls itself
+        }
+
+        return node
     }
 
 
-
-    callback(offset, node)
+    traverseWest(offset, node)
+    //console.log(node)
+    //callback(offset, node)
 }
 
 
@@ -75,17 +76,6 @@ function main (file) {
 
     var mcrr = railway.createRailway(file, true)
     node= railway.gotoStation(mcrr, voyageFrom)
-
-/*
-    function traverseWest(offset, node) { // use same recursive function for each direction.
-
-        if (node.west) { // needs to recursively go west.
-            offset--
-            node = node.west
-            travel(node, offset, callback) // <- both are passed
-        }
-    }
-*/
 
 
     function traverse(offset, node) {
@@ -98,7 +88,7 @@ function main (file) {
     }
 
          // vvv
-    travel(node, offset, traverse) // this sets the node, which is passed to the callback
+    travel(node,traverse) // this sets the node, which is passed to the callback
 
 }
 
