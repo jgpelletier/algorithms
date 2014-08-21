@@ -56,7 +56,6 @@ function main (file) {
     var mcrr = railway.createRailway(file, true)
     node= railway.gotoStation(mcrr, voyageFrom)
 
-
     function traverseEast(offset, node) {
         if (node) {
             console.log(node.station, offset)
@@ -64,6 +63,11 @@ function main (file) {
             node = node.east
             traverseEast(offset, node) // calls itself
         }
+    }
+
+    if (!node) {
+        console.log('Please enter a station name')
+        process.exit(1)
     }
 
     travel(node, traverseEast) // this sets the node, which is passed to the callback
