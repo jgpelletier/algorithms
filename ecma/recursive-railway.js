@@ -9,7 +9,7 @@
 // Kalamazoo, call the callback you pass in `getObject`, first argument, second
 // argument position on railway relative to Kalamazoo, where Dogwinac is -1 and
 // Ann Arbor is 3 (or 4).
-// 2 different callbacks/
+
 // iterateWest(node, count - 1)
 // iterateEast(node, count)
 // iterateEast(node, count + 1)
@@ -32,63 +32,41 @@ travel(node, function (station, offset) {
 var list = require('./list')
 var railway = require('./railway')
 
-
-function traverseWest(offset, node) { // recursive function for west direction.
-        //if (node.west) {
-            offset--
-            node = node.west
-            //console.log(node.station, offset)
-            //traverseWest(offset, node) // calls itself
-        //}
-        console.log(node.station, offset)
-        return node
-}
-
-
 function travel (list, callback) {
 
     var offset = 0
     var node = list
-       console.log(node.city)
     function traverseWest(offset, node) { // recursive function for west direction.
-       console.log(node.city)
-       if (!node) {
-            console.log('in if')
-            return node
+       if (!node.west) {
+            callback(offset, node)
         } else {
             return traverseWest(--offset, node.west) // calls itself
         }
-
-        return node
     }
 
-
     traverseWest(offset, node)
-    //console.log(node)
-    //callback(offset, node)
 }
 
 
 function main (file) {
     var node
     var offset = 0
-    var voyageFrom = process.argv[3] // <- where does this go?
+    var voyageFrom = process.argv[3]
 
     var mcrr = railway.createRailway(file, true)
     node= railway.gotoStation(mcrr, voyageFrom)
 
 
-    function traverse(offset, node) {
+    function traverseEast(offset, node) {
         if (node) {
             console.log(node.station, offset)
             offset++
             node = node.east
-            traverse(offset, node) // calls itself
+            traverseEast(offset, node) // calls itself
         }
     }
 
-         // vvv
-    travel(node,traverse) // this sets the node, which is passed to the callback
+    travel(node,traverseEast) // this sets the node, which is passed to the callback
 
 }
 
