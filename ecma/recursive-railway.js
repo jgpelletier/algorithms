@@ -76,19 +76,3 @@ function main (file) {
 
 
 main(process.argv[2])
-
-
-
-/*
-  function travel(node, function(station, offset) {
-
- })
- */
-
-/*
-// vvv callbacks
-function iterateWest(node, count)
-function traverse(node, count) // focus on this one
-
-       // railway.getStationName(node)
-*/
