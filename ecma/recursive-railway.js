@@ -39,9 +39,9 @@ function travel (list, callback) {
     function traverseWest(offset, node) { // recursive function for west direction.
        if (!node.west) {
             callback(offset, node)
-        } else {
+       } else {
             return traverseWest(--offset, node.west) // calls itself
-        }
+       }
     }
 
     traverseWest(offset, node)
@@ -66,7 +66,7 @@ function main (file) {
         }
     }
 
-    travel(node,traverseEast) // this sets the node, which is passed to the callback
+    travel(node, traverseEast) // this sets the node, which is passed to the callback
 
 }
 
