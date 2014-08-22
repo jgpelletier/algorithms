@@ -52,6 +52,7 @@ function travel (list, callback) {
                 node = node.east
 
            }
+           return
        } else {
             return traverseWest(--offset, node.west) // calls itself
        }
