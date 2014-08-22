@@ -38,7 +38,20 @@ function travel (list, callback) {
     var node = list
     function traverseWest(offset, node) { // recursive function for west direction.
        if (!node.west) {
-            callback(offset, node)
+            while (node) {
+
+                var userObject = {
+                    station: node.station,
+                    state: node.state,
+                    city: node.city
+                }
+
+                callback(offset, userObject) // receives an object from the list
+
+                offset++
+                node = node.east
+
+           }
        } else {
             return traverseWest(--offset, node.west) // calls itself
        }
@@ -47,6 +60,11 @@ function travel (list, callback) {
     traverseWest(offset, node)
 }
 
+// is this this fixed so the user is not doing the node manipulation? Now I pass the callback
+// a userObject rather then a list as the travel function iterates though the
+// list.
+//
+// Call the call back for each object and provide the station property as you go east.
 
 function main (file) {
     var node
@@ -57,12 +75,7 @@ function main (file) {
     node= railway.gotoStation(mcrr, voyageFrom)
 
     function traverseEast(offset, node) {
-        if (node) {
             console.log(node.station, offset)
-            offset++
-            node = node.east
-            traverseEast(offset, node) // calls itself
-        }
     }
 
     if (!node) {
