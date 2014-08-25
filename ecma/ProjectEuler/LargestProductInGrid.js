@@ -55,11 +55,13 @@ function xy(horizontal, grid) {
         if (horizontal) {
             temp = grid[x];// <- accepts element from grid
         } else {
+            temp = _.pluck(grid, x)
+/*
            temp = _.map(rest,_.first)
            rest = _.rest(rest)// <- this takes the top off
            //console.log(temp)
            console.log(rest)
-        /*
+/*
               temp = _.each(grid, _.map(grid, function (num) {
                            return num
                      }))
@@ -76,6 +78,7 @@ function xy(horizontal, grid) {
  */
         //   _.each(temp,function(n) {return console.log(n)})
         }
+        console.log(temp)
 
         for (var z = 0; z < temp.length; z++) {
                 row = temp.slice(z, z+toMultiply)
