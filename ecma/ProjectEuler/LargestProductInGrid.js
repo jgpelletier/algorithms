@@ -44,32 +44,37 @@ for (var x = 0; x < 20; x++) {
 
 console.log(grid)
 
-function selectSection (table, index) {
-  return _.map(table, /*needs a function*/)
-}
 
 function xy(horizontal, grid) {
-    var token = [];
-    var temp = [];
+    var token = []
+    var temp = []
+    var rest = grid
 
-    for (var x = 0; x < 1; x++) {
+    for (var x = 0; x < 2; x++) {
 
         if (horizontal) {
             temp = grid[x];// <- accepts element from grid
         } else {
-
-        // am I able to use underscore here to map an array into temp
-        // using the the y position in the grid
-
-
+           temp = _.map(rest,_.first)
+           rest = _.rest(rest)// <- this takes the top off
+           //console.log(temp)
+           console.log(rest)
         /*
+              temp = _.each(grid, _.map(grid, function (num) {
+                           return num
+                     }))
+                     */
+        // am I able to use underscore here to map an array into temp
+        // using the the y position in the grid?
+/*
+
             for ( var y = 0; y < 20; y++) {
                     temp.push(grid[y][x]) // <- creates new array by taking
                                           //    the number at the given y position
                                           //    in x array.
             }
-        */
-
+ */
+        //   _.each(temp,function(n) {return console.log(n)})
         }
 
         for (var z = 0; z < temp.length; z++) {
