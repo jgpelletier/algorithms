@@ -42,11 +42,11 @@ for (var x = 0; x < 20; x++) {
     }
 }
 
-console.log(grid)
+//console.log(grid)
 
 
 function xy(horizontal, grid) {
-    var token = []
+    var setOfFours = []
     var temp = []
     var rest = grid
 
@@ -63,13 +63,33 @@ function xy(horizontal, grid) {
                 if (row.length != toMultiply) {
                     break
                 } else {
-                    token.push(row)
+                    setOfFours.push(row)
                 }
         }
+
         temp = []
      }
 
-     return token
+     return setOfFours
 }
 
-console.log((xy(false, grid)))
+//console.log((xy(false, grid)))
+
+function diagonal(/*left,*/ grid) {
+// what variables?
+var position  // <- this will be the number x and y reference
+var temp = []
+var x, y
+   //if (left) {
+    position = 3
+    //need a mechanism to fill temp array
+       for (x = position, y= 0; y <= position; y++, x--) {
+            temp.push(grid[x][y])
+       }
+   //} else {
+
+   //}
+    console.log(temp)
+}
+
+diagonal(grid)
