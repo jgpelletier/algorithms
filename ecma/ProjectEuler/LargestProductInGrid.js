@@ -79,17 +79,33 @@ function diagonal(/*left,*/ grid) {
 // what variables?
 var position  // <- this will be the number x and y reference
 var temp = []
+var setOfFours = []
+var count = 0
 var x, y
    //if (left) {
     position = 3
     //need a mechanism to fill temp array
-       for (x = position, y= 0; y <= position; y++, x--) {
+    while (position < 20) {
+        for (x = position, y= 0; y <= position; y++, x--) {
             temp.push(grid[x][y])
-       }
-   //} else {
+        }
 
-   //}
-    console.log(temp)
+        for (var z = 0; z < temp.length; z++) {
+            row = temp.slice(z, z+toMultiply)
+            if (row.length != toMultiply) {
+                break
+            } else {
+                setOfFours.push(row)
+            }
+        }
+        console.log(temp)
+        console.log('count', count)
+        console.log(temp.length)
+        count++
+        temp = []
+        position++
+    }
+    console.log(count)
 }
 
 diagonal(grid)
