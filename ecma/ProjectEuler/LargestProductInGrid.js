@@ -76,21 +76,18 @@ function xy(horizontal, grid) {
 //console.log((xy(true, grid)))
 
 function diagonal(/*left,*/ grid) {
-var position  // <- this will be the number x and y reference
-var temp = []
-var setOfFours = []
-var count = 0
-var x, y
-   //if (left) {
+    var position  // <- this will be the number x and y reference
+    var temp = []
+    var setOfFours = []
+    var count = 0
+    var x, y
     position = 3
-    //need a mechanism to fill temp array
-    while (position < 20) { // <- this only goes one direction.
-                            //    I need the backside of the square.
+
+    while (position < 20) {
         for (x = position, y= 0; y <= position; y++, x--) {
             temp.push(grid[x][y])
-            //console.log(grid[x][y])
-            //console.log('x =', x, 'y =', y)
         }
+
         // make vvv this a function.
         for (var z = 0; z < temp.length; z++) {
             row = temp.slice(z, z+toMultiply)
@@ -101,21 +98,17 @@ var x, y
             }
         }
         console.log(temp)
-        //console.log('count', count)
-        //console.log(temp.length)
-        //count++
         temp = []
         position++
     }
-   //console.log(position) // position is 20
-   position--
-     while (position > 0) {
+
+    position--
+    while (position > 0) {
         for (x = position, y= 1; y <= position; y++, x--) {
             temp.push(grid[x][y])
-            //console.log('x =', x, 'y =', y)
         }
-        // make vvv this a function.
 
+        // make vvv this a function.
         for (var z = 0; z < temp.length; z++) {
             row = temp.slice(z, z+toMultiply)
             if (row.length != toMultiply) {
@@ -125,12 +118,10 @@ var x, y
             }
         }
         console.log(temp)
-        //console.log('count', count)
-        //console.log(temp.length)
-        //count++
         temp = []
         position--
     }
+
     return setOfFours
 }
 
