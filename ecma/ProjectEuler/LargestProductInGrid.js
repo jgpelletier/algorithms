@@ -109,15 +109,13 @@ var x, y
     }
    //console.log(position) // position is 20
    position--
-     while (position > 0) { // <- this only goes one direction.
-                            //    I need the backside of the square.
+     while (position > 0) {
         for (x = position, y= 1; y <= position; y++, x--) {
-        //console.log(grid[x][y]) // <- cannot read 1 of undefined
             temp.push(grid[x][y])
             //console.log('x =', x, 'y =', y)
         }
         // make vvv this a function.
-        /*
+
         for (var z = 0; z < temp.length; z++) {
             row = temp.slice(z, z+toMultiply)
             if (row.length != toMultiply) {
@@ -125,7 +123,7 @@ var x, y
             } else {
                 setOfFours.push(row)
             }
-        }*/
+        }
         console.log(temp)
         //console.log('count', count)
         //console.log(temp.length)
@@ -133,6 +131,7 @@ var x, y
         temp = []
         position--
     }
+    return setOfFours
 }
 
-diagonal(grid)
+console.log(diagonal(grid))
