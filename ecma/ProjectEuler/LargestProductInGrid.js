@@ -89,7 +89,7 @@ var x, y
         for (x = position, y= 0; y <= position; y++, x--) {
             temp.push(grid[x][y])
             //console.log(grid[x][y])
-            console.log('x =', x, 'y =', y)
+            //console.log('x =', x, 'y =', y)
         }
         // make vvv this a function.
         for (var z = 0; z < temp.length; z++) {
@@ -113,8 +113,8 @@ var x, y
                             //    I need the backside of the square.
         for (x = position, y= 1; y <= position; y++, x--) {
         //console.log(grid[x][y]) // <- cannot read 1 of undefined
-            //temp.push(grid[x][y])
-            console.log('x =', x, 'y =', y)
+            temp.push(grid[x][y])
+            //console.log('x =', x, 'y =', y)
         }
         // make vvv this a function.
         /*
