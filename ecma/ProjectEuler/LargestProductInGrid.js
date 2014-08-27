@@ -66,14 +66,14 @@ function xy(horizontal, grid) {
                     setOfFours.push(row)
                 }
         }
-
+        console.log(temp)
         temp = []
      }
 
      return setOfFours
 }
 
-//console.log((xy(false, grid)))
+//console.log((xy(true, grid)))
 
 function diagonal(/*left,*/ grid) {
 var position  // <- this will be the number x and y reference
@@ -88,6 +88,8 @@ var x, y
                             //    I need the backside of the square.
         for (x = position, y= 0; y <= position; y++, x--) {
             temp.push(grid[x][y])
+            //console.log(grid[x][y])
+            console.log('x =', x, 'y =', y)
         }
         // make vvv this a function.
         for (var z = 0; z < temp.length; z++) {
@@ -105,14 +107,17 @@ var x, y
         temp = []
         position++
     }
-    console.log(position)
+   //console.log(position) // position is 20
+   position--
      while (position > 0) { // <- this only goes one direction.
                             //    I need the backside of the square.
-        for (y = position, x = 1; x >= position; y++, x--) {
-        console.log(grid[x][y])
-            temp.push(grid[x][y])
+        for (x = position, y= 1; y <= position; y++, x--) {
+        //console.log(grid[x][y]) // <- cannot read 1 of undefined
+            //temp.push(grid[x][y])
+            console.log('x =', x, 'y =', y)
         }
         // make vvv this a function.
+        /*
         for (var z = 0; z < temp.length; z++) {
             row = temp.slice(z, z+toMultiply)
             if (row.length != toMultiply) {
@@ -120,7 +125,7 @@ var x, y
             } else {
                 setOfFours.push(row)
             }
-        }
+        }*/
         console.log(temp)
         //console.log('count', count)
         //console.log(temp.length)
@@ -128,7 +133,6 @@ var x, y
         temp = []
         position--
     }
-   //console.log(count)
 }
 
 diagonal(grid)
