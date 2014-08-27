@@ -75,6 +75,8 @@ function xy(horizontal, grid) {
 
 //console.log((xy(true, grid)))
 
+
+
 function diagonal(/*left,*/ grid) {
     var position  // <- this will be the number x and y reference
     var temp = []
@@ -83,20 +85,24 @@ function diagonal(/*left,*/ grid) {
     var x, y
     position = 3
 
+    function set(temp) {
+        for (var z = 0; z < temp.length; z++) {
+                row = temp.slice(z, z+toMultiply)
+                if (row.length != toMultiply) {
+                    break
+                } else {
+                    setOfFours.push(row)
+                }
+        }
+    }
+
     while (position < 20) {
         for (x = position, y= 0; y <= position; y++, x--) {
             temp.push(grid[x][y])
         }
 
         // make vvv this a function.
-        for (var z = 0; z < temp.length; z++) {
-            row = temp.slice(z, z+toMultiply)
-            if (row.length != toMultiply) {
-                break
-            } else {
-                setOfFours.push(row)
-            }
-        }
+        set(temp)
         console.log(temp)
         temp = []
         position++
@@ -108,15 +114,8 @@ function diagonal(/*left,*/ grid) {
             temp.push(grid[x][y])
         }
 
-        // make vvv this a function.
-        for (var z = 0; z < temp.length; z++) {
-            row = temp.slice(z, z+toMultiply)
-            if (row.length != toMultiply) {
-                break
-            } else {
-                setOfFours.push(row)
-            }
-        }
+        set(temp)
+
         console.log(temp)
         temp = []
         position--
