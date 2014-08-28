@@ -36,23 +36,24 @@ function travel (list, callback) {
 
     var offset = 0
     var node = list
-    function traverseWest(offset, node) { // recursive function for west direction.
+
+    function traverseEast(offset, node) { // recursive function for west direction.
+        if (!node) {
+            return
+        } else {
+            var userObject = {
+                station: node.station,
+                state: node.state,
+                city: node.city
+            }
+            callback(offset, userObject)
+            return traverseEast(++offset, node.east)
+        }
+    }
+
+   function traverseWest(offset, node) { // recursive function for west direction.
        if (!node.west) {
-            while (node) {
-
-                var userObject = {
-                    station: node.station,
-                    state: node.state,
-                    city: node.city
-                }
-
-                callback(offset, userObject) // receives an object from the list
-
-                offset++
-                node = node.east
-
-           }
-           return
+            traverseEast(offset, node)
        } else {
             return traverseWest(--offset, node.west) // calls itself
        }
@@ -61,7 +62,7 @@ function travel (list, callback) {
     traverseWest(offset, node)
 }
 
-// is this this fixed so the user is not doing the node manipulation? Now I pass the callback
+// is this fixed so the user is not doing the node manipulation? Now I pass the callback
 // a userObject rather then a list as the travel function iterates though the
 // list.
 //
@@ -75,7 +76,7 @@ function main (file) {
     var mcrr = railway.createRailway(file, true)
     node= railway.gotoStation(mcrr, voyageFrom)
 
-    function traverseEast(offset, node) {
+    function callback(offset, node) {
             console.log(node.station, offset)
     }
 
@@ -84,7 +85,7 @@ function main (file) {
         process.exit(1)
     }
 
-    travel(node, traverseEast) // this sets the node, which is passed to the callback
+    travel(node, callback) // this sets the node, which is passed to the callback
 
 }
 
