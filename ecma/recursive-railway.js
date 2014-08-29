@@ -37,7 +37,7 @@ function travel (list, callback) {
     var offset = 0
     var node = list
 
-    function traverseEast(offset, node) { // recursive function for west direction.
+    function traverseEast (offset, node) { // recursive function for east direction.
         if (!node) {
             return
         } else {
@@ -46,27 +46,21 @@ function travel (list, callback) {
                 state: node.state,
                 city: node.city
             }
-            callback(offset, userObject)
-            return traverseEast(++offset, node.east)
+            callback(offset, userObject) // <- callback.
+            return traverseEast(++offset, node.east) // calls itself
         }
     }
 
-   function traverseWest(offset, node) { // recursive function for west direction.
-       if (!node.west) {
-            traverseEast(offset, node)
-       } else {
+    function traverseWest (offset, node) { // recursive function for west direction.
+        if (!node.west) {
+            traverseEast(offset, node) // <- call to function to go east.
+        } else {
             return traverseWest(--offset, node.west) // calls itself
-       }
+        }
     }
 
-    traverseWest(offset, node)
+    traverseWest(offset, node) // <- call to function to go west
 }
-
-// is this fixed so the user is not doing the node manipulation? Now I pass the callback
-// a userObject rather then a list as the travel function iterates though the
-// list.
-//
-// Call the call back for each object and provide the station property as you go east.
 
 function main (file) {
     var node
@@ -76,7 +70,7 @@ function main (file) {
     var mcrr = railway.createRailway(file, true)
     node= railway.gotoStation(mcrr, voyageFrom)
 
-    function callback(offset, node) {
+    function callback (offset, node) {
             console.log(node.station, offset)
     }
 
@@ -85,7 +79,7 @@ function main (file) {
         process.exit(1)
     }
 
-    travel(node, callback) // this sets the node, which is passed to the callback
+    travel(node, callback)
 
 }
 
