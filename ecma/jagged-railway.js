@@ -1,22 +1,16 @@
 var fs = require('fs')
-var list = require('./list')
-
-
 
 function main () {
     var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
-    var popped = lines.pop()
-    //var count = 0
+    var popped = lines.pop() // <- pops empty line
     lines.forEach(function (line) {
+        // INSTRUCTIONS:
         // replace this logging statement.
         // convert the line to an railroad station object.
         // print the object here.
-        // var userObject = list.objectFrom(line)
-        ///*
 
-        function object (line) {
+        function object (line) { // function to convert the line to a railroad station object
                 var string = line.split(',')
-                //count ++
                 return {
                     station: string[0].trim(),
                     city: string[1].trim(),
@@ -24,12 +18,8 @@ function main () {
                 }
         }
 
-        var userObject = object(line)
-        console.log(userObject)
-
-        // console.log(count)
-        // */
-        //console.log(line)
+        var userObject = object(line) // <- convert the line to a railroad station object
+        console.log(userObject) // <- replaced the logging statement and prints object
     })
 }
 
