@@ -37,7 +37,7 @@ function travel (list, callback) {
     var offset = 0
     var node = list
 
-    function traverseEast (offset, node) { // recursive function for east direction.
+    function traverseEast (offset, node) { // recursive function for east direction
         if (!node) {
             return
         } else {
@@ -46,14 +46,14 @@ function travel (list, callback) {
                 state: node.state,
                 city: node.city
             }
-            callback(offset, userObject) // <- callback.
+            callback(offset, userObject) // <- callback
             return traverseEast(++offset, node.east) // calls itself
         }
     }
 
-    function traverseWest (offset, node) { // recursive function for west direction.
+    function traverseWest (offset, node) { // recursive function for west direction
         if (!node.west) {
-            traverseEast(offset, node) // <- call to function to go east.
+            traverseEast(offset, node) // <- call to function to go east
         } else {
             return traverseWest(--offset, node.west) // calls itself
         }
