@@ -33,7 +33,7 @@ function main () {
         var userObject = object(line) // <- convert the line to a railroad station object
         console.log(userObject) // <- replaced the logging statement and prints object
 
-
+        // TODO:
         // Append the item to the linked list creating an `east` and `west`
         // link. The node will contain the object, it does not know or care what
         // the object is about.
