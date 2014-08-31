@@ -1,5 +1,19 @@
 var fs = require('fs')
 
+// The function below is declared every time `forEach` invokes the
+// anonymous function, but it does not use anything from the enclosing
+// scope, so it does not need to be defined inside the forEach function.
+// It should be defined outside of `main`.
+//       vvv
+function object (line) { // function to convert the line to a railroad station object
+        var string = line.split(',')
+        return {
+            station: string[0].trim(),
+            city: string[1].trim(),
+            state: string[2].trim()
+        }
+}
+
 function main () {
     var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
     var popped = lines.pop() // <- pops empty line
@@ -12,20 +26,6 @@ function main () {
         // replace this logging statement.
         // convert the line to an railroad station object.
         // print the object here.
-
-        // The function below is delcared every time `forEach` invokes the
-        // anonymous function, but it does not use anything from the enclosing
-        // scope, so it does not need to be defined here. It should be defined
-        // outside of `main`.
-        //       vvv
-        function object (line) { // function to convert the line to a railroad station object
-                var string = line.split(',')
-                return {
-                    station: string[0].trim(),
-                    city: string[1].trim(),
-                    state: string[2].trim()
-                }
-        }
 
         // Fix the above and then continue. If you check it all in at once you
         // are a bad programmer.
