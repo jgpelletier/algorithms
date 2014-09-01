@@ -1,4 +1,9 @@
 var fs = require('fs')
+var util = require('util')
+
+function dump (list) { // <- dump
+    console.log(util.inspect(list, null, null))
+}
 
 // The function below is declared every time `forEach` invokes the
 // anonymous function, but it does not use anything from the enclosing
@@ -53,7 +58,7 @@ function main () {
         //var node = userObject
         // Now link below
     })
-    console.log(head)
+    dump(head)
 }
 
 main()
