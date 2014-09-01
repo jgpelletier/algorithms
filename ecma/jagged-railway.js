@@ -19,27 +19,41 @@ function main () {
     var popped = lines.pop() // <- pops empty line
 
     // We are going to create a linked list.
-    var head = {}
+    var head
+    //var tail //<- it may be worth keeping track of this as well.
 
+    // converts the line to an railroad station object and prints the object.
     lines.forEach(function (line) {
-        // INSTRUCTIONS:
-        // replace this logging statement.
-        // convert the line to an railroad station object.
-        // print the object here.
-
-        // Fix the above and then continue. If you check it all in at once you
-        // are a bad programmer.
 
         var userObject = object(line) // <- convert the line to a railroad station object
-        console.log(userObject) // <- replaced the logging statement and prints object
+        userObject.east = null
+        userObject.west = null
+        // console.log(userObject) // <- replaced the logging statement and prints object
+
+        if (!head) {
+            head = userObject
+        } else {
+           var node = head
+           function goEast (node) {
+              if (!node.east) {
+                node.east = userObject
+                userObject.west = node
+              } else {
+                goEast(node.east)
+              }
+            }
+            goEast(node)
+        }
 
         // TODO:
         // Append the item to the linked list creating an `east` and `west`
         // link. The node will contain the object, it does not know or care what
         // the object is about.
-        var node = { object: object }
-        // Now link below.
+        // EXAMPLE - var node = { object: object } // <- this variable is within anonynmous function scope
+        //var node = userObject
+        // Now link below
     })
+    console.log(head)
 }
 
 main()
