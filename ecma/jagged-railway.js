@@ -4,6 +4,30 @@ var util = require('util')
 function dump (list) { // <- dump
     console.log(util.inspect(list, null, null))
 }
+ /*
+if (!head) {
+head = userObject
+tail = userObject
+} else {
+count ++
+tail.east = userObject
+userObject.west = tail
+tail = tail.east
+}
+// ^^^ Nice, but...
+*/
+function goEast (list, node) {
+  var prev = list
+  if (!list.east) {
+    list.east = node
+    node.west = list
+  } else {
+    goEast(list.east, node)
+  }
+}
+
+// ^^^ ... do this instead. Create a function that will walk to
+// the end of the list and append the node.
 
 // The function below is declared every time `forEach` invokes the
 // anonymous function, but it does not use anything from the enclosing
@@ -22,52 +46,27 @@ function object (line) { // function to convert the line to a railroad station o
 function main () {
     var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
     var popped = lines.pop() // <- pops empty line
-    var count = 0
+
     // We are going to create a linked list.
     var head
-    var tail //<- it may be worth keeping track of this as well.
 
     // converts the line to an railroad station object and prints the object.
     lines.forEach(function (line) {
-
+        var userObject = object(line) // <- convert the line to a railroad station object
+        var node = { object: userObject }
+        node.east = null
+        node.west = null
+        //console.log(node)
         // I said very clearly, at some point at least, that the user object was
         // going to be stored in a property of the node. It will not be the node
         // object itself. vvv
-        var userObject = object(line) // <- convert the line to a railroad station object
-        userObject.east = null
-        userObject.west = null
-
-        // faster to carry the tail rather than calling the recursive statement
-        // below.
+        //var userObject = object(line) // <- convert the line to a railroad station object
         if (!head) {
-            head = userObject
-            tail = userObject
+            head = node
         } else {
-            count ++
-            tail.east = userObject
-            userObject.west = tail
-            tail = tail.east
+            goEast(head, node)
         }
-        // ^^^ Nice, but...
 
-        /*
-           var node = head
-           function goEast (node) {
-              if (!node.east) {
-                node.east = userObject
-                userObject.west = node
-              } else {
-                count ++ // this iterates 91 times. How to carry the tail
-                goEast(node.east)
-              }
-            }
-            goEast(node)
-        }
-        */
-        // ^^^ ... do this instead. Create a function that will walk to
-        // the end of the list and append the node.
-
-        // The function does not belong inside this loop.
 
         // TODO:
         // Append the item to the linked list creating an `east` and `west`
@@ -78,7 +77,7 @@ function main () {
         // Now link below
     })
     dump(head)
-    console.log(count)
+    //console.log(count)
 }
 
 main()
