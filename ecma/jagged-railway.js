@@ -30,6 +30,9 @@ function main () {
     // converts the line to an railroad station object and prints the object.
     lines.forEach(function (line) {
 
+        // I said very clearly, at some point at least, that the user object was
+        // going to be stored in a property of the node. It will not be the node
+        // object itself. vvv
         var userObject = object(line) // <- convert the line to a railroad station object
         userObject.east = null
         userObject.west = null
@@ -45,6 +48,7 @@ function main () {
             userObject.west = tail
             tail = tail.east
         }
+        // ^^^ Nice, but...
 
         /*
            var node = head
@@ -60,6 +64,10 @@ function main () {
             goEast(node)
         }
         */
+        // ^^^ ... do this instead. Create a function that will walk to
+        // the end of the list and append the node.
+
+        // The function does not belong inside this loop.
 
         // TODO:
         // Append the item to the linked list creating an `east` and `west`
