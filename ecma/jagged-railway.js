@@ -1,21 +1,10 @@
 var fs = require('fs')
 var util = require('util')
 
-function dump (list) { // <- dump
+function dump (list) {
     console.log(util.inspect(list, null, null))
 }
- /*
-if (!head) {
-head = userObject
-tail = userObject
-} else {
-count ++
-tail.east = userObject
-userObject.west = tail
-tail = tail.east
-}
-// ^^^ Nice, but...
-*/
+
 function goEast (list, node) {
   var prev = list
   if (!list.east) {
@@ -26,7 +15,7 @@ function goEast (list, node) {
   }
 }
 
-// ^^^ ... do this instead. Create a function that will walk to
+// Create a function that will walk to
 // the end of the list and append the node.
 
 // The function below is declared every time `forEach` invokes the
@@ -56,28 +45,17 @@ function main () {
         var node = { object: userObject }
         node.east = null
         node.west = null
-        //console.log(node)
-        // I said very clearly, at some point at least, that the user object was
-        // going to be stored in a property of the node. It will not be the node
-        // object itself. vvv
-        //var userObject = object(line) // <- convert the line to a railroad station object
+        // ^^^ userObject is stored in a property of the node.
+        //     east and west are appended to the node
+
+        // vvv this links the list.
         if (!head) {
             head = node
         } else {
             goEast(head, node)
         }
-
-
-        // TODO:
-        // Append the item to the linked list creating an `east` and `west`
-        // link. The node will contain the object, it does not know or care what
-        // the object is about.
-        // EXAMPLE - var node = { object: object } // <- this variable is within anonynmous function scope
-        //var node = userObject
-        // Now link below
     })
     dump(head)
-    //console.log(count)
 }
 
 main()
