@@ -7,7 +7,6 @@ function dump (list) {
 
 function goEast (list, object) {
   var node = { object: object }
-  //var node = object
   var prev = list
   if (!list.east) {
     list.east = node
@@ -44,19 +43,9 @@ function main () {
     // converts the line to an railroad station object and prints the object.
     lines.forEach(function (line) {
         var userObject = object(line) // <- convert the line to a railroad station object
-        //var node = { object: userObject }
-        //node.east = null
-        //node.west = null
-        // ^^^ userObject is stored in a property of the node.
-        //     east and west are appended to the node
-
-        // vvv this links the list.
-        //if (!head) {
-        //    head = node
-        //} else {
-            goEast(head, userObject)
-        //}
+        goEast(head, userObject)
     })
+
     dump(head)
 }
 
