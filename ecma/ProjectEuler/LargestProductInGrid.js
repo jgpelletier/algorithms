@@ -70,10 +70,10 @@ function xy(horizontal, grid) {
         temp = []
      }
 
-     return setOfFours
+//     return setOfFours
 }
 
-//console.log((xy(true, grid)))
+console.log((xy(true, grid)))
 
 
 
@@ -96,12 +96,12 @@ function diagonal(/*left,*/ grid) {
         }
     }
 
+// how do I make position a function?
     while (position < 20) {
         for (x = position, y= 0; y <= position; y++, x--) {
             temp.push(grid[x][y])
         }
 
-        // make vvv this a function.
         set(temp)
         console.log(temp)
         temp = []
@@ -121,7 +121,7 @@ function diagonal(/*left,*/ grid) {
         position--
     }
 
-    return setOfFours
+    //return setOfFours
 }
 
 console.log(diagonal(grid))
