@@ -6,15 +6,15 @@ function dump (list) {
 }
 
 function goEast (list, object) {
-  var node = { object: object }
-  var prev = list
-  if (!list.east) {
-    list.east = node
-    node.west = list
-  } else {
-    goEast(list.east, object)
-  }
-}
+    var node = { object: object }
+    var prev = list
+    if (!list.east) {
+        list.east = node
+        node.west = list
+    } else {
+        goEast(list.east, object)
+    }
+    }
 
 // Create a function that will walk to
 // the end of the list and append the node.
@@ -25,12 +25,12 @@ function goEast (list, object) {
 // It should be defined outside of `main`.
 //       vvv
 function object (line) { // function to convert the line to a railroad station object
-        var string = line.split(',')
-        return {
-            station: string[0].trim(),
-            city: string[1].trim(),
-            state: string[2].trim()
-        }
+    var string = line.split(',')
+    return {
+        station: string[0].trim(),
+        city: string[1].trim(),
+        state: string[2].trim()
+    }
 }
 
 function main () {
