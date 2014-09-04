@@ -1,17 +1,21 @@
 var fs = require('fs')
 var util = require('util')
+var assert = require('assert')
+
+// assertion object?
 
 function dump (list) {
     console.log(util.inspect(list, null, null))
 }
 
-function goEast (list, object) {
+function goEast (list, count, object) {
     var node = { object: object }
     if (!list.east) {
         list.east = node
         node.west = list
+        count.push('')
     } else {
-        goEast(list.east, object)
+        goEast(list.east, count, object)
     }
 }
 // This ^^^^  creates a function that will walk to
@@ -29,22 +33,32 @@ function object (line) { // function to convert the line to a railroad station o
 // anonymous function.  It does not use anything from the enclosing
 // scope, so it does not need to be defined inside the forEach function.
 
+
 function main () {
     var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
     var popped = lines.pop() // <- pops empty line
-    var head = { east: null }
-    // ^^^ this is the head of the linked list.
+    var count = []
+    var head  = { east: null }
 
     lines.forEach(function (line) {
-        var userObject = object(line) // <- converts the line to a railroad station object
-        goEast(head, userObject)
-        //^^takes the head and the userObject. It creates a node with userObject property.
-        //  This node travels to the end of the list, and is linked the to the list by adding
-        //  an east property to what has become the second to last node. A west property
-        //  is attached to the last node, which links to the node directly proceeding it.
+        var userObject = object(line)
+        goEast(head, count, userObject)
     })
 
-    dump(head)
+    if (!head.east) { // tests if the list is empty
+        console.log('The list is empty.')
+    }
+    else if ( count.length != lines.length) { // tests to make sure each line in the file has an object
+        console.log('The list is missing objects')
+    } else {
+        dump(head)
+    }
+
+
+
+    //assert.ok(head == true")
+    // ^^ what am I asserting? object is true
+    //dump(head)
 }
 
 main()
