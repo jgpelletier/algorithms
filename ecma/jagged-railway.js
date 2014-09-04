@@ -5,6 +5,10 @@ function dump (list) {
     console.log(util.inspect(list, null, null))
 }
 
+// If the head of the list has no object property, then you know that the list
+// is empty, so you should immediately link the node to the east.
+//
+// Implement this as the first condition.
 function goEast (list, object) {
     var node = { object: object }
     if (!list.east) {
