@@ -8,14 +8,14 @@ function dump (list) {
     console.log(util.inspect(list, null, null))
 }
 
-function goEast (list, count, object) {
+function goEast (list, /*count,*/ object) {
     var node = { object: object }
     if (!list.east) {
         list.east = node
         node.west = list
-        count.push('')
+        //count.push('')
     } else {
-        goEast(list.east, count, object)
+        goEast(list.east, /*count,*/ object)
     }
 }
 // This ^^^^  creates a function that will walk to
@@ -37,19 +37,20 @@ function object (line) { // function to convert the line to a railroad station o
 function main () {
     var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
     var popped = lines.pop() // <- pops empty line
-    var count = []
+    //var count = []
     var head  = { east: null }
 
     lines.forEach(function (line) {
         var userObject = object(line)
-        goEast(head, count, userObject)
+        goEast(head,/* count,*/ userObject)
     })
 
     if (!head.east) { // tests if the list is empty
         console.log('The list is empty.')
-    }
+    /* }
     else if ( count.length != lines.length) { // tests to make sure each line in the file has an object
         console.log('The list is missing objects')
+    */
     } else {
         dump(head)
     }
