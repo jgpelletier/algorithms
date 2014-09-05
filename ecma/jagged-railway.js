@@ -8,14 +8,17 @@ function dump (list) {
     console.log(util.inspect(list, null, null))
 }
 
-// If the head of the list has no object property, then you know that the list
-// is empty, so you should immediately link the node to the east.
-//  Implement this as the first condition.
+// Split into 2 parts. Create a function called addStation. It knows that it has the 
+// head and tests if east is empty. If empty it will add the node otherwise it will 
+// go east.
+function addStation(list, object) {
+    if (list.east == null) {
+        list.east = object
+    }
+}
+
 function goEast (list, /*count,*/ object) {
     var node = { object: object }
-    // what test allows me to know the list is empty? The !list.east test allows
-    // me to use a recursive function, pass it a list with a head node that never
-    // has an object property, and add an object property to the end of the list.
     if (!list.east) {
         list.east = node
         node.west = list
@@ -48,6 +51,7 @@ function main () {
 
     lines.forEach(function (line) {
         var userObject = object(line)
+        addStation(head, userObject)
         goEast(head,/* count,*/ userObject)
     })
 /*
