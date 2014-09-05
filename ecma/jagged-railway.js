@@ -13,12 +13,15 @@ function dump (list) {
 //  Implement this as the first condition.
 function goEast (list, /*count,*/ object) {
     var node = { object: object }
+    // what test allows me to know the list is empty? The !list.east test allows
+    // me to use a recursive function, pass it a list with a head node that never
+    // has an object property, and add an object property to the end of the list.
     if (!list.east) {
         list.east = node
         node.west = list
         //count.push('')
     } else {
-        goEast(list.east, /*count,*/ object)
+        goEast(list.east, /*count,*/ object)// <- need to keep this recursive function
     }
 }
 // This ^^^^  creates a function that will walk to
@@ -41,28 +44,26 @@ function main () {
     var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
     var popped = lines.pop() // <- pops empty line
     //var count = []
-    var head  = { east: null }
+    var head  = { east: null } // <- this will never have an object propert.
 
     lines.forEach(function (line) {
         var userObject = object(line)
         goEast(head,/* count,*/ userObject)
     })
-
+/*
     if (!head.east) { // tests if the list is empty
         console.log('The list is empty.')
-    /* }
     else if ( count.length != lines.length) { // tests to make sure each line in the file has an object
         console.log('The list is missing objects')
-    */
     } else {
         dump(head)
     }
-
+*/
 
 
     //assert.ok(head == true")
     // ^^ what am I asserting? object is true
-    //dump(head)
+    dump(head)
 }
 
 main()
