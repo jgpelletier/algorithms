@@ -12,8 +12,9 @@ function dump (list) {
 // head and tests if east is empty. If empty it will add the node otherwise it will 
 // go east.
 function addStation(list, object) {
+    var node = { object: object }
     if (list.east == null) {
-        list.east = object
+        list.east = node 
     }
 }
 
@@ -51,8 +52,8 @@ function main () {
 
     lines.forEach(function (line) {
         var userObject = object(line)
-        addStation(head, userObject)
-        goEast(head,/* count,*/ userObject)
+        if (head.east == null) addStation(head, userObject) 
+        else goEast(head,/* count,*/ userObject)
     })
 /*
     if (!head.east) { // tests if the list is empty
