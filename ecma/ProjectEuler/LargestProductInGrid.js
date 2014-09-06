@@ -86,6 +86,18 @@ function set(inArray, outArray) {
     }
 }
 
+function diagonalSets(grid, start, inArray, outArray, x, y) {
+    while (start < 20) {
+        for (x = start, y = 0; y<= position; y++, x--) {
+            inArray.push(grid[x][y])
+        }
+        set(inArray, outArray)
+        console.log(inArray)
+        inArray = []
+        position++
+
+
+}
 
 function diagonal(/*left,*/ grid) {
     var position  // <- this will be the number x and y reference
@@ -109,6 +121,9 @@ function diagonal(/*left,*/ grid) {
 */
 
 // how do I make position a function?
+// The function will need the following arguments: position, temp, setOfFour, x
+// and y.
+
     while (position < 20) {
         for (x = position, y= 0; y <= position; y++, x--) {
             temp.push(grid[x][y])
