@@ -75,6 +75,16 @@ function xy(horizontal, grid) {
 
 console.log((xy(true, grid)))
 
+function set(inArray, outArray) {
+    for (var z = 0; z < inArray.length; z++) {
+            row = inArray.slice(z, z+toMultiply)
+            if (row.length != toMultiply) {
+                break
+            } else {
+                outArray.push(row)
+            }
+    }
+}
 
 
 function diagonal(/*left,*/ grid) {
@@ -85,6 +95,7 @@ function diagonal(/*left,*/ grid) {
     var x, y
     position = 3
 
+/*
     function set(temp) {
         for (var z = 0; z < temp.length; z++) {
                 row = temp.slice(z, z+toMultiply)
@@ -95,6 +106,7 @@ function diagonal(/*left,*/ grid) {
                 }
         }
     }
+*/
 
 // how do I make position a function?
     while (position < 20) {
@@ -102,7 +114,7 @@ function diagonal(/*left,*/ grid) {
             temp.push(grid[x][y])
         }
 
-        set(temp)
+        set(temp, setOfFours)
         console.log(temp)
         temp = []
         position++
@@ -114,7 +126,7 @@ function diagonal(/*left,*/ grid) {
             temp.push(grid[x][y])
         }
 
-        set(temp)
+        set(temp, setOfFours)
 
         console.log(temp)
         temp = []
