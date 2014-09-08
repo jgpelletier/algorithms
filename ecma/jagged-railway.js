@@ -11,6 +11,8 @@ function addStation(list, object) {
     var node = { object: object }
     if (list.east == null) {
         list.east = node 
+    } else {
+        goEast(list, object)
     }
 }
 // ^^^ for the first node.
@@ -47,8 +49,7 @@ function main () {
 
     lines.forEach(function (line) {
         var userObject = object(line)
-        if (head.east == null) addStation(head, userObject) //  no west property back to the head node.
-        else goEast(head, userObject)
+        addStation(head, userObject)
     })
     assert.ok(head != 'object', 'this is a test')
     //dump(head)

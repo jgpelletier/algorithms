@@ -75,7 +75,29 @@ function xy(horizontal, grid) {
 
 console.log((xy(true, grid)))
 
+function set(inArray, outArray) {
+    for (var z = 0; z < inArray.length; z++) {
+            row = inArray.slice(z, z+toMultiply)
+            if (row.length != toMultiply) {
+                break
+            } else {
+                outArray.push(row)
+            }
+    }
+}
 
+function diagonalSets(grid, start, inArray, outArray, x, y) {
+    while (start < 20) {
+        for (x = start, y = 0; y<= position; y++, x--) {
+            inArray.push(grid[x][y])
+        }
+        set(inArray, outArray)
+        console.log(inArray)
+        inArray = []
+        position++
+
+
+}
 
 function diagonal(/*left,*/ grid) {
     var position  // <- this will be the number x and y reference
@@ -85,6 +107,7 @@ function diagonal(/*left,*/ grid) {
     var x, y
     position = 3
 
+/*
     function set(temp) {
         for (var z = 0; z < temp.length; z++) {
                 row = temp.slice(z, z+toMultiply)
@@ -95,14 +118,18 @@ function diagonal(/*left,*/ grid) {
                 }
         }
     }
+*/
 
 // how do I make position a function?
+// The function will need the following arguments: position, temp, setOfFour, x
+// and y.
+
     while (position < 20) {
         for (x = position, y= 0; y <= position; y++, x--) {
             temp.push(grid[x][y])
         }
 
-        set(temp)
+        set(temp, setOfFours)
         console.log(temp)
         temp = []
         position++
@@ -114,7 +141,7 @@ function diagonal(/*left,*/ grid) {
             temp.push(grid[x][y])
         }
 
-        set(temp)
+        set(temp, setOfFours)
 
         console.log(temp)
         temp = []
