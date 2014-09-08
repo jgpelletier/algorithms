@@ -1,6 +1,6 @@
 var fs = require('fs')
 var util = require('util')
-//var assert = require('assert')
+var assert = require('assert')
 
 
 function dump (list) {
@@ -50,8 +50,8 @@ function main () {
         if (head.east == null) addStation(head, userObject) //  no west property back to the head node.
         else goEast(head, userObject)
     })
-
-    dump(head)
+    assert.ok(head != 'object', 'this is a test')
+    //dump(head)
 }
 
 main()
