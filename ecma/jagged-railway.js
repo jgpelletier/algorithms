@@ -17,6 +17,18 @@ function addStation(list, object) {
 }
 // ^^^ for the first node.
 
+
+// The append function will take 2 arguments: node and object. The function will
+// immediately compare the node-object's city property to the
+// object-city-property. If the object-city-property is less than the
+// node-object's city property, the function will append the object to the
+// westward node, otherwise,  the function will add the object to the eastward
+// node.
+//
+// If the function discovers the node-object's eastward or westward property is
+// already occupied, then it will call the append function with the 2 arguments:
+// the node of the occupied property and the object.
+
 function append (list, object) {
     var node = { object: object }
     if (!list.east) {
