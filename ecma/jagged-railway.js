@@ -12,18 +12,18 @@ function addStation(list, object) {
     if (list.east == null) {
         list.east = node 
     } else {
-        goEast(list, object)
+        append(list, object)
     }
 }
 // ^^^ for the first node.
 
-function goEast (list, object) {
+function append (list, object) {
     var node = { object: object }
     if (!list.east) {
         list.east = node
         node.west = list
     } else {
-        goEast(list.east, object)// <- need to keep this recursive function
+        append(list.east, object)// <- need to keep this recursive function
     }
 }
 // This ^^^^  creates a function that will walk to
@@ -51,8 +51,8 @@ function main () {
         var userObject = object(line)
         addStation(head, userObject)
     })
-    assert.ok(head != 'object', 'this is a test')
-    //dump(head)
+    //assert.ok(head != 'object', 'this is a test')
+    dump(head)
 }
 
 main()
