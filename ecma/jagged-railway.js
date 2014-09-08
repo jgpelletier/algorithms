@@ -32,17 +32,31 @@ function addStation(list, object) {
 function append (list, object) {
     var node = { object: object }
     //console.log(list)
-    //var a = list.east.object.city
-    //var b = object.city
+    var a = list.object.city
+    var b = object.city
+    /*
     console.log('new loop')
-    console.log(list.object)
-    console.log(object)
+    console.log(list.object.city)
+    console.log(object.city)
+    console.log( a > b )
+    console.log('')
 
-    if (!list.east) {
+
+    if (a > b) {
+        var direction = list.west
+    } else {
+        direction = list.east
+    }
+
+    */
+    var direction = list.east
+
+
+    if (!direction) {
         list.east = node
         node.west = list
     } else {
-        append(list.east, object)// <- need to keep this recursive function
+        append(direction, object)// <- need to keep this recursive function
     }
 }
 // This ^^^^  creates a function that will walk to
@@ -71,7 +85,7 @@ function main () {
         addStation(head, userObject)
     })
     //assert.ok(head != 'object', 'this is a test')
-    //dump(head)
+    dump(head)
 }
 
 main()
