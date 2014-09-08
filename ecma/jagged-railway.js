@@ -30,8 +30,9 @@ function addStation(list, object) {
 // the node of the occupied property and the object.
 function goWest (list, object) {
     var node = { object: object }
-    console.log(list.object.city)
+    //console.log(list.object.city)
     if (!list.west) {
+        //console.log('')
         list.west = node
         node.list = list
     } else {
@@ -41,8 +42,9 @@ function goWest (list, object) {
 
 function goEast (list, object) {
     var node = { object: object }
-
+    //console.log(list.object.city)
     if (!list.east) {
+        //console.log('')
         list.east = node
         node.west = list
     } else {
@@ -64,12 +66,18 @@ function append (list, object) {
     console.log('')
     */
     if (a > b) {
+        /*
         console.log('go west')
         console.log(a, b)
+        console.log(a > b)
+        */
         goWest(list, object)
     } else {
+        /*
         console.log('go east')
         console.log(a, b)
+        console.log(a > b)
+        */
         goEast(list, object)
     }
 }
@@ -96,7 +104,7 @@ function main () {
         var userObject = object(line)
         addStation(head, userObject)
     })
-    //assert.ok(head != 'object', 'this is a test')
+
     dump(head)
 }
 
