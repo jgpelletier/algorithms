@@ -28,6 +28,27 @@ function addStation(list, object) {
 // If the function discovers the node-object's eastward or westward property is
 // already occupied, then it will call the append function with the 2 arguments:
 // the node of the occupied property and the object.
+function goWest (list, object) {
+    var node = { object: object }
+    console.log(list.object.city)
+    if (!list.west) {
+        list.west = node
+        node.list = list
+    } else {
+        goWest(list.west, object)// <- need to keep this recursive function
+    }
+}
+
+function goEast (list, object) {
+    var node = { object: object }
+
+    if (!list.east) {
+        list.east = node
+        node.west = list
+    } else {
+        goEast(list.east, object)// <- need to keep this recursive function
+    }
+}
 
 function append (list, object) {
     var node = { object: object }
@@ -35,32 +56,23 @@ function append (list, object) {
     var a = list.object.city
     var b = object.city
     /*
+    var flip
     console.log('new loop')
     console.log(list.object.city)
     console.log(object.city)
     console.log( a > b )
     console.log('')
-
-
-    if (a > b) {
-        var direction = list.west
-    } else {
-        direction = list.east
-    }
-
     */
-    var direction = list.east
-
-
-    if (!direction) {
-        list.east = node
-        node.west = list
+    if (a > b) {
+        console.log('go west')
+        console.log(a, b)
+        goWest(list, object)
     } else {
-        append(direction, object)// <- need to keep this recursive function
+        console.log('go east')
+        console.log(a, b)
+        goEast(list, object)
     }
 }
-// This ^^^^  creates a function that will walk to
-// the end of the list and append the node.
 
 function object (line) { // function to convert the line to a railroad station object
     var string = line.split(',')
