@@ -12,7 +12,7 @@ function addStation(list, object) {
     if (list.east == null) {
         list.east = node 
     } else {
-        append(list, object)
+        append(list.east, object)
     }
 }
 // ^^^ for the first node.
@@ -22,7 +22,7 @@ function addStation(list, object) {
 // immediately compare the node-object's city property to the
 // object-city-property. If the object-city-property is less than the
 // node-object's city property, the function will append the object to the
-// westward node, otherwise,  the function will add the object to the eastward
+// westward node, otherwise, the function will add the object to the eastward
 // node.
 //
 // If the function discovers the node-object's eastward or westward property is
@@ -31,6 +31,13 @@ function addStation(list, object) {
 
 function append (list, object) {
     var node = { object: object }
+    //console.log(list)
+    //var a = list.east.object.city
+    //var b = object.city
+    console.log('new loop')
+    console.log(list.object)
+    console.log(object)
+
     if (!list.east) {
         list.east = node
         node.west = list
@@ -64,7 +71,7 @@ function main () {
         addStation(head, userObject)
     })
     //assert.ok(head != 'object', 'this is a test')
-    dump(head)
+    //dump(head)
 }
 
 main()
