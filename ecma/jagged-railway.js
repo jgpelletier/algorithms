@@ -58,15 +58,15 @@ function append (list, object) {
     // vvv must these change?
     var a = list.object.city // this needs to say chicago
     var b = object.city
-    /*
-    console.log('new loop')
-    console.log(list.object.city)
-    console.log(object.city)
-    console.log( a > b )
-    console.log('')
-    */
 
-    // how do I address the fact that a and b will be changing each time?
+    // With the current logic, I blow the stack. The Chicago Dowagiac comparison
+    // forces the function into the else branch, where it calls append with a
+    // list.east argument. This call compares Hammond and Dowagiac and forces
+    // the function into the if branch, where it calls append with a list.west
+    // argument.
+    //
+    // The  value of these 3 cities create a section that perpeutates the call
+    // to append, ultimately blowing the stack. How do I address this issue?
     if (a > b) {
     // logic of goWest should be in here. I should not be calling goEast
         console.log('go west')
