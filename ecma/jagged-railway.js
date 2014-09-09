@@ -29,6 +29,7 @@ function append (list, object) {
     var node = { object: object }
     var a = list.object.city
     var b = object.city
+    //console.log((a>b), a, b)
 
     if (a > b) {
         if (!list.west) {
@@ -70,6 +71,23 @@ function main () {
         var userObject = object(line)
         addStation(head, userObject)
     })
+/*
+    console.log(head.east.object.station) // chicago
+    console.log(head.east.east.object.station) // hammond
+    console.log(head.east.east.east.object.station) // michigan city
+    console.log(head.east.east.east.east.object.station) // new buffalo
+    console.log(head.east.east.east.east.east.object.station) // niles
+    console.log(head.east.east.west.object.station) // dowagiac
+    console.log(head.east.east.east.west.object.station) // kalamazoo
+    console.log(head.east.west.object.station) // battle creek
+    console.log(head.east.west.west.object.station) // albion
+    console.log(head.east.east.east.west.west.object.station) // Jackson
+    console.log(head.east.west.west.east.object.station) // ann arbor
+    console.log(head.east.east.west.west.object.station) // dearborn
+    console.log(head.east.east.west.west.east.object.station) // detroit
+    console.log(head.east.east.east.east.east.east.object.station) // royal oak
+    console.log(head.east.west.object.station) // birmingham
+*/
     dump(head)
 }
 
