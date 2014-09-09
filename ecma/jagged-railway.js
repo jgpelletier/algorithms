@@ -36,7 +36,7 @@ function goWest (list, object) {
         list.west = node
         node.list = list
     } else {
-        goWest(list.west, object)// <- need to keep this recursive function
+        goWest(list.west, object)
     }
 }
 
@@ -48,38 +48,55 @@ function goEast (list, object) {
         list.east = node
         node.west = list
     } else {
-        goEast(list.east, object)// <- need to keep this recursive function
+        goEast(list.east, object)
     }
 }
 
 function append (list, object) {
     var node = { object: object }
     //console.log(list)
-    var a = list.object.city
+    // vvv must these change?
+    var a = list.object.city // this needs to say chicago
     var b = object.city
     /*
-    var flip
     console.log('new loop')
     console.log(list.object.city)
     console.log(object.city)
     console.log( a > b )
     console.log('')
     */
+
+    // how do I address the fact that a and b will be changing each time?
     if (a > b) {
-        /*
+    // logic of goWest should be in here. I should not be calling goEast
         console.log('go west')
         console.log(a, b)
         console.log(a > b)
-        */
-        goWest(list, object)
+        //goWest(list, object)
+        if (!list.west) {
+            //console.log('')
+            list.west = node
+            node.list = list
+        } else {
+            append(list.west, object)
+        }
     } else {
-        /*
+    // logic of goEast should be in here. I should not be calling goEast
         console.log('go east')
         console.log(a, b)
         console.log(a > b)
-        */
-        goEast(list, object)
+        //goEast(list, object)
+        if (!list.east) {
+            //console.log('')
+            list.east = node
+            node.west = list
+        } else {
+            append(list.east, object)
+        }
+
     }
+
+
 }
 
 function object (line) { // function to convert the line to a railroad station object
@@ -105,7 +122,7 @@ function main () {
         addStation(head, userObject)
     })
 
-    dump(head)
+    //dump(head)
 }
 
 main()
