@@ -24,72 +24,21 @@ function addStation(list, object) {
 // node-object's city property, the function will append the object to the
 // westward node, otherwise, the function will add the object to the eastward
 // node.
-//
-// If the function discovers the node-object's eastward or westward property is
-// already occupied, then it will call the append function with the 2 arguments:
-// the node of the occupied property and the object.
-function goWest (list, object) {
-    var node = { object: object }
-    //console.log(list.object.city)
-    if (!list.west) {
-        //console.log('')
-        list.west = node
-        node.list = list
-    } else {
-        goWest(list.west, object)
-    }
-}
-
-function goEast (list, object) {
-    var node = { object: object }
-    //console.log(list.object.city)
-    if (!list.east) {
-        //console.log('')
-        list.east = node
-        node.west = list
-    } else {
-        goEast(list.east, object)
-    }
-}
 
 function append (list, object) {
     var node = { object: object }
-    //console.log(list)
-    // vvv must these change?
-    var a = list.object.city // this needs to say chicago
+    var a = list.object.city
     var b = object.city
 
-    // With the current logic, I blow the stack. The Chicago Dowagiac comparison
-    // forces the function into the else branch, where it calls append with a
-    // list.east argument. This call compares Hammond and Dowagiac and forces
-    // the function into the if branch, where it calls append with a list.west
-    // argument.
-    //
-    // The  value of these 3 cities create a section that perpeutates the call
-    // to append, ultimately blowing the stack. How do I address this issue?
     if (a > b) {
-    // logic of goWest should be in here. I should not be calling goEast
-        console.log('go west')
-        console.log(a, b)
-        console.log(a > b)
-        //goWest(list, object)
         if (!list.west) {
-            //console.log('')
             list.west = node
-            node.list = list
         } else {
             append(list.west, object)
         }
     } else {
-    // logic of goEast should be in here. I should not be calling goEast
-        console.log('go east')
-        console.log(a, b)
-        console.log(a > b)
-        //goEast(list, object)
         if (!list.east) {
-            //console.log('')
             list.east = node
-            node.west = list
         } else {
             append(list.east, object)
         }
@@ -121,8 +70,7 @@ function main () {
         var userObject = object(line)
         addStation(head, userObject)
     })
-
-    //dump(head)
+    dump(head)
 }
 
 main()
