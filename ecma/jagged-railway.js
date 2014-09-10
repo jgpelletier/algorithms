@@ -15,21 +15,12 @@ function addStation(list, object) {
         append(list.east, object)
     }
 }
-// ^^^ for the first node.
 
-
-// The append function will take 2 arguments: node and object. The function will
-// immediately compare the node-object's city property to the
-// object-city-property. If the object-city-property is less than the
-// node-object's city property, the function will append the object to the
-// westward node, otherwise, the function will add the object to the eastward
-// node.
 
 function append (list, object) {
     var node = { object: object }
     var a = list.object.city
     var b = object.city
-    //console.log((a>b), a, b)
 
     if (a > b) {
         if (!list.west) {
@@ -45,11 +36,9 @@ function append (list, object) {
         }
 
     }
-
-
 }
 
-function object (line) { // function to convert the line to a railroad station object
+function object (line) {
     var string = line.split(',')
     return {
         station: string[0].trim(),
@@ -57,15 +46,11 @@ function object (line) { // function to convert the line to a railroad station o
         state: string[2].trim()
     }
 }
-// This ^^^ function is declared every time `forEach` invokes the
-// anonymous function.  It does not use anything from the enclosing
-// scope, so it does not need to be defined inside the forEach function.
-
 
 function main () {
     var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
-    var popped = lines.pop() // <- pops empty line
-    var head  = { east: null } // <- this will never have an object propert.
+    var popped = lines.pop()
+    var head  = { east: null }
 
     lines.forEach(function (line) {
         var userObject = object(line)
