@@ -51,19 +51,28 @@ function object (line) {
 // IMPLEMENT THIS FUNCITON vvvv
 
 function visit (node, visitor) {
-// If node is null, return nothing immediately.
-// If node has a west node, call visit passing the west node and the visitor.
-// Call visitor with the node's object.
-// If node has a east node, call visit passing the east node and the visitor.
 
-    // INSERT CODE
+    // If node is null, return nothing immediately.
     if (!node) {
         return console.log("nothing immediately")
     }
-    else if (node.west) {
-        visit(node.west, visitor)
-    } else {
-        visit(node.east.visitor)
+
+    //console.log(typeof(visitor)) // <- Function on first pass only
+    //console.log('in visit before node.west')
+    //console.log(node.west)
+
+    // If node has a west node, call visit passing the west node and the visitor.
+    if (node.west) {
+        visit(node.west, visitor) // <- undefined is not a function 
+    }
+
+    // Call visitor with the node's object.
+    console.log(node)
+    visitor(node.object)
+
+    // If node has a east node, call visit passing the east node and the visitor.
+    if (node.east) {
+        visit(node.east, visitor())
     }
 
 }
