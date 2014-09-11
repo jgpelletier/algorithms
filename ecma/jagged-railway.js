@@ -47,6 +47,21 @@ function object (line) {
     }
 }
 
+
+// IMPLEMENT THIS FUNCITON vvvv
+
+function visit (node, visitor) {
+// If node is null, return nothing immediately.
+// If node has a west node, call visit passing the west node and the visitor.
+// Call visitor with the node's object.
+// If node has a east node, call visit passing the east node and the visitor.
+}
+
+// vvv Travel skips the head node and calls visit. This is done.
+function travel (head, visitor) {
+    visit(head.east, visitor)
+}
+
 function main () {
     var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
     var popped = lines.pop()
@@ -55,6 +70,11 @@ function main () {
     lines.forEach(function (line) {
         var userObject = object(line)
         addStation(head, userObject)
+    })
+
+    // vvv Call travel. This is done.
+    travel(head, function (object) {
+        console.log(object.city)
     })
 /*
     console.log(head.east.object.station) // chicago
@@ -73,6 +93,9 @@ function main () {
     console.log(head.east.east.east.east.east.east.object.station) // royal oak
     console.log(head.east.west.object.station) // birmingham
 */
+
+    // vvv REMOVE BEFORE SUBMITTING ASSIGNMENT vvv
+
     dump(head)
 }
 
