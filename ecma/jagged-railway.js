@@ -55,6 +55,17 @@ function visit (node, visitor) {
 // If node has a west node, call visit passing the west node and the visitor.
 // Call visitor with the node's object.
 // If node has a east node, call visit passing the east node and the visitor.
+
+    // INSERT CODE
+    if (!node) {
+        return console.log("nothing immediately")
+    }
+    else if (node.west) {
+        visit(node.west, visitor)
+    } else {
+        visit(node.east.visitor)
+    }
+
 }
 
 // vvv Travel skips the head node and calls visit. This is done.
@@ -71,32 +82,17 @@ function main () {
         var userObject = object(line)
         addStation(head, userObject)
     })
+    // ^^^ linked list is created.
 
     // vvv Call travel. This is done.
-    travel(head, function (object) {
+    //     vvv full list.
+    travel(head, function (object) { // Note: travel's 2nd argument is a function w 1 argument
         console.log(object.city)
     })
-/*
-    console.log(head.east.object.station) // chicago
-    console.log(head.east.east.object.station) // hammond
-    console.log(head.east.east.east.object.station) // michigan city
-    console.log(head.east.east.east.east.object.station) // new buffalo
-    console.log(head.east.east.east.east.east.object.station) // niles
-    console.log(head.east.east.west.object.station) // dowagiac
-    console.log(head.east.east.east.west.object.station) // kalamazoo
-    console.log(head.east.west.object.station) // battle creek
-    console.log(head.east.west.west.object.station) // albion
-    console.log(head.east.east.east.west.west.object.station) // Jackson
-    console.log(head.east.west.west.east.object.station) // ann arbor
-    console.log(head.east.east.west.west.object.station) // dearborn
-    console.log(head.east.east.west.west.east.object.station) // detroit
-    console.log(head.east.east.east.east.east.east.object.station) // royal oak
-    console.log(head.east.west.object.station) // birmingham
-*/
 
     // vvv REMOVE BEFORE SUBMITTING ASSIGNMENT vvv
 
-    dump(head)
+    // dump(head)
 }
 
 main()
