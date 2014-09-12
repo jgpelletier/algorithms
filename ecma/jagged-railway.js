@@ -50,28 +50,38 @@ function object (line) {
 
 // IMPLEMENT THIS FUNCITON vvvv
 
-function visit (node, visitor) {// <- how do I get visitor to stay a function?
-
+function visit (node, visitor) {
+// INSTRUCTIONS
     // If node is null, return nothing immediately.
     // If node has a west node, call visit passing the west node and the visitor.
-    // Call visitor with the node's object. (When does this happen, within the visitor function)?
+    // Call visitor with the node's object. (When does this happen?)
     // If node has a east node, call visit passing the east node and the visitor.
 
+// IMPLEMENT THIS FUNCTION ^^^^
+
+    // (1) If node is null, return nothing immediately.
     if (!node) {
         return console.log("nothing immediately")
     }
 
-    console.log(typeof(visitor)) // <- Function on first pass only
+    // console.log(typeof(visitor)) // <- this is always a function
 
+
+    // (2) If node has a west node, call visit passing the west node and the visitor.
     if (node.west) {
-        console.log('west')
-        //visitor(node.object) // shouldnt be invoked
-        visit(node.west, visitor(node.object)) // <- undefined is not a function
+        //console.log('west')
+
+        visit(node.west, visitor)
     }
 
+    // (3) Call visitor with the node's object.
+    visitor(node.object) // <- call visitor here?
+
+
+    // (4) If node has a east node, call visit passing the east node and the visitor.
     if (node.east) {
-        console.log('east')
-        //visitor(node.object)
+        //console.log('east')
+
         visit(node.east, visitor)
     }
 
@@ -91,10 +101,8 @@ function main () {
         var userObject = object(line)
         addStation(head, userObject)
     })
-    // ^^^ linked list is created.
 
     // vvv Call travel. This is done.
-    //     vvv full list.
     travel(head, function (object) { // the anonymous function is visitor 
         console.log(object.city)
     })
