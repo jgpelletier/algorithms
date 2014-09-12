@@ -54,7 +54,7 @@ function visit (node, visitor) {// <- how do I get visitor to stay a function?
 
     // If node is null, return nothing immediately.
     // If node has a west node, call visit passing the west node and the visitor.
-    // Call visitor with the node's object.
+    // Call visitor with the node's object. (When does this happen, within the visitor function)?
     // If node has a east node, call visit passing the east node and the visitor.
 
     if (!node) {
@@ -62,14 +62,16 @@ function visit (node, visitor) {// <- how do I get visitor to stay a function?
     }
 
     console.log(typeof(visitor)) // <- Function on first pass only
-    //console.log('in visit before node.west')
-    //console.log(node.west)
 
     if (node.west) {
+        console.log('west')
+        //visitor(node.object) // shouldnt be invoked
         visit(node.west, visitor(node.object)) // <- undefined is not a function
     }
 
     if (node.east) {
+        console.log('east')
+        //visitor(node.object)
         visit(node.east, visitor)
     }
 
@@ -93,7 +95,7 @@ function main () {
 
     // vvv Call travel. This is done.
     //     vvv full list.
-    travel(head, function (object) { // Note: travel's 2nd argument is a function w 1 argument
+    travel(head, function (object) { // the anonymous function is visitor 
         console.log(object.city)
     })
 
