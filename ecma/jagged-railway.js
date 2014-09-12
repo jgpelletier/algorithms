@@ -50,7 +50,8 @@ function object (line) {
 
 // sorts a binary tree
 function visit (node, visitor) {
-
+    var count = 0
+    console.log("\tin visit", node.object.city)
     // (1) If node is null, return nothing immediately.
     if (!node) {
         return console.log("nothing immediately")
@@ -58,22 +59,24 @@ function visit (node, visitor) {
 
     // (2) If node has a left node, call visit passing the left node and the visitor.
     if (node.left) {
-        console.log('left', node.object.city)
+        console.log('\tleft node', node.left.object.city)
 
         visit(node.left, visitor)
     }
-
+    console.log('\tno left node')
     // (3) Call visitor with the node's object.
+    console.log('')
     visitor(node.object)
 
 
     // (4) If node has a right node, call visit passing the right node and the visitor.
     if (node.right) {
-        console.log('right', node.object.city)
+        console.log('\tright node', node.right.object.city)
 
         visit(node.right, visitor)
     }
-
+    // how is the parent loaded?
+    console.log("\tparent loaded", node.object.city)
 }
 
 // vvv Travel skips the head node and calls visit. This is done.
@@ -91,14 +94,13 @@ function main () {
         addStation(head, userObject)
     })
 
+    //`dump(head)
     // vvv Call travel. This is done.
     travel(head, function (object) { // the anonymous function is visitor 
         console.log(object.city)
     })
 
-    // vvv REMOVE BEFORE SUBMITTING ASSIGNMENT vvv
-    
-    dump(head)
+   // dump(head)
 }
 
 main()
