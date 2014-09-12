@@ -61,7 +61,7 @@ function visit (node, visitor) {// <- how do I get visitor to stay a function?
         return console.log("nothing immediately")
     }
 
-    //console.log(typeof(visitor)) // <- Function on first pass only
+    console.log(typeof(visitor)) // <- Function on first pass only
     //console.log('in visit before node.west')
     //console.log(node.west)
 
