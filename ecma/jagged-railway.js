@@ -9,30 +9,30 @@ function dump (list) {
 
 function addStation(list, object) {
     var node = { object: object }
-    if (list.east == null) {
-        list.east = node 
+    if (list.right == null) {
+        list.right = node 
     } else {
-        append(list.east, object)
+        append(list.right, object)
     }
 }
 
-
+// vvv sets up a binary tree.
 function append (list, object) {
     var node = { object: object }
     var a = list.object.city
     var b = object.city
 
     if (a > b) {
-        if (!list.west) {
-            list.west = node
+        if (!list.left) {
+            list.left = node
         } else {
-            append(list.west, object)
+            append(list.left, object)
         }
     } else {
-        if (!list.east) {
-            list.east = node
+        if (!list.right) {
+            list.right = node
         } else {
-            append(list.east, object)
+            append(list.right, object)
         }
 
     }
@@ -48,54 +48,43 @@ function object (line) {
 }
 
 
-// IMPLEMENT THIS FUNCITON vvvv
-
+// sorts a binary tree
 function visit (node, visitor) {
-// INSTRUCTIONS
-    // If node is null, return nothing immediately.
-    // If node has a west node, call visit passing the west node and the visitor.
-    // Call visitor with the node's object. (When does this happen?)
-    // If node has a east node, call visit passing the east node and the visitor.
-
-// IMPLEMENT THIS FUNCTION ^^^^
 
     // (1) If node is null, return nothing immediately.
     if (!node) {
         return console.log("nothing immediately")
     }
 
-    // console.log(typeof(visitor)) // <- this is always a function
+    // (2) If node has a left node, call visit passing the left node and the visitor.
+    if (node.left) {
+        console.log('left', node.object.city)
 
-
-    // (2) If node has a west node, call visit passing the west node and the visitor.
-    if (node.west) {
-        //console.log('west')
-
-        visit(node.west, visitor)
+        visit(node.left, visitor)
     }
 
     // (3) Call visitor with the node's object.
-    visitor(node.object) // <- call visitor here?
+    visitor(node.object)
 
 
-    // (4) If node has a east node, call visit passing the east node and the visitor.
-    if (node.east) {
-        //console.log('east')
+    // (4) If node has a right node, call visit passing the right node and the visitor.
+    if (node.right) {
+        console.log('right', node.object.city)
 
-        visit(node.east, visitor)
+        visit(node.right, visitor)
     }
 
 }
 
 // vvv Travel skips the head node and calls visit. This is done.
 function travel (head, visitor) {
-    visit(head.east, visitor)
+    visit(head.right, visitor)
 }
 
 function main () {
     var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
     var popped = lines.pop()
-    var head  = { east: null }
+    var head  = { right: null }
 
     lines.forEach(function (line) {
         var userObject = object(line)
@@ -108,8 +97,8 @@ function main () {
     })
 
     // vvv REMOVE BEFORE SUBMITTING ASSIGNMENT vvv
-
-    // dump(head)
+    
+    dump(head)
 }
 
 main()
