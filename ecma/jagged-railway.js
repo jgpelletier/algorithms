@@ -68,6 +68,7 @@ function visit (node, visitor) {
     console.log('')
     visitor(node.object)
 
+    console.log("\tafter visited", node.object.city)
 
     // (4) If node has a right node, call visit passing the right node and the visitor.
     if (node.right) {
@@ -76,7 +77,7 @@ function visit (node, visitor) {
         visit(node.right, visitor)
     }
     // how is the parent loaded?
-    console.log("\tparent loaded", node.object.city)
+    console.log("\t-------PARENT NODE--------\n", node)
 }
 
 // vvv Travel skips the head node and calls visit. This is done.
