@@ -1,10 +1,14 @@
+function search (node, city) {
+    if (node == null || node.object.city == city) {
+        return node.object
+    }
+    
+    if (city < node.object.city) {
+        return search(node.left, city)
+    } else { 
+        return search(node.right, city)
+    }
 
-
-function search (node, value) {
-   /* 
-    if (node.object[value] ==  value) {
-        console.log('value found', return node.)
-        */
 }
 
 function minValue (node) {

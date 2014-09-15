@@ -94,6 +94,11 @@ function boundaryMax(head) {
     return node
 }
 
+function find (head, city) {
+    console.log(head.right.object.city)
+    return bst.search(head.right, city)
+}
+
 function main () {
     var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
     var popped = lines.pop()
@@ -112,10 +117,13 @@ function main () {
     
     var treeMax =  boundaryMax(head)
     var treeMin =  boundaryMin(head)
+    var hammond = find(head, 'Hammond')
     console.log(treeMax)
     console.log(treeMin)
-
-   // dump(head)
+    console.log(hammond)
+    
+    //console.log(head[right][object][city]) // <- how to deal with strings?
+    //dump(head)
 }
 
 main()
