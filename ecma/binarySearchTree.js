@@ -1,0 +1,3 @@
+function deletion (object, value) {
+
+}

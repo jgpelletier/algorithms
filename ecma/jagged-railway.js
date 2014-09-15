@@ -1,7 +1,7 @@
 var fs = require('fs')
 var util = require('util')
 var assert = require('assert')
-
+var bst = require('binarySearchTree')
 
 function dump (list) {
     console.log(util.inspect(list, null, null))
