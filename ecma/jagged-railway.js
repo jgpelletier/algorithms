@@ -1,7 +1,7 @@
 var fs = require('fs')
 var util = require('util')
 var assert = require('assert')
-var bst = require('binarySearchTree')
+var bst = require('./binarySearchTree')
 
 function dump (list) {
     console.log(util.inspect(list, null, null))
@@ -84,6 +84,14 @@ function travel (head, visitor) {
     visit(head.right, visitor)
 }
 
+function boundaryMin(head) {
+    bst.minValue(head.right)
+}
+
+function boundaryMax(head) {
+    bst.maxValue(head.right)
+}
+
 function main () {
     var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
     var popped = lines.pop()
@@ -99,6 +107,9 @@ function main () {
     travel(head, function (object) { // the anonymous function is visitor 
         console.log(object.city)
     })
+    
+    boundaryMax(head)
+    boundaryMin(head)
 
    // dump(head)
 }
