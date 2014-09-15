@@ -50,33 +50,19 @@ function object (line) {
 
 // sorts a binary tree
 function visit (node, visitor) {
-    //console.log("\tin visit", node.object.city)
-    // (1) If node is null, return nothing immediately.
     if (!node) {
         return console.log("nothing immediately")
     }
 
-    // (2) If node has a left node, call visit passing the left node and the visitor.
     if (node.left) {
-      //  console.log('\tleft node', node.left.object.city)
-
         visit(node.left, visitor)
     }
-    //console.log('\tno left node')
-    // (3) Call visitor with the node's object.
-    //console.log('')
+
     visitor(node.object)
 
-    //console.log("\tafter visited", node.object.city)
-
-    // (4) If node has a right node, call visit passing the right node and the visitor.
     if (node.right) {
-       // console.log('\tright node', node.right.object.city)
-
         visit(node.right, visitor)
     }
-    // how is the parent loaded?
-    //console.log("\t-------PARENT NODE--------\n", node)
 }
 
 // vvv Travel skips the head node and calls visit. This is done.
