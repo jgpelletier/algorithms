@@ -9,17 +9,17 @@ function search (node, value) {
 
 function minValue (node) {
     if (!node.left) { 
-         console.log(node.object)
+        return node.object
     } else {
-        minValue(node.left)
+        return minValue(node.left)
     }
 }
 
 function maxValue (node) {
     if (!node.right) {
-        console.log(node.object)
+        return node.object
     } else {
-        maxValue(node.right)
+        return maxValue(node.right)
     }
 }
 

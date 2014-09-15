@@ -85,18 +85,20 @@ function travel (head, visitor) {
 }
 
 function boundaryMin(head) {
-    bst.minValue(head.right)
+    return bst.minValue(head.right)
 }
 
 function boundaryMax(head) {
-    bst.maxValue(head.right)
+    var node = bst.maxValue(head.right)
+    //console.log(node)    
+    return node
 }
 
 function main () {
     var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
     var popped = lines.pop()
     var head  = { right: null }
-
+    
     lines.forEach(function (line) {
         var userObject = object(line)
         addStation(head, userObject)
@@ -108,8 +110,10 @@ function main () {
         console.log(object.city)
     })
     
-    boundaryMax(head)
-    boundaryMin(head)
+    var treeMax =  boundaryMax(head)
+    var treeMin =  boundaryMin(head)
+    console.log(treeMax)
+    console.log(treeMin)
 
    // dump(head)
 }
