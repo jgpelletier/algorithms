@@ -121,6 +121,9 @@ function main () {
     console.log(treeMax)
     console.log(treeMin)
     console.log(hammond)
+    var Amherst = { station: 'no station', 
+                    city: 'Amherst',
+                    state: 'New Hampshire' }
     
     //console.log(head[right][object][city]) // <- how to deal with strings?
     //dump(head)
