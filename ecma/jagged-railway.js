@@ -86,7 +86,8 @@ function find (head, city) {
 }
 
 function insert (head, node) {
-    return bst.insertion(head.right, node)
+    head.right = bst.insertion(head.right, node)
+    return head 
 }
 
 function main () {
@@ -98,7 +99,8 @@ function main () {
         var userObject = object(line)
         addStation(head, userObject)
     })
-
+//    console.log(head)
+/*
     //`dump(head)
     // vvv Call travel. This is done.
     travel(head, function (object) { // the anonymous function is visitor 
@@ -111,17 +113,20 @@ function main () {
     console.log(treeMax)
     console.log(treeMin)
     console.log(hammond)
+*/
     var Amherst = { station: 'no station', 
                     city: 'Amherst',
                     state: 'New Hampshire' }
     head = insert(head, Amherst)
-//    console.log(head)
+
+    console.log(head)
     travel(head, function (object) { // the anonymous function is visitor
         console.log(object.city)
     })
+
     //console.log(head[right][object][city]) // <- how to deal with strings?
     //dump(head)
-    console.log(head)
+   // console.log(head)
 }
 
 main()
