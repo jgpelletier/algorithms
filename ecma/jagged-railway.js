@@ -90,16 +90,21 @@ function insert (head, node) {
     return head 
 }
 
+function removeStop (head, city) {
+    head.right = bst.deletion(head.right, city)
+    return head
+}
+
 function main () {
     var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
     var popped = lines.pop()
     var head  = { right: null }
     
-/*
     lines.forEach(function (line) {
         var userObject = object(line)
         addStation(head, userObject)
     })
+/*
 //    console.log(head)
     //`dump(head)
     // vvv Call travel. This is done.
@@ -113,20 +118,18 @@ function main () {
     console.log(treeMax)
     console.log(treeMin)
     console.log(hammond)
-*/
     var Amherst = { station: 'no station', 
                     city: 'Amherst',
                     state: 'New Hampshire' }
     head = insert(head, Amherst)
 
-    console.log(head)
+//    console.log(head)
+*/
+    head = removeStop(head, 'Albion') 
     travel(head, function (object) { // the anonymous function is visitor
         console.log(object.city)
     })
 
-    //console.log(head[right][object][city]) // <- how to deal with strings?
-    //dump(head)
-   // console.log(head)
 }
 
 main()

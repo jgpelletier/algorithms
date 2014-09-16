@@ -47,13 +47,15 @@ function insertion (node, valueObject) {
     } else {
         prev.right = userNode
     }
-    //head.east = prev
     return head 
 
 }
+//function transplant () {} 
 
 function deletion (node, value) {
-
+    var head  = node
+    var prev = node
+    console.log(value) 
 }
 
 exports.search = search
