@@ -56,6 +56,13 @@ function deletion (node, value) {
     var head  = node
     var prev = node
     console.log(value) 
+    while (node && node.object.city != value) {
+        prev = node
+        if (node.object.city > value) node = node.left
+        else node = node.right
+    }
+
+    console.log('after while loop', node.object.city)
 }
 
 exports.search = search
