@@ -28,8 +28,7 @@ function maxValue (node) {
 }
 
 function insertion (node, valueObject) {
-    var a = node.object.city
-    var b = valueObject.city
+    var head = { east:null}
     var prev = node
 /*
     if (a > b) {
@@ -41,8 +40,19 @@ function insertion (node, valueObject) {
     
     while (!node) {
         var prev = node
-        if (a > b)  node = node.left
+        if (node.object.city > valueObject.city)  node = node.left
         else node = node.right
+    }
+
+    if (!prev) {
+        return valueObject
+    } else if (prev.object.city > valueObject.city) {
+        prev.left = valueObject
+    } else {
+        prev.right = valueObject
+    }
+    head.east = prev
+    return prev
 }
 
 function deletion (node, value) {

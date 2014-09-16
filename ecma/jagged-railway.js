@@ -85,6 +85,10 @@ function find (head, city) {
     return bst.search(head.right, city)
 }
 
+function insert (head, node) {
+    return bst.insertion(head.right, node)
+}
+
 function main () {
     var lines = fs.readFileSync(process.argv[2], 'utf8').split('\n')
     var popped = lines.pop()
@@ -110,9 +114,14 @@ function main () {
     var Amherst = { station: 'no station', 
                     city: 'Amherst',
                     state: 'New Hampshire' }
-    
+    head = insert(head, Amherst)
+//    console.log(head)
+    travel(head, function (object) { // the anonymous function is visitor
+        console.log(object.city)
+    })
     //console.log(head[right][object][city]) // <- how to deal with strings?
     //dump(head)
+    console.log(head)
 }
 
 main()
