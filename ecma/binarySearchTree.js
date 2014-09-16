@@ -27,8 +27,22 @@ function maxValue (node) {
     }
 }
 
-function insertion (node, value) {
-
+function insertion (node, valueObject) {
+    var a = node.object.city
+    var b = valueObject.city
+    var prev = node
+/*
+    if (a > b) {
+        if 
+    // look to travel and visit. I need the previous node. it is the parent.
+*/
+    //var y
+    //var x = node
+    
+    while (!node) {
+        var prev = node
+        if (a > b)  node = node.left
+        else node = node.right
 }
 
 function deletion (node, value) {

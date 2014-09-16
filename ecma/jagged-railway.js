@@ -81,7 +81,7 @@ function boundaryMax(head) {
 }
 
 function find (head, city) {
-    console.log(head.right.object.city)
+    //console.log(head.right.object.city)
     return bst.search(head.right, city)
 }
 
