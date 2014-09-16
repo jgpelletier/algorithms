@@ -52,17 +52,32 @@ function insertion (node, valueObject) {
 }
 //function transplant () {} 
 
-function deletion (node, value) {
-    var head  = node
-    var prev = node
-    console.log(value) 
+function find (node, value) {
     while (node && node.object.city != value) {
         prev = node
         if (node.object.city > value) node = node.left
         else node = node.right
     }
+}
+function transplant (head, prev, node) {
+    if (!node.right) prev.left = node.right
+    else if (!node.left) prev.right = node.right 
 
-    console.log('after while loop', node.object.city)
+    return head
+}
+
+function deletion (node, value) {
+    var head  = node
+    var prev = node
+
+   while (node && node.object.city != value) {
+        prev = node
+        if (node.object.city > value) node = node.left
+        else node = node.right
+    }
+    
+    head = transplant(head, prev, node)
+    return head
 }
 
 exports.search = search

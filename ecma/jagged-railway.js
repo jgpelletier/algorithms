@@ -125,7 +125,7 @@ function main () {
 
 //    console.log(head)
 */
-    head = removeStop(head, 'Albion') 
+    head = removeStop(head, 'Niles') 
     travel(head, function (object) { // the anonymous function is visitor
         console.log(object.city)
     })
