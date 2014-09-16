@@ -27,17 +27,12 @@ function maxValue (node) {
     }
 }
 
+
+// try to do this recursively as well.
 function insertion (node, valueObject) {
     var head  = node
     var prev = node
     var userNode = { object: valueObject }
-/*
-    if (a > b) {
-        if 
-    // look to travel and visit. I need the previous node. it is the parent.
-*/
-    //var y
-    //var x = node
     
     while (node) {
         var prev = node
@@ -46,7 +41,7 @@ function insertion (node, valueObject) {
     }
 
     if (!prev) {
-        return valueObject
+        return userNode
     } else if (prev.object.city > userNode.object.city) {
         prev.left = userNode
     } else {
