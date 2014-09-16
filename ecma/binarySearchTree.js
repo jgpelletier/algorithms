@@ -59,11 +59,10 @@ function find (node, value) {
         else node = node.right
     }
 }
-function transplant (head, prev, node) {
-    if (!node.right) prev.left = node.right
-    else if (!node.left) prev.right = node.right 
+function transplant ( prev, node, nextNode) {
+    if (!node.next) {
 
-    return head
+    }
 }
 
 function deletion (node, value) {
@@ -75,9 +74,19 @@ function deletion (node, value) {
         if (node.object.city > value) node = node.left
         else node = node.right
     }
-    
-    head = transplant(head, prev, node)
-    return head
+    if (!node.left) {
+        return transplant( prev, node, node.right)
+    } 
+    else if (!node.right) {
+        return transplant( prev, node, node.left)
+    }
+    /*        
+    } else {
+        var y = treeMin(node.right) 
+            if (prev.right != y) 
+    */
+    //head = transplant(head, prev, node)
+    //return head
 }
 
 exports.search = search

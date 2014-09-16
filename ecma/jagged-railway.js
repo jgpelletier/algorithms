@@ -125,7 +125,11 @@ function main () {
 
 //    console.log(head)
 */
-    head = removeStop(head, 'Niles') 
+    // These stations represent the four cases
+    //head = removeStop(head, 'Albion') 
+    //head = removeStop(head, 'Kalamazoo') 
+    //head = removeStop(head, 'Michigan City') 
+    //head = removeStop(head, 'Chicago') 
     travel(head, function (object) { // the anonymous function is visitor
         console.log(object.city)
     })
