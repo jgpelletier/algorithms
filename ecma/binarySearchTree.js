@@ -60,12 +60,15 @@ function find (node, value) {
     }
 }
 function transplant ( head, prev, node, nextNode) {
-    if (prev.left == node) {
-        prev.left = nextNode
+    if (!prev) {
+        head = nextNode
     }
-    else {
+    else if (prev.left == node) {
+        prev.left = nextNode
+    } else {
         prev.right = nextNode
     }
+
     return head
 }
 
@@ -83,14 +86,17 @@ function deletion (node, value) {
     } 
     else if (!node.right) {
         return transplant( head, prev, node, node.left)
-    }
-    /*        
     } else {
-        var y = treeMin(node.right) 
-            if (prev.right != y) 
-    */
+        var y = minValue(node.right)
+        if (prev.right != node) {
+        //transplant(head, prev, node, y)
+        //prev.left = node.left
+        }
+        prev.right = node.right
+
+    }
     //head = transplant(head, prev, node)
-    //return head
+    return head
 }
 
 exports.search = search

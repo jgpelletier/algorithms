@@ -128,8 +128,8 @@ function main () {
     // These stations represent the four cases
     head = removeStop(head, 'Albion')
     head = removeStop(head, 'Kalamazoo')
-    //head = removeStop(head, 'Michigan City') 
-    //head = removeStop(head, 'Chicago') 
+    head = removeStop(head, 'Michigan City')
+    //head = removeStop(head, 'Hammond')
     travel(head, function (object) { // the anonymous function is visitor
         console.log(object.city)
     })
