@@ -59,7 +59,8 @@ function find (node, value) {
         else node = node.right
     }
 }
-function transplant ( head, prev, node, nextNode) {
+
+function transplant ( head, prev, node, nextNode ) {
     if (!prev) {
         head = nextNode
     }
@@ -69,6 +70,9 @@ function transplant ( head, prev, node, nextNode) {
         prev.right = nextNode
     }
 
+    if (node.left) {
+        node.right.left = node.left
+    }
     return head
 }
 
@@ -93,9 +97,11 @@ function deletion (node, value) {
         //transplant(head, prev, node, y)
         //prev.left = node.left
         }
-        
-        prev.right = node.right
-        node.right.left = node.left
+
+        return transplant (head, prev, node, node.right)
+        // console.log(y)
+        //prev.right = node.right
+        //node.right.left = node.left
         
 
     }
