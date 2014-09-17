@@ -76,11 +76,12 @@ function deletion (node, value) {
     var head  = node
     var prev = node
 
-   while (node && node.object.city != value) {
+    while (node && node.object.city != value) {
         prev = node
         if (node.object.city > value) node = node.left
         else node = node.right
     }
+
     if (!node.left) {
         return transplant( head, prev, node, node.right)
     } 
@@ -88,11 +89,14 @@ function deletion (node, value) {
         return transplant( head, prev, node, node.left)
     } else {
         var y = minValue(node.right)
-        if (prev.right != node) {
+        if (prev.right != y) {
         //transplant(head, prev, node, y)
         //prev.left = node.left
         }
+        
         prev.right = node.right
+        node.right.left = node.left
+        
 
     }
     //head = transplant(head, prev, node)
