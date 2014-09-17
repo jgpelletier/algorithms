@@ -70,8 +70,9 @@ function transplant ( head, prev, node, nextNode ) {
         prev.right = nextNode
     }
 
-    if (node.left) {
-        node.right.left = node.left
+    // vvv is this necessary
+    if (nextNode) {
+        //node.right.left = node.left
     }
 
     return head
@@ -93,27 +94,21 @@ function deletion (node, value) {
     else if (!node.right) {
         return transplant( head, prev, node, node.left)
     } else {
-        var y = minValue(node.right)
+        var y = minValue(node.right) // 
         y = { object:y }
         //console.log(y)
-        if (prev.right != y) {
-            head = transplant(head, prev, node, y)
-            console.log(head)
-            y.left = node.left
-            //y.right = node.right
-
-        //prev.left = node.left
+        if (node.right.object.city != y.object.city) {
+            head = transplant(head, prev, y, y.right/*node.next*/)
+            y.right = node.right // y branch
+            //prev.right = y
         }
-        //y.left = node.left
 
-        head = transplant (head, prev, y, node.right )
-        // console.log(y)
-        //prev.right = node.right
-        //node.right.left = node.left
-        
-
+        head = transplant(head, prev, node, y) // <-- this doens't add all the necesary values
+        y.left = node.left
+       // console.log(y)
+        //y.right = node.right.right
+        prev.right = y
     }
-    //head = transplant(head, prev, node)
     return head
 }
 
