@@ -63,7 +63,9 @@ function transplant ( head, prev, node, nextNode) {
     if (prev.left == node) {
         prev.left = nextNode
     }
-
+    else {
+        prev.right = nextNode
+    }
     return head
 }
 
@@ -79,11 +81,9 @@ function deletion (node, value) {
     if (!node.left) {
         return transplant( head, prev, node, node.right)
     } 
-    /*
     else if (!node.right) {
-        return transplant( prev, node, node.left)
+        return transplant( head, prev, node, node.left)
     }
-    */
     /*        
     } else {
         var y = treeMin(node.right) 
