@@ -126,7 +126,7 @@ function main () {
 //    console.log(head)
 */
     // These stations represent the four cases
-    //head = removeStop(head, 'Albion') 
+    head = removeStop(head, 'Albion')
     //head = removeStop(head, 'Kalamazoo') 
     //head = removeStop(head, 'Michigan City') 
     //head = removeStop(head, 'Chicago') 
