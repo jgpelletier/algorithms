@@ -51,6 +51,20 @@ function insertion (node, valueObject) {
 
 }
 
+
+function depth (node) {
+    if (!node) {
+        return 0
+    } else {
+    var lDepth = depth(node.left)
+    var rDepth = depth(node.right)
+
+    if (lDepth > rDepth) return(lDepth+1)
+    else return (rDepth+1)
+    }
+}
+
+
 function find (node, value) {
     while (node && node.object.city != value) {
         prev = node
@@ -121,3 +135,4 @@ exports.minValue = minValue
 exports.maxValue = maxValue
 exports.insertion = insertion
 exports.deletion = deletion
+exports.depth = depth

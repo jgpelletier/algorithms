@@ -65,6 +65,9 @@ function visit (node, visitor) {
     }
 }
 
+function treeDepth(node) {
+    return bst.depth(node.right)
+}
 // vvv Travel skips the head node and calls visit. This is done.
 function travel (head, visitor) {
     visit(head.right, visitor)
@@ -133,6 +136,8 @@ function main () {
     travel(head, function (object) { // the anonymous function is visitor
         console.log(object.city)
     })
+
+    console.log(treeDepth(head))
 
 }
 
