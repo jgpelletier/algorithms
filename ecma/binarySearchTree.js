@@ -99,15 +99,16 @@ function deletion (node, value) {
         //console.log(y)
         if (node.right.object.city != y.object.city) {
             head = transplant(head, prev, y, y.right/*node.next*/)
-            y.right = node.right // y branch
             //prev.right = y
         }
 
-        head = transplant(head, prev, node, y) // <-- this doens't add all the necesary values
+        y.right = node.right.right || null // y branch
         y.left = node.left
+        //head = transplant(head, prev, y, node.right) // <-- this doens't add all the necesary values
+        //y.left = node.left
        // console.log(y)
         //y.right = node.right.right
-        prev.right = y
+        //prev.right = y
     }
     return head
 }
