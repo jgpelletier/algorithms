@@ -50,7 +50,6 @@ function insertion (node, valueObject) {
     return head 
 
 }
-//function transplant () {} 
 
 function find (node, value) {
     while (node && node.object.city != value) {
@@ -64,19 +63,20 @@ function transplant ( head, prev, node, nextNode ) {
     if (!prev) {
         head = nextNode
     }
-    else if (prev.left == node) { // is this branch ever entered for a node with 2 children?
+    else if (prev.left == node) {
         prev.left = nextNode
     } else {
-        prev.right = nextNode // this is the node that is supposed to go next.
-                              // the question becomes how do I attach the right 
-                              // branches to this node and where should that be done?
+        prev.right = nextNode
     }
 
     if (node.right && node.left) { // this tests for 2 children
         if (node.right == nextNode) { // checks if min is the right node
             nextNode.right = node.right.right
         } else {
+                // vvv call deletion function to remove duplicate node from branch
             node = deletion(node, nextNode.object.city)
+            // ^^^ QUESTION: Is this inefficient considering the function adds more stackframes,
+            //               and this is the about the 3rd time of traveling down to a node?
             nextNode.right = node.right
             nextNode.left = node.left
            
@@ -89,39 +89,31 @@ function transplant ( head, prev, node, nextNode ) {
 function deletion (node, value) {
     var head  = node
     var prev = node
-
+    
+    // finds the node to be deleted.
     while (node && node.object.city != value) {
         prev = node
         if (node.object.city > value) node = node.left
         else node = node.right
     }
-
+    
+    // cases
     if (!node.left) {
-        return transplant( head, prev, node, node.right )
+        return transplant(head, prev, node, node.right)
     } 
     else if (!node.right) {
-        return transplant( head, prev, node, node.left )
+        return transplant(head, prev, node, node.left)
     } else {
-        var y = minValue(node.right)
-        y = { object:y } 
-        //console.log(y)
-        if ( node.right.object.city != y.object.city ) {
-            head = transplant( head, prev, node, y )
-            // How do I make chicago point at jackson, jackson take on the dowagic branch
-            // and keep kalamazoo while dumping the jackson on the kalamazoo branch?
-           // y.left = node.left
-           //prev.right = y
+                            // vvv function to find the min 
+        var min = { object: minValue(node.right) } 
+
+        // tests if the min is the right child or within the branch.
+        if (node.right.object.city != min.object.city) {
+            return transplant(head, prev, node, min)
         }
 
-        //y.right = node.right.right || null // y branch
-        //y.left = node.left
-        //head = transplant(head, prev, y, node.right) // <-- this doens't add all the necesary values
-        //y.left = node.left
-       // console.log(y)
-        //y.right = node.right.right
-        //prev.right = y
+        return transplant(head, prev, node, min)
     }
-    return head
 }
 
 exports.search = search
