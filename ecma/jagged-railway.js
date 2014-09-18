@@ -133,6 +133,8 @@ function main () {
     travel(head, function (object) { // the anonymous function is visitor
         console.log(object.city)
     })
+    console.log(head.right.right.object)
+    //dump(head)
 
 }
 

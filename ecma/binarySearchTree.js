@@ -64,15 +64,23 @@ function transplant ( head, prev, node, nextNode ) {
     if (!prev) {
         head = nextNode
     }
-    else if (prev.left == node) {
+    else if (prev.left == node) { // is this branch ever entered for a node with 2 children?
         prev.left = nextNode
     } else {
-        prev.right = nextNode
+        prev.right = nextNode // this is the node that is supposed to go next.
+                              // the question becomes how do I attach the right 
+                              // branches to this node and where should that be done?
     }
 
-    // vvv is this necessary
-    if (nextNode) {
-        //node.right.left = node.left
+    if (node.right && node.left) { // this tests for 2 children
+        if (node.right == nextNode) { // checks if min is the right node
+            nextNode.right = node.right.right
+        } else {
+            node = deletion(node, nextNode.object.city)
+            nextNode.right = node.right
+            nextNode.left = node.left
+           
+        }   
     }
 
     return head
@@ -89,21 +97,24 @@ function deletion (node, value) {
     }
 
     if (!node.left) {
-        return transplant( head, prev, node, node.right)
+        return transplant( head, prev, node, node.right )
     } 
     else if (!node.right) {
-        return transplant( head, prev, node, node.left)
+        return transplant( head, prev, node, node.left )
     } else {
-        var y = minValue(node.right) // 
-        y = { object:y }
+        var y = minValue(node.right)
+        y = { object:y } 
         //console.log(y)
-        if (node.right.object.city != y.object.city) {
-            head = transplant(head, prev, y, y.right/*node.next*/)
-            //prev.right = y
+        if ( node.right.object.city != y.object.city ) {
+            head = transplant( head, prev, node, y )
+            // How do I make chicago point at jackson, jackson take on the dowagic branch
+            // and keep kalamazoo while dumping the jackson on the kalamazoo branch?
+           // y.left = node.left
+           //prev.right = y
         }
 
-        y.right = node.right.right || null // y branch
-        y.left = node.left
+        //y.right = node.right.right || null // y branch
+        //y.left = node.left
         //head = transplant(head, prev, y, node.right) // <-- this doens't add all the necesary values
         //y.left = node.left
        // console.log(y)
