@@ -191,7 +191,7 @@ int read_lines (const char* fname, struct _line_t* lines)
     size_t i, len;
     int at_eof, err, count, c, j;
     err = c = j = 0;
-    memset(lines, 0, (sizeof(struct _line_t)));
+    memset(lines, 0, (sizeof(struct _line_t))); // <- implicit declaration of function
     tail = lines->next;
     node = lines;
     if ((f = fopen (fname, "r")) != NULL) {
@@ -267,7 +267,7 @@ int read_lines_m (const char* fname, struct _line_t* lines)
     size_t i, len;
     int at_eof, err, count, c, j, x;
     err = c = j = x = 0;
-    memset(lines, 0, sizeof(struct _line_t));
+    memset(lines, 0, sizeof(struct _line_t)); // <- incompatible implicit declaration of memset
     tail = lines->next;
     node = lines;
     if ((f = fopen (fname, "r")) != NULL) {
@@ -283,7 +283,7 @@ int read_lines_m (const char* fname, struct _line_t* lines)
 
             memset(new_line, 0, sizeof(struct _line_t));
 
-            strcpy(new_line->line, carry);
+            strcpy(new_line->line, carry); // <-implicit declaration of function/incompatible implicit
             //memset(carry, 0, 120);
             for (i = 0; i < len; i++) {
                 s = buffer[i];
