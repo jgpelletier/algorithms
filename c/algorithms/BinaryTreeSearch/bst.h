@@ -1,4 +1,6 @@
-// #define MAX_NODE 15 <- how do I define this only once
+i//#define MAX_NODE 15
+
+//static struct node node_pool[MAX_NODE];
 
 struct _bstNode {
     int value;
@@ -6,9 +8,16 @@ struct _bstNode {
     struct _bstNode* left;
 };
 
-typedef struct _bstNode node;
+struct _head {
+    struct _bstNode* right;
+};
 
-node * create_node(int number);
+typedef struct _bstNode node;
+typedef struct _head head;
+
+struct node * create_node(int number, int count);
+struct head * add(struct head*, struct node*);
+struct head * append(struct head *, struct node *);
 
 //void print_city
 

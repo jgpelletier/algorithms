@@ -5,20 +5,34 @@
 
 #define MAX_NODE 15
 
-node *create_node (int number)
+struct node *create_node (int number, int count)
 {
-    //var arr = [9, 4, 8, 7, 0, 10, 5, 14, 1, 11, 24, 19, 18, 34, 17]; // Needs an array of random numbers
-    static node node_pool[MAX_NODE]; // Needs an array of nodes
-    static int next_node = 0;
-/*
-    if (next_node >= MAX_NODE ) {
-        printf("Out of memory\n");
-        return (node ) *NULL;
-    }
-*/
-    node * node = &(node_pool[ next_node++ ]);
-    node -> value = number;
-    node -> right = NULL;
-    node -> left = NULL;
+    static struct node node_pool[MAX_NODE];
+    //static int next_node = 0;
+
+    printf("size of node pointer %d and size of max node %d\n", sizeof(node_pool), MAX_NODE);
+    struct  node * node = (node_pool[count]);
+    node-> value = number;
+    // node-> right = NULL;
+    //node-> left = NULL;
     return node;
 }
+/*
+struct head* add(struct head* head, struct node*node)
+{
+    if (head->right == NULL) {
+        return head->right = node;
+    } else {
+       return append(head->right, node);
+    }
+}
+
+struct head* append(struct *head, node *node)
+{
+    if (head-> right == NULL) {
+        head->right = node;
+    } else {
+        return append(head->right, node);
+    }
+}
+*/
