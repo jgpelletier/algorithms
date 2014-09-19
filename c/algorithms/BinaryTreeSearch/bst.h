@@ -1,12 +1,16 @@
-struct _line_t {
-    char line[120];
-    struct _line_t*  right;
-    struct _line_t*  left;
+// #define MAX_NODE 15 <- how do I define this only once
+
+struct _bstNode {
+    int value;
+    struct _bstNode* right;
+    struct _bstNode* left;
 };
 
-typedef struct _line_t lines;
+typedef struct _bstNode node;
 
-void print_city
+node * create_node(int number);
+
+//void print_city
 
 // What signitures do I need in here?
 // maxValue
@@ -14,3 +18,4 @@ void print_city
 // search
 // insertion
 // deletion
+// depth
