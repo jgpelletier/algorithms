@@ -3,16 +3,17 @@
 //#include "bst.h"
 
 // vvv these go in the h file.
-struct _bstNode {
+struct _bstNode { // <- declaration
     int value;
     struct _bstNode* right;
     struct _bstNode* left;
 };
 
-struct _head {
-    struct _bstNode* right;
+struct _head {// < size of a pointer
+    struct _bstNode* right; // <-size of a pointer
 };
 
+//  vvv allocation of memory
 typedef struct _bstNode node;
 typedef struct _head head;
 // ^^^^ h file.
@@ -33,31 +34,34 @@ node *create_node ( /*struct*/ node *node, int number)
     return node;
 }
 
-node * append(node *head, node *node)
+// may be un-needed: No error inside but both append and add throw error the same
+// Error: requests for memmber right in somthing not a struct or union.
+head * create_head (head * head)
 {
-    if (head-> right == NULL) {
-        head->right = node;
-        return head;
+    return head->right = NULL; // return from incompatible pointer type.
+}
+
+void append(node **head, node **node)
+{
+    if (head-> right == NULL) { // Error: right in something not a struct or union
+        head->right = node; // Error: right in something not a struct or union
     } else {
-        return append(head->right, node);
+        append(head->right, node);
     }
 }
 
-/*
-head * add( head head, node* node)
+void add( head ** head, node * node)
 {
     //node * temp;
-    if (head->right = NULL) {
-        head->right = node; // <- why did this not return the 1st time through?
-        return head;
+    if (head->right = NULL) {// Error: right in something not a struct or union
+        head->right = node;
     } else {
-       //temp = head->right;
-        append( head->right, node);
+        append( head->right, node); // Error: right in something not a struct or union
+                            //^^^ 2nd arg is incompatible pointer type
+
     }
-    return head;
 }
 
-*/
 
 void print (node * list) //definition
 {
@@ -67,6 +71,9 @@ void print (node * list) //definition
     }
 }
 
+
+// I keep trying to return stuctures like objects in JavaScript. I need to
+// change the functions so pointers are passed in and void is returned.
 int main ()
 {
 
@@ -76,33 +83,22 @@ int main ()
     /* struct */ node *node, *temp;
     /* struct */ head *head;
      //head->right = temp; // does head's right element need to be set to NULL?
+    head = create_head(head);
+
     // ^^^^ REMEMBER THESE ARE STRUCTS: they will go in the h file.
 
     //printf("The size of the arary %d\n", sizeof(arr));
     //printf("The size of a pointer is %d\n", sizeof(node));
+
+
     for ( i = 0; i < MAX_NODE; ++i) {
         //printf("%d\n", arr[i]);
+        // is this the correct way to approach the value assignment
         node = create_node(&node_pool[i], arr[i]);
-        //printf("%d\n", node->value);
-        if (temp == NULL) {
-            temp = node;
-            printf("%d\n", temp ->value);
-        }
-        /*
-        else if (temp->right != node) {
-           temp->right = node;
-            //printf("%d\n", temp ->value);
-        } else {
-           while (temp -> right) {
-                  temp  =  temp ->right;
-            }
-            temp->right = node;
-            printf("%d\n", temp ->value);
-        */
-        //}
-        //head->right = temp;
+        add(&head, &node); // <- arg 2 is incompatible pointer type
+
     }
 
-    //print(temp);
+    print(temp);
     return 0;
 }
