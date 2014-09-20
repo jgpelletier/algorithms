@@ -2,6 +2,7 @@
 #include <stdlib.h>
 //#include "bst.h"
 
+// vvv these go in the h file.
 struct _bstNode {
     int value;
     struct _bstNode* right;
@@ -14,16 +15,18 @@ struct _head {
 
 typedef struct _bstNode node;
 typedef struct _head head;
+// ^^^^ h file.
 
-#define MAX_NODE 15
+#define MAX_NODE 15  // should this be a global variable? should it be in the h file
 
-node *create_node (int number, int count)
+static node node_pool[MAX_NODE]; // here is my pool.
+
+                   // vvv passsing in a node from the array and the number
+node *create_node ( /*struct*/ node *node, int number)
 {
-    static  node node_pool[MAX_NODE];
-    //static int next_node = 0;
 
-    printf("size of node pointer %d and size of max node %d\n", sizeof(node_pool), MAX_NODE);
-    node * node = &(node_pool[count]);
+    //printf("size of node pointer %d and size of max node %d\n", sizeof(node_pool), MAX_NODE);
+    //node * node = node_pool[count]; // <- incompatible types
     node-> value = number;
     node-> right = NULL;
     node-> left = NULL;
@@ -55,7 +58,7 @@ head * add( head* head, node* node)
 }
 
 
-void print (head* list) //definition
+void print (node * list) //definition
 {
     while (list->right) {
         printf("value: %d\n", list->right->value);
@@ -67,16 +70,19 @@ int main ()
 {
     int arr[] = { 9, 4, 8, 7, 0, 10, 5, 14, 1, 11, 24, 19, 18, 34, 17 };
     int i;
-    node *node;
-    head *head;
-        //printf("The size of the arary %d\n", sizeof(arr));
+    /* struct */ node *node;
+    /* struct */ head *head;
+    // ^^^^ REMEMBER THESE ARE STRUCTS: they will go in the h file.
+
+    //printf("The size of the arary %d\n", sizeof(arr));
     //printf("The size of a pointer is %d\n", sizeof(node));
     for ( i = 0; i < MAX_NODE; ++i) {
         //printf("%d\n", arr[i]);
-        node = create_node(arr[i], i);
+        node = create_node(&node_pool[i], arr[i]);
+        //printf("%d", node->value);
         head = add(head, node);
     }
 
-    print(head);
+    //print(&head->right);
     return 0;
 }
