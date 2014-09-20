@@ -73,9 +73,9 @@ int main ()
     static node node_pool[MAX_NODE]; // here is my pool.
     int arr[] = { 9, 4, 8, 7, 0, 10, 5, 14, 1, 11, 24, 19, 18, 34, 17 };
     int i;
-    /* struct */ node *node;
-    ///* struct */ head *head;
-    // head->right = NULL; // does head's right element need to be set to NULL?
+    /* struct */ node *node, *temp;
+    /* struct */ head *head;
+     //head->right = temp; // does head's right element need to be set to NULL?
     // ^^^^ REMEMBER THESE ARE STRUCTS: they will go in the h file.
 
     //printf("The size of the arary %d\n", sizeof(arr));
@@ -83,10 +83,26 @@ int main ()
     for ( i = 0; i < MAX_NODE; ++i) {
         //printf("%d\n", arr[i]);
         node = create_node(&node_pool[i], arr[i]);
-        printf("%d\n", node->value);
-        //head = add(&head, &node);
+        //printf("%d\n", node->value);
+        if (temp == NULL) {
+            temp = node;
+            printf("%d\n", temp ->value);
+        }
+        /*
+        else if (temp->right != node) {
+           temp->right = node;
+            //printf("%d\n", temp ->value);
+        } else {
+           while (temp -> right) {
+                  temp  =  temp ->right;
+            }
+            temp->right = node;
+            printf("%d\n", temp ->value);
+        */
+        //}
+        //head->right = temp;
     }
 
-    //print(&head->right);
+    //print(temp);
     return 0;
 }
