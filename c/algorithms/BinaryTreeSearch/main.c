@@ -19,7 +19,7 @@ typedef struct _head head;
 
 #define MAX_NODE 15  // should this be a global variable? should it be in the h file
 
-static node node_pool[MAX_NODE]; // here is my pool.
+//static node node_pool[MAX_NODE]; // here is my pool.
 
                    // vvv passsing in a node from the array and the number
 node *create_node ( /*struct*/ node *node, int number)
@@ -43,12 +43,12 @@ node * append(node *head, node *node)
     }
 }
 
-
-head * add( head* head, node* node)
+/*
+head * add( head head, node* node)
 {
     //node * temp;
-    if (head->right == NULL) {
-        head->right = node;
+    if (head->right = NULL) {
+        head->right = node; // <- why did this not return the 1st time through?
         return head;
     } else {
        //temp = head->right;
@@ -57,6 +57,7 @@ head * add( head* head, node* node)
     return head;
 }
 
+*/
 
 void print (node * list) //definition
 {
@@ -68,10 +69,13 @@ void print (node * list) //definition
 
 int main ()
 {
+
+    static node node_pool[MAX_NODE]; // here is my pool.
     int arr[] = { 9, 4, 8, 7, 0, 10, 5, 14, 1, 11, 24, 19, 18, 34, 17 };
     int i;
     /* struct */ node *node;
-    /* struct */ head *head;
+    ///* struct */ head *head;
+    // head->right = NULL; // does head's right element need to be set to NULL?
     // ^^^^ REMEMBER THESE ARE STRUCTS: they will go in the h file.
 
     //printf("The size of the arary %d\n", sizeof(arr));
@@ -79,8 +83,8 @@ int main ()
     for ( i = 0; i < MAX_NODE; ++i) {
         //printf("%d\n", arr[i]);
         node = create_node(&node_pool[i], arr[i]);
-        //printf("%d", node->value);
-        head = add(head, node);
+        printf("%d\n", node->value);
+        //head = add(&head, &node);
     }
 
     //print(&head->right);
