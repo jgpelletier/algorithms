@@ -33,15 +33,16 @@ node *create_node ( /*struct*/ node *node, int number)
     node-> left = NULL;
     return node;
 }
-
+/*
 // may be un-needed: No error inside but both append and add throw error the same
 // Error: requests for memmber right in somthing not a struct or union.
 head * create_head (head * head)
 {
     return head->right = NULL; // return from incompatible pointer type.
 }
+*/
 
-void append(node **head, node **node)
+void append(node *head, node *node)
 {
     if (head-> right == NULL) { // Error: right in something not a struct or union
         head->right = node; // Error: right in something not a struct or union
@@ -50,10 +51,10 @@ void append(node **head, node **node)
     }
 }
 
-void add( head ** head, node * node)
+void add( head * head, node * node)
 {
     //node * temp;
-    if (head->right = NULL) {// Error: right in something not a struct or union
+    if (head->right == NULL) {// Error: right in something not a struct or union
         head->right = node;
     } else {
         append( head->right, node); // Error: right in something not a struct or union
@@ -76,14 +77,12 @@ void print (node * list) //definition
 // change the functions so pointers are passed in and void is returned.
 int main ()
 {
-
-    static node node_pool[MAX_NODE]; // here is my pool.
+    //static head head; // this is the head
+    /*static*/ node node_pool[MAX_NODE]; // here is my pool.
     int arr[] = { 9, 4, 8, 7, 0, 10, 5, 14, 1, 11, 24, 19, 18, 34, 17 };
     int i;
-    /* struct */ node *node, *temp;
-    /* struct */ head *head;
-     //head->right = temp; // does head's right element need to be set to NULL?
-    head = create_head(head);
+    /* struct */ node *node; //*temp; //<- If removed there is an error.
+                                      //   If it stays there is a warning its not be used.
 
     // ^^^^ REMEMBER THESE ARE STRUCTS: they will go in the h file.
 
@@ -95,10 +94,11 @@ int main ()
         //printf("%d\n", arr[i]);
         // is this the correct way to approach the value assignment
         node = create_node(&node_pool[i], arr[i]);
-        add(&head, &node); // <- arg 2 is incompatible pointer type
+
+        //add(&head, &node); // <- arg 2 is incompatible pointer type
 
     }
 
-    print(temp);
+    //print(temp);
     return 0;
 }
