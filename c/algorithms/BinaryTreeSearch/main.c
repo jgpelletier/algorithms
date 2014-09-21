@@ -23,15 +23,15 @@ typedef struct _head head;
 //static node node_pool[MAX_NODE]; // here is my pool.
 
                    // vvv passsing in a node from the array and the number
-node *create_node ( /*struct*/ node *node, int number)
+void addValue_array ( /*struct*/ node *node_pool, int number)
 {
 
     //printf("size of node pointer %d and size of max node %d\n", sizeof(node_pool), MAX_NODE);
     //node * node = node_pool[count]; // <- incompatible types
-    node-> value = number;
-    node-> right = NULL;
-    node-> left = NULL;
-    return node;
+    node_pool-> value = number;
+    //node_pool-> right = NULL;
+    //node_pool-> left = NULL;
+    //node = node_pool;
 }
 /*
 // may be un-needed: No error inside but both append and add throw error the same
@@ -77,28 +77,21 @@ void print (node * list) //definition
 // change the functions so pointers are passed in and void is returned.
 int main ()
 {
-    //static head head; // this is the head
-    /*static*/ node node_pool[MAX_NODE]; // here is my pool.
+    //statc head head; // this is the head
+    static node node_pool[MAX_NODE]; // here is my pool.
     int arr[] = { 9, 4, 8, 7, 0, 10, 5, 14, 1, 11, 24, 19, 18, 34, 17 };
     int i;
-    /* struct */ node *node; //*temp; //<- If removed there is an error.
+    ///* struct */ node *node; //*temp; //<- If removed there is an error.
                                       //   If it stays there is a warning its not be used.
 
     // ^^^^ REMEMBER THESE ARE STRUCTS: they will go in the h file.
 
-    //printf("The size of the arary %d\n", sizeof(arr));
-    //printf("The size of a pointer is %d\n", sizeof(node));
-
-
+    // values are added to the nodes in the node_pool
     for ( i = 0; i < MAX_NODE; ++i) {
-        //printf("%d\n", arr[i]);
-        // is this the correct way to approach the value assignment
-        node = create_node(&node_pool[i], arr[i]);
-
-        //add(&head, &node); // <- arg 2 is incompatible pointer type
-
+        addValue_array(&node_pool[i], arr[i]);
+        printf("%d\n", node_pool[i].value);
     }
 
-    //print(temp);
+
     return 0;
 }
