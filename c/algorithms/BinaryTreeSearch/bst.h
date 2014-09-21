@@ -1,6 +1,5 @@
-i//#define MAX_NODE 15
+#define MAX_NODE 15
 
-//static struct node node_pool[MAX_NODE];
 
 struct _bstNode {
     int value;
@@ -15,9 +14,7 @@ struct _head {
 typedef struct _bstNode node;
 typedef struct _head head;
 
-struct node * create_node(int number, int count);
-struct head * add(struct head*, struct node*);
-struct head * append(struct head *, struct node *);
+void addValue_array (node *node_pool, int number);
 
 //void print_city
 
