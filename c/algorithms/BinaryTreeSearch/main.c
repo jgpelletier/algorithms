@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "bst.h"
+#include "node_pool.h"
 // understand vvv this function.
 //int compare(const void* a, const void* b) { return (*(int*)a - *(int*)b; }
 
@@ -8,9 +9,11 @@
 int main ()
 {
     node_t nodes[MAX_NODE];
-    //tree_t tree;
+    node_t tree;
 
-    node_pool_t node_pool;
+    np_pool_t node_pool;
+    
+    //initializeTree(tree);
 
     np_initialize (&node_pool, sizeof(node_t), nodes, sizeof(nodes));
 
@@ -19,12 +22,9 @@ int main ()
     int i;
     // values are added to the nodes in the node_pool. this may need to be
     // made a function/
-    /*
     for ( i = 0; i < MAX_NODE; ++i) {
-        addValue_array(&node_pool[i], arr[i]);
-        node = &node_pool[i];
+        add_node(tree, np_allocate(&node_pool), &arr[i]);
     }
-    //printf("%d\n," head.right.value);
-   */
+
     return 0;
 }
