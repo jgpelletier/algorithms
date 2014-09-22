@@ -4,18 +4,14 @@
 #include "bst.h"
 
 
-void np_initialize(node_pool_t node_pool, size_t* node_size, void *memory, size_t memory_size);
+void np_initialize(node_pool_t *node_pool, size_t node_size, void *memory, size_t memory_size)
 {
     node_pool -> unused = memory;
-    node_pool -> stop = node_pool > unused + memory_size;
+    node_pool -> stop = node_pool -> unused + memory_size;
     node_pool -> free_node = NULL;
     node_pool -> node_size = node_size;
 }
 
-void addValue_array (node *node_pool, int number)
-{
-    node_pool-> value = number;
-}
 /*
 void add(node*node_pool, node**node)
 {

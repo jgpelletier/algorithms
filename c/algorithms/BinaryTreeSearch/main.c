@@ -8,22 +8,23 @@
 int main ()
 {
     node_t nodes[MAX_NODE];
-    tree_t tree;
+    //tree_t tree;
 
-    node_pool_t nodepool;
+    node_pool_t node_pool;
 
-    np_initialize (&node_pool, sizeof(struct node), nodes, sizeof(nodes));
+    np_initialize (&node_pool, sizeof(node_t), nodes, sizeof(nodes));
 
 
     static int arr[15] = { 9, 4, 8, 7, 0, 10, 5, 14, 1, 11, 24, 19, 18, 34, 17 };
     int i;
     // values are added to the nodes in the node_pool. this may need to be
     // made a function/
+    /*
     for ( i = 0; i < MAX_NODE; ++i) {
         addValue_array(&node_pool[i], arr[i]);
         node = &node_pool[i];
     }
     //printf("%d\n," head.right.value);
-
+   */
     return 0;
 }
