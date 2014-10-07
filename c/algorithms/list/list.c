@@ -12,7 +12,7 @@ struct node *list_create () //definition
     return list;
 }
 
-void list_delete (struct node* list) //definition
+void list_delete (struct node *list) //definition
 {
     struct node *node;
     do {
@@ -22,7 +22,7 @@ void list_delete (struct node* list) //definition
     } while (list);
 }
 
-void list_push (struct node* list, int value) //definition
+void list_push (struct node *list, int value) //definition
 {
     struct node *node;
     node = malloc(sizeof(struct node));
@@ -31,7 +31,7 @@ void list_push (struct node* list, int value) //definition
     list->next = node;
 }
 
-void list_print (struct node* list) //definition
+void list_print (struct node *list) //definition
 {
     while (list->next) {
         printf("value: %d\n", list->next->value);
