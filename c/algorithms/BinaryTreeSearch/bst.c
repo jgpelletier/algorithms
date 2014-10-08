@@ -4,21 +4,21 @@
 #include "bst.h"
 
 
-/*
-node_t intializeTree (node_t node) 
+
+node_t* intializeTree (node_t *node)
 {
-     node.data =  NULL;
-     node.right =  NULL;
-     node.left = NULL;
+     node->data =  NULL;
+     node->right =  NULL;
+     node->left = NULL;
      return node;
 }
-*/
 
-void add_node(node_t tree, node_t * node, int * value)
+
+void add_node(node_t *tree, node_t * node, int * value)
   // ^^^ Camel case is for JavaScript. Not for C.
 {
     node->data = value;
-    tree.right->right= node;
+    tree->right= node; //<breaks here
     //return tree;
 }
 
