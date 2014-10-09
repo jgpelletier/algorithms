@@ -12,9 +12,9 @@ struct bst_tree_s {
 typedef struct bst_node_s node_t;
 typedef struct bst_tree_s tree_t;
 
-//node_t intializeTree (node_t node); 
+node_t* intializeTree (node_t* node);
 
-void  add_node (node_t tree, node_t *node, int *value);
+void  add_node (node_t * tree, node_t *node, int *value);
 
 //void add( node *node_pool, node**node);
 
