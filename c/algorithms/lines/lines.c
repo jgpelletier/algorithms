@@ -33,16 +33,16 @@ struct _file_info3 share_info3 (int lines, size_t length)
 }
 
 
-struct _file_info *line_count (const char* fname)
+struct _file_info *line_count (const char *fname)
 {
     int error;
     struct _file_info3 info3;
     line_count_3(fname, &info3, &error);
-    struct _file_info * info = share_info(info3.lines, info3.length, error);
+    struct _file_info *info = share_info(info3.lines, info3.length, error);
     return info;
 }
 
-void line_count_2 (const char* fname, struct _file_info2 **info2, int *error)
+void line_count_2 (const char *fname, struct _file_info2 **info2, int *error)
 {
     struct _file_info3 info3;
     line_count_3(fname, &info3, error);
@@ -50,7 +50,7 @@ void line_count_2 (const char* fname, struct _file_info2 **info2, int *error)
 }
 
 
-void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
+void line_count_3 (const char *fname, struct _file_info3 *info3, int *error)
 {
     char buffer[BUFFER_SIZE];
     size_t i, len;
@@ -75,7 +75,7 @@ void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
             if (len == sizeof(buffer)) {
                 at_eof = 0;
             } else if (feof(f)) {
-                len = len + (count * sizeof(buffer));
+                len = len + (count *sizeof(buffer));
                 at_eof = 1;
             } else {
                 perror("fclose error");
@@ -109,7 +109,7 @@ void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
 // the buffer is ASCII and zero-terminated.
 // zero is no error, non-zero is an error, return.
 
-struct _line_t * append (struct _line_t *lines, struct _line_t *new_line)
+struct _line_t *append (struct _line_t *lines, struct _line_t *new_line)
 {
     struct _line_t *node; // = malloc(sizeof(struct _line_t));
     
@@ -122,7 +122,7 @@ struct _line_t * append (struct _line_t *lines, struct _line_t *new_line)
     return lines;
 }
 
-void print_lines (struct _line_t* lines) //definition
+void print_lines (struct _line_t *lines) //definition
 {
     while (lines) {
         printf(lines->line);
@@ -141,7 +141,7 @@ void delete_lines (struct _line_t *lines) //definition
     } while (lines);
 }
 
-int read_lines_fgets (const char* fname , struct _line_t *lines) // lines is the head
+int read_lines_fgets (const char *fname , struct _line_t *lines) // lines is the head
 {
     struct _line_t *new_line, *node, *tail; // <- this is the node
     char *s;
@@ -182,7 +182,7 @@ int read_lines_fgets (const char* fname , struct _line_t *lines) // lines is the
     }
 }
 
-int read_lines (const char* fname, struct _line_t* lines)
+int read_lines (const char *fname, struct _line_t *lines)
 {
     struct _line_t *new_line, *node, *tail;
     char s;
@@ -257,7 +257,7 @@ int read_lines (const char* fname, struct _line_t* lines)
     }
 }
 
-int read_lines_m (const char* fname, struct _line_t* lines)
+int read_lines_m (const char *fname, struct _line_t *lines)
 {
     struct _line_t *new_line, *node, *tail;
     char s;
@@ -427,7 +427,7 @@ int read_and_dump_all_over_the_screen_a_bunch_of_lines
    }
 }
 
-void line_count_4 (const char* fname, int *lines, int *length, int *error)
+void line_count_4 (const char *fname, int *lines, int *length, int *error)
 {
     struct _file_info3 info3;
     line_count_3(fname, &info3, error);
@@ -435,7 +435,7 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error)
     *length = info3.length;
 }
 
-struct _file_info3 line_count_5 (const char* fname, int* error)
+struct _file_info3 line_count_5 (const char *fname, int *error)
 {
     struct _file_info3 info;
     line_count_3(fname, &info, error);
