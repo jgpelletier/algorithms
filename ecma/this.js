@@ -19,26 +19,29 @@ barney.funky(1, 2) // <- `this` is barney, the foo of `this` is 1, and
 
 
 //      vvv first argument is `this`
-f.call(barney, 1, 2) // <- call takes additional arguments 
+f.call(barney, 1, 2) // <- call accepts an argument list.
 
 //      vvv first argument is `this`
-f.apply(barney, [ 1, 2 ]) // <- apply takes one array with its members as arguments  
+f.apply(barney, [ 1, 2 ]) // <- apply calls a function w/ a given `this` value and 
+// arguments provided ^ as an array of arguments.
 
 var slice = [].slice //<- useful tool
 
 // vvv A variadic function is a function of indefinite arity,
 //     i.e., one which accepts a variable number of arguments.
 function variadic () {
-    console.log(typeof arguments.pop)
-    var vargs = slice.call(arguments)
-    console.log(vargs.pop())
+    console.log(typeof arguments.pop) //<- undefined. arguments is an array-like object not an array
+    var vargs = slice.call(arguments) // <- this creates array and assigns it to vargs
+    console.log(vargs.pop()) // <- bc vargs is an array it inherits from the Array object prototype
 }
 
-variadic(1, 2) //<- does this change if I add barney as an argument?
+variadic(1, 2, barney) //<- how does this change if I add barney as an argument?
 
 var baz = function () {
     console.log(this.foo)
-}.bind(barney) // binds `this` to barney?
+}.bind(barney) // binds `this` to barney? yes
+// ^^ Simple use : makes function called with particular `this` value. It other words, bind () allows you to
+// easily set which specific object will be bound to this when a function or method is invoked.
 
 var fred = { foo: 2, funky: baz } //`this` in baz references fred? No, barney
 
