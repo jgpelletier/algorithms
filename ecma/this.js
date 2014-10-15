@@ -1,6 +1,7 @@
 function f (a, b) {
     console.log(a, b)
-    console.log(this.foo)
+    console.log(this.foo) // <- undefined. `this` is global in the debugger until assigned in as a 
+                          //    property in the barney object.
     console.log(typeof this.setTimeout)
 }
 
@@ -9,15 +10,19 @@ f(1, 2) // <- `this` is meaningless
 var barney = {} // <- look at in debugger to see prototype properties/methods. Notice
                 //    that defineGetter/Setter and lookup will be removed in the future.
 
-barney.funky = f
-barney.foo = 1
+barney.funky = f // <- member function: its prototype has apply, bind, and call methods.
+barney.foo = 1 // if assignment to foo is commented out `this` is meaningless
 
-barney.funky(1, 2) // <- `this` is barney, the food of `this` is 1, and
+// vvv both the barney Object object and the Function object have prototypes.
+barney.funky(1, 2) // <- `this` is barney, the foo of `this` is 1, and
                    //     (typeof this.setTimeout) is undefined.
 
-f.call(barney, 1, 2) // <- `this`
 
-f.apply(barney, [ 1, 2 ]) // <- `this`
+//      vvv first argument is `this`
+f.call(barney, 1, 2) // <- call takes additional arguments 
+
+//      vvv first argument is `this`
+f.apply(barney, [ 1, 2 ]) // <- apply takes one array with its members as arguments  
 
 var slice = [].slice //<- useful tool
 
