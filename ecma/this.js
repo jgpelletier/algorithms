@@ -6,32 +6,36 @@ function f (a, b) {
 
 f(1, 2) // <- `this` is meaningless
 
-var barney = {}
+var barney = {} // <- look at in debugger to see prototype properties/methods. Notice
+                //    that defineGetter/Setter and lookup will be removed in the future.
 
 barney.funky = f
 barney.foo = 1
 
-barney.funky(1, 2) // <- `this` is barney
+barney.funky(1, 2) // <- `this` is barney, the food of `this` is 1, and
+                   //     (typeof this.setTimeout) is undefined.
 
 f.call(barney, 1, 2) // <- `this`
 
 f.apply(barney, [ 1, 2 ]) // <- `this`
 
-var slice = [].slice
+var slice = [].slice //<- useful tool
 
+// vvv A variadic function is a function of indefinite arity,
+//     i.e., one which accepts a variable number of arguments.
 function variadic () {
     console.log(typeof arguments.pop)
     var vargs = slice.call(arguments)
     console.log(vargs.pop())
 }
 
-variadic(1, 2)
+variadic(1, 2) //<- does this change if I add barney as an argument?
 
 var baz = function () {
     console.log(this.foo)
-}.bind(barney)
+}.bind(barney) // binds `this` to barney?
 
-var fred = { foo: 2, funky: baz }
+var fred = { foo: 2, funky: baz } //`this` in baz references fred? No, barney
 
 fred.funky(1, 2)
 fred.funky = function (a, b) {
@@ -55,12 +59,12 @@ function Item () {
     this.bar = 2
 }
 
-Item.prototype.foo = function () {
+Item.prototype.foo = function () { // <- notice capital letter.
     return this.bar + 1
 }
 
 var item = new Item()
-console.log(item.foo)
+console.log(item.foo) //<- what does this return?
 
 item.foo = function () {
     return 'x'
@@ -70,7 +74,7 @@ console.log(item.foo)
 function badBaz () {
     function Baz () {
     }
-    require('util').inherits(Baz, Item)
+    require('util').inherits(Baz, Item)// <- look into inherits
     var baz = new Baz
     console.log(baz.foo())
 }
