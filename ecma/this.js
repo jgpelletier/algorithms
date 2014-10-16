@@ -56,10 +56,12 @@ function add (a, b) {
     return a + b
 }
 
-var add7 = add.bind(this, 7)
+var add7 = add.bind(this, 7) // <- function currying.
+// the bind ^^^ method presets the first parameter of the add function.
 
-console.log(add7(5))
+console.log(add7(5))// <- result of currying.
 
+// vvv using currying and the add function for the same result.
 console.log(([ 1, 2, 3 ]).map(add.bind(this, 7)))
 console.log(([ 1, 2, 3 ]).map(function (item) { return add(item, 7) }))
 
