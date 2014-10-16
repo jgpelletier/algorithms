@@ -113,3 +113,14 @@ goodBaz()
 //
 //    Your browser has a `setTimeout` but it does not have a `process`.
 //    Your browser has a `window` Node.js does not.
+//    
+//    NOTES:
+//    `this` refers to and holds the value of a singural object. 
+//    Becuase `this` always holds a value of a singural object, it
+//    will refer to the global object if not otherwise specified. 
+//    In strict mode, `this` holds the value of undefined in global
+//    functions and in anonymous functions that are not bound to any
+//    object. Hence, `this` is not always meaningful, but it is always
+//    there.
+//    
+//    IS NODE ALWAYS IN STRICT MODE?
