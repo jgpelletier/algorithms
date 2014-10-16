@@ -68,18 +68,30 @@ console.log(([ 1, 2, 3 ]).map(function (item) { return add(item, 7) }))
 function Item () {
     this.bar = 2
 }
-
+// without this vvv the Item prototype does not have foo
 Item.prototype.foo = function () { // <- notice capital letter.
     return this.bar + 1
 }
 
+/*
+// if this vvv is done the console.log below return undefined 
+Item.foo = function () {
+    return this.bar + 1
+}
+*/
+
 var item = new Item()
-console.log(item.foo) //<- what does this return?
+console.log(item.foo) //<- what does this return? [function]
+console.log(item.foo()) //<- what does this return? (3) 
+console.log(Object.keys(item)) // <- [ 'bar' ]
 
 item.foo = function () {
     return 'x'
 }
-console.log(item.foo)
+console.log(item.foo) // <- [function]
+console.log(item.foo()) // <- 'x' overshadows foo in prototype
+console.log(Object.keys(item))// <- [ 'bar', 'foo' ]
+
 
 function badBaz () {
     function Baz () {
