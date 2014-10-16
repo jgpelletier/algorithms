@@ -80,7 +80,13 @@ Item.foo = function () {
 }
 */
 
-var item = new Item()
+var item = new Item() // New objects are created using a constructor,
+                      // which is a regular function invoked using new.
+                      //        The `new` constructor call:
+                      //            1) creates a new object,
+                      //            2) sets the prototype of that object to Foo.prototype 
+                      //            3) passes that as this to the constructor.
+
 console.log(item.foo) //<- what does this return? [function]
 console.log(item.foo()) //<- what does this return? (3) 
 console.log(Object.keys(item)) // <- [ 'bar' ]
@@ -92,10 +98,13 @@ console.log(item.foo) // <- [function]
 console.log(item.foo()) // <- 'x' overshadows foo in prototype
 console.log(Object.keys(item))// <- [ 'bar', 'foo' ]
 
-
+// Inherit the prototype methods from one constructor into another. 
+// The prototype of constructor will be set to a new object created 
+// from superConstructor.
 function badBaz () {
     function Baz () {
     }
+    //           constructor vvv, vvv superConstructor
     require('util').inherits(Baz, Item)// <- look into inherits
     var baz = new Baz
     console.log(baz.foo())
