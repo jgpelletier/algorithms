@@ -68,13 +68,14 @@ console.log(([ 1, 2, 3 ]).map(function (item) { return add(item, 7) }))
 function Item () {
     this.bar = 2
 }
+
 // without this vvv the Item prototype does not have foo
 Item.prototype.foo = function () { // <- notice capital letter.
     return this.bar + 1
 }
 
 /*
-// if this vvv is done the console.log below return undefined 
+// if this vvv is done the console.log below returns undefined 
 Item.foo = function () {
     return this.bar + 1
 }
@@ -84,7 +85,7 @@ var item = new Item() // New objects are created using a constructor,
                       // which is a regular function invoked using new.
                       //        The `new` constructor call:
                       //            1) creates a new object,
-                      //            2) sets the prototype of that object to Foo.prototype 
+                      //            2) sets the prototype of that object to Item.prototype 
                       //            3) passes that as this to the constructor.
 
 console.log(item.foo) //<- what does this return? [function]
@@ -103,18 +104,25 @@ console.log(Object.keys(item))// <- [ 'bar', 'foo' ]
 // from superConstructor.
 function badBaz () {
     function Baz () {
+            // With inherits, Baz's constructur will be set to the  prototype constructor of Item. 
+            // Therefore, Baz prototype has a foo method property. But without invoking 
+            // Item with the call method and `this` the object with the bar property is not 
+            // assigned to Baz.
     }
     //           constructor vvv, vvv superConstructor
-    require('util').inherits(Baz, Item)// <- look into inherits
+    require('util').inherits(Baz, Item)// <- what is item here and in goodBaz?
     var baz = new Baz
-    console.log(baz.foo())
+    console.log(baz.foo()) // <- undefined + 1 = NaN
 }
 
 badBaz()
 
 function goodBaz () {
     function Baz () {
-        Item.call(this) // <- figure out why
+        Item.call(this) // <- figure out why?
+            // With Item.call(this) the constructor includes the value of the object 
+            // that invokes the function where `this` is used. The object `this` is referecing
+            // is the Item function object with the bar property.
     }
     require('util').inherits(Baz, Item)
     var baz = new Baz
