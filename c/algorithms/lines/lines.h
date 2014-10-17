@@ -17,7 +17,7 @@ struct _file_info3 { // <- 8 bytes
 
 struct _line_t {
     char line[120];
-    struct _line_t*  next;
+    struct _line_t *next;
 };
 
 typedef struct _file_info info; // <-allocation of memory for the type.
@@ -28,7 +28,7 @@ typedef struct _line_t lines;
 struct _file_info *share_info (int lines, size_t length, int error);
 struct _file_info2 *share_info2 (int lines, size_t length);
 struct _file_info3 share_info3 (int lines, size_t length);
-struct _file_info *line_count (const char* fname);
+struct _file_info *line_count (const char *fname);
                 // ^^^ using line_count_3
 void line_count_2 (const char *fname, struct _file_info2 **info2, int *error);
 void line_count_4 (const char *fname, int *lines, int *length, int *error);
