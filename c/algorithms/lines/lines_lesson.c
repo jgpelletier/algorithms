@@ -107,7 +107,7 @@ struct _file_info3 share_info3 (int lines, size_t length)
 }
 
 
-struct _file_info *line_count (const char* fname) // <- implement using line_count_3
+struct _file_info *line_count (const char *fname) // <- implement using line_count_3
                                                      //    ^^^
             // ^^^ definition, return type, name, a parameter signature; count
             // of parameters, name of each paramer.
@@ -119,11 +119,11 @@ struct _file_info *line_count (const char* fname) // <- implement using line_cou
     int error;
     struct _file_info3 info3;
     line_count_3(fname, &info3, &error);
-    struct _file_info * info = share_info(info3.lines, info3.length, error);
+    struct _file_info *info = share_info(info3.lines, info3.length, error);
     return info;
 }
 
-void line_count_2 (const char* fname, struct _file_info2 **info2, int *error)
+void line_count_2 (const char *fname, struct _file_info2 **info2, int *error)
     // ^^^ implement using line_count_3
 {
     struct _file_info3 info3;
@@ -132,7 +132,7 @@ void line_count_2 (const char* fname, struct _file_info2 **info2, int *error)
 }
 
 
-void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
+void line_count_3 (const char *fname, struct _file_info3 *info3, int *error)
 {
     char buffer[BUFFER_SIZE];
     size_t i, len;
@@ -158,7 +158,7 @@ void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
             if (len == sizeof(buffer)) {
                 at_eof = 0;
             } else if (feof(f)) {
-                len = len + (count * sizeof(buffer));
+                len = len + (count *sizeof(buffer));
                 at_eof = 1;
             } else {
                 perror("fclose error");
@@ -182,7 +182,7 @@ void line_count_3 (const char* fname, struct _file_info3* info3, int* error)
     *error = err;
 }
 
-void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-definition
+void line_count_4 (const char *fname, int *lines, int *length, int *error) // <-definition
     // ^^^ implement using line_count_3
 {
     struct _file_info3 info3;
@@ -191,7 +191,7 @@ void line_count_4 (const char* fname, int *lines, int *length, int *error) // <-
     *length = info3.length;
 }
 
-struct _file_info3 line_count_5 (const char* fname, int* error)
+struct _file_info3 line_count_5 (const char *fname, int *error)
 {
     struct _file_info3 info;
     line_count_3(fname, &info, error);
