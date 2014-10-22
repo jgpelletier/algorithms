@@ -27,7 +27,7 @@ function smedley () {
             throw new Error('badness')
             return 'goodness' // <- not gonna happen.
         } else {
-            return badness(count - 1)
+            return badness(count - 1) // error here <- 10 lines.
         }
         return 'goodness' // <- not gonna happen.
     }
@@ -43,6 +43,7 @@ function smedley () {
     }
     console.log('Everything went swimingly.')
 
+    // vvv look into this. Used for production.
     var stackTraceLimit = Error.stackTraceLimit
     Error.stackTraceLimit = Infinity
 
@@ -52,7 +53,7 @@ function smedley () {
         badness(12)
         // from here we go to ...
     } catch (e) {
-        console.log(e.stack)
+        console.log(e.stack) // <- prints more due to stackTraceLimit
         // from here we go to ...
     }
     // ... here from try or catch.
@@ -60,7 +61,7 @@ function smedley () {
     console.log('Everything went swimingly.')
     // ^^^ why is this called?
 
-    Error.stackTraceLimit = stackTraceLimit
+    Error.stackTraceLimit = stackTraceLimit // <- what is this doing?
 
     function willcatch (count) {
         try {
