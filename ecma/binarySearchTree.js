@@ -84,7 +84,7 @@ function transplant ( head, prev, node, nextNode ) {
     }
 
     if (node.right && node.left) { // this tests for 2 children
-        if (node.right == nextNode) { // checks if min is the right node
+        if (node.right == nextNode) {
             nextNode.right = node.right.right
         } else {
                 // vvv call deletion function to remove duplicate node from branch
