@@ -104,7 +104,6 @@ function deletion (node, value) {
     var head  = node
     var prev = node
     
-    // finds the node to be deleted.
     while (node && node.object.city != value) {
         prev = node
         if (node.object.city > value) node = node.left
