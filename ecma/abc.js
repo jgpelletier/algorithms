@@ -9,9 +9,14 @@
 // ^^^ why aren't their five empty lines?
 process.stdout.write('here are the elements in [ "a", "b", "c" ]:\n')
 process.stdout.write('a\nb\nc\n')
+
+
 process.stdout.write('here are the elements in []:\n')
-process.stdout.write('\n')
+//process.stdout.write('\n') // <- this should not be here
 process.stdout.write('here are the elements in [ "" ]:\n')
-// what should go here?
+// what should go here? Following the pattern, each string in the array should have a newline.
+process.stdout.write('\n')
+
+
 process.stdout.write('here are the elements in [ "i", "j" ]:\n')
 process.stdout.write('i\nj\n')
