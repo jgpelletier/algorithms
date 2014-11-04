@@ -119,7 +119,7 @@ badBaz()
 
 function goodBaz () {
     function Baz () {
-        Item.call(this) // <- figure out why?
+        Item.call(this)
             // With Item.call(this) the constructor includes the value of the object 
             // that invokes the function where `this` is used. The object `this` is referecing
             // is the Item function object with the bar property.
