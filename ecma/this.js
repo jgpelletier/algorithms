@@ -1,6 +1,6 @@
 function f (a, b) {
     console.log(a, b)
-    console.log(this.foo) // <- undefined. `this` is global in the debugger until assigned in as a 
+    console.log(this.foo) // <- undefined. `this` is global in the debugger until assigned as a 
                           //    property in the barney object.
     console.log(typeof this.setTimeout)
 }
@@ -17,7 +17,7 @@ barney.foo = 1 // if assignment to foo is commented out `this` is meaningless
 barney.funky(1, 2) // <- `this` is barney, the foo of `this` is 1, and
                    //     (typeof this.setTimeout) is undefined.
 
-
+// call and apply set the context of `this`. The first parameter sets the context of `this` 
 //      vvv first argument is `this`
 f.call(barney, 1, 2) // <- call accepts an argument list.
 
@@ -35,7 +35,7 @@ function variadic () {
     console.log(vargs.pop()) // <- bc vargs is an array it inherits from the Array object prototype
 }
 
-variadic(1, 2, barney) //<- how does this change if I add barney as an argument?
+variadic(1, 2, barney)
 
 var baz = function () {
     console.log(this.foo)
@@ -134,6 +134,7 @@ goodBaz()
 // What is `this`?
 //    `this` is always there.
 //    `this` is not always meaningful.
+//    `this` is bound to the context.
 //
 //    setTimeout(doLater, 1000) // <- setTimeout is global
 //
