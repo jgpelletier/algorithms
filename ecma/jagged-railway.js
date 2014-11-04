@@ -121,13 +121,19 @@ function main () {
     console.log(treeMax)
     console.log(treeMin)
     console.log(hammond)
+    */
     var Amherst = { station: 'no station', 
                     city: 'Amherst',
                     state: 'New Hampshire' }
     head = insert(head, Amherst)
+    var Hanover = { station: 'no station', 
+                    city: 'Hanover',
+                    state: 'New Hampshire' }
 
-//    console.log(head)
-*/
+    console.log(head)
+
+    head = insert(head, Hanover)
+    console.log(head)
     // These stations represent the four cases
     head = removeStop(head, 'Albion')
     head = removeStop(head, 'Kalamazoo')
