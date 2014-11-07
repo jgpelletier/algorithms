@@ -340,7 +340,7 @@ int read_lines_m (const char *fname, struct _line_t *lines)
 // mocking vvv
 
 int read_and_dump_all_over_the_screen_a_bunch_of_lines
-    (const char* fname , struct _line_t *lines) // lines is the head
+    (const char *fname , struct _line_t *lines) // lines is the head
 {
     struct _line_t *new_line, *node, *tail;
     char s;
