@@ -107,9 +107,9 @@ function main () {
         var userObject = object(line)
         addStation(head, userObject)
     })
-/*
-//    console.log(head)
-    //`dump(head)
+
+    console.log(head)
+    dump(head)
     // vvv Call travel. This is done.
     travel(head, function (object) { // the anonymous function is visitor 
         console.log(object.city)
