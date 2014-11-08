@@ -3,10 +3,6 @@
 // preserve it.
 // arrays of lines.
 // [ 'a', 'b', 'c' ] -> 'a\nb\nc\n'
-// [ 'a' ] -> 'a\n\n\n\n'
-// [] -> '\n'
-// ^^^ what makes you think there are going to be five empty lines?
-// ^^^ why aren't their five empty lines?
 process.stdout.write('here are the elements in [ "a", "b", "c" ]:\n')
 process.stdout.write('a\nb\nc\n')
 
