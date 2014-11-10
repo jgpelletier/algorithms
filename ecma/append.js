@@ -2,9 +2,9 @@ var list = {}
 
 console.log(list.next) // undefined
 
-try {// what is try?
+try {
     console.log(list.next.value)
-} catch (e) { //what is catch?
+} catch (e) {
     console.log('caught error: ' + e.message)
 }
 
