@@ -25,7 +25,6 @@ try {
 }
 
 // compare
-
 console.log(object == null)
 
 var fred
