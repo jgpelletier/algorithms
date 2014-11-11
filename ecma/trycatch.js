@@ -155,7 +155,8 @@ function log (message) {
         tidyMessage(message)
     }  catch (e) {} // <- because we always want to log, even an untidy message.
         // HE IS WRONG!
-    write(message) // 2018, why are none of our messages tidy?
+    write(message) // Otherwise its 2018, and we are asking
+                   // 'why are none of our messages tidy?'
 }
 
 
