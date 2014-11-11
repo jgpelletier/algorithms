@@ -124,7 +124,7 @@ struct _file_info *line_count (const char *fname) // <- implement using line_cou
 }
 
 void line_count_2 (const char *fname, struct _file_info2 **info2, int *error)
-    // ^^^ implement using line_count_3
+    // ^^^ implemented using line_count_3
 {
     struct _file_info3 info3;
     line_count_3(fname, &info3, error);
@@ -147,6 +147,11 @@ void line_count_3 (const char *fname, struct _file_info3 *info3, int *error)
         do {
             count ++;
             len = fread(buffer, sizeof(char), sizeof(buffer), f);
+            //      ^^ binary stream output. It reads from a stream into the
+            //      array pointer at most the number of objects of size `size`
+            //      (in this case (sizeof(char))). fread returns the number of
+            //      objects read. `feof` and `ferror` must be used to determine
+            //      status.
 
             for (i = 0; i < len; i++) {
                 //fprintf(stderr, "loop %c, %d, %d, %d\n", buffer[i], i, len, at_eof);
@@ -183,7 +188,7 @@ void line_count_3 (const char *fname, struct _file_info3 *info3, int *error)
 }
 
 void line_count_4 (const char *fname, int *lines, int *length, int *error) // <-definition
-    // ^^^ implement using line_count_3
+    // ^^^ implemented using line_count_3
 {
     struct _file_info3 info3;
     line_count_3(fname, &info3, error);
