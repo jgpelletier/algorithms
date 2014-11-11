@@ -107,9 +107,9 @@ function main () {
         var userObject = object(line)
         addStation(head, userObject)
     })
-/*
-//    console.log(head)
-    //`dump(head)
+
+    console.log(head)
+    dump(head)
     // vvv Call travel. This is done.
     travel(head, function (object) { // the anonymous function is visitor 
         console.log(object.city)
@@ -121,13 +121,19 @@ function main () {
     console.log(treeMax)
     console.log(treeMin)
     console.log(hammond)
+    */
     var Amherst = { station: 'no station', 
                     city: 'Amherst',
                     state: 'New Hampshire' }
     head = insert(head, Amherst)
+    var Hanover = { station: 'no station',
+                    city: 'Hanover',
+                    state: 'New Hampshire' }
 
-//    console.log(head)
-*/
+    console.log(head)
+
+    head = insert(head, Hanover)
+    console.log(head)
     // These stations represent the four cases
     head = removeStop(head, 'Albion')
     head = removeStop(head, 'Kalamazoo')

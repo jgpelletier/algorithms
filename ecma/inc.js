@@ -30,7 +30,7 @@ function inker (number) {
         return number += by
     }
 }
-// higher level, from LISP, find in Perl, Ruby, Python.
+// higher level, from LISP, found in Perl, Ruby, Python.
 //                  generally interpreted
 
 // create new variable called number
