@@ -31,14 +31,14 @@ function add (a, b) {
 console.log({ add: add(1, 3) })
 
 console.log(typeof 'add') // string
-console.log(typeof add) //function
+console.log(typeof add) // function
 console.log(typeof add(1, 3)) // number
-console.log(typeof {}, Array.isArray({})) //object false
+console.log(typeof {}, Array.isArray({})) // object false
 console.log(typeof [], Array.isArray([])) // object true
 
 
 var num = new Number(1) // <- kill this person
-console.log({ num: num }) //{num: {}}
+console.log({ num: num }) // {num: {}}
 console.log(typeof num) // object
 console.log(num + 1) // 2
 console.log({} + 1);
