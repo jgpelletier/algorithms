@@ -1,3 +1,8 @@
+// In all programming languages, there is this idea of current scope and current context.
+// In JavaScript we have a lexical scope and a current "this" context. 
+// In JavaScript all new scopes are created through "function" definitions.
+// But contrary to other c-like languages, this is the only way to make a new scope
+
 function f (a, b) {
     console.log(a, b)
     console.log(this.foo) // <- undefined. `this` is global in the debugger until assigned as a
@@ -40,8 +45,9 @@ variadic(1, 2, barney)
 var baz = function () {
     console.log(this.foo)
 }.bind(barney) // binds `this` to barney? yes
-// ^^ Simple use : makes function called with particular `this` value. It other words, bind () allows you to
-// easily set which specific object will be bound to this when a function or method is invoked.
+// ^^ Simple use : makes function called with particular `this` value. It other words, bind()
+// allows you to easily set which specific object will be bound to this when a function or
+// method is invoked.
 
 var fred = { foo: 2, funky: baz } //`this` in baz references fred? No, barney
 
@@ -129,12 +135,15 @@ function goodBaz () {
     console.log(baz.foo())
 }
 
+console.log("goodBaz")
 goodBaz()
 
 // What is `this`?
 //    `this` is always there.
 //    `this` is not always meaningful.
-//    `this` is bound to the context.
+//    `this` is bound to the context. 
+//    `this` refers to the “owner” of the function we're executing,
+//    or rather, to the object that a function is a method of.
 //
 //    setTimeout(doLater, 1000) // <- setTimeout is global
 //
@@ -147,8 +156,8 @@ goodBaz()
 //    Your browser has a `window` Node.js does not.
 //    
 //    NOTES:
-//    `this` refers to and holds the value of a singural object. 
-//    Becuase `this` always holds a value of a singural object, it
+//    `this` refers to and holds the value of a singular object. 
+//    Becuase `this` always holds a value of a singular object, it
 //    will refer to the global object if not otherwise specified. 
 //    In strict mode, `this` holds the value of undefined in global
 //    functions and in anonymous functions that are not bound to any
