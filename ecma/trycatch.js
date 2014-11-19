@@ -1,4 +1,5 @@
 // Why is this unhelpful?
+// vvv what is the semicolon?
 ; (function () {
     var e = new Error('unhelpful')
 
@@ -70,7 +71,7 @@ function smedley () {
             // We start moving forward again from HERE.
             console.log(e.stack)
         }
-        // No more forward motion because of enviroment.
+        // No more forward motion because of environment.
         console.log('Everything went swimingly.')
     }
 
