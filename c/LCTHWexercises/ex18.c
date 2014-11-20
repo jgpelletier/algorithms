@@ -147,11 +147,17 @@ void test_sorting(int *numbers, int count, sort_cb sort, compare_cb cmp)
 {
     int i = 0;
     int *sorted = sort(numbers, count, cmp);
+    unsigned char * data = (unsigned char *)cmp;
 
     if(!sorted) die("Failed to sort as requested.");
 
     for(i = 0; i < count; i++) {
         printf("%d ", sorted[i]);
+    }
+    printf("\n");
+
+    for(i = 0; i < 25; i++) {
+        printf("%02x:", data[i]);
     }
     printf("\n");
 
