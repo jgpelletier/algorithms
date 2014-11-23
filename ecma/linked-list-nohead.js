@@ -39,5 +39,7 @@ function pop (object) {
 first = push(first, 12)
 first = push(first, 37) //{ value: 37, next: {value: 12, next: {null}}}
 first = push(first, 99)
+dump(first)
+console.log("Pop 99.")
 first = pop(first)
 dump(first)
