@@ -4,7 +4,7 @@
 #include <string.h>
 #include "carry.h"
 
-void print_lines (struct _line_t* lines) //definition
+void print_lines (struct _line_t *lines) //definition
 {
     while (lines) {
         printf(lines->line);
@@ -13,7 +13,7 @@ void print_lines (struct _line_t* lines) //definition
 }
 
 
-int carry (const char* fname, struct _line_t* lines)
+int carry (const char *fname, struct _line_t *lines)
 {
     struct _line_t *new_line, *node, *tail;
     char s;
