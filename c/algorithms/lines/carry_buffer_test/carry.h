@@ -6,6 +6,6 @@ struct _line_t {
 
 typedef struct _line_t lines;
 
-void print_lines (struct _line_t* lines); //definition
+void print_lines (struct _line_t *lines); //definition
 
-int carry(const char*fname, struct _line_t* lines);
+int carry(const char *fname, struct _line_t *lines);
