@@ -42,3 +42,24 @@ var stepper = cadence(function (async) {
 stepper(function (error, value) {
     equal(value, 1, 'called back')
 })
+
+
+// Propagating Errors
+function brokenEcho (value, callback) {
+    callback(new Error('out of service'))
+}
+
+var stepper = cadence(function (async) {
+        async(function () {
+            brokenEcho(1, async())
+                        // ^^^^^ this callback will propagate the error.
+        }, function (value) { // <- we will call the next step until `brokenEcho` is fixed.
+            brokenEcho(value, async())
+        })
+})
+
+stepper(function (error, value) {
+// ^^^^^ our error, propagated.
+    equal(error.message, 'out of service', 'errors propagate')
+})
+
