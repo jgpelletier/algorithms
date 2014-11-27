@@ -16,8 +16,29 @@ function echo (value, callback) {
 var calledback = cadence(function (async) {
     echo(1, async())
 })
+
 // the `calledback` function invokes `f`
 // async doesn't take an argument `this` is global - Cadence line 521.
 calledback(function (error, value) {
+    equal(value, 1, 'called back')
+})
+
+
+
+
+// A cadence is being built
+var stepper = cadence(function (async) {
+    async(function () {
+        // ^^^^^^^^ one or more functions creates a cadence.
+        echo(1, async())
+        }, function (value) {
+            equal(value, 1, 'stepped')
+            echo(value, async())
+                     // ^^^^^ this will be the result of the cadence and the function.
+    })
+})
+
+// interesting that stepper is in its own environment.
+stepper(function (error, value) {
     equal(value, 1, 'called back')
 })
