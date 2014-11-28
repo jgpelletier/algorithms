@@ -63,3 +63,19 @@ stepper(function (error, value) {
     equal(error.message, 'out of service', 'errors propagate')
 })
 
+
+
+// Propagating Exceptions
+var stepper = cadence(function (async) {
+        async(function () {
+                    throw new Error('out of service')
+                }, function () { // <- will not be called.
+                            echo(1, async())
+
+                })
+})
+
+                // vvv our exception, propagated.
+stepper(function (error, value) {
+    equal(error.message, 'out of service', 'exceptions propagate')
+})
