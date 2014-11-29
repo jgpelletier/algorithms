@@ -79,3 +79,17 @@ var stepper = cadence(function (async) {
 stepper(function (error, value) {
     equal(error.message, 'out of service', 'exceptions propagate')
 })
+
+
+
+// Function body arguments.
+
+                                      // vvvv from the caller.
+var arguable = cadence(function (async, value) {
+         async(value, async())
+     })
+
+       // v `value` parameter in `arguable`.
+ arguable(1, function (error, value) {
+           equal(value, 1, 'argument passed')
+})
