@@ -1,3 +1,5 @@
+// These are the examples from http://bigeasy.github.io/cadence/.
+
 var cadence = require('cadence')
 
 // Fundemental to assertion library
@@ -83,6 +85,7 @@ stepper(function (error, value) {
 
 
 // Function body arguments.
+
 
                                       // vvvv from the caller.
 var arguable = cadence(function (async, value) {
