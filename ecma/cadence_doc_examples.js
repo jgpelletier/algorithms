@@ -1,4 +1,5 @@
 // These are the examples from http://bigeasy.github.io/cadence/.
+// This is code written and maintained by Alan Gutierrez.
 
 var cadence = require('cadence')
 
