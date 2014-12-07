@@ -60,7 +60,7 @@ void *Object_new(size_t size, Object proto, char *description)
     if (!el->init(el)) {
 	// looks like it didn't initialize properly
 	el->destroy(el);
-	return null;
+	return NULL;
     } else {
 	return el;
     }
