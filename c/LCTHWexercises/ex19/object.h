@@ -1,4 +1,4 @@
-#ifndef _object_h // <- logic check to see ther is a #define _object_h
+#ifndef _object_h // <- logic check to see there is a #define _object_h
 #define _object_h // if not defined this defines it.
 typedef enum {
     NORTH, SOUTH, EAST, WEST
@@ -25,5 +25,10 @@ void *Object_new(size_t size, Object proto, char *description);
                                                      // line of code to the
                                                      // right in Object_new
 #define _(N) proto.N
+/* 
+ * This ^^^ macro is a bit of "syntactic sugar" for the object system and basically helps you
+ * write obj->proto.blah as simply obj->_(blah). It's not necessary, but it's a fun little
+ * trick that I'll use later.
+*/
 
 #endif
