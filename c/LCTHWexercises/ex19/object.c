@@ -38,8 +38,12 @@ int Object_attack(void *self, int damage)
     return 0;
 }
 
-// uses aspect structs by putting the base prototype at the
-// beginning of the struct.
+// uses aspect of how struct work by putting the base prototype at the
+// beginning of the struct. Since C puts the fields in a struct in order,
+// and since a pointer just points at a chunk of memory, It is possible 
+// to "cast" a pointer to anything. In this case, even though I'm taking a
+// potentially larger block of memory from calloc, I'm using a Object
+// pointer to work with it.
 void *Object_new(size_t size, Object proto, char *description)
 {
     // setup the default function in case they are not set
