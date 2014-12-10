@@ -3,6 +3,8 @@
 
 #include "object.h"
 
+// This file sets up 3 new Objects.
+
 struct Monster {
     Object proto;
     int hit_points;
