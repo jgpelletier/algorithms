@@ -54,9 +54,16 @@ void *Object_new(size_t size, Object proto, char *description)
     if(!proto.move) proto.move = Object_move;
 
     // this seems weird, but we can make a struct of one size,
-    // then point a different pointer at it to "cast" it
+    // then point a different pointer at it to "cast" it. 
+    // Since C puts the Room.proto field first, that means the el pointer
+    // is really only pointing at enough of the block of memory to see a 
+    // full Object struct. It has no idea that it's even called proto.
     Object *el = calloc(1, size);
     *el = proto;
+    // ^^^ This then uses this Object *el pointer to set the contents of
+    // the piece of memory correctly with *el = proto;. Remember that you
+    // can copy structs, and that *el means "the value of whatever el
+    // points at", so this means "assign the proto struct to whatever el points at".
 
     // copy the description over
     el->description = strdup(description);

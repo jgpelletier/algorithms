@@ -4,6 +4,10 @@ typedef enum {
     NORTH, SOUTH, EAST, WEST
 } Direction;
 
+
+// Prototype object like JavaScript. This object is used 3 times in the ex19 file. 
+// The objects in that file use this object as a base and add additional elements
+// to the struct.
 typedef struct {
     char *description;
     int (*init)(void *self);
@@ -19,11 +23,13 @@ void Object_describe(void *self);
 void *Object_move(void *self, Direction direction);
 int Object_attack(void *self, int damage);
 void *Object_new(size_t size, Object proto, char *description);
+// ^^ Pay attention to the field associated with this function.
+                                                            
+#define NEW(T, N) Object_new(sizeof(T), T##Proto, N) 
+// this ^^  makes a macro. works like templete. T and N inject into the line of code to the
+// right in Object_new. The syntax T##Proto says to "concat Proto at the end of T", so if 
+// you had NEW(Room, "Hello.") then it'd make RoomProto there.
 
-#define NEW(T, N) Object_new(sizeof(T), T##Proto, N) // this makes a macro. works like templete.
-                                                     // T and N inject into the
-                                                     // line of code to the
-                                                     // right in Object_new
 #define _(N) proto.N
 /* 
  * This ^^^ macro is a bit of "syntactic sugar" for the object system and basically helps you
