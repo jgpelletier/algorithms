@@ -65,7 +65,9 @@ void *Object_new(size_t size, Object proto, char *description)
     // can copy structs, and that *el means "the value of whatever el
     // points at", so this means "assign the proto struct to whatever el points at".
 
-    // copy the description over
+    // The strdup() function allocates sufficient memory for a copy of the
+    // string s1, does the copy, and returns a pointer to it.  The pointer may
+    // subsequently be used as an argument to the function free(3)
     el->description = strdup(description);
     // initialize it with whatever init we were given
     if (!el->init(el)) {
