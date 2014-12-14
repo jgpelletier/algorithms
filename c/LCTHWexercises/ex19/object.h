@@ -7,7 +7,7 @@ typedef enum {
 
 // Prototype object like JavaScript. This object is used 3 times in the ex19 file. 
 // The objects in that file use this object as a base and add additional elements
-// to the struct.
+// to the struct. Notice the pointers to functions -- think methods.
 typedef struct {
     char *description;
     int (*init)(void *self);
