@@ -1,3 +1,6 @@
+// The object.h file is declaring functions and data types that are defined
+// (created) in the object.c
+
 #ifndef _object_h // <- logic check to see there is a #define _object_h
 #define _object_h // if not defined this defines it.
 typedef enum {
