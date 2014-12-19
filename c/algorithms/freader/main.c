@@ -6,7 +6,7 @@
 int main()
 {
     char buffer[2];
-    FILE* file;
+    FILE *file;
     size_t length;
 
     file = fopen("file.txt", "r");
