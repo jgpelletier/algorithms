@@ -25,7 +25,7 @@ struct attribute_s {
 typedef struct attribute_s attribute_t;// _t is common practice to define the size
 // ^^^ learn?
 // struct attribute_s is type defined as attribute_t
-typedef attribute_t* ptr_attribute_t;
+typedef attribute_t *ptr_attribute_t;
      // ^^^ gets complicated
 // struct attribute_s* is type defined as ptr_attribute_t
 
@@ -33,7 +33,7 @@ typedef unsigned int uword_t; // <- having a unversal definiton.
 typedef unsigned long udword_t; // <- having a unversal definiton.
 // ^^^ alias mechanism, and that's all it is.
 
-typedef struct attribute_s ** attrs_t;
+typedef struct attribute_s **attrs_t;
 
 typedef int fred;
 
