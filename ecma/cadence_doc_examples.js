@@ -26,9 +26,6 @@ calledback(function (error, value) {
     equal(value, 1, 'called back')
 })
 
-
-
-
 // A cadence is being built
 var stepper = cadence(function (async) {
     async(function () {
