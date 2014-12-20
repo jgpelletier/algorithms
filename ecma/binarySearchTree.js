@@ -110,17 +110,14 @@ function deletion (node, value) {
         else node = node.right
     }
     
-    // cases
     if (!node.left) {
         return transplant(head, prev, node, node.right)
     } 
     else if (!node.right) {
         return transplant(head, prev, node, node.left)
     } else {
-                            // vvv function to find the min 
         var min = { object: minValue(node.right) } 
 
-        // tests if the min is the right child or within the branch.
         if (node.right.object.city != min.object.city) {
             return transplant(head, prev, node, min)
         }
