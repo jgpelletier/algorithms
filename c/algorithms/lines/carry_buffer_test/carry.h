@@ -1,6 +1,6 @@
 struct _line_t {
     char line[10];
-    struct _line_t*  next;
+    struct _line_t *next;
 };
 
 
