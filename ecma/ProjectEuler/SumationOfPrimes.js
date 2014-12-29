@@ -25,7 +25,6 @@ function arrayOfPrimes (arr, primesBelow) {
               arr[y] = i
               y++
         } else {
-            //console.log(i)
             x = 1
             for (x; x <= i; x++) { // <- the while num
                 if (i%x == 0) {
