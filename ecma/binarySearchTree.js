@@ -83,7 +83,9 @@ function transplant ( head, prev, node, nextNode ) {
         prev.right = nextNode
     }
 
-    if (node.right && node.left) { // this tests for 2 children
+
+// Review this for inefficency.
+    if (node.right && node.left) {
         if (node.right == nextNode) {
             nextNode.right = node.right.right
         } else {
