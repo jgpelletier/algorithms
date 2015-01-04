@@ -17,7 +17,21 @@ y.left = x
 x.p = y
 */
 
-
+/*
+RIGHT-ROTATE(T,x)
+y = x.left
+x.left = y.right
+if y.right != T.nil
+    y.right.p = x
+y.p= x.p
+if x.p == T.nil
+    T.root = y
+elseif x == x.p.right
+    x.p.right = y
+else x.p.left = y    
+y.right = x
+x.p = y
+*
 
 /*
 RB-INSERT(T,z)
