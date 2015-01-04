@@ -1,5 +1,24 @@
 // This is the psuedo code taken from introduction to algorithms
 
+
+/*
+LEFT-ROTATE(T,x)
+y = x.right
+x.right = y.left
+if y.left != T.nil
+    y.left.p = x
+y.p= x.p
+if x.p == T.nil
+    T.root = y
+elseif x == x.p.left
+    x.p.left = y
+else x.p.right = y    
+y.left = x
+x.p = y
+*/
+
+
+
 /*
 RB-INSERT(T,z)
 y = T.nil
