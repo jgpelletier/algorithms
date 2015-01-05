@@ -1,6 +1,8 @@
 // This is the psuedo code taken from introduction to algorithms
 
 
+// THIS NEEDS TO BE TRANSLATED IN JAVASCRIPT
+
 /*
 LEFT-ROTATE(T,x)
 y = x.right
