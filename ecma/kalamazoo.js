@@ -1,11 +1,11 @@
 var string = "Kalamazoo Transportation, Kalamazoo, Michigan"
-// spacing
+
 var kalamazoo = { station: "Kalamazoo Transporation",  city: "Kalamazoo", state: "Michigan" }
 var str = string
 
 function station (string) {
    string = string.split(",")
-   // eliminate variable.
+
    var object = { station: string[0].trim(), city: string[1].trim(), state: string[2].trim() }
    return object
 }
