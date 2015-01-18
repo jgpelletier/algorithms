@@ -71,10 +71,10 @@ void *Object_new(size_t size, Object proto, char *description)
     el->description = strdup(description);
     // initialize it with whatever init we were given
     if (!el->init(el)) {
-	// looks like it didn't initialize properly
-	el->destroy(el);
-	return NULL;
+        // looks like it didn't initialize properly
+        el->destroy(el);
+        return NULL;
     } else {
-	return el;
+        return el;
     }
 }
