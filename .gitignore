@@ -10,4 +10,5 @@
 /c/LCTHWexercises/*.o
 /c/LCTHWexercises/*.dat
 /c/LCTHWexercises/ex19/*.o
+/c/LCTHWexercises/ex19/*.dSYM
 /ecma/*.o
