@@ -6,6 +6,7 @@
 
 void Object_destroy(void *self)
 {
+    assert(self != NULL);
     Object *obj = self;
 
     if(obj) {
@@ -16,24 +17,30 @@ void Object_destroy(void *self)
 
 void Object_describe(void *self)
 {
+    assert(self != NULL);
     Object *obj = self;
     printf("%s.\n", obj->description);
 }
 
 int Object_init(void *self)
 {
+    assert(self != NULL);
     // do nothing
     return 1;
 }
 
 void *Object_move(void *self, Direction direction)
 {
+    assert(self != NULL);
+    assert(&direction != NULL);
     printf("You can't go that direction.\n");
     return NULL;
 }
 
 int Object_attack(void *self, int damage)
 {
+    assert(self != NULL);
+    assert(&damage != NULL);
     printf("You can't attack that.\n");
     return 0;
 }
@@ -46,6 +53,9 @@ int Object_attack(void *self, int damage)
 // pointer to work with it.
 void *Object_new(size_t size, Object proto, char *description)
 {
+    assert(&size != NULL);
+    //assert(proto != NULL);
+    assert(description != NULL);
     // setup the default function in case they are not set
     if(!proto.init) proto.init = Object_init;
     if(!proto.describe) proto.describe = Object_describe;
