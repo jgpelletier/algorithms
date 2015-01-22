@@ -69,6 +69,7 @@ void *Object_new(size_t size, Object proto, char *description)
     // is really only pointing at enough of the block of memory to see a 
     // full Object struct. It has no idea that it's even called proto.
     Object *el = calloc(1, size);
+    assert(el != NULL);
     *el = proto;
     // ^^^ This then uses this Object *el pointer to set the contents of
     // the piece of memory correctly with *el = proto;. Remember that you
@@ -79,12 +80,14 @@ void *Object_new(size_t size, Object proto, char *description)
     // string s1, does the copy, and returns a pointer to it.  The pointer may
     // subsequently be used as an argument to the function free(3)
     el->description = strdup(description);
+    assert(el->description != NULL);
     // initialize it with whatever init we were given
     if (!el->init(el)) {
         // looks like it didn't initialize properly
         el->destroy(el);
         return NULL;
     } else {
+        assert(el != NULL);
         return el;
     }
 }

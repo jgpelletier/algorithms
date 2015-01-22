@@ -48,7 +48,7 @@ void *Room_move(void *self, Direction direction)
     Room *room = self;
     Room *next = NULL;
 
-    if(direction == NORTH && room->north) {
+    if (direction == NORTH && room->north) {
         printf("You go north, into:\n");
         next = room->north;
     } else if(direction == SOUTH && room->south) {
