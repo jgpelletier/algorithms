@@ -54,8 +54,9 @@ int Object_attack(void *self, int damage)
 void *Object_new(size_t size, Object proto, char *description)
 {
     assert(&size != NULL);
-    //assert(proto != NULL);
+    assert(&proto != NULL);
     assert(description != NULL);
+
     // setup the default function in case they are not set
     if(!proto.init) proto.init = Object_init;
     if(!proto.describe) proto.describe = Object_describe;
