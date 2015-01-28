@@ -56,8 +56,7 @@ int main(int argc, char *argv[])
     scope_demo(count);
     scope_demo(count * 20);
 
-    log_info("count after calling scope_demo:
-    %d", count);
+    log_info("count after calling scope_demo: %d", count);
 
     return 0;
 }
