@@ -1,6 +1,8 @@
 #include "ex22.h"
 #include "dbg.h"
 
+// Making a const which stands for constant and is an alternative to using a
+// define to create a constant variable.
 const char *MY_NAME = "Zed A. Shaw";
 
 void scope_demo(int count)
@@ -8,6 +10,10 @@ void scope_demo(int count)
     log_info("count is: %d", count);
 
     if(count > 10) {
+
+    // The count that is local to this block is actually different from the one in
+    // the function's parameter list
+
     int count = 100;// BAD! BUGS!
 
     log_info("count in this scope is %d", count);
@@ -15,8 +21,11 @@ void scope_demo(int count)
 
     log_info("count is at exit: %d", count);
 
+    // count is  in two places: the parameters to this function, and in the if-statement
     count = 3000;
-
+    // set the parameter count to 3000 and print that out, which will demonstrate
+    // that you can change function parameters and they don't impact the caller's
+    // version of the variable.
     log_info("count after assign: %d", count);
 }
 

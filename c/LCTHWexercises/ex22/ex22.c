@@ -4,6 +4,7 @@
 
 int THE_SIZE = 1000;
 
+// vv inverse of extern. The variable is only available in this file
 static int THE_AGE = 37;
 
 int get_age()
@@ -18,6 +19,8 @@ void set_age(int age)
 
 double update_ratio(double new_ratio)
 {
+//If you declare a variable in a function static, then that variable acts like a
+//static defined in the file, but it's only accessible from that function.
     static double ratio = 1.0;
 
     double old_ratio = ratio;

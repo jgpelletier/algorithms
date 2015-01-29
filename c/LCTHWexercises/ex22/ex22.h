@@ -2,6 +2,7 @@
 #define _ex22_h
 
 // makes THE_SIZE in ex22.c available to other .c files
+// "the variable exists but it's in an external local.
 extern int THE_SIZE;
 
 // gets and sets an internal static variable in ex22.c
