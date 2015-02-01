@@ -52,6 +52,7 @@ int main(int argc, char *argv[])
     log_info("Ratio once more: %f", update_ratio(300.0));
 
     // test the scope demo
+    // notice the local count variable remains unchanged.
     int count = 4;
     scope_demo(count);
     scope_demo(count * 20);
