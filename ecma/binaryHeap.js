@@ -19,3 +19,10 @@ console.log(childOf(0,1))
 var b = a[childOf(0,1)]
 console.log(a[childOf(0,1)])
 console.log(b)
+
+function binaryHeap() {
+    this.size
+    this.array = []
+    this.direction
+}
+
