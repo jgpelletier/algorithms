@@ -1,6 +1,27 @@
 // This is the psuedo code taken from introduction to algorithms
 
+/*
+PROPERTIES
+1. Every node is either red or black.
+2. The root is black.
+3. Every leaf (NIL) is black.
+4. If a node is red, then both its children are black.
+5. For each node, all simple paths from the node to descendant leaves contain
+the same number of black nodes.
+*/
 
+// do I need a sentinal
+// RBnode
+function RBNode(color, key, value, left, right, parent) {
+    this.color = color
+    this.key = key
+    this.value = value
+    this.left = left
+    this.right = right
+    this.parent = parent
+}
+
+//node1 = new RBnode(black, 
 // THIS NEEDS TO BE TRANSLATED IN JAVASCRIPT
 
 /*
@@ -19,6 +40,15 @@ y.left = x
 x.p = y
 */
 
+
+function LeftRotate(tree, node) {
+
+}
+
+main () {
+        
+}
+
 /*
 RIGHT-ROTATE(T,x)
 y = x.left
@@ -33,7 +63,9 @@ elseif x == x.p.right
 else x.p.left = y    
 y.right = x
 x.p = y
-*
+*/
+
+
 
 /*
 RB-INSERT(T,z)
