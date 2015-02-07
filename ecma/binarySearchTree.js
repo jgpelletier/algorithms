@@ -27,7 +27,6 @@ function maxValue (node) {
     }
 }
 
-
 // try to do this recursively as well.
 function insertion (node, valueObject) {
     var head  = node
@@ -51,7 +50,6 @@ function insertion (node, valueObject) {
 
 }
 
-
 function depth (node) {
     if (!node) {
         return 0
@@ -63,7 +61,6 @@ function depth (node) {
     else return (rDepth+1)
     }
 }
-
 
 function find (node, value) {
     while (node && node.object.city != value) {
@@ -82,7 +79,6 @@ function transplant ( head, prev, node, nextNode ) {
     } else {
         prev.right = nextNode
     }
-
 
 // Review this for inefficency.
     if (node.right && node.left) {
