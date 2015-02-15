@@ -16,7 +16,7 @@ function addStation(list, object) {
     }
 }
 
-// vvv sets up a binary tree.
+// vvv sets up a binary tree. Is it possible to use insert instead?
 function append (list, object) {
     var node = { object: object }
     var a = list.object.city
@@ -48,7 +48,7 @@ function object (line) {
 }
 
 
-// sorts a binary tree
+// sorts a binary tree. Should this be moved to BST?
 function visit (node, visitor) {
     if (!node) {
         return console.log("nothing immediately")
@@ -121,7 +121,7 @@ function main () {
     console.log(treeMax)
     console.log(treeMin)
     console.log(hammond)
-    */
+
     var Amherst = { station: 'no station', 
                     city: 'Amherst',
                     state: 'New Hampshire' }
