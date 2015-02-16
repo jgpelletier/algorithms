@@ -124,9 +124,26 @@ function deletion (node, value) {
     }
 }
 
+function treeWalk (node, visitor) {
+    if (!node) {
+        return console.log("nothing immediately")
+    }
+
+    if (node.left) {
+        treeWalk(node.left, visitor)
+    }
+
+    visitor(node.object)
+
+    if (node.right) {
+        treeWalk(node.right, visitor)
+    }
+}
+
 exports.search = search
 exports.minValue = minValue
 exports.maxValue = maxValue
 exports.insertion = insertion
 exports.deletion = deletion
 exports.depth = depth
+exports.treeWalk = treeWalk

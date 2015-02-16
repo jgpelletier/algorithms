@@ -47,30 +47,13 @@ function object (line) {
     }
 }
 
-
-// sorts a binary tree. Should this be moved to BST?
-function visit (node, visitor) {
-    if (!node) {
-        return console.log("nothing immediately")
-    }
-
-    if (node.left) {
-        visit(node.left, visitor)
-    }
-
-    visitor(node.object)
-
-    if (node.right) {
-        visit(node.right, visitor)
-    }
-}
-
 function treeDepth(node) {
     return bst.depth(node.right)
 }
+
 // vvv Travel skips the head node and calls visit. This is done.
 function travel (head, visitor) {
-    visit(head.right, visitor)
+    bst.treeWalk(head.right, visitor)
 }
 
 function boundaryMin(head) {
