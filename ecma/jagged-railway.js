@@ -7,12 +7,14 @@ function dump (list) {
     console.log(util.inspect(list, null, null))
 }
 
+// vvv May use `bst.insertion` rather than append
 function addStation(list, object) {
     var node = { object: object }
     if (list.right == null) {
         list.right = node 
     } else {
-        append(list.right, object)
+        //append(list.right, object)
+        bst.insertion(list.right, object)
     }
 }
 
@@ -117,6 +119,7 @@ function main () {
 
     head = insert(head, Hanover)
     console.log(head)
+
     // These stations represent the four cases
     head = removeStop(head, 'Albion')
     head = removeStop(head, 'Kalamazoo')
