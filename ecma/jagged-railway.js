@@ -18,7 +18,8 @@ function addStation(list, object) {
     }
 }
 
-// vvv sets up a binary tree. Is it possible to use insert instead?
+// vvv `append` is one way to set up a binary tree.
+// may also use `bst.insertion`.
 function append (list, object) {
     var node = { object: object }
     var a = list.object.city
@@ -64,12 +65,10 @@ function boundaryMin(head) {
 
 function boundaryMax(head) {
     var node = bst.maxValue(head.right)
-    //console.log(node)    
     return node
 }
 
 function find (head, city) {
-    //console.log(head.right.object.city)
     return bst.search(head.right, city)
 }
 
@@ -95,7 +94,7 @@ function main () {
 
     console.log(head)
     dump(head)
-    // vvv Call travel. This is done.
+
     travel(head, function (object) { // the anonymous function is visitor 
         console.log(object.city)
     })
@@ -125,6 +124,7 @@ function main () {
     head = removeStop(head, 'Kalamazoo')
     head = removeStop(head, 'Michigan City')
     head = removeStop(head, 'Hammond')
+
     travel(head, function (object) { // the anonymous function is visitor
         console.log(object.city)
     })
