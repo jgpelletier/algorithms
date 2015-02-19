@@ -1,0 +1,28 @@
+{
+    "name":             "bst",
+    "version":          "0.0.1",
+    "author":           "Joshua Pelletier <jgpelletier@gmail.com>",
+    "description":      "A binary search tree.",
+    "keywords":
+    [
+                        "bst", "binary search tree"
+    ],
+    "homepage":         "https://github.com/jgpelletier/algorithms/ecma/bst",
+    "repository":
+    {
+                        "type": "git",
+                        "url":
+                        "http://github.com/jgpelletier/algorithms/ecma/bst.git"
+    },
+    "devDependencies":
+    {
+                        "proof": "0.0.47"
+    },
+    "licenses":
+    [{
+                        "type": "MIT",
+    }],
+    "scripts": {
+        "test": "proof platform win32 && proof test */*/*.t.js || t/test"
+    }
+}
