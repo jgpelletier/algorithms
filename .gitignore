@@ -1,4 +1,6 @@
 /ecma/node_modules
+/ecma/bst/node_modules
+/ecma/bst/*.log
 /ecma/gerg.txt
 /c/algorithms/*.o
 /c/algorithms/freader/freader
