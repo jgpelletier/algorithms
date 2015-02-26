@@ -1,7 +1,7 @@
 var fs = require('fs')
 var path = require('path')
 
-require('proof')(4, prove)
+require('proof')(5, prove)
 
 function prove (step, assert, say) {
 
@@ -46,6 +46,7 @@ function prove (step, assert, say) {
             arr.push(object.city)
         })
 
+        assert(head.right.left.left.object.city, 'Albion', "node in tree")
         assert(min.city, "Albion", "equals min value")
         assert(max.city, "Royal Oak", "equals max value")
         assert(depth, 6, "tree depth is 6")
