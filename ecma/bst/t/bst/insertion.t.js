@@ -1,7 +1,7 @@
 var fs = require('fs')
 var path = require('path')
 
-require('proof')(3, prove)
+require('proof')(4, prove)
 
 function prove (step, assert, say) {
 
@@ -45,12 +45,11 @@ function prove (step, assert, say) {
         bst.treeWalk(head.right, function(object) {
             arr.push(object.city)
         })
-            
 
-
-        assert(min.city, "Albion", "Equals min value")
-        assert(max.city, "Royal Oak", "Equals max value")
-        assert(depth, 6, "Tree depth is 6")
+        assert(min.city, "Albion", "equals min value")
+        assert(max.city, "Royal Oak", "equals max value")
+        assert(depth, 6, "tree depth is 6")
+        assert(arr[4], "Chicago", "the forth city in the tree walk is Chicago")
         say(arr)
     })
 }
