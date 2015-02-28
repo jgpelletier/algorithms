@@ -37,22 +37,31 @@ function prove (step, assert, say) {
             addStation(head, userObject)
         })
 
+        // Need to figure out why Ann Arbor is missing
         var arr1 = []
         bst.treeWalk(head.right, function(object) {
             arr1.push(object.city)
+        })
+
+        bst.treeWalk(head.right, function(object) {
+            console.log(object.city)
         })
 
         say(arr1)
         assert(arr1[0], "Albion", "Albion is in the tree")
 
         head = bst.deletion(head.right, 'Albion')
+        bst.treeWalk(head.right, function(object) {
+            console.log(object.city)
+        })
+/*
         var arr2= []
-        
+
         bst.treeWalk(head.right, function(object) {
             arr2.push(object.city)
         })
 
-        //say(arr)
+        say(arr2)
         //assert(arr2[0], "Ann Arbor", "Albion isn't in the tree")
 
 /*
