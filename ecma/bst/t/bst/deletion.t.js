@@ -1,7 +1,7 @@
 var fs = require('fs')
 var path = require('path')
 
-require('proof')(1, prove)
+require('proof')(8, prove)
 
 function prove (step, assert, say) {
 
@@ -36,51 +36,54 @@ function prove (step, assert, say) {
             var userObject = object(line)
             addStation(head, userObject)
         })
+      
+       var arr = [] 
+
+        bst.treeWalk(head.right, function(object) {
+            arr.push(object.city) 
+        })
         
-        var arr1 = []
+        say(arr)
+        assert(arr[0], "Albion", "Albion is in the tree")
+        head.right = bst.deletion(head.right, 'Albion') // node has no left child
+        arr.length = 0
         bst.treeWalk(head.right, function(object) {
-            arr1.push(object.city)
+            arr.push(object.city) 
         })
 
-        bst.treeWalk(head.right, function(object) {
-            console.log(object.city)
-        })
+        assert(arr[0], "Ann Arbor", "Albion isn't in the tree")
 
-        say(arr1)
-        assert(arr1[0], "Albion", "Albion is in the tree")
+        assert(arr[9], "Kalamazoo", "Kalamazoo is in the tree")
+        head.right = bst.deletion(head.right, 'Kalamazoo')// no right child
+        arr.length = 0
 
-        head.right = bst.deletion(head.right, 'Albion')
-        head.right = bst.deletion(head.right, 'Michigan City')
-        head.right = bst.deletion(head.right, 'Hammond')
-        bst.treeWalk(head.right, function(object) {
-            console.log(object.city)
-        })
-        console.log('') 
-        head.right = bst.deletion(head.right, 'Kalamazoo')
 
         bst.treeWalk(head.right, function(object) {
-            console.log(object.city)
+            arr.push(object.city) 
         })
 
-/*
-        var arr2= []
+        assert(arr[9], "Michigan City", "Kalamazoo isn't in the tree")
+        
+        assert(arr[9], "Michigan City", "Michigan City is in the tree")
+        head.right = bst.deletion(head.right, 'Michigan City')// 2 children: right node is its successor
+        arr.length = 0
 
         bst.treeWalk(head.right, function(object) {
-            arr2.push(object.city)
+            arr.push(object.city) 
         })
 
-        say(arr2)
-        //assert(arr2[0], "Ann Arbor", "Albion isn't in the tree")
 
-/*
+        assert(arr[9], "New Buffalo", "Michigan City isn't in the tree")
+        assert(arr[7], "Hammond", "Hammond is in the tree")
+
+        head.right = bst.deletion(head.right, 'Hammond')// 2 children: successor in tree below
+        arr.length = 0
+
         bst.treeWalk(head.right, function(object) {
-            arr.push(object.city)
+            arr.push(object.city) 
         })
-        say(arr2)
-        head = bst.deletion(head.right, 'Kalamazoo')
-        head = bst.deletion(head.right, 'Michigan City')
-        head = bst.deletion(head.right, 'Hammond')
-*/
 
+
+        assert(arr[7], "Jackson", "Hammond isn't in the tree")
     })
 }
