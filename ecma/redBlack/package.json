@@ -1,18 +1,18 @@
 {
-    "name":             "bst",
+    "name":             "RedBlack",
     "version":          "0.0.1",
     "author":           "Joshua Pelletier <jgpelletier@gmail.com>",
-    "description":      "A binary search tree.",
+    "description":      "A red-black tree.",
     "keywords":
     [
-                        "bst", "binary search tree"
+                        "red-black tree"
     ],
     "homepage":         "https://github.com/jgpelletier/algorithms/ecma/bst",
     "repository":
     {
                         "type": "git",
                         "url":
-                        "http://github.com/jgpelletier/algorithms/ecma/bst.git"
+                        "http://github.com/jgpelletier/algorithms/ecma/redBlack.git"
     },
     "devDependencies":
     {
