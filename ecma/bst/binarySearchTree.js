@@ -62,14 +62,6 @@ function depth (node) {
     }
 }
 
-function find (node, value) {
-    while (node && node.object.city != value) {
-        prev = node
-        if (node.object.city > value) node = node.left
-        else node = node.right
-    }
-}
-
 function transplant ( head, prev, node, nextNode ) {
     if (!prev) {
         head = nextNode
