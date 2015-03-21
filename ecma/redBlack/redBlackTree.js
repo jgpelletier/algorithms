@@ -13,7 +13,7 @@ the same number of black nodes.
 // THIS NEEDS TO BE TRANSLATED IN JAVASCRIPT
 
 /*
-What is node.p? i
+What is node.p? the node's parent 
 What is T.nil? the roots parent and each leafs nil.
 LEFT-ROTATE(SubTree,node)
 y = node.right
@@ -30,17 +30,16 @@ y.left = node
 node.p = y
 */
 
-// Pass in prev as subTree and 
+// Pass in prev as subTree and node that needs rotation 
 function leftRotate (subTree, node) {
     //assert value
-    var head = subTree
     var prev = node
     var y = node.right
     node.right = y.left
-    if (y.
-   // need a parent is nill 
-    if(subtree.right == node) subtree.right = y
-    else subtree.left = y
+    if (subtree.left == null) subtree.right = y
+    else if(subtree.left == node) subtree.left = y
+    else subtree.right = y
+    y.left = node
 }
  
 /*
@@ -59,8 +58,16 @@ y.right = x
 x.p = y
 */
 
-function rightRotate () {
+function leftRotate (subTree, node) {
+    var prev = node
+    var y = node.left
+    node.left = y.right
+    if (subtree.left == null) subtree.right = y
+    else if(subtree. == node) subtree.right = y
+    else subtree.left = y
+    y.right = node
 }
+
 /*
 RB-INSERT(T,z)
 y = T.nil
