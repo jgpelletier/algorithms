@@ -89,7 +89,31 @@ z.color = RED
 RB-INSERT-FIXUP(T,z)
 */
 
-// Make RB insert in JavaScript
+function rbInsert (node, valueObject) {
+    var head  = node
+    var prev = node
+    var userNode = { object: valueObject
+                     left: null
+                     right: null
+                     color: red }
+    
+    while (node) {
+        var prev = node
+        if (node.object.city > userNode.object.city)  node = node.left
+        else node = node.right
+    }
+
+    if (!prev) {
+        return userNode
+    } else if (prev.object.city > userNode.object.city) {
+        prev.left = userNode
+    } else {
+        prev.right = userNode
+    }
+    
+    return head 
+
+}
 
 /*
 
