@@ -91,8 +91,9 @@ RB-INSERT-FIXUP(T,z)
 
 function rbInsert (node, valueObject) {
     var head  = node
-    var prev = node
+    var prev 
     var userNode = { object: valueObject
+                     prev: null
                      left: null
                      right: null
                      color: red }
@@ -103,6 +104,8 @@ function rbInsert (node, valueObject) {
         else node = node.right
     }
 
+    userNode.prev = prev
+
     if (!prev) {
         return userNode
     } else if (prev.object.city > userNode.object.city) {
@@ -110,9 +113,9 @@ function rbInsert (node, valueObject) {
     } else {
         prev.right = userNode
     }
-    
-    return head 
 
+    // need fix-up 
+    return head 
 }
 
 /*
