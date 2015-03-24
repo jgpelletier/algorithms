@@ -1,11 +1,11 @@
 var fs = require('fs')
 var path = require('path')
 
-require('proof')(5, prove)
+require('proof')(0, prove)
 
 function prove (step, assert, say) {
 
-    var bst = require('./binarySearchTree')
+    var rb = require('../../redBlackTree')
 
     step(function () {
         fs.readFile(path.join(__dirname, '.', 'wolverine.txt'), 'utf8', step())
@@ -15,11 +15,15 @@ function prove (step, assert, say) {
         var head  = { right: null }
 
         function addStation(list, object) {
-            var node = { object: object }
+            var node = { object: object,
+                         left: null,
+                         right: null,
+                         color: 'red' }
+
             if (list.right == null) {
                 list.right = node 
             } else {
-                bst.insertion(list.right, object)
+                rb.rbInsert(list.right, object)
             }
         }
 
@@ -37,7 +41,7 @@ function prove (step, assert, say) {
             addStation(head, userObject)
         })
         
-
+        say(head)
         // Add Rotation test here
     })
 }

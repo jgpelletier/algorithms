@@ -63,7 +63,7 @@ function leftRotate (subTree, node) {
     var y = node.left
     node.left = y.right
     if (subtree.left == null) subtree.right = y
-    else if(subtree. == node) subtree.right = y
+    else if(subtree.right == node) subtree.right = y
     else subtree.left = y
     y.right = node
 }
@@ -92,11 +92,11 @@ RB-INSERT-FIXUP(T,z)
 function rbInsert (node, valueObject) {
     var head  = node
     var prev 
-    var userNode = { object: valueObject
-                     prev: null
-                     left: null
-                     right: null
-                     color: red }
+    var userNode = { object: valueObject,
+                     prev: null,
+                     left: null,
+                     right: null,
+                     color: 'red' }
     
     while (node) {
         var prev = node
@@ -140,3 +140,4 @@ while z.p.color == RED
  T.root.color = BLACK
 
 */
+exports.rbInsert = rbInsert
