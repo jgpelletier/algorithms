@@ -52,5 +52,6 @@ function prove (step, assert, say) {
 
         console.log(head.right.object.city)
         console.log(head.right.right.prev.object.city)
+        console.log(head.right.left.left.prev.prev.object.city)
     })
 }

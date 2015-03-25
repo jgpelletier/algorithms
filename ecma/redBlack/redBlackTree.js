@@ -10,7 +10,6 @@ PROPERTIES
 the same number of black nodes.
 */
 
-// THIS NEEDS TO BE TRANSLATED IN JAVASCRIPT
 
 /*
 What is node.p? the node's parent 
@@ -41,22 +40,6 @@ function leftRotate (subTree, node) {
     else subtree.right = y
     y.left = node
 }
- 
-/*
-RIGHT-ROTATE(T,x)
-y = x.left
-x.left = y.right
-if y.right != T.nil
-    y.right.p = x
-y.p= x.p
-if x.p == T.nil
-    T.root = y
-elseif x == x.p.right
-    x.p.right = y
-else x.p.left = y    
-y.right = x
-x.p = y
-*/
 
 function leftRotate (subTree, node) {
     var prev = node
@@ -67,27 +50,6 @@ function leftRotate (subTree, node) {
     else subtree.left = y
     y.right = node
 }
-
-/*
-RB-INSERT(T,z)
-y = T.nil
-x = T.root 
-while x != T.nil
-    y = x
-    if z.key < x:key
-        x = x.left 
-    else x = x.right
-z.p = y 
-if y== T.nil
-    T.root = z 
-elseif z.key < y.key 
-    y.left = z
-else y.right = z
-z.left =  T.nil
-z.right = T.nil
-z.color = RED 
-RB-INSERT-FIXUP(T,z)
-*/
 
 function rbInsert (node, valueObject) {
     var head = node
@@ -117,7 +79,41 @@ function rbInsert (node, valueObject) {
     return head 
 }
 
-function fixUp() {
+function fixUp(head, userNode) {
+    while (userNode.color == 'red') {
+       if (userNode.prev.object == userNode.prev.prev.left.object) {
+            var y = userNode.prev.prev.right
+            if (y.color = 'red'){
+                userNode.prev.color = 'black'
+                y.color = 'black'
+                user.prev.prev.color = 'red'
+                userNode = userNode.prev.prev
+            }
+            else if (userNode == userNode.prev.right) {
+                userNode = userNode.prev
+                leftRotate(userNode.prev, userNode)
+            }
+            userNode.prev.color = 'black'
+            userNode.prev.prev.color = 'red'
+            rightRotate(userNode.prev.prev.prev, userNode.prev.prev)
+        } else {
+            var y = userNode.prev.prev.left
+            if (y.color = 'red'){
+                userNode.prev.color = 'black'
+                y.color = 'black'
+                user.prev.prev.color = 'red'
+                userNode = userNode.prev.prev
+            }
+            else if (userNode == userNode.prev.left) {
+                userNode = userNode.prev
+                rightRotate(userNode.prev, userNode)
+            }
+            userNode.prev.color = 'black'
+            userNode.prev.prev.color = 'red'
+            leftRotate(userNode.prev.prev.prev, userNode.prev.prev)
+        }
+        head.color = "black"
+    }
 }
 /*
 
