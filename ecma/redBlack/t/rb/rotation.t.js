@@ -16,6 +16,7 @@ function prove (step, assert, say) {
 
         function addStation(list, object) {
             var node = { object: object,
+                         prev: null,
                          left: null,
                          right: null,
                          color: 'red' }
@@ -43,5 +44,13 @@ function prove (step, assert, say) {
         
         say(head)
         // Add Rotation test here
+
+        rb.treeWalk(head.right, function (object) { // the anonymous function is visitor 
+            console.log(object.city)
+        })
+
+
+        console.log(head.right.object.city)
+        console.log(head.right.right.prev.object.city)
     })
 }

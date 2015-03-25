@@ -90,10 +90,9 @@ RB-INSERT-FIXUP(T,z)
 */
 
 function rbInsert (node, valueObject) {
-    var head  = node
-    var prev 
+    var head = node
     var userNode = { object: valueObject,
-                     prev: null,
+                     prev: null, 
                      left: null,
                      right: null,
                      color: 'red' }
@@ -118,18 +117,20 @@ function rbInsert (node, valueObject) {
     return head 
 }
 
+function fixUp() {
+}
 /*
 
 B-INSERT-FIXUP(T,z)
 while z.p.color == RED 
     if z.p == z.p.p.left
-    y = z.p.p.right 
-    if y.color == RED
-        z.p.color = BLACK 
-        y.color = BLACK 
-        z.p.p.color = RED 
-        z = z.p.p
-    else if z == z.p.right 
+        y = z.p.p.right 
+        if y.color == RED
+            z.p.color = BLACK 
+            y.color = BLACK 
+            z.p.p.color = RED 
+            z = z.p.p
+        else if z == z.p.right 
             z = z.p
             LEFT-ROTATE(T, z)
         z.p.color = BLACK
@@ -140,4 +141,23 @@ while z.p.color == RED
  T.root.color = BLACK
 
 */
+
+function treeWalk (node, visitor) {
+    if (!node) {
+        return console.log("nothing immediately")
+    }
+
+    if (node.left) {
+        treeWalk(node.left, visitor)
+    }
+
+    visitor(node.object)
+
+    if (node.right) {
+        treeWalk(node.right, visitor)
+    }
+}
+
+
 exports.rbInsert = rbInsert
+exports.treeWalk = treeWalk
