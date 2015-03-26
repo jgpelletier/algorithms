@@ -41,7 +41,7 @@ function prove (step, assert, say) {
             var userObject = object(line)
             addStation(head, userObject)
         })
-        
+       /* 
         say(head)
         // Add Rotation test here
 
@@ -49,9 +49,12 @@ function prove (step, assert, say) {
             console.log(object.city)
         })
 
+        */
+        assert(head.right.right.color, 'red', 'color is red')
+        assert(head.right.left.color, 'red', 'color is red')
+        assert(head.right.right.right.color, 'black', 'color is black.')
+        assert(head.right.left.left.color, 'black', 'color is black')
 
-        console.log(head.right.object.city)
-        console.log(head.right.right.prev.object.city)
-        console.log(head.right.left.left.prev.prev.object.city)
+
     })
 }

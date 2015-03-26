@@ -34,21 +34,23 @@ function leftRotate (subTree, node) {
     //assert value
     var prev = node
     var y = node.right
-    node.right = y.left
-    if (subtree.left == null) subtree.right = y
-    else if(subtree.left == node) subtree.left = y
-    else subtree.right = y
+    node.right = y.left || null
+    if (!subTree.left) subTree.right = y // error
+    else if(subTree.left == node) subTree.left = y
+    else subTree.right = y
     y.left = node
+    return subTree
 }
 
-function leftRotate (subTree, node) {
+function rightRotate (subTree, node) {
     var prev = node
     var y = node.left
-    node.left = y.right
-    if (subtree.left == null) subtree.right = y
-    else if(subtree.right == node) subtree.right = y
-    else subtree.left = y
+    node.left = y.right || null
+    if (!subTree.right) subTree.right = y
+    else if(subTree.right == node) subTree.right = y
+    else subTree.left = y
     y.right = node
+    return subTree
 }
 
 function rbInsert (node, valueObject) {
@@ -75,15 +77,25 @@ function rbInsert (node, valueObject) {
         prev.right = userNode
     }
 
-    // need fix-up 
-    return head 
+    return fixUp(head, userNode) 
 }
 
 function fixUp(head, userNode) {
-    while (userNode.color == 'red') {
-       if (userNode.prev.object == userNode.prev.prev.left.object) {
-            var y = userNode.prev.prev.right
-            if (y.color = 'red'){
+    // userNode == head
+    // !head.prev
+    if (!userNode.prev) {
+        head.color = 'black'
+        return head
+    }
+
+    if (userNode.prev.prev == null) { 
+        userNode.color = 'red'
+        return head
+    }
+   while (userNode.prev && userNode.prev.color == 'red') {
+       if (userNode.prev.prev.left == userNode.prev) { //error
+            var y = userNode.prev.prev.right || null
+            if (y && y.color = 'red'){
                 userNode.prev.color = 'black'
                 y.color = 'black'
                 user.prev.prev.color = 'red'
@@ -91,14 +103,14 @@ function fixUp(head, userNode) {
             }
             else if (userNode == userNode.prev.right) {
                 userNode = userNode.prev
-                leftRotate(userNode.prev, userNode)
+                userNode.prev = leftRotate(userNode.prev, userNode)
             }
             userNode.prev.color = 'black'
             userNode.prev.prev.color = 'red'
-            rightRotate(userNode.prev.prev.prev, userNode.prev.prev)
+            userNode.prev.prev.prev = rightRotate(userNode.prev.prev.prev, userNode.prev.prev)
         } else {
-            var y = userNode.prev.prev.left
-            if (y.color = 'red'){
+            var y = userNode.prev.prev.left || null
+            if (y && y.color == 'red') {// cannot read color of null
                 userNode.prev.color = 'black'
                 y.color = 'black'
                 user.prev.prev.color = 'red'
@@ -106,14 +118,15 @@ function fixUp(head, userNode) {
             }
             else if (userNode == userNode.prev.left) {
                 userNode = userNode.prev
-                rightRotate(userNode.prev, userNode)
+                userNode.prev = rightRotate(userNode.prev, userNode)
             }
             userNode.prev.color = 'black'
             userNode.prev.prev.color = 'red'
-            leftRotate(userNode.prev.prev.prev, userNode.prev.prev)
+            userNode.prev.prev.prev = leftRotate(userNode.prev.prev.prev, userNode.prev.prev)
         }
         head.color = "black"
     }
+    return head
 }
 /*
 
