@@ -30,27 +30,32 @@ node.p = y
 */
 
 // Pass in prev as subTree and node that needs rotation 
-function leftRotate (subTree, node) {
+function leftRotate (head, node) {
     //assert value
-    var prev = node
+    //var prev = node
     var y = node.right
-    node.right = y.left || null
-    if (!subTree.left) subTree.right = y // error
-    else if(subTree.left == node) subTree.left = y
-    else subTree.right = y
+    if (y.left != null) y.prev.left = node
+    y.prev = node.prev 
+    if (node.prev == null) head = y // error
+    else if(node == node.prev.left) node.prev.left = y
+    else node.prev.right = y
     y.left = node
-    return subTree
+    node.prev = y 
+    return head
 }
 
 function rightRotate (subTree, node) {
     var prev = node
     var y = node.left
-    node.left = y.right || null
-    if (!subTree.right) subTree.right = y
-    else if(subTree.right == node) subTree.right = y
-    else subTree.left = y
+    if (y.right != null) y.prev.right = node
+    y.prev = node.prev 
+    if (node.prev == null) head = y // error
+    else if(node == node.prev.right) node.prev.right = y
+    else node.prev.left = y
     y.right = node
-    return subTree
+    node.prev = y 
+    return head
+
 }
 
 function rbInsert (node, valueObject) {
@@ -83,13 +88,14 @@ function rbInsert (node, valueObject) {
 function fixUp(head, userNode) {
     // userNode == head
     // !head.prev
-    if (!userNode.prev) {
+    if (userNode.prev == null) {
         head.color = 'black'
         return head
     }
 
     if (userNode.prev.prev == null) { 
         userNode.color = 'red'
+        head.color = 'black'
         return head
     }
    while (userNode.prev && userNode.prev.color == 'red') {
