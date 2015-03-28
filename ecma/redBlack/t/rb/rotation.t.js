@@ -24,7 +24,7 @@ function prove (step, assert, say) {
             if (list.right == null) {
                 list.right = node 
             } else {
-                rb.rbInsert(list.right, object)
+                list.right = rb.rbInsert(list.right, object)
             }
         }
 

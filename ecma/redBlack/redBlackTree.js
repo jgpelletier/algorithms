@@ -82,24 +82,28 @@ function rbInsert (node, valueObject) {
         prev.right = userNode
     }
 
-    return fixUp(head, userNode) 
+    head = fixUp(head, userNode) 
+    return head
 }
 
 function fixUp(head, userNode) {
     // userNode == head
     // !head.prev
+    /*
     if (userNode.prev == null) {
         head.color = 'black'
         return head
     }
 
+    */
     if (userNode.prev.prev == null) { 
         userNode.color = 'red'
         head.color = 'black'
         return head
     }
+   
    while (userNode.prev && userNode.prev.color == 'red') {
-       if (userNode.prev.prev.left == userNode.prev) { //error
+       if (userNode.prev.prev && userNode.prev.prev.left == userNode.prev) { //error
             var y = userNode.prev.prev.right || null
             if (y && y.color = 'red'){
                 userNode.prev.color = 'black'
@@ -109,33 +113,32 @@ function fixUp(head, userNode) {
             }
             else if (userNode == userNode.prev.right) {
                 userNode = userNode.prev
-                userNode.prev = leftRotate(userNode.prev, userNode)
+                head = leftRotate(head, userNode)
             }
             userNode.prev.color = 'black'
             userNode.prev.prev.color = 'red'
-            userNode.prev.prev.prev = rightRotate(userNode.prev.prev.prev, userNode.prev.prev)
+            head = rightRotate(head, userNode.prev.prev)
         } else {
             var y = userNode.prev.prev.left || null
-            if (y && y.color == 'red') {// cannot read color of null
+            if (y && y.color == 'red') { // cannot read color of null
                 userNode.prev.color = 'black'
                 y.color = 'black'
-                user.prev.prev.color = 'red'
+                userNode.prev.prev.color = 'red'
                 userNode = userNode.prev.prev
             }
             else if (userNode == userNode.prev.left) {
                 userNode = userNode.prev
-                userNode.prev = rightRotate(userNode.prev, userNode)
+                head = rightRotate(head, userNode)
             }
-            userNode.prev.color = 'black'
+            userNode.prev.color = 'black' // breaks here?
             userNode.prev.prev.color = 'red'
-            userNode.prev.prev.prev = leftRotate(userNode.prev.prev.prev, userNode.prev.prev)
+            head = leftRotate(head, userNode.prev.prev)
         }
         head.color = "black"
     }
     return head
 }
 /*
-
 B-INSERT-FIXUP(T,z)
 while z.p.color == RED 
     if z.p == z.p.p.left
