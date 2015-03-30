@@ -41,10 +41,11 @@ function leftRotate (head, node) {
     else node.prev.right = y
     y.left = node
     node.prev = y 
+    if (node.right.object == node.prev.object) node.right = null
     return head
 }
 
-function rightRotate (subTree, node) {
+function rightRotate (head, node) {
     var prev = node
     var y = node.left
     if (y.right != null) y.prev.right = node
@@ -54,6 +55,7 @@ function rightRotate (subTree, node) {
     else node.prev.left = y
     y.right = node
     node.prev = y 
+    if (node.left.object == node.prev.object) node.left = null
     return head
 
 }
@@ -114,12 +116,12 @@ function fixUp(head, userNode) {
     }
    
    while (userNode.prev && userNode.prev.color == 'red') {
-       if (userNode.prev.prev && userNode.prev.prev.left == userNode.prev) { //error
+       if (userNode.prev.prev && userNode.prev.prev.left == userNode.prev) { 
             var y = userNode.prev.prev.right
-            if (y && y.color = 'red'){
+            if (y && y.color == 'red') { // error
                 userNode.prev.color = 'black'
                 y.color = 'black'
-                user.prev.prev.color = 'red'
+                userNode.prev.prev.color = 'red'
                 userNode = userNode.prev.prev
             }
             else if (userNode == userNode.prev.right) {
@@ -132,7 +134,7 @@ function fixUp(head, userNode) {
             }
         } else {
             var y = userNode.prev.prev.left
-            if (y && y.color == 'red') { // cannot read color of null
+            if (y && y.color == 'red') {
                 userNode.prev.color = 'black'
                 y.color = 'black'
                 userNode.prev.prev.color = 'red'
@@ -142,7 +144,7 @@ function fixUp(head, userNode) {
                 userNode = userNode.prev
                 head = rightRotate(head, userNode)
             } else { 
-                userNode.prev.color = 'black' // breaks here?
+                userNode.prev.color = 'black'
                 userNode.prev.prev.color = 'red'
                 head = leftRotate(head, userNode.prev.prev)
             }

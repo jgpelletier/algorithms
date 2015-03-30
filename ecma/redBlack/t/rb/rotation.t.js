@@ -22,9 +22,11 @@ function prove (step, assert, say) {
                          color: 'red' }
 
             if (list.right == null) {
+                node.color = 'black'
                 list.right = node 
             } else {
                 list.right = rb.rbInsert(list.right, object)
+                head = list
             }
         }
 
@@ -41,7 +43,7 @@ function prove (step, assert, say) {
             var userObject = object(line)
             addStation(head, userObject)
         })
-       /* 
+        
         say(head)
         // Add Rotation test here
 
@@ -49,11 +51,6 @@ function prove (step, assert, say) {
             console.log(object.city)
         })
 
-        */
-        assert(head.right.right.color, 'red', 'color is red')
-        assert(head.right.left.color, 'red', 'color is red')
-        assert(head.right.right.right.color, 'black', 'color is black.')
-        assert(head.right.left.left.color, 'black', 'color is black')
 
 
     })
