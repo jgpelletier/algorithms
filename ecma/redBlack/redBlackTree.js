@@ -65,7 +65,7 @@ function rbInsert (node, valueObject) {
                      left: null,
                      right: null,
                      color: 'red' }
-    
+   // breaks here 
     while (node) {
         var prev = node
         if (node.object.city > userNode.object.city)  node = node.left
@@ -85,17 +85,28 @@ function rbInsert (node, valueObject) {
     head = fixUp(head, userNode) 
     return head
 }
-
+/*
+B-INSERT-FIXUP(T,z)
+while z.p.color == RED 
+    if z.p == z.p.p.left
+        y = z.p.p.right 
+        if y.color == RED
+            z.p.color = BLACK <- case 1
+            y.color = BLACK <- case 1
+            z.p.p.color = RED <- case 1
+            z = z.p.p <- case 1
+        else if z == z.p.right 
+            z = z.p <- case 2
+            LEFT-ROTATE(T, z)<- case 2
+        z.p.color = BLACK<- case 3
+        z.p.p.color = RED<- case 3
+        RIGHT-ROTATE(T,z.p.p)<- case 3
+    else (same as then clause
+     with “right” and “left” exchanged)
+ T.root.color = BLACK
+*/
 function fixUp(head, userNode) {
-    // userNode == head
-    // !head.prev
-    /*
-    if (userNode.prev == null) {
-        head.color = 'black'
-        return head
-    }
-
-    */
+    // added
     if (userNode.prev.prev == null) { 
         userNode.color = 'red'
         head.color = 'black'
@@ -104,7 +115,7 @@ function fixUp(head, userNode) {
    
    while (userNode.prev && userNode.prev.color == 'red') {
        if (userNode.prev.prev && userNode.prev.prev.left == userNode.prev) { //error
-            var y = userNode.prev.prev.right || null
+            var y = userNode.prev.prev.right
             if (y && y.color = 'red'){
                 userNode.prev.color = 'black'
                 y.color = 'black'
@@ -114,12 +125,13 @@ function fixUp(head, userNode) {
             else if (userNode == userNode.prev.right) {
                 userNode = userNode.prev
                 head = leftRotate(head, userNode)
+            } else {
+                userNode.prev.color = 'black'
+                userNode.prev.prev.color = 'red'
+                head = rightRotate(head, userNode.prev.prev)
             }
-            userNode.prev.color = 'black'
-            userNode.prev.prev.color = 'red'
-            head = rightRotate(head, userNode.prev.prev)
         } else {
-            var y = userNode.prev.prev.left || null
+            var y = userNode.prev.prev.left
             if (y && y.color == 'red') { // cannot read color of null
                 userNode.prev.color = 'black'
                 y.color = 'black'
@@ -129,36 +141,17 @@ function fixUp(head, userNode) {
             else if (userNode == userNode.prev.left) {
                 userNode = userNode.prev
                 head = rightRotate(head, userNode)
+            } else { 
+                userNode.prev.color = 'black' // breaks here?
+                userNode.prev.prev.color = 'red'
+                head = leftRotate(head, userNode.prev.prev)
             }
-            userNode.prev.color = 'black' // breaks here?
-            userNode.prev.prev.color = 'red'
-            head = leftRotate(head, userNode.prev.prev)
         }
         head.color = "black"
     }
     return head
 }
-/*
-B-INSERT-FIXUP(T,z)
-while z.p.color == RED 
-    if z.p == z.p.p.left
-        y = z.p.p.right 
-        if y.color == RED
-            z.p.color = BLACK 
-            y.color = BLACK 
-            z.p.p.color = RED 
-            z = z.p.p
-        else if z == z.p.right 
-            z = z.p
-            LEFT-ROTATE(T, z)
-        z.p.color = BLACK
-        z.p.p.color = RED
-        RIGHT-ROTATE(T,z.p.p)
-     else (same as then clause
-     with “right” and “left” exchanged)
- T.root.color = BLACK
 
-*/
 
 function treeWalk (node, visitor) {
     if (!node) {
