@@ -50,7 +50,8 @@ function prove (step, assert, say) {
         rb.treeWalk(head.right, function (object) { // the anonymous function is visitor 
             console.log(object.city)
         })
-
+        
+        console.log(rb.depth(head.right))
 
 
     })

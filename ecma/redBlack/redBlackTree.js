@@ -171,6 +171,18 @@ function treeWalk (node, visitor) {
     }
 }
 
+function depth (node) {
+    if (!node) {
+        return 0
+    } else {
+    var lDepth = depth(node.left)
+    var rDepth = depth(node.right)
 
+    if (lDepth > rDepth) return(lDepth+1)
+    else return (rDepth+1)
+    }
+}
+
+exports.depth = depth
 exports.rbInsert = rbInsert
 exports.treeWalk = treeWalk
