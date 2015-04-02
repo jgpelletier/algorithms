@@ -1,4 +1,3 @@
-// This is the psuedo code taken from introduction to algorithms
 
 /*
 PROPERTIES
@@ -11,32 +10,12 @@ the same number of black nodes.
 */
 
 
-/*
-What is node.p? the node's parent 
-What is T.nil? the roots parent and each leafs nil.
-LEFT-ROTATE(SubTree,node)
-y = node.right
-node.right = y.left
-if y.left != T.nil
-    y.left.p = node
-y.p= node.p
-if node.p == T.nil
-    T.root = y
-elseif node == node.p.left
-    node.p.left = y
-else node.p.right = y    
-y.left = node
-node.p = y
-*/
 
-// Pass in prev as subTree and node that needs rotation 
 function leftRotate (head, node) {
-    //assert value
-    //var prev = node
     var y = node.right
     if (y.left != null) y.prev.left = node
     y.prev = node.prev 
-    if (node.prev == null) head = y // error
+    if (node.prev == null) head = y
     else if(node == node.prev.left) node.prev.left = y
     else node.prev.right = y
     y.left = node
@@ -50,7 +29,7 @@ function rightRotate (head, node) {
     var y = node.left
     if (y.right != null) y.prev.right = node
     y.prev = node.prev 
-    if (node.prev == null) head = y // error
+    if (node.prev == null) head = y
     else if(node == node.prev.right) node.prev.right = y
     else node.prev.left = y
     y.right = node
@@ -67,7 +46,6 @@ function rbInsert (node, valueObject) {
                      left: null,
                      right: null,
                      color: 'red' }
-   // breaks here 
     while (node) {
         var prev = node
         if (node.object.city > userNode.object.city)  node = node.left
@@ -87,28 +65,8 @@ function rbInsert (node, valueObject) {
     head = fixUp(head, userNode) 
     return head
 }
-/*
-B-INSERT-FIXUP(T,z)
-while z.p.color == RED 
-    if z.p == z.p.p.left
-        y = z.p.p.right 
-        if y.color == RED
-            z.p.color = BLACK <- case 1
-            y.color = BLACK <- case 1
-            z.p.p.color = RED <- case 1
-            z = z.p.p <- case 1
-        else if z == z.p.right 
-            z = z.p <- case 2
-            LEFT-ROTATE(T, z)<- case 2
-        z.p.color = BLACK<- case 3
-        z.p.p.color = RED<- case 3
-        RIGHT-ROTATE(T,z.p.p)<- case 3
-    else (same as then clause
-     with “right” and “left” exchanged)
- T.root.color = BLACK
-*/
+
 function fixUp(head, userNode) {
-    // added
     if (userNode.prev.prev == null) { 
         userNode.color = 'red'
         head.color = 'black'
@@ -118,7 +76,7 @@ function fixUp(head, userNode) {
    while (userNode.prev && userNode.prev.color == 'red') {
        if (userNode.prev.prev && userNode.prev.prev.left == userNode.prev) { 
             var y = userNode.prev.prev.right
-            if (y && y.color == 'red') { // error
+            if (y && y.color == 'red') { 
                 userNode.prev.color = 'black'
                 y.color = 'black'
                 userNode.prev.prev.color = 'red'
