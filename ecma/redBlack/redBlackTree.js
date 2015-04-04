@@ -112,7 +112,7 @@ function fixUp(head, userNode) {
     return head
 }
 
-
+// tree's left node points to itself blowing the stack
 function treeWalk (node, visitor) {
     if (!node) {
         return console.log("nothing immediately")
