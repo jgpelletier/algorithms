@@ -10,17 +10,17 @@ the same number of black nodes.
 */
 
 
-
+// does error occur when head and node are the same object?
 function leftRotate (head, node) {
     var y = node.right
     if (y.left != null) y.prev.left = node
     y.prev = node.prev 
-    if (node.prev == null) head = y
+    if (node.prev == null) head = y // <- it when here
     else if(node == node.prev.left) node.prev.left = y
     else node.prev.right = y
-    y.left = node
-    node.prev = y 
-    if (node.right.object == node.prev.object) node.right = null
+    y.left = node // <- it when here
+    node.prev = y // <- it when here
+    if (node.right.object == node.prev.object) node.right = null // <- it when here
     return head
 }
 
