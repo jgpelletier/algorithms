@@ -1,4 +1,3 @@
-
 /*
 PROPERTIES
 1. Every node is either red or black.
@@ -8,7 +7,6 @@ PROPERTIES
 5. For each node, all simple paths from the node to descendant leaves contain
 the same number of black nodes.
 */
-
 
 // does error occur when head and node are the same object?
 function leftRotate (head, node) {
@@ -36,7 +34,6 @@ function rightRotate (head, node) {
     node.prev = y 
     if (node.left.object == node.prev.object) node.left = null
     return head
-
 }
 
 function rbInsert (node, valueObject) {
