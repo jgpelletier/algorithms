@@ -8,7 +8,6 @@ function search (node, city) {
     } else { 
         return search(node.right, city)
     }
-
 }
 
 function minValue (node) {
@@ -47,7 +46,6 @@ function insertion (node, valueObject) {
         prev.right = userNode
     }
     return head 
-
 }
 
 function depth (node) {
@@ -83,10 +81,8 @@ function transplant ( head, prev, node, nextNode ) {
             //               and this is the about the 3rd time of traveling down to a node?
             nextNode.right = node.right
             nextNode.left = node.left
-           
         }   
     }
-
     return head
 }
 
