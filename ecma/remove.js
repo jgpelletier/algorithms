@@ -41,7 +41,7 @@ function add (value) {
     list = node
 }
 
-var list // <- list
+var list
 
 var node = {}
 node.value = 37
@@ -74,13 +74,7 @@ dump()
 console.log('---remove 99---')
 remove(99)
 dump()
-//console.log('---remove 37--')
-//remove(37)
-//dump()
-//console.log('---remove 12 (works)---')
-//remove(12)
-//dump()
-//
+
 function contains (value) {
     var node = list
     while (node) {
@@ -97,17 +91,18 @@ function shift () {
     var node = list
     var prev
     if (!node) {
-        console.log('No node to shift')}
+        console.log('No node to shift')
+    }
     else if (!node.next) {
-    console.log('blerp')
-    list = undefined} // changing variable
-    else {
-         while (node.next) {
+        console.log('blerp')
+        list = undefined
+    } else {
+        while (node.next) {
             console.log("herp")
             prev = node
             node = node.next // changing property
-            }
-         console.log('derp')
-         delete prev.next // <- new javascript
-       }
+        }
+        console.log('derp')
+        delete prev.next // <- new javascript
+   }
 }
