@@ -1,11 +1,10 @@
 var list = { value:null, next:null }
-//var node
 
 
 function push (value) {
     var node = { value:value, next:list.next } // this reference points past the dummy node.
     list.next = node
-    }
+}
 
 // fix dump, no dummy node.
 
@@ -13,7 +12,7 @@ function dump () {
     var node = list
     while (node) {
         if (node.value != null) {
-        console.log(node.value)
+            console.log(node.value)
         }
     node = node.next
     }

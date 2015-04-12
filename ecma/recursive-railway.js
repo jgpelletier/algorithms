@@ -71,7 +71,7 @@ function main (file) {
     node= railway.gotoStation(mcrr, voyageFrom)
 
     function callback (offset, node) {
-            console.log(node.station, offset)
+        console.log(node.station, offset)
     }
 
     if (!node) {

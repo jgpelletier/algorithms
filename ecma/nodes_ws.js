@@ -142,13 +142,10 @@ node.value = 11
 node.next = list
 list = node // <- assignment
 
-// list.next ?
 node = null
 
-// list <-?
 console.log(list.next.value) // <- still couldn't see it
 list = list.next // <-
-// list <-?
 
 console.log('count: ' + get_count())
 console.log(list.value) // <- 11
@@ -157,7 +154,6 @@ console.log(contains(11)) // <- true or false?
 console.log(' ')
 
 console.log(list)
-// shift()
 console.log('--- dump ---')
 dump()
 console.log('--- last ---')
@@ -167,14 +163,8 @@ console.log('--- shift ---')
 shift()
 console.log(last())
 
-
-//console.log(last_other())
-
-
-
 process.exit(0) // <- EXIT!
 
-// list <-?
 pop()
 
 console.log('count: ' + get_count())

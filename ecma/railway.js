@@ -137,7 +137,8 @@ function westOfRecursive (list, city, count) {
     function goEast (node, arr) {
        if (!node) {
             return null
-        } else if (node.city != city) {
+        } 
+        else if (node.city != city) {
             arr.push({
                 state: node.state,
                 city: node.city,
