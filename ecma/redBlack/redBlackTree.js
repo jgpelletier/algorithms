@@ -138,6 +138,22 @@ function depth (node) {
     }
 }
 
+
+/*
+Taken from Algorithms
+The procedure for deleting a node from a red-black tree is based on the TREEDELETE procedure (Section 12.3). First, we need to customize the TRANSPLANT
+subroutine that TREE-DELETE calls so that it applies to a red-black tree:
+
+
+RB-TRANSPLANT.T; u; /
+1 if u:p == T:nil
+2 T:root D 
+3 elseif u == u:p:left
+4 u:p:left D 
+5 else u:p:right D 
+6 :p D u:p
+*/
+
 exports.depth = depth
 exports.rbInsert = rbInsert
 exports.treeWalk = treeWalk
