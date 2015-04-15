@@ -138,6 +138,31 @@ function depth (node) {
     }
 }
 
+function deletion (node, value) {
+    var head  = node
+    var prev = node
+    
+    while (node && node.object.city != value) {
+        prev = node
+        if (node.object.city > value) node = node.left
+        else node = node.right
+    }
+    
+    if (!node.left) {
+        return transplant(head, prev, node, node.right)
+    } 
+    else if (!node.right) {
+        return transplant(head, prev, node, node.left)
+    } else {
+        var min = { object: minValue(node.right) } 
+
+        if (node.right.object.city != min.object.city) {
+            return transplant(head, prev, node, min)
+        }
+
+        return transplant(head, prev, node, min)
+    }
+}
 
 /*
 Taken from Algorithms
@@ -157,3 +182,4 @@ RB-TRANSPLANT.T; u; /
 exports.depth = depth
 exports.rbInsert = rbInsert
 exports.treeWalk = treeWalk
+exports.deletion = deletion
