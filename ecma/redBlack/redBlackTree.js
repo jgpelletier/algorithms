@@ -19,7 +19,8 @@ function leftRotate (head, node) {
     y.left = node // <- it when here
     node.prev = y // <- it when here
     if (node.right.object == node.prev.object) node.right = null // <- it when here
-    return head
+    return y
+    //return head
 }
 
 function rightRotate (head, node) {
@@ -34,6 +35,7 @@ function rightRotate (head, node) {
     node.prev = y 
     if (node.left.object == node.prev.object) node.left = null
     return head
+    //return head
 }
 
 function rbInsert (node, valueObject) {
