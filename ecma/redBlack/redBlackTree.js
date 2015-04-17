@@ -13,28 +13,28 @@ function leftRotate (head, node) {
     var y = node.right
     node.right = y.left
     if (y.left != null) y.prev.left = node
-    y.prev = node.prev 
+    //y.prev = node.prev 
     if (node.prev == null) head = y // <- it went here
     else if(node == node.prev.left) node.prev.left = y
     else node.prev.right = y
     y.left = node // <- it went here
     node.prev = y // <- it went here
     //if (node.right.object == node.prev.object) node.right = null // <- it went here
-    return y
-    //return head
+    //return y
+    return head
 }
 
 function rightRotate (head, node) {
-    var prev = node
     var y = node.left
+    node.left = y.right
     if (y.right != null) y.prev.right = node
-    y.prev = node.prev 
+    //y.prev = node.prev 
     if (node.prev == null) head = y
-    else if(node == node.prev.right) node.prev.right = y
+    else if (node == node.prev.right) node.prev.right = y
     else node.prev.left = y
     y.right = node
     node.prev = y 
-    if (node.left.object == node.prev.object) node.left = null
+    //if (node.left.object == node.prev.object) node.left = null
     return head
     //return head
 }

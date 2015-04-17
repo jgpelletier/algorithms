@@ -1,8 +1,8 @@
-Albion Station, Albion, Michigan
-Ann Arbor Station, Ann Arbor, Michigan
-Battle Creek Station, Battle Creek, Michigan
-Birmingham Station, Birmingham, Michigan
-Chicago Union Station, Chicago, Illinois
-Dearborn Station, Dearborn, Michigan
-Detroit Station, Detroit, Michigan
 Dowagiac Station, Dowagiac, Michigan
+Detroit Station, Detroit, Michigan
+Dearborn Station, Dearborn, Michigan
+Chicago Union Station, Chicago, Illinois
+Birmingham Station, Birmingham, Michigan
+Battle Creek Station, Battle Creek, Michigan
+Ann Arbor Station, Ann Arbor, Michigan
+Albion Station, Albion, Michigan

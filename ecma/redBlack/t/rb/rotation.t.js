@@ -52,6 +52,7 @@ function prove (step, assert, say) {
         })
         
         // Trying to gage the tree.
+        /*
         console.log(rb.depth(head.right))
         console.log(head.right.color + head.right.object.city)
         console.log(head.right.left.color + head.right.left.object.city)
@@ -65,5 +66,6 @@ function prove (step, assert, say) {
         console.log(head.right.left.left.left.color + head.right.left.left.left.object.city)
         console.log(head.right.left.left.right.color + head.right.left.left.right.object.city)
         console.log(head.right.left.left.right.right.color + head.right.left.left.right.right.object.city)
+        */
     })
 }
