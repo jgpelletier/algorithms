@@ -67,12 +67,14 @@ function rbInsert (node, valueObject) {
 }
 
 function fixUp(head, userNode) {
+    // does it break right here?
+    /*
     if (userNode.prev.prev == null) { 
         userNode.color = 'red'
         head.color = 'black'
         return head
     }
-   
+   */
    while (userNode.prev && userNode.prev.color == 'red') {
        if (userNode.prev.prev && userNode.prev.prev.left == userNode.prev) { 
             var y = userNode.prev.prev.right
