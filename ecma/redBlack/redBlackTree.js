@@ -8,18 +8,16 @@ PROPERTIES
 the same number of black nodes.
 */
 
-// does error occur when head and node are the same object?
 function leftRotate (head, node) {
     var y = node.right
     node.right = y.left
     if (y.left != null) y.prev.left = node
     //y.prev = node.prev 
-    if (node.prev == null) head = y // <- it went here
+    if (node.prev == null) head = y
     else if(node == node.prev.left) node.prev.left = y
     else node.prev.right = y
-    y.left = node // <- it went here
-    node.prev = y // <- it went here
-    //if (node.right.object == node.prev.object) node.right = null // <- it went here
+    y.left = node
+    node.prev = y    //if (node.right.object == node.prev.object) node.right = null // <- it went here
     //return y
     return head
 }
@@ -36,7 +34,6 @@ function rightRotate (head, node) {
     node.prev = y 
     //if (node.left.object == node.prev.object) node.left = null
     return head
-    //return head
 }
 
 function rbInsert (node, valueObject) {
@@ -66,6 +63,7 @@ function rbInsert (node, valueObject) {
     return head
 }
 
+// I think this is where the issue resides.
 function fixUp(head, userNode) {
     // does it break right here?
     /*
@@ -75,6 +73,7 @@ function fixUp(head, userNode) {
         return head
     }
    */
+
    while (userNode.prev && userNode.prev.color == 'red') {
        if (userNode.prev.prev && userNode.prev.prev.left == userNode.prev) { 
             var y = userNode.prev.prev.right
