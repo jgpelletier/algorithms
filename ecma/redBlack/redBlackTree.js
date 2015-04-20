@@ -63,7 +63,7 @@ function rbInsert (node, valueObject) {
     return head
 }
 
-// I think this is where the issue resides.
+// I think this is where the issue resides. This violates property 5.
 function fixUp(head, userNode) {
     // does it break right here?
     /*
