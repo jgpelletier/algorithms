@@ -64,9 +64,7 @@ function rbInsert (node, valueObject) {
     return head
 }
 
-// I think this is where the issue resides. This violates property 5.
 function fixUp(head, userNode) {
-    // does it break right here?
     if (userNode.prev.prev == null) { 
         userNode.color = 'red'
         head.color = 'black'
@@ -85,13 +83,10 @@ function fixUp(head, userNode) {
                 if (userNode == userNode.prev.right) {
                     userNode = userNode.prev
                     head = leftRotate(head, userNode)
-                } //else {
-
-            //if (userNode.prev && userNode.prev.prev){
+                }
                 userNode.prev.color = 'black'
                 userNode.prev.prev.color = 'red'
                 head = rightRotate(head, userNode.prev.prev)
-           // }
             }
         } else {
             var y = userNode.prev.prev.left
@@ -105,14 +100,10 @@ function fixUp(head, userNode) {
                 if (userNode == userNode.prev.left) {
                     userNode = userNode.prev
                     head = rightRotate(head, userNode)
-                } //else { 
-
-            //if (userNode.prev && userNode.prev.prev){
+                }
                 userNode.prev.color = 'black'
                 userNode.prev.prev.color = 'red'
                 head = leftRotate(head, userNode.prev.prev)
-            //}
-
             }
         }
         head.color = "black"
@@ -120,7 +111,6 @@ function fixUp(head, userNode) {
     return head
 }
 
-// tree's left node points to itself blowing the stack
 function treeWalk (node, visitor) {
     if (!node) {
         return console.log("nothing immediately")
