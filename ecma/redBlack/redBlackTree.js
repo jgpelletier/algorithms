@@ -11,13 +11,14 @@ the same number of black nodes.
 function leftRotate (head, node) {
     var y = node.right
     node.right = y.left
-    if (y.left != null) y.prev.left = node
-    //y.prev = node.prev 
+    if (y.left != null && head != node) y.prev.left = node
+    y.prev = node.prev 
     if (node.prev == null) head = y
     else if(node == node.prev.left) node.prev.left = y
     else node.prev.right = y
     y.left = node
-    node.prev = y    //if (node.right.object == node.prev.object) node.right = null // <- it went here
+    node.prev = y 
+    //if (node.right.object == node.prev.object) node.right = null // <- it went here
     //return y
     return head
 }
@@ -25,8 +26,8 @@ function leftRotate (head, node) {
 function rightRotate (head, node) {
     var y = node.left
     node.left = y.right
-    if (y.right != null) y.prev.right = node
-    //y.prev = node.prev 
+    if (y.right != null && head != node) y.prev.right = node
+    y.prev = node.prev 
     if (node.prev == null) head = y
     else if (node == node.prev.right) node.prev.right = y
     else node.prev.left = y
@@ -66,13 +67,11 @@ function rbInsert (node, valueObject) {
 // I think this is where the issue resides. This violates property 5.
 function fixUp(head, userNode) {
     // does it break right here?
-    /*
     if (userNode.prev.prev == null) { 
         userNode.color = 'red'
         head.color = 'black'
         return head
     }
-   */
 
    while (userNode.prev && userNode.prev.color == 'red') {
        if (userNode.prev.prev && userNode.prev.prev.left == userNode.prev) { 
@@ -82,14 +81,17 @@ function fixUp(head, userNode) {
                 y.color = 'black'
                 userNode.prev.prev.color = 'red'
                 userNode = userNode.prev.prev
-            }
-            else if (userNode == userNode.prev.right) {
-                userNode = userNode.prev
-                head = leftRotate(head, userNode)
             } else {
+                if (userNode == userNode.prev.right) {
+                    userNode = userNode.prev
+                    head = leftRotate(head, userNode)
+                } //else {
+
+            //if (userNode.prev && userNode.prev.prev){
                 userNode.prev.color = 'black'
                 userNode.prev.prev.color = 'red'
                 head = rightRotate(head, userNode.prev.prev)
+           // }
             }
         } else {
             var y = userNode.prev.prev.left
@@ -99,13 +101,18 @@ function fixUp(head, userNode) {
                 userNode.prev.prev.color = 'red'
                 userNode = userNode.prev.prev
             }
-            else if (userNode == userNode.prev.left) {
-                userNode = userNode.prev
-                head = rightRotate(head, userNode)
-            } else { 
+            else {
+                if (userNode == userNode.prev.left) {
+                    userNode = userNode.prev
+                    head = rightRotate(head, userNode)
+                } //else { 
+
+            //if (userNode.prev && userNode.prev.prev){
                 userNode.prev.color = 'black'
                 userNode.prev.prev.color = 'red'
                 head = leftRotate(head, userNode.prev.prev)
+            //}
+
             }
         }
         head.color = "black"
