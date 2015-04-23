@@ -66,6 +66,7 @@ function prove (step, assert, say) {
         console.log('head.right.right.left '+head.right.right.left.color+' '+head.right.right.left.object.city)
         console.log("head.right.left.right "+head.right.left.right.color+' '+head.right.left.right.object.city)
         console.log('head.right.left.left '+head.right.left.left.color+' '+head.right.left.left.object.city)
+        console.log(head.right.left.left.left.left.object.city)
  //       console.log('head.left.right.right '+head.left.right.right.color+' '+head.left.right.right.object.city)
 
 /*

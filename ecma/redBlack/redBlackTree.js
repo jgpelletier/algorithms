@@ -80,6 +80,7 @@ function fixUp(head, userNode) {
                 userNode.prev.prev.color = 'red'
                 userNode = userNode.prev.prev
             } else {
+                // need to test the second case
                 if (userNode == userNode.prev.right) {
                     userNode = userNode.prev
                     head = leftRotate(head, userNode)
@@ -97,6 +98,7 @@ function fixUp(head, userNode) {
                 userNode = userNode.prev.prev
             }
             else {
+                // need to test the second case
                 if (userNode == userNode.prev.left) {
                     userNode = userNode.prev
                     head = rightRotate(head, userNode)
