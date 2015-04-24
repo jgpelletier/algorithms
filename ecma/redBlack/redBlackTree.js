@@ -37,6 +37,8 @@ function rightRotate (head, node) {
     return head
 }
 
+// an error occurs on the 12 object when city == Michigan City. 
+// need to distinguish if in `fixUp` or rotate function.
 function rbInsert (node, valueObject) {
     var head = node
     var userNode = { object: valueObject,
