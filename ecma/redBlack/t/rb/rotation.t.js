@@ -46,11 +46,9 @@ function prove (step, assert, say) {
         
  //       say(head)
         // Add Rotation test here
-/*
         rb.treeWalk(head.right, function (object) {
             console.log(object.city)
         })
-*/        
 //        console.log(rb.depth(head.right))
         head = head.right
 
