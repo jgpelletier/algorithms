@@ -13,7 +13,10 @@ function prove (step, assert, say) {
         var lines = body.split('\n')
         var popped = lines.pop()
         var head  = { right: null }
-
+        
+        console.log(typeof(lines))
+        lines = lines.reverse()
+        console.log(lines[1])
         function addStation(list, object) {
             var node = { object: object,
                          prev: null,
