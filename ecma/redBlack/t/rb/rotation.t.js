@@ -14,9 +14,7 @@ function prove (step, assert, say) {
         var popped = lines.pop()
         var head  = { right: null }
         
-        console.log(typeof(lines))
         lines = lines.reverse()
-        console.log(lines[1])
         function addStation(list, object) {
             var node = { object: object,
                          prev: null,
@@ -55,6 +53,7 @@ function prove (step, assert, say) {
 //        console.log(rb.depth(head.right))
         head = head.right
 
+/*
         console.log("head "+head.color+' '+head.object.city)
         console.log("head.right "+head.right.color+' '+head.right.object.city)
         console.log("head.left "+head.right.left.color+' '+head.left.object.city)
