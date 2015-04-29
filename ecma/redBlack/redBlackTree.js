@@ -65,12 +65,16 @@ function rbInsert (node, valueObject) {
     return head
 }
 
+// at the eighth node the fourth rule is violated
+// both new buffalo and dearborn are red.
 function fixUp(head, userNode) {
     if (userNode.prev.prev == null) { 
         userNode.color = 'red'
         head.color = 'black'
         return head
     }
+
+    console.log(userNode.object.city)
 
    while (userNode.prev && userNode.prev.color == 'red') {
        if (userNode.prev.prev && userNode.prev.prev.left == userNode.prev) { 
@@ -83,6 +87,7 @@ function fixUp(head, userNode) {
             } else {
                 // need to test the second case
                 if (userNode == userNode.prev.right) {
+                    console.log("if loop 1")
                     userNode = userNode.prev
                     head = leftRotate(head, userNode)
                 }
@@ -101,6 +106,7 @@ function fixUp(head, userNode) {
             else {
                 // need to test the second case
                 if (userNode == userNode.prev.left) {
+                    console.log("if loop 2")
                     userNode = userNode.prev
                     head = rightRotate(head, userNode)
                 }

@@ -1,15 +1,15 @@
-Albion Station, Albion, Michigan
 Ann Arbor Station, Ann Arbor, Michigan
-Battle Creek Station, Battle Creek, Michigan
-Birmingham Station, Birmingham, Michigan
-Chicago Union Station, Chicago, Illinois
-Dearborn Station, Dearborn, Michigan
-Detroit Station, Detroit, Michigan
 Dowagiac Station, Dowagiac, Michigan
-Hammond-Whiting Amtrak Station, Hammond, Indiana
-Jackson Station, Jackson, Michigan
-Kalamazoo Transportation, Kalamazoo, Michigan
+Royal Oak Transit Station, Royal Oak, Michigan
 Michigan City Station, Michigan City, Indiana
+Battle Creek Station, Battle Creek, Michigan
+Jackson Station, Jackson, Michigan
+Hammond-Whiting Amtrak Station, Hammond, Indiana
+Detroit Station, Detroit, Michigan
+Kalamazoo Transportation, Kalamazoo, Michigan
 New Buffalo Amtrak Station, New Buffalo, Michigan
 Niles Station, Niles, Michigan
-Royal Oak Transit Station, Royal Oak, Michigan
+Chicago Union Station, Chicago, Illinois
+Albion Station, Albion, Michigan
+Birmingham Station, Birmingham, Michigan
+Dearborn Station, Dearborn, Michigan
