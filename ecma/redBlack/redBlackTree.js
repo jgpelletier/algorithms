@@ -12,15 +12,16 @@ function leftRotate (head, node) {
     var y = node.right
     node.right = y.left
     if (y.left != null && head != node) y.prev.left = node
-    //y.prev = node.prev 
     if (node.prev == null) {
         head = y
         head.prev = null
     }
     else if (node == node.prev.left) {
         node.prev.left = y
+        y.prev = node.prev
     } else {
         node.prev.right = y
+        y.prev = node.prev
     }
     y.left = node
     node.prev = y 
@@ -32,15 +33,16 @@ function rightRotate (head, node) {
     var y = node.left
     node.left = y.right
     if (y.right != null && head != node) y.prev.right = node
-    //y.prev = node.prev 
     if (node.prev == null) {
         head = y
         head.prev = null
     } 
     else if (node == node.prev.right) {
         node.prev.right = y
+        y.prev = node.prev
     } else {
         node.prev.left = y
+        y.prev = node.prev
     }
     y.right = node
     node.prev = y 
@@ -48,8 +50,6 @@ function rightRotate (head, node) {
     return head
 }
 
-// an error occurs on the 12 object when city == Michigan City. 
-// need to distinguish if in `fixUp` or rotate function.
 function rbInsert (node, valueObject) {
     var head = node
     var userNode = { object: valueObject,
@@ -77,16 +77,12 @@ function rbInsert (node, valueObject) {
     return head
 }
 
-// at the eighth node the fourth rule is violated
-// both new buffalo and dearborn are red.
 function fixUp(head, userNode) {
-    if (userNode.prev.prev == null) { 
+   if (userNode.prev.prev == null) { 
         userNode.color = 'red'
         head.color = 'black'
         return head
-    }
-
-    console.log(userNode.object.city)
+   }
 
    while (userNode.prev && userNode.prev.color == 'red') {
        if (userNode.prev.prev && userNode.prev.prev.left == userNode.prev) { 
@@ -99,7 +95,7 @@ function fixUp(head, userNode) {
             } else {
                 // need to test the second case
                 if (userNode == userNode.prev.right) {
-                    console.log("if loop 1")
+                    //console.log("if loop 1")
                     userNode = userNode.prev
                     head = leftRotate(head, userNode)
                 }
@@ -118,7 +114,7 @@ function fixUp(head, userNode) {
             else {
                 // need to test the second case
                 if (userNode == userNode.prev.left) {
-                    console.log("if loop 2")
+                    //console.log("if loop 2")
                     userNode = userNode.prev
                     head = rightRotate(head, userNode)
                 }
