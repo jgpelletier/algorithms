@@ -25,7 +25,7 @@ function leftRotate (head, node) {
     }
     y.left = node
     node.prev = y 
-    if (node.right != null && node.right.object == node.prev.object) node.right = null // <- it went here
+    if (node.right != null && node.right.object == node.prev.object) node.right = null
     return head
 }
 
@@ -93,9 +93,7 @@ function fixUp(head, userNode) {
                 userNode.prev.prev.color = 'red'
                 userNode = userNode.prev.prev
             } else {
-                // need to test the second case
                 if (userNode == userNode.prev.right) {
-                    //console.log("if loop 1")
                     userNode = userNode.prev
                     head = leftRotate(head, userNode)
                 }
@@ -112,9 +110,7 @@ function fixUp(head, userNode) {
                 userNode = userNode.prev.prev
             }
             else {
-                // need to test the second case
                 if (userNode == userNode.prev.left) {
-                    //console.log("if loop 2")
                     userNode = userNode.prev
                     head = rightRotate(head, userNode)
                 }
