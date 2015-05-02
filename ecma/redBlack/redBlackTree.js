@@ -193,6 +193,34 @@ RB-TRANSPLANT.T; u; /
 6 :p D u:p
 */
 
+/*
+RB-DELETE-FIXUP.T; x/
+1 while x ¤ T:root and x:color == BLACK
+2 if x == x:p:left
+3 w D x:p:right
+4 if w:color = = RED
+5 w:color D BLACK // case 1
+6 x:p:color D RED // case 1
+7 LEFT-ROTATE.T; x:p/ // case 1
+8 w D x:p:right // case 1
+9 if w:left:color == BLACK and w:right:color = = BLACK
+10 w:color D RED // case 2
+11 x D x:p // case 2
+12 else if w:right:color == BLACK
+13 w:left:color D BLACK // case 3
+14 w:color D RED // case 3
+15 RIGHT-ROTATE.T; w/ // case 3
+16 w D x:p:right // case 3
+17 w:color D x:p:color // case 4
+18 x:p:color D BLACK // case 4
+19 w:right:color D BLACK // case 4
+20 LEFT-ROTATE.T; x:p/ // case 4
+21 x D T:root // case 4
+22 else (same as then clause with “right” and “left” exchanged)
+23 x:color D BLACK
+*/
+
+
 exports.depth = depth
 exports.rbInsert = rbInsert
 exports.treeWalk = treeWalk
