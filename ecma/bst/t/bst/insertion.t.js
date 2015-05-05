@@ -45,7 +45,8 @@ function prove (step, assert, say) {
         bst.treeWalk(head.right, function(object) {
             arr.push(object.city)
         })
-
+        
+        // TESTS - do I need any more?
         assert(head.right.left.left.object.city, 'Albion', "node in tree")
         assert(min.city, "Albion", "equals min value")
         assert(max.city, "Royal Oak", "equals max value")
