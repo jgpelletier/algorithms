@@ -95,7 +95,7 @@ function main () {
     console.log(head)
     dump(head)
 
-    travel(head, function (object) { // the anonymous function is visitor 
+    travel(head, function (object) {
         console.log(object.city)
     })
     
@@ -125,7 +125,7 @@ function main () {
     head = removeStop(head, 'Michigan City')
     head = removeStop(head, 'Hammond')
 
-    travel(head, function (object) { // the anonymous function is visitor
+    travel(head, function (object) {
         console.log(object.city)
     })
 
