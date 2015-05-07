@@ -1,1 +1,1 @@
-process.stdout.write('a\nb\nc')
+process.stdout.write('a\nb\nc\n')
