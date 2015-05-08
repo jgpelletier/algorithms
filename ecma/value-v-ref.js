@@ -1,7 +1,9 @@
-var x = { a: 1 }
-var y = x
+// This is a lesson in values versus references. 
 
-console.log(x.a) // <- prints 1
+var x = { a: 1 } 
+var y = x // < this is a value
+
+console.log(x.a) // <- prints 1 this is a reference.
 
 y.a = 2
 
