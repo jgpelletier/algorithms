@@ -17,7 +17,7 @@ function last_other () {
     }
 }
 
-var list // <- list
+var list // <- list this is an undefined variable.
 
 var node = {}
 node.value = 37
