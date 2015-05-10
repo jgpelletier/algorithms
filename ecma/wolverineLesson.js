@@ -1,7 +1,10 @@
+// This needs to be cleaned up and explained.
+
 var railway = require('./railway') // <- require a module
 
 // Create a railway from a railway file.
 var mcrr = railway.createRailway(process.argv[2], true) // <- no west
+
 /*
 var isBattleCreekEastOfKalamazoo = railway.isEastOf(mcrr, 'Kalamazoo', 4, 'city', 'Battle Creek')
 console.log(isBattleCreekEastOfKalamazoo)
