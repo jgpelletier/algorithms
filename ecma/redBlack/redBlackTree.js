@@ -152,7 +152,7 @@ function depth (node) {
     }
 }
 
-function deletion (node, value) {
+function rbDeletion (node, value) {
     var head  = node
     var prev = node
     
@@ -163,34 +163,37 @@ function deletion (node, value) {
     }
     
     if (!node.left) {
-        return transplant(head, prev, node, node.right)
+        return rbTransplant(head, prev, node, node.right)
     } 
     else if (!node.right) {
-        return transplant(head, prev, node, node.left)
+        return rbTransplant(head, prev, node, node.left)
     } else {
         var min = { object: minValue(node.right) } 
 
         if (node.right.object.city != min.object.city) {
-            return transplant(head, prev, node, min)
+            return rbTransplant(head, prev, node, min)
         }
 
-        return transplant(head, prev, node, min)
+        return rbTransplant(head, prev, node, min)
     }
 }
 
+rbTransplant (head, prev, node, min) {
+    
+}
 /*
 Taken from Algorithms
 The procedure for deleting a node from a red-black tree is based on the TREEDELETE procedure (Section 12.3). First, we need to customize the TRANSPLANT
 subroutine that TREE-DELETE calls so that it applies to a red-black tree:
 
 
-RB-TRANSPLANT.T; u; /
-1 if u:p == T:nil
-2 T:root D 
-3 elseif u == u:p:left
-4 u:p:left D 
-5 else u:p:right D 
-6 :p D u:p
+RB-TRANSPLANT(T, u, v)
+1 if u.p == T.nil
+2   T.root = v
+3 elseif u == u.p.left
+4   u.p.left = v
+5 else u.p.right == v
+6   v.p = u.p
 */
 
 /*
