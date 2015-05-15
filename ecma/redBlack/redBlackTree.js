@@ -152,10 +152,10 @@ function depth (node) {
     }
 }
 
-function rbDeletion (node, value) {
+function rbDeletion (node, valueObject) {
     var head  = node
     var prev = node
-    
+    var y = valueObject 
     while (node && node.object.city != value) {
         prev = node
         if (node.object.city > value) node = node.left
@@ -163,19 +163,23 @@ function rbDeletion (node, value) {
     }
     
     if (!node.left) {
-        return rbTransplant(head, prev, node, node.right)
+        return rbTransplant(head, prev, node, node.right) // <- can't return
     } 
     else if (!node.right) {
-        return rbTransplant(head, prev, node, node.left)
+        return rbTransplant(head, prev, node, node.left) // <- can't return
     } else {
         var min = { object: minValue(node.right) } 
 
         if (node.right.object.city != min.object.city) {
-            return rbTransplant(head, prev, node, min)
+            return rbTransplant(head, prev, node, min) // <- can't return
         }
 
-        return rbTransplant(head, prev, node, min)
+        return rbTransplant(head, prev, node, min) // <- can't return
     }
+
+    // if (y.color == BLACK)
+    // RB-DELETE-FIXUP.T;
+
 }
 
 rbTransplant (head, prev, node, min) {
