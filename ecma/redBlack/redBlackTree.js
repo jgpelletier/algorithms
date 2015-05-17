@@ -152,6 +152,22 @@ function depth (node) {
     }
 }
 
+function minValue (node) {
+    if (!node.left) { 
+        return node.object
+    } else {
+        return minValue(node.left)
+    }
+}
+
+function maxValue (node) {
+    if (!node.right) {
+        return node.object
+    } else {
+        return maxValue(node.right)
+    }
+}
+
 function rbDeletion (node, valueObject) {
     var head  = node
     var prev = node
