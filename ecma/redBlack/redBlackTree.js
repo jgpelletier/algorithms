@@ -1,3 +1,4 @@
+// May need to think about using the sentinal node.
 /*
 PROPERTIES
 1. Every node is either red or black.
@@ -172,42 +173,84 @@ function rbDeletion (node, valueObject) {
     var head  = node
     var prev = node
     var y = valueObject 
-    while (node && node.object.city != value) {
+    var color = y.color
+    while (node && node.object.city != valueObject) {
         prev = node
-        if (node.object.city > value) node = node.left
+        if (node.object.city > valueObject) node = node.left
         else node = node.right
     }
     
     if (!node.left) {
-        return rbTransplant(head, prev, node, node.right) // <- can't return
+       head = rbTransplant(head, prev, node, node.right)
     } 
     else if (!node.right) {
-        return rbTransplant(head, prev, node, node.left) // <- can't return
+       head = rbTransplant(head, prev, node, node.left)
     } else {
+        color = y.color
         var min = { object: minValue(node.right) } 
 
         if (node.right.object.city != min.object.city) {
-            return rbTransplant(head, prev, node, min) // <- can't return
-        }
-
-        return rbTransplant(head, prev, node, min) // <- can't return
+           head = rbTransplant(head, prev, node, min)
+        } else {
+           head = rbTransplant(head, prev, node, min)
+        }   
     }
-
-    // if (y.color == BLACK)
+    // if (color == BLACK)
     // RB-DELETE-FIXUP.T;
 
 }
+/*
+function transplant ( head, prev, node, nextNode ) {
+    if (!prev) {
+        head = nextNode
+    }
+    else if (prev.left == node) {
+        prev.left = nextNode
+    } else {
+        prev.right = nextNode
+    }
 
+    if (node.right && node.left) {
+        if (node.right == nextNode) {
+            nextNode.right = node.right.right
+        } else {
+            node = deletion(node, nextNode.object.city)
+            nextNode.right = node.right
+            nextNode.left = node.left
+        }   
+    }
+    return head
+}
+*/
+
+// what is min? 
 rbTransplant (head, prev, node, min) {
-    
+ /*
+RB-TRANSPLANT(T, u, v)
+1 if u.p == T.nil
+2   T.root = v
+3 elseif u == u.p.left
+4   u.p.left = v
+5 else 
+6	u.p.right = v
+7  
+8 v.p = u.p
+*/   
+    if (!prev) {
+        head = nextNode
+    }
+    else if (prev.left == node) {
+        prev.left = nextNode
+    } else {
+        prev.right = nextNode
+    }
+
 }
 /*
 Taken from Algorithms
 The procedure for deleting a node from a red-black tree is based on the TREEDELETE procedure (Section 12.3). First, we need to customize the TRANSPLANT
 
 subroutine that TREE-DELETE calls so that it applies to a red-black tree:
-
-
 
 BST-TRANSPLANT(T, u, v) // added for comparison. 
 1 if u.p == NIL
@@ -221,17 +264,7 @@ BST-TRANSPLANT(T, u, v) // added for comparison.
 9 	v.p = u.p
 
 
-RB-TRANSPLANT(T, u, v)
-1 if u.p == T.nil
-2   T.root = v
-3 elseif u == u.p.left
-4   u.p.left = v
-5 else 
-6	u.p.right = v
-7  
-8 v.p = u.p
 */
-
 /*
 RB-DELETE-FIXUP.T; x/
 1 while x != T.root && x.color == BLACK
