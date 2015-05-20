@@ -223,8 +223,7 @@ function transplant ( head, prev, node, nextNode ) {
 }
 */
 
-// what is min? 
-rbTransplant (head, prev, node, min) {
+rbTransplant (head, prev, node, nextNode) {
  /*
 RB-TRANSPLANT(T, u, v)
 1 if u.p == T.nil
