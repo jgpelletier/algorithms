@@ -9,15 +9,16 @@ var number
 
 number = inc(2)
 
-console.log(number)  // <- 3
+console.log('number = inc(2)')
+console.log('number() ' + number)  // <- 3
 
 number = inc(2)
 
-console.log(number)  // <- 3
+console.log('number() ' + number)  // <- 3
 
 number = increment(2)
 
-console.log(number)  // <- 3
+console.log('number() ' + number)  // <- 3
 
 // ^^^ kinda like C
 
@@ -40,27 +41,28 @@ var number = inker(2)
 // the parans evoke the function 'number.'
 // the function 'number' uses inkers parameter, named 'number;'
 // it is visibile throughout the function.
-console.log(number()) // <- 3
+console.log('number = inker(2)')
+console.log('number() ' + number()) // <- 3
 
-console.log(number()) // <- 3, why is this 4?
+console.log('number() ' + number()) // <- 3, why is this 4?
 
-console.log(number()) // <- 5 how come this increments
+console.log('number() ' + number()) // <- 5 how come this increments
 
 var number = inker(2)
 
-console.log(number()) // <- 3
+console.log('number() ' + number()) // <- 3
 
 var value = 2
 
 var number = inker(value)
 
-console.log(number()) // <- 3
+console.log('number() ' + number()) // <- 3
 
 ++value
 ++value
 ++value
 
-console.log(number()) // <- 4
+console.log('number() ' + number()) // <- 4
         // maintains state, changes
 
 // the following function multiply takes a single argument and returns a
@@ -86,8 +88,8 @@ var byTwo = multiply(2)
 console.log(byTwo(3)) // <- 6
  //         ^^ stores the environment of the outer scope
 
-console.log(number()) // <- 5
-console.log(number()) // <- 6
+console.log('number() ' + number()) // <- 5
+console.log('number() ' + number()) // <- 6
 
 
 console.log(byTwo(3)) // <- 6 determined by argument, deterministic
@@ -98,5 +100,4 @@ console.log(multiply(4)(6)) // <- 24
 
 console.log([ 1, 2, 3, 4, 5, 6, 7 ].map(byTwo))
             // ^^^ four different machines
-            //
             // mapped and reduced
