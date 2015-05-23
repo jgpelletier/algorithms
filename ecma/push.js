@@ -20,7 +20,7 @@ function dump () {
 
 
 // build with push.
-//var list = { value:null, next:null } // ??? <- list with dummy node.Added {value:null..
+//var list = { value:null, next:null }
 
 // push so that you have 12, 99, 37
 //var node = {}
