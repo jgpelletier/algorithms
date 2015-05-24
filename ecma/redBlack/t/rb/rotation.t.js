@@ -1,7 +1,7 @@
 var fs = require('fs')
 var path = require('path')
 
-require('proof')(0, prove)
+require('proof')(1, prove)
 
 function prove (step, assert, say) {
 
@@ -53,5 +53,6 @@ function prove (step, assert, say) {
         console.log(rb.depth(head.right))
         head = head.right
 
+        assert(head.color, 'black')
     })
 }

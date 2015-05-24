@@ -221,10 +221,8 @@ function transplant ( head, prev, node, nextNode ) {
     }
     return head
 }
-*/
 
 rbTransplant (head, prev, node, nextNode) {
- /*
 RB-TRANSPLANT(T, u, v)
 1 if u.p == T.nil
 2   T.root = v
@@ -234,7 +232,6 @@ RB-TRANSPLANT(T, u, v)
 6	u.p.right = v
 7  
 8 v.p = u.p
-*/   
     if (!prev) {
         head = nextNode
     }
@@ -295,4 +292,4 @@ RB-DELETE-FIXUP.T; x/
 exports.depth = depth
 exports.rbInsert = rbInsert
 exports.treeWalk = treeWalk
-exports.deletion = deletion
+//exports.deletion = deletion
