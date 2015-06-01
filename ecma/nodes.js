@@ -1,3 +1,5 @@
+// this function takes the list object and uses the `util` module to print the
+// the list.
 function explode (list) {
     var util = require('util')
     return util.inspect(list, false, null)
