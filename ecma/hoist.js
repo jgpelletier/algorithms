@@ -1,3 +1,4 @@
+// JavaScript hoists variables to the top. This is an elemnet of scope.  
 var a = 1
 
 function foo () {
@@ -8,10 +9,10 @@ function foo () {
 foo() //<- prints 1.
 
 function bar () {
-    console.log(a) //prints undefined. Var is declared but not yet defined.
+    console.log(a) // prints undefined. var is declared but not yet defined.
     var a = 2
 
-    z(a) //prints 2. The function z is hoisted.
+    z(a) // prints 2. The function z is hoisted.
 
     function z (x) {
         console.log(x)
@@ -23,7 +24,7 @@ function bar () {
         console.log('error: ' + e.message)
     }
 
-    var y = function (x) { //Var is declared, but not yet defined.
+    var y = function (x) { // var is declared, but not yet defined.
        console.log(x)
     }
 
