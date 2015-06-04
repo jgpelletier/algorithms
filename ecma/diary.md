@@ -4,3 +4,4 @@ These are notes for my ecma folder.
 - Add comments to clarify lessons. 
 - Finish some of the JavaScript lessons.
 - Add test to some of the algorithms.
+- Look at some of the copies to see what may be deleted.
