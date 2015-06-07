@@ -8,13 +8,17 @@ try {
     console.log('caught error: ' + e.message)
 }
 
+// This Object method provides an array of strings re
+// representing the key in the key value pair.
 console.log(Object.keys(list)) // <- []
 
+
+// notice the difference between `undefined` and `null` below. 
 console.log(list.next) // undefined
 
 list.next = null
 
-console.log(list.next) //null
+console.log(list.next) // null
 
 console.log(Object.keys(list)) // <- [ 'next' ]
 
