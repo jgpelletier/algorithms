@@ -5,3 +5,4 @@ These are notes for my ecma folder.
 - Finish some of the JavaScript lessons.
 - Add test to some of the algorithms.
 - Look at some of the copies to see what may be deleted.
+- Revisit `ascii` file for instruction.
