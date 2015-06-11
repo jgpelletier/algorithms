@@ -6,3 +6,4 @@ These are notes for my ecma folder.
 - Add test to some of the algorithms.
 - Look at some of the copies to see what may be deleted.
 - Revisit `ascii` file for instruction.
+- Add comments to `big-O`.

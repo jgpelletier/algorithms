@@ -1,3 +1,5 @@
+// This lesson needs to be revisted.
+
 var array = new Array(113)
 var num = 354
       // v-- exists! in memory somewhere, and we gotta go get get
