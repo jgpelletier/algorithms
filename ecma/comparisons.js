@@ -17,10 +17,11 @@ var head = {
 }
 
 console.log(1 == 1) //<- true
+// coerced vvv
 console.log(1 == '1') //<- true
 console.log(1 === '1')//<- false
-console.log(head.next) //<- null
-console.log(head.value) //<- undefined
+console.log("head.next " + head.next) //<- null
+console.log('head.value ' + head.value) //<- undefined
 console.log(head.value == null) //<- true
 console.log(head.value === null) //<- false
 console.log(head.value === undefined) //<- true
