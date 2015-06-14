@@ -1,3 +1,4 @@
+// the !! means not not.
 function isTruthy (condition) { return !! condition }
 
 var object = {}
