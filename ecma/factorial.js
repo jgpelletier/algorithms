@@ -14,6 +14,7 @@ function fact_cps (n, ret) {
     }
 }
 
+// Describe how these are different.
 var factorial = fact_recursive(4)
 console.log("recursive " + factorial)
 
