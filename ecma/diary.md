@@ -8,3 +8,4 @@ These are notes for my ecma folder.
 - Revisit `ascii` file for instruction.
 - Add comments to `big-O`.
 - Complete Binary-Heap.
+- Describe factorial.
