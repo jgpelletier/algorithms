@@ -9,3 +9,4 @@ These are notes for my ecma folder.
 - Add comments to `big-O`.
 - Complete Binary-Heap.
 - Describe factorial.
+- Decide if cadence notes are needed.
