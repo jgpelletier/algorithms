@@ -1,3 +1,5 @@
+// This push a node onto a linked list.
+
 function dump () {
     var node = list
     while (node) {
@@ -25,7 +27,6 @@ function insert (value, after) {
     }
 }
 
-// push, insert, remove, ???.
 var list// = ??? // <- list again, as other.
 
 var node = {}
