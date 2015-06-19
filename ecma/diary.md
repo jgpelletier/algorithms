@@ -10,3 +10,4 @@ These are notes for my ecma folder.
 - Complete Binary-Heap.
 - Describe factorial.
 - Decide if cadence notes are needed.
+- Write blog about the five parts of a function.
