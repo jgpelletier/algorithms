@@ -1,3 +1,4 @@
+// These are functions for a linked list.
 function create (list) {
    var list = { value: null , next: null }
    return list
