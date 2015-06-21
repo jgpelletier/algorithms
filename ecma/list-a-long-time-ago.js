@@ -1,3 +1,5 @@
+// Lesson to learn about linked list.
+
 var object = {
     name: 'value'
 }
