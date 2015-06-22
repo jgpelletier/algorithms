@@ -1,4 +1,4 @@
-// linked list functions. They are exported, and used in railway.
+// linked list library. The functions are exported, and used in railway.
 var fs = require('fs')
 var util = require('util')
 
