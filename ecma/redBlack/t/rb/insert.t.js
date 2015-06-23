@@ -52,7 +52,32 @@ function prove (step, assert, say) {
         })
         console.log(rb.depth(head.right))
         head = head.right
+        
+        // Add some more tests.
+        console.log('head')
+        console.log(head.object.city)
+        console.log()
+        console.log('first layer')
+        console.log(head.right.color)
+        console.log(head.right.object.city)
 
+        console.log(head.left.color)
+        console.log(head.left.object.city)
+
+        console.log()
+        console.log('second layer')
+        console.log(head.right.right.color)
+        console.log(head.right.right.object.city)
+        console.log(head.right.left.color)
+        console.log(head.right.left.object.city)
+
+        console.log(head.left.right.color)
+        console.log(head.left.right.object.city)
+        console.log(head.left.left.color)
+        console.log(head.left.left.object.city)
+
+        console.log()
+        console.log('third layer')
         assert(head.color, 'black')
     })
 }
