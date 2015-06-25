@@ -70,7 +70,6 @@ function prove (step, assert, say) {
         console.log(head.right.right.object.city) // Niles
         console.log(head.right.left.color) // Red
         console.log(head.right.left.object.city) // Hammond
-
         console.log(head.left.right.color) // Black
         console.log(head.left.right.object.city) // Chicago
         console.log(head.left.left.color) // Black
@@ -78,16 +77,23 @@ function prove (step, assert, say) {
 
         console.log()
         console.log('third layer')
-        //console.log(head.right.right.right.left.color)
-        //console.log(head.right.right.left.object.city)
         console.log(head.right.left.right.color) // Black
         console.log(head.right.left.left.object.city) // Detroit
-
-        //console.log(head.left.right.right.color)
-        //console.log(head.left.right.left.object.city)
         console.log(head.left.left.right.color) // Red
         console.log(head.left.left.left.object.city) // Albion
+        console.log(head.right.right.right.color) // Red 
+        console.log(head.right.right.right.object.city) // Royal Oak 
 
+        console.log()
+        console.log('fourth layer')
+        console.log(head.right.left.right.right.color) // Red 
+        console.log(head.right.left.left.right.object.city) // Dowagiac 
+        console.log(head.right.left.right.left.color) // Red 
+        console.log(head.right.left.right.left.object.city) // Jackson 
         assert(head.color, 'black')
+
+        //console.log(head.left.right.right.color) // Black
+        //console.log(head.left.right.left.object.city) // Chicago
+
     })
 }
