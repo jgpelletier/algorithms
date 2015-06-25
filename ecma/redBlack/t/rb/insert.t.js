@@ -55,29 +55,39 @@ function prove (step, assert, say) {
         
         // Add some more tests.
         console.log('head')
-        console.log(head.object.city)
+        console.log(head.object.city) // Dearborn
         console.log()
         console.log('first layer')
-        console.log(head.right.color)
-        console.log(head.right.object.city)
+        console.log(head.right.color) // Black
+        console.log(head.right.object.city) // New Buffalo 
 
-        console.log(head.left.color)
-        console.log(head.left.object.city)
+        console.log(head.left.color) // Black
+        console.log(head.left.object.city) // Birmingham
 
         console.log()
         console.log('second layer')
-        console.log(head.right.right.color)
-        console.log(head.right.right.object.city)
-        console.log(head.right.left.color)
-        console.log(head.right.left.object.city)
+        console.log(head.right.right.color) // Black
+        console.log(head.right.right.object.city) // Niles
+        console.log(head.right.left.color) // Red
+        console.log(head.right.left.object.city) // Hammond
 
-        console.log(head.left.right.color)
-        console.log(head.left.right.object.city)
-        console.log(head.left.left.color)
-        console.log(head.left.left.object.city)
+        console.log(head.left.right.color) // Black
+        console.log(head.left.right.object.city) // Chicago
+        console.log(head.left.left.color) // Black
+        console.log(head.left.left.object.city) // Ann Arbor
 
         console.log()
         console.log('third layer')
+        //console.log(head.right.right.right.left.color)
+        //console.log(head.right.right.left.object.city)
+        console.log(head.right.left.right.color) // Black
+        console.log(head.right.left.left.object.city) // Detroit
+
+        //console.log(head.left.right.right.color)
+        //console.log(head.left.right.left.object.city)
+        console.log(head.left.left.right.color) // Red
+        console.log(head.left.left.left.object.city) // Albion
+
         assert(head.color, 'black')
     })
 }
