@@ -54,6 +54,7 @@ function prove (step, assert, say) {
         head = head.right
         
         // Add some more tests.
+        // Each node needs to have a black leaf.
         console.log('head')
         console.log(head.object.city) // Dearborn
         console.log()
@@ -79,10 +80,14 @@ function prove (step, assert, say) {
         console.log('third layer')
         console.log(head.right.left.right.color) // Black
         console.log(head.right.left.left.object.city) // Detroit
-        console.log(head.left.left.right.color) // Red
+        console.log(head.left.left.left.color) // Red
         console.log(head.left.left.left.object.city) // Albion
         console.log(head.right.right.right.color) // Red 
         console.log(head.right.right.right.object.city) // Royal Oak 
+
+        //console.log('here')
+        //console.log(head.left.left.left.right.color) // Black
+        //console.log(head.left.left.left.right.color) // Black
 
         console.log()
         console.log('fourth layer')
@@ -92,8 +97,8 @@ function prove (step, assert, say) {
         console.log(head.right.left.right.left.object.city) // Jackson 
         assert(head.color, 'black')
 
-        //console.log(head.left.right.right.color) // Black
-        //console.log(head.left.right.left.object.city) // Chicago
+        console.log('examine this here')
+        console.log(head.right.left.right) 
 
     })
 }
