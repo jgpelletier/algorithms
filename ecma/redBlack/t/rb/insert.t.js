@@ -98,8 +98,5 @@ function prove (step, assert, say) {
         console.log(head.right.left.right.right.object.city) // Michigan City
         assert(head.color, 'black')
 
-        //console.log('examine this here')
-        //console.log(head.right.left.right.right) 
-
     })
 }
